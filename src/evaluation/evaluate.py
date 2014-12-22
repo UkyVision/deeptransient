@@ -26,8 +26,8 @@ with db_labels.begin(write=False) as db_labels_txn:
 # load the trained net 
 #
 
-MODEL = '../prototxts/bignet/deploy.prototxt'
-PRETRAINED = '../prototxts/bignet/snapshots/caffenet_transient_iter_11000.caffemodel'
+MODEL = '../prototxts/caffenet/deploy.prototxt'
+PRETRAINED = '../prototxts/caffenet/snapshots/caffenet_transient_iter_73000.caffemodel'
 MEAN = '../mean/transient_mean.binaryproto'
 
 # load the mean image 
@@ -46,7 +46,7 @@ net.set_mode_cpu()
 # process 
 #
 ix = 0
-error = 0
+error = np.zeros(40)
 db = lmdb.open(db_name)
 
 # get all keys
@@ -64,9 +64,12 @@ with db.begin(write=False) as db_txn:
     out = net.forward_all(data=caffe_input)
     pred = out['fc8-t'].squeeze()
 
-    error = ((pred[:] - labels[ix,:]) ** 2).mean()
+    error += ((pred[:] - labels[ix,:]) ** 2).squeeze()
     
-    print error #/ (ix + 1)
+    print ix #/ (ix + 1)
     sys.stdout.flush()
 
     ix = ix + 1
+
+error = error[:] / ix
+print error

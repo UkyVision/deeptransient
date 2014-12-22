@@ -23,7 +23,7 @@ with db_labels.begin(write=False) as db_labels_txn:
 		labels = np.vstack((labels, [lbl]))
 
 # load paper data
-predictions = np.loadtxt(open("paper.txt","rb"),delimiter=",")
+predictions = np.loadtxt(open("data/paper.txt","rb"),delimiter=",")
 
 #
 # process 
@@ -35,9 +35,12 @@ db = lmdb.open(db_name)
 # get all keys
 with db.begin(write=False) as db_txn:
   for (key, value) in db_txn.cursor():
-    error = ((predictions[ix] - labels[ix,:]) ** 2).mean()
+    error += ((predictions[ix] - labels[ix,:]) ** 2).squeeze()
     
-    print error #/ (ix + 1)
+    print ix #/ (ix + 1)
     sys.stdout.flush()
 
     ix = ix + 1
+
+error = error[:] / ix
+print error
