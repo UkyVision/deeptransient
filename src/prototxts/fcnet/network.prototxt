@@ -1,0 +1,137 @@
+name: "CaffeNet"
+layers {
+  name: "data"
+  type: DATA
+  top: "data"
+  data_param {
+    source: "../../training_data/training_image"
+    backend: LMDB
+    batch_size: 50
+  }
+  transform_param {
+    crop_size: 227
+    mean_file: "../../mean/transient_mean.binaryproto"
+    mirror: true
+  }
+ include: { phase: TRAIN }
+}
+layers {
+  name: "data"
+  type: DATA
+  top: "data"
+  data_param {
+    source: "../../testing_data/testing_im"
+    backend: LMDB
+    batch_size: 50
+  }
+  transform_param {
+    crop_size: 227
+    mean_file: "../../mean/transient_mean.binaryproto"
+    mirror: false
+  }
+ include: { phase: TEST }
+}
+layers {
+  name: "label"
+  type: DATA
+  top: "label"
+  data_param {
+    source: "../../training_data/training_label"
+    backend: LMDB
+    batch_size: 50
+  }
+ include: { phase: TRAIN }
+}
+layers {
+  name: "label"
+  type: DATA
+  top: "label"
+  data_param {
+    source: "../../testing_data/testing_label"
+    backend: LMDB
+    batch_size: 50
+  }
+ include: { phase: TEST }
+}
+layers {
+  name: "fc6"
+  type: INNER_PRODUCT
+  bottom: "data"
+  top: "fc6"
+  blobs_lr: 1
+  blobs_lr: 2
+  weight_decay: 1
+  weight_decay: 0
+  inner_product_param {
+    num_output: 2048
+    weight_filler {
+      type: "gaussian"
+      std: 0.005
+    }
+    bias_filler {
+      type: "constant"
+      value: 1
+    }
+  }
+}
+layers {
+  name: "relu6"
+  type: RELU
+  bottom: "fc6"
+  top: "fc6"
+}
+layers {
+  name: "fc7"
+  type: INNER_PRODUCT
+  bottom: "fc6"
+  top: "fc7"
+  blobs_lr: 1
+  blobs_lr: 2
+  weight_decay: 1
+  weight_decay: 0
+  inner_product_param {
+    num_output: 1024
+    weight_filler {
+      type: "gaussian"
+      std: 0.005
+    }
+    bias_filler {
+      type: "constant"
+      value: 1
+    }
+  }
+}
+layers {
+  name: "relu7"
+  type: RELU
+  bottom: "fc7"
+  top: "fc7"
+}
+layers {
+  name: "fc8-t"
+  type: INNER_PRODUCT
+  bottom: "fc7"
+  top: "fc8-t"
+  blobs_lr: 1
+  blobs_lr: 2
+  weight_decay: 1
+  weight_decay: 0
+  inner_product_param {
+    num_output: 40
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+layers {
+  name: "loss"
+  type: EUCLIDEAN_LOSS
+  bottom: "fc8-t"
+  bottom: "label"
+  top: "loss"
+}

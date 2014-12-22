@@ -1,2 +1,5 @@
 *.swp
 *.swo
+slurm*
+*.caffemodel
+src/prototxts/*/snapshots*/
