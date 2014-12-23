@@ -6,21 +6,23 @@ def main():
   caffenet = np.loadtxt(open("data/caffenet_avg.txt","rb"),delimiter=",") 
   attributes = np.genfromtxt("/scratch/nja224/transient/annotations/attributes.txt", dtype='str')
   
+  difference = caffenet - laffont
+  labeled = np.concatenate((difference[:].reshape(40,1), attributes[:].reshape(40,1)), axis=1)
+  labeled = labeled[labeled[:,0].astype(float).argsort()]
+
   fig1 = plt.figure()
   ax = fig1.add_subplot(111)
-  ind = np.arange(len(laffont))
+  ind = np.arange(len(labeled[:,0]))
   width = 0.30
 
-  rects1_max = ax.bar(ind, laffont, width, color='green')
-  rects2_max = ax.bar(ind + width, caffenet, width, color='blue')
+  rects1_max = ax.bar(ind, labeled[:,0].astype(float), width, color='blue')
   ax.set_xlim(-width*2, len(ind)+width*2)
   ax.set_xticks(ind + width)
   ax.set_xlabel('Attribute')
   ax.set_ylabel('Average Error')
   ax.set_title('Average Attribute Prediction Error')
-  xtickNames = ax.set_xticklabels(attributes)
+  xtickNames = ax.set_xticklabels(labeled[:,1])
   plt.setp(xtickNames, rotation=90, fontsize=10)
-  ax.legend( (rects1_max[0], rects2_max[0]), ('Laffont et al.', 'Caffenet'))
 
   plt.show()
 

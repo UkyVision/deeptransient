@@ -35,6 +35,7 @@ db = lmdb.open(db_name)
 # get all keys
 with db.begin(write=False) as db_txn:
   for (key, value) in db_txn.cursor():
+    #error = ((predictions[ix] - labels[ix,:]) ** 2).mean()
     error += ((predictions[ix] - labels[ix,:]) ** 2).squeeze()
     
     print ix #/ (ix + 1)
@@ -42,5 +43,5 @@ with db.begin(write=False) as db_txn:
 
     ix = ix + 1
 
-error = error[:] / ix
-print error
+#error = error[:] / ix
+#print error
