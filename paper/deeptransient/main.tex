@@ -1,7 +1,3 @@
-% Template for ICIP-2015 paper; to be used with:
-%          spconf.sty  - ICASSP/ICIP LaTeX style file, and
-%          IEEEbib.bst - IEEE bibliography style file.
-% --------------------------------------------------------------------------
 \documentclass{article}
 \usepackage{spconf,amsmath,graphicx}
 
@@ -12,7 +8,7 @@
 
 % Title.
 % ------
-\title{Deep Transient}
+\title{Deep Methods for Estimating Transient Scene Properties}
 %
 % Single address.
 % ---------------
@@ -44,12 +40,99 @@
 \maketitle
 %
 \begin{abstract}
+
+  Deep learning has been used to obtain state of the art results in
+  problems ranging from object classification, object detection, and
+  scene classification. We evaluate the use of deep learning to
+  predict more subtle visual scene aspects, such as the weather, the
+  season, and subjective scene properties. 
+
 \end{abstract}
 %
 \begin{keywords}
 \end{keywords}
 
-\bibliographystyle{IEEEbib}
-\bibliography{refs}
+\section{Introduction}
+
+% general intro to the problem and why it is important
+
+% what do we propose to do? 
+
+% how do we evaluate this? 
+We evaluate the proposed method on several benchmarks 
+
+% what we can do now that we have this?
+
+% key contributions: repeat what was said above in bullet point form
+The key contributions of this work are:
+\begin{itemize}
+
+  \item comparison of several deep learning network architectures for
+    the problem
+
+  \item state-of-the-art results on two benchmark datasets (transient
+    attributes and two class weather)
+
+  \item something with running it on webcam data?
+
+\end{itemize}
+
+\subsection{Related Work}
+
+Previous approaches to this problem include (some general description
+of previous approaches and how they compare to what we propose).
+
+List of related papers:
+\begin{itemize}
+
+  \item add citation and one sentence description of what it does, one
+    sentence description of how it is different from what we do, maybe
+    something about how they evaluate.
+
+\end{itemize}
+
+\section{Estimating Transient Attributes Using CNNs}
+
+\subsection{Recap of CNNs}
+
+TODO: add a summary of the different models, and how they were
+trained, include a bibtex citation for each one.
+
+\subsection{Description of how we train ours}
+
+TODO: write me
+
+\subsection{Deep Network Visualization}
+
+TODO: pictures of what the network looks like\dots highlighting how it
+is different from those trained for other purposes... probably
+focusing on the one or two that work the best
+
+\section{Evaluation}
+
+%Suggested plots:
+%\begin{itemize}
+%
+%  \item summary results you have already shown
+%
+%  \item example good results, and plausible bad results
+%
+%\end{itemize}
+
+\section{Conclusions}
+
+TODO: write me
+
+more accurate
+
+simpler and easier to train
+
+faster
+
+composable
+
+%\bibliographystyle{IEEEbib}
+%\bibliography{refs}
 
 \end{document}
+
