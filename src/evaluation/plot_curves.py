@@ -19,6 +19,7 @@ if __name__ == '__main__':
   caffenet_scratch, = plot(foobar('errors/caffenet_scratch.txt'), label='caffenet_scratch')
   random_guess, = plot(foobar('errors/random_guess.txt'), label='random_guess')
   laffont, = plot(foobar('errors/paperdata.txt'), label='laffont et al.')
+  places_scratch, = plot(foobar('errors/places_scratch.txt'), label='places_scratch')
   #simplenet, = plot(foobar('errors/simplenet.txt'), label='simplenet')
   #bignet, = plot(foobar('errors/bignet.txt'), label='bignet')
   ylabel("Percentage of Test Images Correct")
