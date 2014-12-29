@@ -6,7 +6,7 @@ def main():
   caffenet = np.loadtxt(open("data/caffenet_avg.txt","rb"),delimiter=",") 
   attributes = np.genfromtxt("/scratch/nja224/transient/annotations/attributes.txt", dtype='str')
   
-  fig1 = plt.figure()
+  fig1 = plt.figure(figsize=(16,9))
   ax = fig1.add_subplot(111)
   ind = np.arange(len(laffont))
   width = 0.30
@@ -19,10 +19,10 @@ def main():
   ax.set_ylabel('Average Error')
   ax.set_title('Average Attribute Prediction Error')
   xtickNames = ax.set_xticklabels(attributes)
-  plt.setp(xtickNames, rotation=90, fontsize=10)
+  plt.setp(xtickNames, rotation=90, fontsize=14)
   ax.legend( (rects1_max[0], rects2_max[0]), ('Laffont et al.', 'Caffenet'))
-
-  plt.show()
+  #plt.show()
+  plt.savefig('../../paper/deeptransient/figs/avg_err_compare_tight.png', dpi=400, bbox_inches='tight')
 
 if __name__=="__main__":
 	main()
