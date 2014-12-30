@@ -104,7 +104,8 @@ trained, include a bibtex citation for each one.
 
 TODO: write me\newline 
 (This could change. Connor is training on the random split right now
-to see how well we do)\newline
+to see how well we do)
+\newline\indent
 We finetuned the last layer of each of the networks using the holdout 
 split in the transient attributes dataset.  This train/test split uses
 the data from 81 webcams for training and the data from 20 separate 
@@ -119,7 +120,28 @@ is different from those trained for other purposes... probably
 focusing on the one or two that work the best
 
 \section{Evaluation}
-In \figref{relerr},  
+\indent
+\figref{sort} shows the average errors from Caffenet for each attribute
+in a sorted graph.  The attributes where Caffenet performed best are towards
+the left side of the graph and the attributes where Caffenet performed
+worst are on the right side of the graph. \figref{relerr} and \figref{compare} 
+compare this performance to the performance of \cite{Laffont14}.
+\newline\indent
+\figref{compare} shows the average errors from Caffenet and \cite{Laffont14}
+for each attribute in the dataset.  The green bars represent the average errors
+from \cite{Laffont14} and the blue bars represent the average errors from Caffenet.
+As \figref{relerr} shows as well, Caffenet performs better on more than half of 
+the attributes.  Caffenet has a lower average error for most of these attributes.
+\newline\indent
+\figref{relerr} shows the relative error between our method using Caffenet
+and the method presented in \cite{Laffont14}.  The average relative error 
+for each attribute using the method in \cite{Laffont14} was subtracted from
+the average relative error using Caffenet.  A negative value means Caffenet
+had a smaller error and a positive value means \cite{Laffont14} had a smaller
+error.  For example, the difference between the two methods on the attribute
+night was around 3.2 percentage points, with Caffenet having the smaller 
+error. 
+ 
 %Suggested plots:
 %\begin{itemize}
 %
@@ -128,18 +150,6 @@ In \figref{relerr},
 %  \item example good results, and plausible bad results
 %
 %\end{itemize}
-
-\section{Conclusions}
-
-TODO: write me
-
-more accurate
-
-simpler and easier to train
-
-faster
-
-composable
 
 
 \begin{figure}[t]
@@ -157,7 +167,7 @@ composable
 \begin{figure}[t]
 	\centering
 		\includegraphics[width=0.5\textwidth]{figs/avg_err_compare_tight.png}
-		\caption{comparing average errors}
+		\caption{comparing average errors}\label{fig:compare}
 \end{figure}
 
 \begin{figure*}[t]
@@ -166,8 +176,20 @@ composable
 		\caption{These are some evaluation curves. needs to be full top page}
 \end{figure*}
 
-%\bibliographystyle{IEEEbib}
-%\bibliography{refs}
+\section{Conclusions}
+
+TODO: write me
+
+more accurate
+
+simpler and easier to train
+
+faster
+
+composable
+
+\bibliographystyle{IEEEbib}
+\bibliography{refs}
 
 \end{document}
 
