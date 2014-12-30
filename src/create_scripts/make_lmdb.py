@@ -64,9 +64,13 @@ def make_database(db_name, files, map):
 
 
 with open(BASE_DIR + 'holdout_split/training.txt','r') as f:
-  train_filenames = [x.strip() for x in f.readlines()]
+  train_holdout_filenames = [x.strip() for x in f.readlines()]
 with open(BASE_DIR + 'holdout_split/test.txt','r') as f:
-  test_filenames = [x.strip() for x in f.readlines()]
+  test_holdout_filenames = [x.strip() for x in f.readlines()]
+with open(BASE_DIR + 'random_split/training.txt','r') as f:
+  train_random_filenames = [x.strip() for x in f.readlines()]
+with open(BASE_DIR + 'random_split/test.txt','r') as f:
+  test_random_filenames = [x.strip() for x in f.readlines()]
 
 map = {}
 with open(BASE_DIR + 'annotations/annotations.tsv','r') as f:
@@ -77,6 +81,8 @@ with open(BASE_DIR + 'annotations/annotations.tsv','r') as f:
     labels = [float(x.split(',')[0]) for x in row[1:]]
     map[filename] = labels
 
-make_database('train', train_filenames, map)
-make_database('test', test_filenames, map)
+make_database('train', train_holdout_filenames, map)
+make_database('test', test_holdout_filenames, map)
+make_database('random_train', train_random_filenames, map)
+make_database('random_test', test_random_filenames, map)
 
