@@ -1,6 +1,8 @@
 \documentclass{article}
 \usepackage{spconf,amsmath,graphicx}
 
+\newcommand{\figref}[1]{Figure~\ref{fig:#1}}
+
 % Example definitions.
 % --------------------
 \def\x{{\mathbf x}}
@@ -100,7 +102,15 @@ trained, include a bibtex citation for each one.
 
 \subsection{Description of how we train ours}
 
-TODO: write me
+TODO: write me\newline 
+(This could change. Connor is training on the random split right now
+to see how well we do)\newline
+We finetuned the last layer of each of the networks using the holdout 
+split in the transient attributes dataset.  This train/test split uses
+the data from 81 webcams for training and the data from 20 separate 
+webcams for testing.  Data from webcams in the training set does not
+appear in the testing set using the holdout split.  This is contrary to 
+the random train/test split.  
 
 \subsection{Deep Network Visualization}
 
@@ -109,7 +119,7 @@ is different from those trained for other purposes... probably
 focusing on the one or two that work the best
 
 \section{Evaluation}
-
+In \figref{relerr},  
 %Suggested plots:
 %\begin{itemize}
 %
@@ -135,20 +145,20 @@ composable
 \begin{figure}[t]
 	\centering
 		\includegraphics[width=0.5\textwidth]{figs/caffenet_avg_err.png}
-		\caption{Sorted errors from caffenet}
+		\caption{Sorted errors from caffenet}\label{fig:sort}
 \end{figure}
 
 \begin{figure}[t]
 	\centering
-		\includegraphics[width=0.5\textwidth]{figs/rel_err.png}
-		\caption{Relative errors us minus them}
+		\includegraphics[width=0.5\textwidth]{figs/rel_err_tight.png}
+		\caption{Relative errors us minus them}\label{fig:relerr}
 \end{figure}
 
-\begin{figure*}[t]
+\begin{figure}[t]
 	\centering
-		\includegraphics[width=1.0\textwidth]{figs/avg_err_compare.png}
+		\includegraphics[width=0.5\textwidth]{figs/avg_err_compare_tight.png}
 		\caption{comparing average errors}
-\end{figure*}
+\end{figure}
 
 \begin{figure*}[t]
 	\centering
