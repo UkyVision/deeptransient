@@ -26,8 +26,8 @@ with db_labels.begin(write=False) as db_labels_txn:
 # load the trained net 
 #
 
-MODEL = '../prototxts/hybrid/deploy.prototxt'
-PRETRAINED = '../prototxts/hybrid/snapshots/hybrid_transient_iter_58000.caffemodel'
+MODEL = '../prototxts/hybrid_s/deploy.prototxt'
+PRETRAINED = '../prototxts/hybrid_s/snapshots/hybrid_s_transient_iter_85000.caffemodel'
 MEAN = '../mean/transient_mean.binaryproto'
 
 # load the mean image 
