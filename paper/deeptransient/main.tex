@@ -100,14 +100,19 @@ List of related papers:
 TODO: add a summary of the different models, and how they were
 trained, include a bibtex citation for each one.
 
+\textbf{Caffenet:} \cite{caffenetnips12}
+\newline\indent
+\textbf{Places} \cite{zhou2014places}
+\newline\indent
+\textbf{Hybrid:} \cite{zhou2014places}
+
 \subsection{Description of how we train ours}
 
 TODO: write me\newline 
-(This could change. Connor is training on the random split right now
-to see how well we do)
 \newline\indent
-We finetuned the last layer of each of the networks using the holdout 
-split in the transient attributes dataset.  This train/test split uses
+To train our networks, we use the Caffe \cite{caffe14} deep learning 
+framework. We finetuned the last layer of each of the networks using the 
+holdout split in the transient attributes dataset.  This train/test split uses
 the data from 81 webcams for training and the data from 20 separate 
 webcams for testing.  Data from webcams in the training set does not
 appear in the testing set using the holdout split.  This is contrary to 
@@ -140,7 +145,10 @@ the average relative error using Caffenet.  A negative value means Caffenet
 had a smaller error and a positive value means \cite{Laffont14} had a smaller
 error.  For example, the difference between the two methods on the attribute
 night was around 3.2 percentage points, with Caffenet having the smaller 
-error. 
+error.
+\newline\indent
+
+ 
  
 %Suggested plots:
 %\begin{itemize}
@@ -154,7 +162,7 @@ error.
 
 \begin{figure}[t]
 	\centering
-		\includegraphics[width=0.5\textwidth]{figs/caffenet_avg_err.png}
+		\includegraphics[width=0.5\textwidth]{figs/sorted_err_tight.png}
 		\caption{Sorted errors from caffenet}\label{fig:sort}
 \end{figure}
 
@@ -170,11 +178,11 @@ error.
 		\caption{comparing average errors}\label{fig:compare}
 \end{figure}
 
-\begin{figure*}[t]
-	\centering
-		\includegraphics[width=1.0\textwidth]{figs/fig_1.png}
-		\caption{These are some evaluation curves. needs to be full top page}
-\end{figure*}
+%\begin{figure*}[t]
+%	\centering
+%		\includegraphics[width=1.0\textwidth]{figs/fig_1.png}
+%		\caption{These are some evaluation curves. needs to be full top page}
+%\end{figure*}
 
 \section{Conclusions}
 
