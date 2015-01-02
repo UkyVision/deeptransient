@@ -51,17 +51,23 @@
 \end{abstract}
 %
 \begin{keywords}
+	deep learning, transient attributes
 \end{keywords}
 
 \section{Introduction}
-
 \todo{Write me}
 % general intro to the problem and why it is important
 
 % what do we propose to do? 
+We propose a method for predicting transient attributes on images using
+deep convolutional neural networks.  These networks achieve better 
+predictions for most of the attributes and predict the attributes
+faster than the methods proposed by Laffont\cite{Laffont14} et al.
+% how do we evaluate this?
 
-% how do we evaluate this? 
-We evaluate the proposed method on several benchmarks 
+We evaluate the proposed method on several benchmarks.  The first 
+benchmark is the Transient Attributes Dataset\cite{Laffont14}.  This 
+is the standard benchmark for transient attributes in images. 
 
 % what we can do now that we have this?
 
@@ -82,6 +88,7 @@ The key contributions of this work are:
 \subsection{Related Work}
 
 \todo{Write me}
+
 Previous approaches to this problem include (some general description
 of previous approaches and how they compare to what we propose).
 
@@ -97,6 +104,8 @@ List of related papers:
 \section{Estimating Transient Attributes Using CNNs}
 
 \subsection{Transient Attributes Dataset}
+\indent
+
 We used the dataset created by Laffont\cite{Laffont14} et al. to train our 
 networks. The dataset contains images from outdoor webcams in the  
 Archive of Many Outdoor Scenes\cite{jacobs07amos} and the Webcam Clip Art 
@@ -107,30 +116,41 @@ etc.  The images are high resolution and are aligned to a reference frame
 through a homography warp with manually specified correspondences.  The final
 dataset consists of 8571 images from 101 webcams.
 
-
 \subsection{Recap of CNNs}
 
 \todo{add a summary of the different models, and how they were
 trained, include a bibtex citation for each one.}
 
-\textbf{Caffenet:} The Caffenet architecture is based on the NIPS 2012 paper
-from Krizhevsky\cite{caffenetnips12} et al.  This network has 8 learned layers, 
-five convolutional layers and three fully-connected layers.  It was trained on 
-parts of the ImageNet dataset used in the ILSVRC-2010\cite{ILSVRCarxiv14} 
-challenge.  This network was originally trained for object classification, but
-works well for other problems. For our application, we finetuned the final layer 
-of Caffenet and changed the output of the final layer to be 40 (one output for 
-each attribute).
-\newline\indent
-\textbf{Places} \cite{zhou2014places}
-\newline\indent
-\textbf{Hybrid:} \cite{zhou2014places}
+\textbf{Caffenet:} Caffenet is the reference network provided with 
+Caffe\cite{caffe14}.  It was trained on 1.2 million images from the 
+ILSVRC-2012\cite{ILSVRCarxiv14} challenge and is based on the architecture from 
+the NIPS 2012 paper by Krizhevsky\cite{caffenetnips12} et al.  This network has 
+8 learned layers, five convolutional layers and three fully-connected layers.  
+It was trained on parts of the ImageNet dataset used in the 
+ILSVRC-2010\cite{ILSVRCarxiv14} challenge.  This network was originally trained 
+for object classification, but works well for other problems. For our application, 
+we finetuned the final layer of Caffenet and changed the output of the final 
+layer to be 40 (one output for each attribute).
+
+\textbf{Places} The Places205-CNN architecture is the Caffenet network retrained on 
+the Places Database\cite{zhou2014places}.  The Places205-CNN was trained on 2.5
+million randomly selected images with labels in 205 categories from the Places 
+Database.  We fine-tuned the final layer of Places205-CNN using the weights from the
+pretrained network model provided by Zhou\cite{zhou2014places} et al.
+
+\textbf{Hybrid:} The Hybrid-CNN architecture is the Caffenet network retrained on
+a combination of the Places Database\cite{zhou2014places} and images from the 
+training data of ILSVRC-2012\cite{ILSVRCarxiv14} challenge.  The full training set
+contained 205 scene categories from the Places Database and 978 object categories
+from ILSVRC-2012 totaling about 3.6 million images.  We fine-tuned the last 
+layer of Hybrid-CNN using the weights from the pretrained network model provided by 
+Zhou\cite{zhou2014places} et al.
 
 \subsection{Description of how we train ours}
 
-\todo{write me}\newline 
-\newline\indent
-To train our networks, we use the Caffe \cite{caffe14} deep learning 
+\todo{write me} 
+
+To train our networks, we use the Caffe\cite{caffe14} deep learning 
 framework. We finetuned the last layer of each of the networks using the 
 holdout split in the transient attributes dataset.  This train/test split uses
 the data from 81 webcams for training and the data from 20 separate 
@@ -145,19 +165,22 @@ is different from those trained for other purposes... probably
 focusing on the one or two that work the best}
 
 \section{Evaluation}
-\indent
+
+\todo{caffenet works the best, so: caffenet vs. places, caffenet vs. hybrid.
+			make those relative error plots to show where caffenet is working better}
+
 \figref{sort} shows the average errors from Caffenet for each attribute
 in a sorted graph.  The attributes where Caffenet performed best are towards
 the bottom of the graph and the attributes where Caffenet performed
 worst are on the top of the graph. \figref{relerr} and \figref{compare} 
 compare this performance to the performance of \cite{Laffont14}.
-\newline\indent
+
 \figref{compare} shows the average errors from Caffenet and \cite{Laffont14}
 for each attribute in the dataset.  The green bars represent the average errors
 from \cite{Laffont14} and the blue bars represent the average errors from Caffenet.
 As \figref{relerr} shows as well, Caffenet performs better on more than half of 
 the attributes.  Caffenet has a lower average error for most of these attributes.
-\newline\indent
+
 \figref{relerr} shows the relative error between our method using Caffenet
 and the method presented in \cite{Laffont14}.  The average relative error 
 for each attribute using the method in \cite{Laffont14} was subtracted from
