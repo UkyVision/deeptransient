@@ -1,12 +1,10 @@
 \documentclass{article}
 \usepackage{spconf,amsmath,graphicx}
 
-\newcommand{\figref}[1]{Figure~\ref{fig:#1}}
+\usepackage[breaklinks=true,colorlinks,bookmarks=false]{hyperref}
 
-% Example definitions.
-% --------------------
-\def\x{{\mathbf x}}
-\def\L{{\cal L}}
+\newcommand{\todo}[1]{\textcolor{red}{todo: {\em #1}}}
+\newcommand{\figref}[1]{Figure~\ref{fig:#1}}
 
 % Title.
 % ------
@@ -42,7 +40,8 @@
 \maketitle
 %
 \begin{abstract}
-
+	
+	\todo{Write me}
   Deep learning has been used to obtain state of the art results in
   problems ranging from object classification, object detection, and
   scene classification. We evaluate the use of deep learning to
@@ -56,6 +55,7 @@
 
 \section{Introduction}
 
+\todo{Write me}
 % general intro to the problem and why it is important
 
 % what do we propose to do? 
@@ -81,6 +81,7 @@ The key contributions of this work are:
 
 \subsection{Related Work}
 
+\todo{Write me}
 Previous approaches to this problem include (some general description
 of previous approaches and how they compare to what we propose).
 
@@ -95,12 +96,31 @@ List of related papers:
 
 \section{Estimating Transient Attributes Using CNNs}
 
+\subsection{Transient Attributes Dataset}
+We used the dataset created by Laffont\cite{Laffont14} et al. to train our 
+networks. The dataset contains images from outdoor webcams in the  
+Archive of Many Outdoor Scenes\cite{jacobs07amos} and the Webcam Clip Art 
+Dataset\cite{lalondesig09}.  The webcams span a wide range of outdoor scenes,
+from urban regions to wooded, mountainous regions. Each webcam has 60-120 
+representative images that feature variations in weather, lighting conditions, 
+etc.  The images are high resolution and are aligned to a reference frame 
+through a homography warp with manually specified correspondences.  The final
+dataset consists of 8571 images from 101 webcams.
+
+
 \subsection{Recap of CNNs}
 
-TODO: add a summary of the different models, and how they were
-trained, include a bibtex citation for each one.
+\todo{add a summary of the different models, and how they were
+trained, include a bibtex citation for each one.}
 
-\textbf{Caffenet:} \cite{caffenetnips12}
+\textbf{Caffenet:} The Caffenet architecture is based on the NIPS 2012 paper
+from Krizhevsky\cite{caffenetnips12} et al.  This network has 8 learned layers, 
+five convolutional layers and three fully-connected layers.  It was trained on 
+parts of the ImageNet dataset used in the ILSVRC-2010\cite{ILSVRCarxiv14} 
+challenge.  This network was originally trained for object classification, but
+works well for other problems. For our application, we finetuned the final layer 
+of Caffenet and changed the output of the final layer to be 40 (one output for 
+each attribute).
 \newline\indent
 \textbf{Places} \cite{zhou2014places}
 \newline\indent
@@ -108,7 +128,7 @@ trained, include a bibtex citation for each one.
 
 \subsection{Description of how we train ours}
 
-TODO: write me\newline 
+\todo{write me}\newline 
 \newline\indent
 To train our networks, we use the Caffe \cite{caffe14} deep learning 
 framework. We finetuned the last layer of each of the networks using the 
@@ -120,16 +140,16 @@ the random train/test split.
 
 \subsection{Deep Network Visualization}
 
-TODO: pictures of what the network looks like\dots highlighting how it
+\todo{pictures of what the network looks like\dots highlighting how it
 is different from those trained for other purposes... probably
-focusing on the one or two that work the best
+focusing on the one or two that work the best}
 
 \section{Evaluation}
 \indent
 \figref{sort} shows the average errors from Caffenet for each attribute
 in a sorted graph.  The attributes where Caffenet performed best are towards
-the left side of the graph and the attributes where Caffenet performed
-worst are on the right side of the graph. \figref{relerr} and \figref{compare} 
+the bottom of the graph and the attributes where Caffenet performed
+worst are on the top of the graph. \figref{relerr} and \figref{compare} 
 compare this performance to the performance of \cite{Laffont14}.
 \newline\indent
 \figref{compare} shows the average errors from Caffenet and \cite{Laffont14}
@@ -146,7 +166,6 @@ had a smaller error and a positive value means \cite{Laffont14} had a smaller
 error.  For example, the difference between the two methods on the attribute
 night was around 3.2 percentage points, with Caffenet having the smaller 
 error.
-\newline\indent
 
  
  
@@ -162,21 +181,21 @@ error.
 
 \begin{figure}[t]
 	\centering
-		\includegraphics[width=0.5\textwidth]{figs/sorted_err_tight.png}
+		\includegraphics[width=0.5\textwidth]{figs/sorted_err.pdf}
 		\caption{Sorted errors from caffenet}\label{fig:sort}
 \end{figure}
 
 \begin{figure}[t]
 	\centering
-		\includegraphics[width=0.5\textwidth]{figs/rel_err_tight.png}
+		\includegraphics[width=0.5\textwidth]{figs/rel_err.pdf}
 		\caption{Relative errors us minus them}\label{fig:relerr}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure*}[t]
 	\centering
-		\includegraphics[width=0.5\textwidth]{figs/avg_err_compare_tight.png}
+		\includegraphics[width=1.0\textwidth]{figs/avg_err_compare.pdf}
 		\caption{comparing average errors}\label{fig:compare}
-\end{figure}
+\end{figure*}
 
 %\begin{figure*}[t]
 %	\centering
@@ -186,7 +205,7 @@ error.
 
 \section{Conclusions}
 
-TODO: write me
+\todo{write me}
 
 more accurate
 
