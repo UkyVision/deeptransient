@@ -147,8 +147,7 @@ layer of Hybrid-CNN using the weights from the pretrained network model provided
 Zhou\cite{zhou2014places} et al.
 
 \subsection{Description of how we train ours}
-
-\todo{write me} 
+\indent
 
 To train our networks, we use the Caffe\cite{caffe14} deep learning 
 framework. We finetuned the last layer of each of the networks using the 
@@ -173,13 +172,15 @@ focusing on the one or two that work the best}
 in a sorted graph.  The attributes where Caffenet performed best are towards
 the bottom of the graph and the attributes where Caffenet performed
 worst are on the top of the graph. \figref{relerr} and \figref{compare} 
-compare this performance to the performance of \cite{Laffont14}.
+compare this performance to the performance of Laffont et al.
 
-\figref{compare} shows the average errors from Caffenet and \cite{Laffont14}
-for each attribute in the dataset.  The green bars represent the average errors
-from \cite{Laffont14} and the blue bars represent the average errors from Caffenet.
-As \figref{relerr} shows as well, Caffenet performs better on more than half of 
-the attributes.  Caffenet has a lower average error for most of these attributes.
+\figref{compare} shows the average errors from Caffenet, Places205-CNN, Hybrid-CNN
+and Laffont et al. for each attribute in the dataset.  The green bars represent the 
+average errors from Laffont et al., the blue bars represent the average errors from 
+Caffenet, the red bars represent the average errors from Places205-CNN, and the 
+yellow bars represent the error from Hybrid-CNN. Caffenet performs best on more than
+half of the attributes and is the best performing CNN that we trained.  Caffenet has 
+the lowest average error for most of the attributes.
 
 \figref{relerr} shows the relative error between our method using Caffenet
 and the method presented in \cite{Laffont14}.  The average relative error 
@@ -219,12 +220,6 @@ error.
 		\includegraphics[width=1.0\textwidth]{figs/avg_err_compare.pdf}
 		\caption{comparing average errors}\label{fig:compare}
 \end{figure*}
-
-%\begin{figure*}[t]
-%	\centering
-%		\includegraphics[width=1.0\textwidth]{figs/fig_1.png}
-%		\caption{These are some evaluation curves. needs to be full top page}
-%\end{figure*}
 
 \section{Conclusions}
 
