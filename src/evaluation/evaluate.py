@@ -26,8 +26,8 @@ with db_labels.begin(write=False) as db_labels_txn:
 # load the trained net 
 #
 
-MODEL = '../prototxts/places_scratch/deploy.prototxt'
-PRETRAINED = '../prototxts/places_scratch/snapshots/places_transient_scratch_iter_10000.caffemodel'
+MODEL = '../prototxts/places/deploy.prototxt'
+PRETRAINED = '../prototxts/places/snapshots/places_transient_iter_70000.caffemodel'
 MEAN = '../mean/transient_mean.binaryproto'
 
 # load the mean image 
@@ -63,7 +63,7 @@ with db.begin(write=False) as db_txn:
 		# push through the network
     out = net.forward_all(data=caffe_input)
     #pred = out['fc8-t'].squeeze()
-    pred = out['fc8'].squeeze()
+    pred = out['fc8-t'].squeeze()
 
     #error += ((pred[:] - labels[ix,:]) ** 2).squeeze()
     error = ((pred[:] - labels[ix,:]) ** 2).mean()
