@@ -23,8 +23,8 @@ def vis_square(data, padsize=1, padval=0):
       
   plt.imshow(data)
 
-db_name = '../testing_data/random_test_im_db/'
-db_labels_name = '../testing_data/random_test_label_db/'
+db_name = '../testing_data/testing_im/'
+db_labels_name = '../testing_data/testing_label/'
 
 #
 # load labels
