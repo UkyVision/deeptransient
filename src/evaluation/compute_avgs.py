@@ -26,8 +26,8 @@ with db_labels.begin(write=False) as db_labels_txn:
 # load the trained net 
 #
 
-MODEL = '../prototxts/places/deploy.prototxt'
-PRETRAINED = '../prototxts/places/snapshots/places_transient_iter_72000.caffemodel'
+MODEL = '../prototxts/hybrid/deploy.prototxt'
+PRETRAINED = '../prototxts/hybrid/snapshots/hybrid_transient_iter_73000.caffemodel'
 MEAN = '../mean/transient_mean.binaryproto'
 
 # load the mean image 
@@ -65,14 +65,12 @@ with db.begin(write=False) as db_txn:
     #pred = out['fc8-t'].squeeze()
     pred = out['fc8-t'].squeeze()
 
-    #error += ((pred[:] - labels[ix,:]) ** 2).squeeze()
-    error = ((pred[:] - labels[ix,:]) ** 2).mean()
+    error += ((pred[:] - labels[ix,:]) ** 2).squeeze()
   
-    print error
-    #print ix #/ (ix + 1)
+    #print ix 
     sys.stdout.flush()
 
     ix = ix + 1
 
-#error = error[:] / ix
-#print error
+error = error[:] / ix
+print error

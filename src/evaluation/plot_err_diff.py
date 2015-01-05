@@ -3,10 +3,12 @@ import matplotlib.pyplot as plt
 
 def main():
   laffont = np.loadtxt(open("data/paper_avg.txt","rb"),delimiter=",")	
+  places = np.loadtxt(open("data/places_avg.txt","rb"),delimiter=",")	
+  hybrid = np.loadtxt(open("data/hybrid_avg.txt","rb"),delimiter=",")	
   caffenet = np.loadtxt(open("data/caffenet_avg.txt","rb"),delimiter=",") 
   attributes = np.genfromtxt("/scratch/nja224/transient/annotations/attributes.txt", dtype='str')
   
-  difference = caffenet - laffont
+  difference = caffenet - places
   labeled = np.concatenate((difference[:].reshape(40,1), attributes[:].reshape(40,1)), axis=1)
   labeled = labeled[labeled[:,0].astype(float).argsort()]
 
@@ -19,7 +21,7 @@ def main():
   plt.axis('tight')
   #plt.show()
   fig.tight_layout()
-  fig.savefig('../../paper/deeptransient/figs/rel_err.pdf')
+  fig.savefig('../../paper/deeptransient/figs/rel_err_places.pdf')
 
 if __name__=="__main__":
 	main()

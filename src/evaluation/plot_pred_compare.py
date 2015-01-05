@@ -4,23 +4,24 @@ import matplotlib.pyplot as plt
 def main():
   laffont = np.loadtxt(open("data/paper_avg.txt","rb"),delimiter=",")	
   caffenet = np.loadtxt(open("data/caffenet_avg.txt","rb"),delimiter=",") 
+  places = np.loadtxt(open("data/places_avg.txt","rb"),delimiter=",") 
+  hybrid = np.loadtxt(open("data/hybrid_avg.txt","rb"),delimiter=",") 
   attributes = np.genfromtxt("/scratch/nja224/transient/annotations/attributes.txt", dtype='str')
   
-  fig = plt.figure(figsize=(9,5), dpi=200)
-  ax = fig.add_subplot(111)
-  ind = np.arange(len(laffont))
-  width = 0.30
+  fig = plt.figure(figsize=(9,4), dpi=200)
+  ind = np.arange(len(laffont)) * 3
+  width = 0.60
 
-  rects1_max = ax.bar(ind, laffont, width, color='green')
-  rects2_max = ax.bar(ind + width, caffenet, width, color='blue')
-  ax.set_xlim(-width*2, len(ind)+width*2)
-  ax.set_xticks(ind + width)
-  ax.set_ylabel('Average Error')
-  xtickNames = ax.set_xticklabels(attributes)
-  plt.setp(xtickNames, rotation=90, fontsize=14)
-  ax.legend( (rects1_max[0], rects2_max[0]), ('Laffont et al.', 'Caffenet'))
-  #plt.show()
+  plt.bar(ind, laffont, width, color='green', align='center', label='Laffont et al.')
+  plt.bar(ind + width, caffenet, width, color='blue', align='center', label='Caffenet')
+  plt.bar(ind + width * 2, places, width, color='red', align='center', label='Places205-CNN')
+  plt.bar(ind + width * 3, hybrid, width, color='yellow', align='center', label='Hybrid-CNN')
+  plt.xticks(ind+width*2, attributes, rotation=90)
+  plt.ylabel('Average Error')
+  plt.legend(loc=1, prop={'size':8})
+  plt.axis('tight')
   fig.tight_layout()
+  #plt.show()
   plt.savefig('../../paper/deeptransient/figs/avg_err_compare.pdf')
 
 if __name__=="__main__":
