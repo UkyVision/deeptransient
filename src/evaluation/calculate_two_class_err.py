@@ -1,6 +1,6 @@
 import numpy as np
 
-net = 'caffenet'
+net = 'places_500'
 
 sunny = np.loadtxt(open("data/sunny_" + net + ".txt","rb"), delimiter="\n")
 cloudy = np.loadtxt(open("data/cloudy_" + net + ".txt","rb"), delimiter="\n")

@@ -45,7 +45,8 @@ with db_labels.begin(write=False) as db_labels_txn:
 #
 
 MODEL = '/home/rmba229/projects/deep_transient/src/prototxts/caffenet/deploy.prototxt'
-PRETRAINED = '/home/rmba229/projects/deep_transient/src/prototxts/caffenet/snapshots/caffenet_transient_iter_73000.caffemodel'
+#PRETRAINED = '/home/rmba229/projects/deep_transient/src/prototxts/caffenet/snapshots/caffenet_transient_iter_73000.caffemodel'
+PRETRAINED = '/home/rmba229/projects/deep_transient/src/prototxts/caffenet/caffenet_pretrained.caffemodel'
 MEAN = '../mean/transient_mean.binaryproto'
 
 # load the mean image 
