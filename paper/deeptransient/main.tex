@@ -62,19 +62,27 @@
 \end{keywords}
 
 \section{Introduction}
-\todo{Write me}
+\todo{Write me}\newline\indent
 % general intro to the problem and why it is important
-
 % what do we propose to do? 
-We propose a method for predicting transient attributes on images using
-deep convolutional neural networks.  These networks achieve better 
+Outdoor scenes experience a multitude of lighting and weather conditions
+everyday.  The scene can change from dark and rainy to sunny and clear 
+skys in a matter of hours.  These fleeting, or transient, attributes of
+a scene help create the dynamicism of the natural world.  Understanding 
+and recognizing these transient attributes can help us analyze outdoor
+scenes. We propose a method for predicting transient attributes on images 
+using deep convolutional neural networks.  These networks achieve better 
 predictions for most of the attributes and predict the attributes
 faster than the methods proposed by Laffont\cite{Laffont14} et al.
+\newline
+\todo{talk about two class weather}
 % how do we evaluate this?
 
 We evaluate the proposed method on several benchmarks.  The first 
 benchmark is the Transient Attributes Dataset\cite{Laffont14}.  This 
-is the standard benchmark for transient attributes in images. 
+is the standard benchmark dataset for transient attributes in outdoor
+scenes.  We evaluate the proposed method on the holdout split, the 
+most difficult split, in the dataset.  
 
 % what we can do now that we have this?
 
@@ -91,6 +99,13 @@ The key contributions of this work are:
   \item something with running it on webcam data?
 
 \end{itemize}
+
+\begin{figure}[t]
+	\centering
+		\includegraphics[width=0.5\textwidth]{figs/splice.pdf}
+		\caption{example images}\label{fig:sort}
+\end{figure}
+
 
 \subsection{Related Work}
 
@@ -123,10 +138,12 @@ etc.  The images are high resolution and are aligned to a reference frame
 through a homography warp with manually specified correspondences.  The final
 dataset consists of 8571 images from 101 webcams.
 
+\subsection{Two-Class Weather Classification Dataset}
+\todo{Write me}
+
 \subsection{Recap of CNNs}
 
-\todo{add a summary of the different models, and how they were
-trained, include a bibtex citation for each one.}
+\todo{Edit me}
 
 \textbf{Caffenet:} Caffenet is the reference network provided with 
 Caffe\cite{caffe14}.  It was trained on 1.2 million images from the 
