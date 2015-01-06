@@ -29,7 +29,7 @@ def make_database(db_name, files, labels):
         label = np.asarray(labels[idx], dtype=np.float)
         
         # make the label N x 1 x 1
-        label = label.reshape(label.shape + (1,1,1))
+        label = label.reshape(label.shape + (1,1))
         
         # load the image (RGB)
         im = caffe.io.load_image(BASE_DIR + file)
@@ -81,11 +81,15 @@ sunny_test = sunny_filenames[int(np.size(sunny_filenames) * 0.8):]
 cloudy_train = cloudy_filenames[0:int(np.size(cloudy_filenames) * 0.8)]
 cloudy_test = cloudy_filenames[int(np.size(cloudy_filenames) * 0.8):]
 
-sunny_train_labels = np.zeros(np.size(sunny_train))
-sunny_test_labels = np.zeros(np.size(sunny_test))
+sunny_train_labels = np.zeros((np.size(sunny_train), 2))
+sunny_test_labels = np.zeros((np.size(sunny_test), 2))
+sunny_train_labels[:,0] = 1
+sunny_test_labels[:,0] = 1
 
-cloudy_train_labels = np.ones(np.size(cloudy_train))
-cloudy_test_labels = np.ones(np.size(cloudy_test))
+cloudy_train_labels = np.zeros((np.size(cloudy_train), 2))
+cloudy_test_labels = np.zeros((np.size(cloudy_test), 2))
+cloudy_train_labels[:,1] = 1
+cloudy_test_labels[:,1] = 1
 
 train_data = np.concatenate((sunny_train, cloudy_train), axis=0)
 test_data = np.concatenate((sunny_test, cloudy_test), axis=0)
