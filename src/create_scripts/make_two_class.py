@@ -91,11 +91,17 @@ cloudy_test_labels = np.zeros((np.size(cloudy_test), 2))
 cloudy_train_labels[:,1] = 1
 cloudy_test_labels[:,1] = 1
 
-train_data = np.concatenate((sunny_train, cloudy_train), axis=0)
-test_data = np.concatenate((sunny_test, cloudy_test), axis=0)
+train_data_im = np.concatenate((sunny_train, cloudy_train), axis=0)
+test_data_im = np.concatenate((sunny_test, cloudy_test), axis=0)
 train_data_labels = np.concatenate((sunny_train_labels, cloudy_train_labels), axis=0)
 test_data_labels = np.concatenate((sunny_test_labels, cloudy_test_labels), axis=0)
 
-make_database('train_two_class', train_data, train_data_labels)
-make_database('test_two_class', test_data, test_data_labels)
+train_data = np.hstack((np.reshape(train_data_im, (8000, 1)), train_data_labels))
+test_data = np.hstack((np.reshape(test_data_im, (2000, 1)), test_data_labels))
+
+np.random.shuffle(train_data)
+np.random.shuffle(test_data)
+
+make_database('train_two_class', train_data[:,0], train_data[:,[1,2]])
+make_database('test_two_class', test_data[:,0], test_data[:,[1,2]])
 

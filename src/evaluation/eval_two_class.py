@@ -12,7 +12,7 @@ db_labels_name = '../testing_data/test_two_class_label_db/'
 #
 # load labels
 #
-labels = np.ndarray(shape=(1,1,1,1))
+labels = np.ndarray(shape=(1,1,1,2))
 db_labels = lmdb.open(db_labels_name)
 
 with db_labels.begin(write=False) as db_labels_txn:
@@ -27,7 +27,7 @@ with db_labels.begin(write=False) as db_labels_txn:
 #
 
 MODEL = '../prototxts/caffenet_two_class/deploy.prototxt'
-PRETRAINED = '../prototxts/caffenet_two_class/snapshots/caffenet_two_class_iter_1000.caffemodel'
+PRETRAINED = '../prototxts/caffenet_two_class/snapshots/caffenet_two_class_iter_2000.caffemodel'
 MEAN = '../mean/two_class_mean.binaryproto'
 
 # load the mean image 
