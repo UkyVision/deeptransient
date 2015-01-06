@@ -41,12 +41,19 @@
 %
 \begin{abstract}
 	
-	\todo{Write me}
-  Deep learning has been used to obtain state of the art results in
+	\todo{Edit me}\newline\indent
+	Deep learning has been used to obtain state of the art results in
   problems ranging from object classification, object detection, and
-  scene classification. We evaluate the use of deep learning to
-  predict more subtle visual scene aspects, such as the weather, the
-  season, and subjective scene properties. 
+  scene classification.  Training and evaluating convolutional neural
+	networks has become faster and easier with new deep learning 
+	frameworks and modern computational cababilities.  We evaluate the 
+	use of deep learning to predict subtle visual scene aspects, such as
+	the lighting, the season, and subjective scene properties. These
+	properties, or transient attributes, can be used to predict the 
+	state of the scene from a single image.  We evaluate our networks
+	on benchmark datasets against the state of the art method for 
+	predicting these attributes and achieve better results for predicting
+	most of the attributes.
 
 \end{abstract}
 %
@@ -180,7 +187,9 @@ average errors from Laffont et al., the blue bars represent the average errors f
 Caffenet, the red bars represent the average errors from Places205-CNN, and the 
 yellow bars represent the error from Hybrid-CNN. Caffenet performs best on more than
 half of the attributes and is the best performing CNN that we trained.  Caffenet has 
-the lowest average error for most of the attributes.
+the lowest average error for most of the attributes.  Places205-CNN and Hybrid-CNN 
+have similar performance, mostly due to them being pretrained on similar sets of 
+data.
 
 \figref{relerr} shows the relative error between our method using Caffenet
 and the method presented in \cite{Laffont14}.  The average relative error 
