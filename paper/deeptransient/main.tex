@@ -98,13 +98,19 @@ most difficult split, in the dataset.
 The key contributions of this work are:
 \begin{itemize}
 
-  \item comparison of several deep learning network architectures for
-    the problem
+  \item We compare several deep learning network architectures for
+    		predicting transient attributes of in an outdoor scene.
 
-  \item state-of-the-art results on two benchmark datasets (transient
-    attributes and two class weather)
+	\item We achieve overall better predictions on the Transient Attributes
+				benchmark dataset.
 
-  \item something with running it on webcam data?
+	\item We propose a method for automatically labeling and tagging images
+				from outdoor webcam images for easier searching of webcam databases.
+
+  %\item state-of-the-art results on two benchmark datasets (transient
+  %  attributes and two class weather)
+
+  %\item something with running it on webcam data?
 
 \end{itemize}
 
@@ -120,9 +126,10 @@ List of related papers:
 
 	\item Laffont\cite{Laffont14} et al. was the first to propose the 40
 		transient attributes and created the Transient Attributes Dataset.
-		They used SVMs, logistic regression, and SVRs to predict the 
-		attributes.  They use mean squared error and average precision to
-		compare their methods.
+		Each attribute is given a value from 0 to 1 based on much a scene
+		has that attribute. 	They used SVMs, logistic regression, and SVRs 
+		to predict the attributes.  They use mean squared error and average 
+		precision to compare their methods.
 
 	\item Lu\cite{lutwoclass} et al. classified images into one of two 
 		classes, either sunny or cloudy.  They created the Two Class 
@@ -265,6 +272,23 @@ error.
 						 has the lowest average error for most of the attributes.}
 		\label{fig:compare}
 \end{figure*}
+
+
+\section{Applications}
+\todo{Think of more applications, expand on current one}
+\subsection{Automatic Webcam Image Labeling}
+
+\begin{itemize}
+
+	\item Automatically label saved images from webcams
+	\item Tag each image individually and be able to search for times from
+			  webcam that had or did not have a certain attribute
+	\item Tag frequent attributes for webcams (that aren't day/night)
+	\item Makes AMOS or other webcam/image archives more searchable
+
+\end{itemize}
+
+% need another subsection
 
 \section{Conclusions}
 
