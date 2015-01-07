@@ -241,19 +241,29 @@ error.
 \begin{figure}[t]
 	\centering
 		\includegraphics[width=0.5\textwidth]{figs/sorted_err.pdf}
-		\caption{Sorted errors from caffenet}\label{fig:sort}
+		\caption{This shows the average errors in Caffenet's predictions on the 
+						 testing set sorted from largest to smallest.  The attributes at 
+						 the top of the plot have the highest average error.}
+		\label{fig:sort}
 \end{figure}
 
 \begin{figure}[t]
 	\centering
 		\includegraphics[width=0.5\textwidth]{figs/rel_err.pdf}
-		\caption{Relative errors us minus them}\label{fig:relerr}
+		\caption{This shows the relative errors of our method against the method 
+						 proposed by Laffont et al. for each attribute.  Attributes with a 
+						 negative average error are attributes that are predicting more 
+						 accurately by our method.}
+		\label{fig:relerr}
 \end{figure}
 
 \begin{figure*}[t]
 	\centering
 		\includegraphics[width=1.0\textwidth]{figs/avg_err_compare.pdf}
-		\caption{comparing average errors}\label{fig:compare}
+		\caption{This shows the average errors for each attribute from proposed method
+						 by Laffont et al., Caffenet, Places205-CNN, and Hybrid-CNN.  Caffenet
+						 has the lowest average error for most of the attributes.}
+		\label{fig:compare}
 \end{figure*}
 
 \section{Conclusions}
