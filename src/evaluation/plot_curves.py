@@ -16,11 +16,12 @@ def foobar(error_file):
 
 if __name__ == '__main__':
   caffenet, = plot(foobar('errors/caffenet.txt'), label='caffenet_finetune')
+  #caffenet_ltl, = plot(foobar('errors/caffenet_ltl.txt'), label='caffenet_ltl')
   #caffenet_scratch, = plot(foobar('errors/caffenet_scratch.txt'), label='caffenet_scratch')
   random_guess, = plot(foobar('errors/random_guess.txt'), label='random_guess')
   laffont, = plot(foobar('errors/paperdata.txt'), label='laffont et al.')
   places, = plot(foobar('errors/places.txt'), label='places')
-  #hybrid, = plot(foobar('errors/hybrid.txt'), label='hybrid')
+  hybrid, = plot(foobar('errors/hybrid.txt'), label='hybrid')
   #simplenet, = plot(foobar('errors/simplenet.txt'), label='simplenet')
   #bignet, = plot(foobar('errors/bignet.txt'), label='bignet')
   ylabel("Percentage of Test Images Correct")

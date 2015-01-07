@@ -71,36 +71,45 @@ temp_dir = np.chararray(np.size(sunny_filenames), itemsize=6)
 temp_dir[:] = 'sunny/'
 sunny_filenames = np.core.defchararray.add(temp_dir, sunny_filenames)
 
+
 temp_dir_c = np.chararray(np.size(cloudy_filenames), itemsize=7)
 temp_dir_c[:] = 'cloudy/'
 cloudy_filenames = np.core.defchararray.add(temp_dir_c, cloudy_filenames)
 
+
 sunny_train = sunny_filenames[0:int(np.size(sunny_filenames) * 0.8)]
 sunny_test = sunny_filenames[int(np.size(sunny_filenames) * 0.8):]
 
+
 cloudy_train = cloudy_filenames[0:int(np.size(cloudy_filenames) * 0.8)]
 cloudy_test = cloudy_filenames[int(np.size(cloudy_filenames) * 0.8):]
+
 
 sunny_train_labels = np.zeros((np.size(sunny_train), 2))
 sunny_test_labels = np.zeros((np.size(sunny_test), 2))
 sunny_train_labels[:,0] = 1
 sunny_test_labels[:,0] = 1
 
+
 cloudy_train_labels = np.zeros((np.size(cloudy_train), 2))
 cloudy_test_labels = np.zeros((np.size(cloudy_test), 2))
 cloudy_train_labels[:,1] = 1
 cloudy_test_labels[:,1] = 1
+
 
 train_data_im = np.concatenate((sunny_train, cloudy_train), axis=0)
 test_data_im = np.concatenate((sunny_test, cloudy_test), axis=0)
 train_data_labels = np.concatenate((sunny_train_labels, cloudy_train_labels), axis=0)
 test_data_labels = np.concatenate((sunny_test_labels, cloudy_test_labels), axis=0)
 
+
 train_data = np.hstack((np.reshape(train_data_im, (8000, 1)), train_data_labels))
 test_data = np.hstack((np.reshape(test_data_im, (2000, 1)), test_data_labels))
 
+
 np.random.shuffle(train_data)
 np.random.shuffle(test_data)
+
 
 make_database('train_two_class', train_data[:,0], train_data[:,[1,2]])
 make_database('test_two_class', test_data[:,0], test_data[:,[1,2]])
