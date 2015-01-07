@@ -61,6 +61,12 @@
 	deep learning, transient attributes
 \end{keywords}
 
+\begin{figure}[t!]
+	\centering
+		\includegraphics[width=0.5\textwidth]{figs/bars.pdf}
+		\caption{example image with labels pred (blue) and gt (red)}\label{fig:sort}
+\end{figure}
+
 \section{Introduction}
 \todo{Write me}\newline\indent
 % general intro to the problem and why it is important
@@ -100,13 +106,6 @@ The key contributions of this work are:
 
 \end{itemize}
 
-\begin{figure}[t]
-	\centering
-		\includegraphics[width=0.5\textwidth]{figs/splice.pdf}
-		\caption{example images}\label{fig:sort}
-\end{figure}
-
-
 \subsection{Related Work}
 
 \todo{Write me}
@@ -117,9 +116,16 @@ of previous approaches and how they compare to what we propose).
 List of related papers:
 \begin{itemize}
 
-  \item add citation and one sentence description of what it does, one
-    sentence description of how it is different from what we do, maybe
-    something about how they evaluate.
+	\item Laffont\cite{Laffont14} et al. was the first to propose the 40
+		transient attributes and created the Transient Attributes Dataset.
+		They used SVMs, logistic regression, and SVRs to predict the 
+		attributes.  They use mean squared error and average precision to
+		compare their methods.
+
+	\item Lu\cite{lutwoclass} et al. classified images into one of two 
+		classes, either sunny or cloudy.  They created the Two Class 
+		Weather Classification Dataset.  They use learning and classification
+		with their weather cues to classify the images. 
 
 \end{itemize}
 
@@ -173,19 +179,20 @@ Zhou\cite{zhou2014places} et al.
 \subsection{Description of how we train ours}
 \indent
 
-To train our networks, we use the Caffe\cite{caffe14} deep learning 
-framework. We finetuned the last layer of each of the networks using the 
-holdout split in the transient attributes dataset.  This train/test split uses
+To train our networks, we use the Caffe\cite{caffe14} deep learning framework. 
+For transient attributes, we finetuned the last layer of each of the networks using 
+the holdout split in the transient attributes dataset.  This train/test split uses
 the data from 81 webcams for training and the data from 20 separate 
 webcams for testing.  Data from webcams in the training set does not
 appear in the testing set using the holdout split.  This is contrary to 
 the random train/test split.  
 
-\subsection{Deep Network Visualization}
 
-\todo{pictures of what the network looks like\dots highlighting how it
-is different from those trained for other purposes... probably
-focusing on the one or two that work the best}
+%\subsection{Deep Network Visualization}
+
+%\todo{pictures of what the network looks like\dots highlighting how it
+%is different from those trained for other purposes... probably
+%focusing on the one or two that work the best}
 
 \section{Evaluation}
 
