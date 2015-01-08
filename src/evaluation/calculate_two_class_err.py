@@ -1,6 +1,6 @@
 import numpy as np
 
-net = 'caffenet'
+net = 'places'
 
 data = np.loadtxt(open("data/two_class_" + net + ".txt","rb"), delimiter="\n")
 

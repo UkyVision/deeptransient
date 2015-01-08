@@ -70,11 +70,13 @@ with open('data/cloudy.txt','r') as f:
 temp_dir = np.chararray(np.size(sunny_filenames), itemsize=6)
 temp_dir[:] = 'sunny/'
 sunny_filenames = np.core.defchararray.add(temp_dir, sunny_filenames)
+np.random.shuffle(sunny_filenames)
 
 
 temp_dir_c = np.chararray(np.size(cloudy_filenames), itemsize=7)
 temp_dir_c[:] = 'cloudy/'
 cloudy_filenames = np.core.defchararray.add(temp_dir_c, cloudy_filenames)
+np.random.shuffle(cloudy_filenames)
 
 
 sunny_train = sunny_filenames[0:int(np.size(sunny_filenames) * 0.8)]
