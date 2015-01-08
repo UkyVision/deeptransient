@@ -81,9 +81,11 @@ scenes. We propose a method for predicting transient attributes on images
 using deep convolutional neural networks.  These networks achieve better 
 predictions for most of the attributes and predict the attributes
 faster than the methods proposed by Laffont\cite{Laffont14} et al.
-\newline
-\todo{talk about two class weather}
 
+We propose a method for classifying images in the two class weather 
+dataset using deep convolutional neural networks.  These networks 
+achieves state of the art classification results on the dataset
+constructed by Lu\cite{lutwoclass} et al.
 % how do we evaluate this?
 
 We evaluate the proposed method on several benchmarks.  The first 
@@ -298,9 +300,9 @@ accurately.
 		\hline
 			Method & Normalized Accuracy \\ \hline
 			Lu et al. & 53.1\% \\ \hline
-			Caffenet & 79.7\% \\ \hline
-			Places205-CNN & \textbf{83\%} \\ \hline
-			Hybrid-CNN & 82\% \\ 
+			Caffenet & 80.2\% \\ \hline
+			Places205-CNN & \textbf{83.3\%} \\ \hline
+			Hybrid-CNN & 82.2\% \\ 
 		\hline
 	\end{tabular}
 	\caption{Two Class Weather Classification Accuracy}
@@ -325,16 +327,15 @@ accurately.
 % need another subsection
 
 \section{Conclusions}
-
 \todo{write me}
 
-more accurate
+We evaluated the use of deep convolutional neural networks for predicting
+transient attributes and classifying images in two class weather 
+classification.  These networks achieve state of the art results on two
+benchmark datasets.  The networks are simple to train and predict 
+quickly.  The networks can quickly be retrained on additional datasets
+and restructured.
 
-simpler and easier to train
-
-faster
-
-composable
 
 \bibliographystyle{IEEEbib}
 \bibliography{refs}
