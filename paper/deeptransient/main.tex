@@ -51,8 +51,8 @@
 	properties, or transient attributes, can be used to predict the 
 	state of the scene from a single image.  We evaluate our networks
 	on benchmark datasets against the state of the art method for 
-	predicting these attributes and achieve better results for predicting
-	most of the attributes.
+	predicting these attributes and achieve state of the art results for 
+	predicting attributes and classifying scenes.
 
 \end{abstract}
 %
@@ -81,7 +81,7 @@ using deep convolutional neural networks.  These networks achieve better
 predictions for most of the attributes and predict the attributes
 faster than the methods proposed by Laffont\cite{Laffont14} et al.
 \newline
-%\todo{talk about two class weather}
+\todo{talk about two class weather}
 
 % how do we evaluate this?
 
@@ -101,6 +101,7 @@ The key contributions of this work are:
     		predicting transient attributes of in an outdoor scene.
 
 	\item We achieve overall better predictions on the Transient Attributes
+				benchmark dataset and the Two Class Weather Classification 
 				benchmark dataset.
 
 	\item We propose a method for automatically labeling and tagging images
@@ -152,8 +153,8 @@ etc.  The images are high resolution and are aligned to a reference frame
 through a homography warp with manually specified correspondences.  The final
 dataset consists of 8571 images from 101 webcams.
 
-%\subsection{Two-Class Weather Classification Dataset}
-%\todo{Write me}
+\subsection{Two-Class Weather Classification Dataset}
+\todo{Write me}
 
 \subsection{Recap of CNNs}
 \indent
@@ -241,7 +242,18 @@ error.
 %  \item example good results, and plausible bad results
 %
 %\end{itemize}
-
+\begin{table}[t]
+	\begin{tabular}{ | l | l | }
+		\hline
+			Method & Normalized Accuracy \\ \hline
+			Lu et al. & 53.1\% \\ \hline
+			Caffenet & 79.7\% \\ \hline
+			Places205-CNN & 83\% \\ \hline
+			Hybrid-CNN & 82\% \\ 
+		\hline
+	\end{tabular}
+	\caption{Two Class Weather Classification Accuracy}
+\end{table}
 
 \begin{figure}[t]
 	\centering
