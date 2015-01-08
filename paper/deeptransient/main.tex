@@ -5,6 +5,7 @@
 
 \newcommand{\todo}[1]{\textcolor{red}{todo: {\em #1}}}
 \newcommand{\figref}[1]{Figure~\ref{fig:#1}}
+\newcommand{\tblref}[1]{Table~\ref{tbl:#1}}
 
 % Title.
 % ------
@@ -144,17 +145,24 @@ List of related papers:
 \indent
 
 We used the dataset created by Laffont\cite{Laffont14} et al. to train our 
-networks. The dataset contains images from outdoor webcams in the  
-Archive of Many Outdoor Scenes\cite{jacobs07amos} and the Webcam Clip Art 
-Dataset\cite{lalondesig09}.  The webcams span a wide range of outdoor scenes,
-from urban regions to wooded, mountainous regions. Each webcam has 60-120 
-representative images that feature variations in weather, lighting conditions, 
-etc.  The images are high resolution and are aligned to a reference frame 
-through a homography warp with manually specified correspondences.  The final
-dataset consists of 8571 images from 101 webcams.
+networks for transient attribute prediction. The dataset contains images from 
+outdoor webcams in the Archive of Many Outdoor Scenes\cite{jacobs07amos} and 
+the Webcam Clip Art Dataset\cite{lalondesig09}.  The webcams span a wide range 
+of outdoor scenes,from urban regions to wooded, mountainous regions. Each webcam 
+has 60-120 representative images that feature variations in weather, lighting 
+conditions, etc.  The images are high resolution and are aligned to a reference 
+frame through a homography warp with manually specified correspondences.  The 
+final dataset consists of 8571 images from 101 webcams.
 
 \subsection{Two-Class Weather Classification Dataset}
-\todo{Write me}
+\todo{Expand a bit more on the dataset}
+\indent
+
+We used the dataset created by Lu\cite{lutwoclass} et al. to train our networks
+for two class weather classification.  The dataset contains images collected from
+the SUN Database\cite{xiaoSUN}, the LabelMe Database\cite{russell2008labelme}, and
+Flickr. The dataset contains 5000 sunny and 5000 cloudy images.  Images with 
+similar histograms were pruned from the dataset during the creation process.
 
 \subsection{Recap of CNNs}
 \indent
@@ -187,13 +195,19 @@ Zhou\cite{zhou2014places} et al.
 \subsection{Description of how we train ours}
 \indent
 
-To train our networks, we use the Caffe\cite{caffe14} deep learning framework. 
-For transient attributes, we finetuned the last layer of each of the networks using 
-the holdout split in the transient attributes dataset.  This train/test split uses
-the data from 81 webcams for training and the data from 20 separate 
+\textbf{Transient Attributes:} To train our networks, we use the Caffe\cite{caffe14} 
+deep learning framework. For transient attributes, we finetuned the last layer of each
+of the networks using the holdout split in the transient attributes dataset.  This 
+train/test split uses the data from 81 webcams for training and the data from 20 separate 
 webcams for testing.  Data from webcams in the training set does not
 appear in the testing set using the holdout split.  This is contrary to 
 the random train/test split.  
+
+\textbf{Two Class Weather:} We finetuned the last layer of each network architecture
+for the two class weather classification as well.  The train/test split for this dataset
+was randomly chosen.  Each list of sunny/cloudy images was randomly shuffled and the 
+first 80\% of each list was chosen as the training data and the last 20\% was chosen
+as testing data.  This is similar to the approach used by Lu\cite{lutwoclass} et al.
 
 
 %\subsection{Deep Network Visualization}
@@ -232,6 +246,13 @@ error.  For example, the difference between the two methods on the attribute
 night was around 3.2 percentage points, with Caffenet having the smaller 
 error.
 
+\tblref{twoclass} shows the normalized accuracies of our networks compared to 
+the method proposed by Lu\cite{lutwoclass} et al.  The normalized accuracy was
+calculated by $ \max\{((a - 0.5) / 0.5), 0\} $, where $a$ is the traditionally
+obtained accuracy. All three of the networks outperform the state of the art for
+two class weather classification with Places205-CNN predicting the most 
+accurately.
+
  
  
 %Suggested plots:
@@ -242,18 +263,6 @@ error.
 %  \item example good results, and plausible bad results
 %
 %\end{itemize}
-\begin{table}[t]
-	\begin{tabular}{ | l | l | }
-		\hline
-			Method & Normalized Accuracy \\ \hline
-			Lu et al. & 53.1\% \\ \hline
-			Caffenet & 79.7\% \\ \hline
-			Places205-CNN & 83\% \\ \hline
-			Hybrid-CNN & 82\% \\ 
-		\hline
-	\end{tabular}
-	\caption{Two Class Weather Classification Accuracy}
-\end{table}
 
 \begin{figure}[t]
 	\centering
@@ -282,6 +291,21 @@ error.
 						 has the lowest average error for most of the attributes.}
 		\label{fig:compare}
 \end{figure*}
+
+\begin{table}[t]
+	\centering
+	\begin{tabular}{ | l | l | }
+		\hline
+			Method & Normalized Accuracy \\ \hline
+			Lu et al. & 53.1\% \\ \hline
+			Caffenet & 79.7\% \\ \hline
+			Places205-CNN & \textbf{83\%} \\ \hline
+			Hybrid-CNN & 82\% \\ 
+		\hline
+	\end{tabular}
+	\caption{Two Class Weather Classification Accuracy}
+	\label{tbl:twoclass}
+\end{table}
 
 
 \section{Applications}
