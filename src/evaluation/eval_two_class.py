@@ -26,8 +26,8 @@ with db_labels.begin(write=False) as db_labels_txn:
 # load the trained net 
 #
 
-MODEL = '../prototxts/caffenet_two_class/deploy.prototxt'
-PRETRAINED = '../prototxts/caffenet_two_class/snapshots_0.001/caffenet_two_class_iter_53000.caffemodel'
+MODEL = '../prototxts/hybrid_two_class/deploy.prototxt'
+PRETRAINED = '../prototxts/hybrid_two_class/snapshots/hybrid_two_class_iter_62000.caffemodel'
 MEAN = '../mean/two_class_mean.binaryproto'
 
 # load the mean image 
@@ -70,7 +70,7 @@ with db.begin(write=False) as db_txn:
     else:
       pred_class = 1
     
-    if labels[ix,0,0,1] > labels[ix,0,0,1]:
+    if labels[ix,0,0,0] > labels[ix,0,0,1]:
       truth_class = 0
     else:
       truth_class = 1

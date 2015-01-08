@@ -27,7 +27,7 @@ def make_database(db_name, files, labels):
       for idx, file in enumerate(files):
         # get the label
         label = np.asarray(labels[idx], dtype=np.float)
-        
+         
         # make the label N x 1 x 1
         label = label.reshape(label.shape + (1,1))
         

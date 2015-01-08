@@ -60,14 +60,14 @@ with db.begin(write=False) as db_txn:
     caffe_input = net.preprocess('data', im)
     caffe_input = caffe_input.reshape((1,)+caffe_input.shape)
     
-		# push through the network
+    # push through the network
     out = net.forward_all(data=caffe_input)
     #pred = out['fc8-t'].squeeze()
     pred = out['fc8-t'].squeeze()
 
     #error += ((pred[:] - labels[ix,:]) ** 2).squeeze()
     error = ((pred[:] - labels[ix,:]) ** 2).mean()
-  
+    
     print error
     #print ix #/ (ix + 1)
     sys.stdout.flush()
