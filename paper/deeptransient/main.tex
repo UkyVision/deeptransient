@@ -163,8 +163,11 @@ final dataset consists of 8571 images from 101 webcams.
 We used the dataset created by Lu\cite{lutwoclass} et al. to train our networks
 for two class weather classification.  The dataset contains images collected from
 the SUN Database\cite{xiaoSUN}, the LabelMe Database\cite{russell2008labelme}, and
-Flickr. The dataset contains 5000 sunny and 5000 cloudy images.  Images with 
-similar histograms were pruned from the dataset during the creation process.
+Flickr. The dataset contains 5000 sunny and 5000 cloudy images. Flickr images were 
+collected manually by ``helpers'' unaware of the purpose or methods of
+Lu et al. The dataset was then pruned for images with similar
+histograms, and finally pruned by another round of helpers to narrow
+the dataset to 10,000 images. 
 
 \subsection{Recap of CNNs}
 \indent
