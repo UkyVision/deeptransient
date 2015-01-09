@@ -143,32 +143,6 @@ List of related papers:
 
 \section{Estimating Transient Attributes Using CNNs}
 
-\subsection{Transient Attributes Dataset}
-\indent
-
-We used the dataset created by Laffont\cite{Laffont14} et al. to train our 
-networks for transient attribute prediction. The dataset contains images from 
-outdoor webcams in the Archive of Many Outdoor Scenes\cite{jacobs07amos} and 
-the Webcam Clip Art Dataset\cite{lalondesig09}.  The webcams span a wide range 
-of outdoor scenes,from urban regions to wooded, mountainous regions. Each webcam 
-has 60-120 representative images that feature variations in weather, lighting 
-conditions, etc.  The images are high resolution and are aligned to a reference 
-frame through a homography warp with manually specified correspondences.  The 
-final dataset consists of 8571 images from 101 webcams.
-
-\subsection{Two-Class Weather Classification Dataset}
-\todo{Expand a bit more on the dataset}
-\indent
-
-We used the dataset created by Lu\cite{lutwoclass} et al. to train our networks
-for two class weather classification.  The dataset contains images collected from
-the SUN Database\cite{xiaoSUN}, the LabelMe Database\cite{russell2008labelme}, and
-Flickr. The dataset contains 5000 sunny and 5000 cloudy images. Flickr images were 
-collected manually by ``helpers'' unaware of the purpose or methods of
-Lu et al. The dataset was then pruned for images with similar
-histograms, and finally pruned by another round of helpers to narrow
-the dataset to 10,000 images. 
-
 \subsection{Recap of CNNs}
 \indent
 
@@ -200,7 +174,7 @@ Zhou\cite{zhou2014places} et al.
 \subsection{Description of how we train ours}
 \indent
 
-\textbf{Transient Attributes:} To train our networks, we use the Caffe\cite{caffe14} 
+\textbf{TransientNet:} To train our networks, we use the Caffe\cite{caffe14} 
 deep learning framework. For transient attributes, we finetuned the last layer of each
 of the networks using the holdout split in the transient attributes dataset.  This 
 train/test split uses the data from 81 webcams for training and the data from 20 separate 
@@ -208,7 +182,7 @@ webcams for testing.  Data from webcams in the training set does not
 appear in the testing set using the holdout split.  This is contrary to 
 the random train/test split.  
 
-\textbf{Two Class Weather:} We finetuned the last layer of each network architecture
+\textbf{CloudyNet:} We finetuned the last layer of each network architecture
 for the two class weather classification as well.  The train/test split for this dataset
 was randomly chosen.  Each list of sunny/cloudy images was randomly shuffled and the 
 first 80\% of each list was chosen as the training data and the last 20\% was chosen
@@ -223,6 +197,33 @@ as testing data.  This is similar to the approach used by Lu\cite{lutwoclass} et
 
 \section{Evaluation}
 
+\subsection{Transient Attributes Dataset}
+\indent
+
+We used the dataset created by Laffont\cite{Laffont14} et al. to train our 
+networks for transient attribute prediction. The dataset contains images from 
+outdoor webcams in the Archive of Many Outdoor Scenes\cite{jacobs07amos} and 
+the Webcam Clip Art Dataset\cite{lalondesig09}.  The webcams span a wide range 
+of outdoor scenes,from urban regions to wooded, mountainous regions. Each webcam 
+has 60-120 representative images that feature variations in weather, lighting 
+conditions, etc.  The images are high resolution and are aligned to a reference 
+frame through a homography warp with manually specified correspondences.  The 
+final dataset consists of 8571 images from 101 webcams.
+
+\subsection{Two-Class Weather Classification Dataset}
+\todo{Expand a bit more on the dataset}
+\indent
+
+We used the dataset created by Lu\cite{lutwoclass} et al. to train our networks
+for two class weather classification.  The dataset contains images collected from
+the SUN Database\cite{xiaoSUN}, the LabelMe Database\cite{russell2008labelme}, and
+Flickr. The dataset contains 5000 sunny and 5000 cloudy images. Flickr images were 
+collected manually by ``helpers'' unaware of the purpose or methods of
+Lu et al. The dataset was then pruned for images with similar
+histograms, and finally pruned by another round of helpers to narrow
+the dataset to 10,000 images. 
+
+\subsection{Network Evaluation}
 \todo{caffenet works the best, so: caffenet vs. places, caffenet vs. hybrid.
 			make those relative error plots to show where caffenet is working better}
 
@@ -272,7 +273,7 @@ accurately.
 \begin{figure}[t]
 	\centering
 		\includegraphics[width=0.5\textwidth]{figs/sorted_err_cmr.pdf}
-		\caption{This shows the average errors in Caffenet's predictions on the 
+		\caption{This shows the average errors in TransientNet-S's predictions on the 
 						 testing set sorted from largest to smallest.  The attributes at 
 						 the top of the plot have the highest average error.}
 		\label{fig:sort}
@@ -281,7 +282,7 @@ accurately.
 \begin{figure}[t]
 	\centering
 		\includegraphics[width=0.5\textwidth]{figs/rel_err_cmr.pdf}
-		\caption{This shows the relative errors of our method against the method 
+		\caption{This shows the relative errors of TransientNet-S against the method 
 						 proposed by Laffont et al. for each attribute.  Attributes with a 
 						 negative average error are attributes that are predicting more 
 						 accurately by our method.}
@@ -292,26 +293,40 @@ accurately.
 	\centering
 		\includegraphics[width=1.0\textwidth]{figs/avg_err_compare_cmr.pdf}
 		\caption{This shows the average errors for each attribute from proposed method
-						 by Laffont et al., Caffenet, Places205-CNN, and Hybrid-CNN.  Caffenet
-						 has the lowest average error for most of the attributes.}
+						 by Laffont et al., TransientNet-S, TransientNet-P, and TransientNet-H.  
+             TransientNet-S has the lowest average error for most of the attributes.}
 		\label{fig:compare}
 \end{figure*}
 
 \begin{table}[t]
 	\centering
-	\begin{tabular}{ | l | l | }
+	\begin{tabular}{ | l | c | }
 		\hline
 			Method & Normalized Accuracy \\ \hline
-			Lu et al. & 53.1\% \\ \hline
-			Caffenet & 80.2\% \\ \hline
-			Places205-CNN & \textbf{83.3\%} \\ \hline
-			Hybrid-CNN & 82.2\% \\ 
+			Lu et al. \cite{lutwoclass}& 53.1\% \\ \hline
+			CloudyNet-S & 80.2\% \\ \hline
+			CloudyNet-P & \textbf{83.3\%} \\ \hline
+			CloudyNet-H & 82.2\% \\ 
 		\hline
 	\end{tabular}
 	\caption{Two Class Weather Classification Accuracy}
 	\label{tbl:twoclass}
 \end{table}
 
+\begin{table}[t]
+	\centering
+	\begin{tabular}{ | l | c | }
+		\hline
+			Method & Average Error \\ \hline
+			Laffont et al. \cite{Laffont14}& 8.48\% \\ \hline
+			TransientNet-S & \textbf{7.65\%} \\ \hline
+			TransientNet-P & 8.02\% \\ \hline
+			TransientNet-H & 8.13\% \\ 
+		\hline
+	\end{tabular}
+	\caption{Two Class Weather Classification Accuracy}
+	\label{tbl:transient}
+\end{table}
 
 \section{Applications}
 \todo{Think of more applications, expand on current one}
