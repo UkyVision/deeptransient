@@ -24,19 +24,18 @@
 \maketitle
 
 \begin{abstract}
-	
-	Deep learning has been used to obtain state of the art results in
-  problems ranging from object classification, object detection, and
-  scene classification.  Training and evaluating convolutional neural
-	networks has become faster and easier with new deep learning 
-	frameworks and modern computational cababilities.  We evaluate the 
-	use of deep learning to predict subtle visual scene aspects, such as
-	the lighting, the season, and subjective scene properties. These
-	properties, or transient attributes, can be used to predict the 
-	state of the scene from a single image.  We evaluate our networks
-	on benchmark datasets against the state of the art method for 
-	predicting these attributes and achieve state of the art results for 
-	predicting attributes and classifying scenes.
+
+We propose to use deep convolutional neural networks to estimate the
+transient attributes of a scene from a single image. Such networks
+have been used to achieve state-of-the-art results for a wide range of
+vision problems, from object detection to scene classification, but
+have not been used for such attributes. Transient scene attributes
+describe both the objective conditions, such as the weather, time of
+day, and the season, and subjective properties, such whether or not
+the scene is busy, of a scene. We compare several methods for
+pre-training an existing network architecture and obtain
+state-of-the-art results on two benchmark datasets.  We also show how
+such networks may be used in several different applications.
 
 \end{abstract}
 
@@ -52,7 +51,13 @@
 \end{figure}
 
 \section{Introduction}
-\todo{Write me}\newline\indent
+
+	Deep learning has been used to obtain state of the art results in
+  problems ranging from object classification, object detection, and
+  scene classification.  Training and evaluating convolutional neural
+	networks has become faster and easier with new deep learning 
+	frameworks and modern computational cababilities.  
+
 % general intro to the problem and why it is important
 % what do we propose to do? 
 Outdoor scenes experience a multitude of lighting and weather conditions
@@ -124,27 +129,8 @@ List of related papers:
 
 \end{itemize}
 
-\section{Estimating Transient Attributes Using CNNs}
 
-\subsection{Description of how we train ours}
-\indent
-
-\textbf{CloudyNet:} To train our networks, we use the Caffe\cite{caffe14} 
-deep learning framework. We finetuned the last layer of each network architecture
-for the two class weather classification as well.  The train/test split for this dataset
-was randomly chosen.  Each list of sunny/cloudy images was randomly shuffled and the 
-first 80\% of each list was chosen as the training data and the last 20\% was chosen
-as testing data.  This is similar to the approach used by Lu\cite{lutwoclass} et al.
-
-\textbf{TransientNet:} For transient attributes, we finetuned the last layer of each
-of the networks using the holdout split in the transient attributes dataset.  This 
-train/test split uses the data from 81 webcams for training and the data from 20 separate 
-webcams for testing.  Data from webcams in the training set does not
-appear in the testing set using the holdout split.  This is contrary to 
-the random train/test split.  
-
-\subsection{Recap of CNNs}
-\indent
+\section{Background}
 
 \textbf{Caffenet:} Caffenet is the reference network provided with 
 Caffe\cite{caffe14}.  It was trained on 1.2 million images from the 
@@ -171,12 +157,30 @@ from ILSVRC-2012 totaling about 3.6 million images.  We fine-tuned the last
 layer of Hybrid-CNN using the weights from the pretrained network model provided by 
 Zhou\cite{zhou2014places} et al.
 
-
 %\subsection{Deep Network Visualization}
 
 %\todo{pictures of what the network looks like\dots highlighting how it
 %is different from those trained for other purposes... probably
 %focusing on the one or two that work the best}
+
+\section{Estimating Transient Attributes with Deep CNNs}
+
+\subsection{Description of how we train ours}
+\indent
+
+\textbf{CloudyNet:} To train our networks, we use the Caffe\cite{caffe14} 
+deep learning framework. We finetuned the last layer of each network architecture
+for the two class weather classification as well.  The train/test split for this dataset
+was randomly chosen.  Each list of sunny/cloudy images was randomly shuffled and the 
+first 80\% of each list was chosen as the training data and the last 20\% was chosen
+as testing data.  This is similar to the approach used by Lu\cite{lutwoclass} et al.
+
+\textbf{TransientNet:} For transient attributes, we finetuned the last layer of each
+of the networks using the holdout split in the transient attributes dataset.  This 
+train/test split uses the data from 81 webcams for training and the data from 20 separate 
+webcams for testing.  Data from webcams in the training set does not
+appear in the testing set using the holdout split.  This is contrary to 
+the random train/test split.  
 
 \section{Evaluation}
 
