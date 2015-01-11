@@ -43,20 +43,6 @@ such networks may be used in several different applications.
 transient attributes, convolutional neural networks, deep learning
 \end{keywords}
 
-\begin{figure}
-	\centering
-		\includegraphics[width=0.5\textwidth]{figs/bars.pdf}
-
-		\caption{Example images from the Transient Attributes Dataset
-      with our network's confidence in each predicted label.
-         \todo{nbj: I think this figure would be better
-         without the ground truth\dots and better still if you
-         showed two images and two sets of predicted labels.}
-         \todo{make the image smaller}}
-             
-    \label{fig:results}
-\end{figure}
-
 \section{Introduction}
 
 % general intro to the problem and why it is important
@@ -84,6 +70,14 @@ estimating whether it is sunny or cloudy~\cite{lutwoclass} and the
 other is predicting the degree to which various transient attributes
 are present in the scene~\cite{Laffont14}. We consider \todo{K}
 different networks and \todo{K} different training methods.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.5\textwidth]{figs/bars.pdf}
+		\caption{Example images from the Transient Attributes Dataset
+      with our network's confidence in each predicted label.}
+    \label{fig:results}
+\end{figure}
 
 % how do we evaluate this?
 
