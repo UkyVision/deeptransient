@@ -88,6 +88,26 @@ is the standard benchmark dataset for transient attributes in outdoor
 scenes.  We evaluate the proposed method on the holdout split, the 
 most difficult split, in the dataset.  
 
+hint at an application: hard to use weather information to guide image
+interpretation because it is full of errors because the weather
+stations are too far away~\cite{islam13webcamweather}\dots so we need
+a way to estimate it at the camera
+
+would be nice to be able to estimate when to run algorithms for
+outdoor camera
+calibration\cite{jacobs13cloudcalibration,workman2014rainbow} and
+photometric stereo\todo{CITE these papers, two papers by abrams and
+one by ackermann?}
+
+human activities depend on the weather\dots so it is useful for
+anomaly detection~\cite{abrams12lost}
+
+you need to be able to filter out images in certain conditions when
+using webcams for environmental monitoring~\cite{jacobs09webcamgis}
+
+these attributes could be used as cues for webcam image
+geolocalization~\cite{jacobs07geolocate}
+
 % what we can do now that we have this?
 
 % key contributions: repeat what was said above in bullet point form
@@ -134,6 +154,18 @@ List of related papers:
 		with their weather cues to classify the images. 
 
 \end{itemize}
+
+collect weather data, it has lots of errors because it comes from far
+away weather stations, needs to be corrected~\cite{islam13webcamweather}
+
+attempts to use webcams to estimate continental-scale satellite
+maps~\cite{murdock13clouds}
+
+weather and time of day are the most significant source of appearance
+variation in outdoor scenes, followed closely behind that are seasonal
+changes~\cite{jacobs07amos}\dots this paper hints estimates 
+cloudiness from webcam image sequences\dots but in
+the current paper we can actually estimate the properties
 
 
 \subsection{Background}
@@ -218,12 +250,12 @@ conditions resulting in six distinct sets of network weights. The
 first set of initial conditions are taken from a network that was was
 trained for scene classification on 1.2 million images from the
 ImageNet ILSVRC-2012 challenge~\cite{ILSVRCarxiv14}.  We call the
-networks that result from this fine-tuning process CloudyNet(I) and
-TransientNet(I).  The second set of initial conditions were taken from
+networks that result from this fine-tuning process CloudyNet-I and
+TransientNet-I.  The second set of initial conditions were taken from
 a network~\cite{zhou2014places} was trained for scene classification
 on 2.5 million images with labels in 205 categories from the Places
 Database~\cite{zhou2014places}. We call the resulting networks
-CloudyNet(P) and TransientNet(P).  The final set of initial conditions
+CloudyNet-P and TransientNet-P.  The final set of initial conditions
 were taken from a network that was trained~\cite{zhou2014places} for
 both object and scene classification.  This hybrid network was trained
 on a combination of the Places Database~\cite{zhou2014places} and
@@ -231,58 +263,65 @@ images from the training data of ILSVRC-2012
 challenge~\cite{ILSVRCarxiv14}.  The full training set contained 205
 scene categories from the Places Database and 978 object categories
 from ILSVRC-2012 totaling about 3.6 million images.  We call the
-resulting networks CloudyNet(H) and TransientNet(H).
+resulting networks CloudyNet-H and TransientNet-H.
 
 \textbf{Implementation Details:} We train each networks using the
 Caffe~\cite{caffe14} deep learning software framework, the Caffenet
 reference network architecture, and pre-trained networks from the
-Caffe Model Zoo\footnote{\url{CITE}}.  In the interest of reproducible
-research, the full network optimization definition, the final network
-weights, and the output from our methods will be made available online
-for all six networks.
+Caffe Model
+Zoo\footnote{\url{http://caffe.berkeleyvision.org/model_zoo.html}}.
+In the interest of reproducible research, the full network
+optimization definition, the final network weights, and the output
+from our methods will be made available online for all six networks.
+
+\todo{what kind of machine? what kind of GPU? how long to train?}
 
 \section{Evaluation}
 
-\subsection{Two-Class Weather Classification Dataset}
-\todo{Expand a bit more on the dataset}
-\indent
+\todo{how fast is it to predict on one image and how does this compare
+to previous approaches?}
 
-We used the dataset created by Lu~\cite{lutwoclass} et al. to train our networks
-for two class weather classification.  The dataset contains images collected from
-the SUN Database~\cite{xiaoSUN}, the LabelMe Database~\cite{russell2008labelme}, and
-Flickr. The dataset contains 5000 sunny and 5000 cloudy images. Flickr images were 
+We evaluate the six networks defined in the previous section on two
+large-scale benchmark datasets. The results show that these deep
+networks obtain state-of-the-the-art results. 
+
+\subsection{Two-Class Weather Classification}
+
+In our first experiment, we use the dataset created by Lu et al.~\cite{lutwoclass} to train
+our networks for two class weather classification.  The dataset
+contains images collected from the SUN Database~\cite{xiaoSUN}, the
+LabelMe Database~\cite{russell2008labelme}, and Flickr. The dataset
+contains 5000 sunny and 5000 cloudy images. Flickr images were
 collected manually by ``helpers'' unaware of the purpose or methods of
 Lu et al. The dataset was then pruned for images with similar
 histograms, and finally pruned by another round of helpers to narrow
-the dataset to 10,000 images. 
+the dataset to 10,000 images.  \tblref{twoclass} shows the normalized
+accuracies of our networks compared to the method proposed by
+Lu et al~\cite{lutwoclass}.  The normalized accuracy was calculated by
+$ \max\{((a - 0.5) / 0.5), 0\} $, where $a$ is the traditionally
+obtained accuracy. All three of the networks outperform the state of
+the art for two class weather classification with CloudyNet-P
+predicting the most accurately.
 
-\subsection{Transient Attributes Dataset}
-\indent
+\subsection{Transient Attributes}
 
-We used the dataset created by Laffont~\cite{Laffont14} et al. to train our 
-networks for transient attribute prediction. The dataset contains images from 
-outdoor webcams in the Archive of Many Outdoor Scenes~\cite{jacobs07amos} and 
-the Webcam Clip Art Dataset~\cite{lalondesig09}.  The webcams span a wide range 
-of outdoor scenes,from urban regions to wooded, mountainous regions. Each webcam 
-has 60-120 representative images that feature variations in weather, lighting 
-conditions, etc.  The images are high resolution and are aligned to a reference 
-frame through a homography warp with manually specified correspondences.  The 
-final dataset consists of 8571 images from 101 webcams.
-
-\subsection{Network Evaluation}
-\indent
-
-\tblref{twoclass} shows the normalized accuracies of our networks compared to 
-the method proposed by Lu~\cite{lutwoclass} et al.  The normalized accuracy was
-calculated by $ \max\{((a - 0.5) / 0.5), 0\} $, where $a$ is the traditionally
-obtained accuracy. All three of the networks outperform the state of the art for
-two class weather classification with CloudyNet-P predicting the most accurately.
+We used the dataset created by Laffont et al.~\cite{Laffont14} to
+train our networks for transient attribute prediction. The dataset
+contains images from outdoor webcams in the Archive of Many Outdoor
+Scenes~\cite{jacobs07amos} and the Webcam Clip Art
+Dataset~\cite{lalondesig09}.  The webcams span a wide range of outdoor
+scenes,from urban regions to wooded, mountainous regions. Each webcam
+has 60-120 representative images that feature variations in weather,
+lighting conditions, etc.  The images are high resolution and are
+aligned to a reference frame through a homography warp with manually
+specified correspondences.  The final dataset consists of 8571 images
+from 101 webcams.
 
 \figref{sort} shows the average errors from TransientNet-S for each attribute
 in a sorted graph.  The attributes where TransientNet-S performed best are towards
 the bottom of the graph and the attributes where TransientNet-S performed
 worst are on the top of the graph. \figref{relerr} and \figref{compare} 
-compare this performance to the performance of Laffont et al.
+compare this performance to the state-of-the-art baseline.
 
 \figref{compare} shows the average errors from TransientNet-S, TransientNet-P, 
 TransientNet-H and Laffont et al. for each attribute in the dataset.  The green bars 
