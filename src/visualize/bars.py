@@ -86,7 +86,7 @@ plt.xticks([x+0.5 for x in list(range(len(attributes)))],
 plt.tight_layout()
 
 if SAVEFIG:
-    plt.gcf().set_size_inches(12, 9)
+    plt.gcf().set_size_inches(10, 7.5)
     plt.savefig(os.path.join("bars.pdf"),
             bbox_inches="tight")
 else:
