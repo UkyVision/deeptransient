@@ -62,8 +62,9 @@ applications}.
 We propose a method for predicting transient attributes from a single
 image using deep convolutional neural networks. Such techniques have
 has been used to obtain state-of-the-art results in problems ranging
-from object classification \todo{CITE}, object detection \todo{CITE},
-and scene classification \todo{CITE} but have not been used to
+from object classification~\cite{krizhevsky2012imagenet}, object
+detection~\cite{girshick2013rich}, and scene
+classification~\cite{zhou2014places} but have not been used to
 estimate transient scene attributes. We address two problems in
 estimating transient scene attributes. One is the problem of
 estimating whether it is sunny or cloudy~\cite{lutwoclass} and the
@@ -115,7 +116,7 @@ The key contributions of this work are:
 
       \item We make six pre-trained networks for classifying transient
         scene attributes publicly available in a popular deep learning
-        framework \todo{CITE}.
+        framework~\cite{caffe14}.
 
   %\item state-of-the-art results on two benchmark datasets (transient
   %  attributes and two class weather)
@@ -205,10 +206,11 @@ gradient descent on the training data for the new problem.  The key is
 to start the optimization with random weights for the new final layer
 and weights from an already trained network, for example using the
 weights from the original AlexNet~\cite{caffenetnips12}, as an initial
-condition. This approach was used in \todo{CITE}. If there is a large
-amount of training data available for the new domain, it is also
-possible to train the network from scratch by randomly initializing
-all weights~\cite{zhou2014places}.  If the new problem domain is
+condition. This approach was overviewed
+in~\cite{yosinski2014transferable}. If there is a large amount of
+training data available for the new domain, it is also possible to
+train the network from scratch by randomly initializing all
+weights~\cite{zhou2014places}.  If the new problem domain is
 regression, not classification, then the only change that is necessary
 is to change the network loss function, perhaps replacing the SOFT-MAX
 loss with an $L_2$ loss.
