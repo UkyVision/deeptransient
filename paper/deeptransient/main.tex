@@ -49,13 +49,12 @@ transient attributes, convolutional neural networks, deep learning
 
 		\caption{An example image from the Transient Attributes Dataset with the ground truth labels
 						 (red) and our network's predicted labels (blue).
-             \todo{fig:sort is used as a label twice}
-           \todo{nbj: I think this figure would be better
-           without the ground truth\dots and better still if you
+         \todo{nbj: I think this figure would be better
+         without the ground truth\dots and better still if you
          showed two images and two sets of predicted labels.}
          \todo{make the image smaller}}
              
-             % \label{fig:sort}
+    \label{fig:results}
 \end{figure}
 
 \section{Introduction}
@@ -255,7 +254,7 @@ for training and images from a distinct set of 20 webcams is used for
 testing.  The only modification of the network architecture that was
 required was changing the final fully connected layer to have 40
 nodes, one for each transient attribute, and changing the loss
-function to \todo{XX}. 
+function to a Euclidean loss. 
 
 \todo{not sure if we still need this\dots Data from webcams in the
 training set does not appear in the testing set using the holdout
@@ -431,16 +430,22 @@ error.
 \section{Applications}
 \todo{Think of more applications, expand on current one}
 \subsection{Automatic Webcam Image Labeling}
+\indent
 
-\begin{itemize}
-
-	\item Automatically label saved images from webcams
-	\item Tag each image individually and be able to search for times from
-			  webcam that had or did not have a certain attribute
-	\item Tag frequent attributes for webcams (that aren't day/night)
-	\item Makes AMOS or other webcam/image archives more searchable
-
-\end{itemize}
+One application of transient attribute estimation is automatic outdoor
+webcam labeling. Webcam collections such as AMOS\cite{jacobs07amos} contain
+thousands of geolocated webcams with years of archived data.  Searching
+for an scenes with a set of desired attributes is usually done by manually
+looking through lists of webcams and images.  TransientNet can simplfy this
+process by using the output scores to tag images and webcams with certain 
+attributes.  If an attribute is above a defined threshold, the image could 
+be labeled with that attribute.  The opposite could be true as well.  If an
+attribute is below a defined threshold, the attribute could be added to a 
+list of attributes the image does not have.  \todo{is/is not figure} This 
+would enable users to use queries such as "sunny" or "not winter".  
+Attributes that appear frequently in a webcam (aside from daylight, night, etc)
+could be used to tag the webcam.  This would allow for much easier searching 
+of large collections of webcams.
 
 % need another subsection
 
