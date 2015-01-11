@@ -246,7 +246,7 @@ dropping unnecessary output nodes from the final fully connected layer
 \textbf{TransientNet:} In addition, we train a network for the more
 challenging problem of estimating a broad range of attributes proposed
 by Laffont~\cite{Laffont14}.  In this problem, there are 40 transient
-attributes (see Figure~\ref{figure_label} for the full list of
+attributes (see \figref{compare} for the full list of
 attributes), each of which is assigned a value between zero and one
 for an image. We use the training set defined by
 Laffont~\cite{Laffont14} in which the images from 81 webcams are used
@@ -334,29 +334,29 @@ aligned to a reference frame through a homography warp with manually
 specified correspondences.  The final dataset consists of 8571 images
 from 101 webcams.
 
-\figref{sort} shows the average errors from TransientNet-S for each attribute
-in a sorted graph.  The attributes where TransientNet-S performed best are towards
-the bottom of the graph and the attributes where TransientNet-S performed
+\figref{sort} shows the average errors from TransientNet-I for each attribute
+in a sorted graph.  The attributes where TransientNet-I performed best are towards
+the bottom of the graph and the attributes where TransientNet-I performed
 worst are on the top of the graph. \figref{relerr} and \figref{compare} 
 compare this performance to the state-of-the-art baseline.
 
-\figref{compare} shows the average errors from TransientNet-S, TransientNet-P, 
+\figref{compare} shows the average errors from TransientNet-I, TransientNet-P, 
 TransientNet-H and Laffont et al. for each attribute in the dataset.  The green bars 
 represent the average errors from Laffont et al., the blue bars represent the average 
-errors from TransientNet-S, the red bars represent the average errors from TransientNet-P, 
-and the yellow bars represent the error from TransientNet-H. TransientNet-S performs best on 
+errors from TransientNet-I, the red bars represent the average errors from TransientNet-P, 
+and the yellow bars represent the error from TransientNet-H. TransientNet-I performs best on 
 more than half of the attributes and is the best performing CNN that we trained.  
 Transient has the lowest overall average error as shown in \tblref{transient}.  TransientNet-P
 and TransientNet-H have similar performance, mostly due to them being pretrained on similar 
 sets of data.
 
-\figref{relerr} shows the relative error between our method using TransientNet-S
+\figref{relerr} shows the relative error between our method using TransientNet-I
 and the method presented in~\cite{Laffont14}.  The average relative error 
 for each attribute using the method in~\cite{Laffont14} was subtracted from
-the average relative error using TransientNet-S.  A negative value means TransientNet-S
+the average relative error using TransientNet-I.  A negative value means TransientNet-I
 had a smaller error and a positive value means~\cite{Laffont14} had a smaller
 error.  For example, the difference between the two methods on the attribute
-night was around 3.2 percentage points, with TransientNet-S having the smaller 
+night was around 3.2 percentage points, with TransientNet-I having the smaller 
 error.
 
  
@@ -375,7 +375,7 @@ error.
 		\hline
 			Method & Normalized Accuracy \\ \hline
 			Lu et al.~\cite{lutwoclass}& 53.1\% \\ \hline
-			CloudyNet-S & 81.8\% \\ \hline
+			CloudyNet-I & 81.8\% \\ \hline
 			CloudyNet-P & \textbf{84.7\%} \\ \hline
 			CloudyNet-H & 83.1\% \\ 
 		\hline
@@ -387,7 +387,7 @@ error.
 \begin{figure}[t]
 	\centering
 		\includegraphics[width=0.5\textwidth]{figs/sorted_err_cmr.pdf}
-		\caption{This shows the average errors in TransientNet-S's predictions on the 
+		\caption{This shows the average errors in TransientNet-I's predictions on the 
 						 testing set sorted from largest to smallest.  The attributes at 
 						 the top of the plot have the highest average error.}
 		\label{fig:sort}
@@ -396,7 +396,7 @@ error.
 \begin{figure}[t]
 	\centering
 		\includegraphics[width=0.5\textwidth]{figs/rel_err_cmr.pdf}
-		\caption{This shows the relative errors of TransientNet-S against the method 
+		\caption{This shows the relative errors of TransientNet-I against the method 
 						 proposed by Laffont et al. for each attribute.  Attributes with a 
 						 negative average error are attributes that are predicting more 
 						 accurately by our method.}
@@ -407,7 +407,7 @@ error.
 	\centering
 		\includegraphics[width=1.0\textwidth]{figs/avg_err_compare_cmr.pdf}
 		\caption{This shows the average errors for each attribute from proposed method
-						 by Laffont et al., TransientNet-S, TransientNet-P, and TransientNet-H.  
+						 by Laffont et al., TransientNet-I, TransientNet-P, and TransientNet-H.  
              TransientNet-S has the lowest average error for most of the attributes.}
 		\label{fig:compare}
 \end{figure*}
@@ -418,12 +418,12 @@ error.
 		\hline
 			Method & Average Error \\ \hline
 			Laffont et al.~\cite{Laffont14}& 8.48\% \\ \hline
-			TransientNet-S & \textbf{7.65\%} \\ \hline
+			TransientNet-I & \textbf{7.65\%} \\ \hline
 			TransientNet-P & 8.02\% \\ \hline
 			TransientNet-H & 8.13\% \\ 
 		\hline
 	\end{tabular}
-	\caption{Two Class Weather Classification Accuracy}
+	\caption{Transient Attribute prediction errors}
 	\label{tbl:transient}
 \end{table}
 
