@@ -3,10 +3,16 @@ import os.path
 
 from PIL import Image
 import numpy as np
-import matplotlib.pyplot as plt
 
-PLOT = False
-SAVEFIG = False
+from matplotlib import rc
+rc('font',**{'family':'serif','serif':['Computer Modern Roman']})
+rc('text', usetex=True)
+
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+
+PLOT = True
+SAVEFIG = True
 
 images_dir = "/u/eag-d1/data/transient/transient/imageAlignedLD"
 results_file_name = "pred_caffenet_transient.txt"
@@ -30,22 +36,27 @@ with open(results_file_name) as f:
         im = Image.open(os.path.join(images_dir, fname))
         cells = np.vstack([top,bottom]).T
         
+        print fname
+
         if PLOT:
             # plotting
+            gs = gridspec.GridSpec(1, 2, width_ratios=[1, 2])
+            
             plt.figure(1)
 
-            plt.subplot(121)
+            plt.subplot(gs[0])
             plt.imshow(im)
             plt.gca().axis("off")
 
-            plt.subplot(122)
+            plt.subplot(gs[1])
             plt.table(cellText=cells,colLabels=("is", "is not"),loc="center")
             plt.gca().axis("off")
 
             plt.tight_layout()
 
             if SAVEFIG:
-                plt.savefig()
+                plt.gcf().set_size_inches(15, 7, bbox_inches="tight")
+                plt.savefig(os.path.join("is_isnt", fname.replace("/","_")))
             else:
                 plt.show()
         else:
