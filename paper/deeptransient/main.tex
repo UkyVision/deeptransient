@@ -43,72 +43,68 @@ such networks may be used in several different applications.
 transient attributes, convolutional neural networks, deep learning
 \end{keywords}
 
-\begin{figure}[t!]
+\begin{figure}
 	\centering
 		\includegraphics[width=0.5\textwidth]{figs/bars.pdf}
 
 		\caption{An example image from the Transient Attributes Dataset with the ground truth labels
 						 (red) and our network's predicted labels (blue).
-             \todo{fig:sort is used as a label twice}}
+             \todo{fig:sort is used as a label twice}
+           \todo{nbj: I think this figure would be better
+           without the ground truth\dots and better still if you
+         showed two images and two sets of predicted labels.}
+         \todo{make the image smaller}}
              
              % \label{fig:sort}
 \end{figure}
 
 \section{Introduction}
 
-\todo{later}
-
-Deep learning has been used to obtain state of the art results in
-problems ranging from object classification, object detection, and
-scene classification.  Training and evaluating convolutional neural
-networks has become faster and easier with new deep learning
-frameworks and modern computational cababilities.  
-
 % general intro to the problem and why it is important
-% what do we propose to do? 
-Outdoor scenes experience a multitude of lighting and weather conditions
-everyday.  The scene can change from dark and rainy to sunny and clear 
-skys in a matter of hours.  These fleeting, or transient, attributes of
-a scene help create the dynamicism of the natural world.  Understanding 
-and recognizing these transient attributes can help us analyze outdoor
-scenes. We propose a method for predicting transient attributes on images 
-using deep convolutional neural networks.  These networks achieve better 
-predictions for most of the attributes and predict the attributes
-faster than the methods proposed by Laffont~\cite{Laffont14} et al.
 
-We propose a method for classifying images in the two class weather 
-dataset using deep convolutional neural networks.  These networks 
-achieves state of the art classification results on the dataset
-constructed by Lu~\cite{lutwoclass} et al.
+Outdoor scenes experience a wide range of lighting and weather
+conditions which dramatically affect their appearance. A scene can
+change from rainy and brooding to sunny and pleasant in a matter of
+hours, even minutes. The ability to quickly understand these fleeting,
+or transient, attributes is a critical skill that people often take
+for granted. The ability to automatically understand such subtle
+conditions has potential application ranging from self-driving cars to
+microclimate modeling\todo{add citations and potentially add more
+applications}.
+
+% what do we propose to do? 
+
+We propose a method for predicting transient attributes from a single
+image using deep convolutional neural networks. Such techniques have
+has been used to obtain state-of-the-art results in problems ranging
+from object classification \todo{CITE}, object detection \todo{CITE},
+and scene classification \todo{CITE} but have not been used to
+estimate transient scene attributes. We address two problems in
+estimating transient scene attributes. One is the problem of
+estimating whether it is sunny or cloudy~\cite{lutwoclass} and the
+other is predicting the degree to which various transient attributes
+are present in the scene~\cite{Laffont14}. We consider \todo{K}
+different networks and \todo{K} different training methods.
+
 % how do we evaluate this?
 
-We evaluate the proposed method on several benchmarks.  The first 
-benchmark is the Transient Attributes Dataset~\cite{Laffont14}.  This 
-is the standard benchmark dataset for transient attributes in outdoor
-scenes.  We evaluate the proposed method on the holdout split, the 
-most difficult split, in the dataset.  
+The networks we propose obtain state-of-the-art performance on two
+benchmark datasets. The first is the Two-Class Weather classification
+benchmark dataset introduced by Lu et al.~\cite{lutwoclass}. The
+second is the Transient Attributes Dataset~\cite{Laffont14}. 
 
-hint at an application: hard to use weather information to guide image
+% what we can do now that we have this?
+
+\todo{nbj: waiting until we finalize the evaluation and applications
+to finalize this} There are many potential applications for
+automatically predicting transient attributes from a single image. 
+
+hard to use weather information to guide image
 interpretation because it is full of errors because the weather
 stations are too far away~\cite{islam13webcamweather}\dots so we need
 a way to estimate it at the camera
 
-would be nice to be able to estimate when to run algorithms for
-outdoor camera
-calibration\cite{jacobs13cloudcalibration,workman2014rainbow} and
-photometric stereo\todo{CITE these papers, two papers by abrams and
-one by ackermann?}
-
-human activities depend on the weather\dots so it is useful for
-anomaly detection~\cite{abrams12lost}
-
-you need to be able to filter out images in certain conditions when
-using webcams for environmental monitoring~\cite{jacobs09webcamgis}
-
-these attributes could be used as cues for webcam image
-geolocalization~\cite{jacobs07geolocate}
-
-% what we can do now that we have this?
+\todo{look in related work for some other examples}
 
 % key contributions: repeat what was said above in bullet point form
 The key contributions of this work are:
@@ -123,6 +119,10 @@ The key contributions of this work are:
 
 	\item We propose a method for automatically labeling and tagging images
 				from outdoor webcam images for easier searching of webcam databases.
+
+      \item We make six pre-trained networks for classifying transient
+        scene attributes publicly available in a popular deep learning
+        framework \todo{CITE}.
 
   %\item state-of-the-art results on two benchmark datasets (transient
   %  attributes and two class weather)
@@ -166,6 +166,24 @@ variation in outdoor scenes, followed closely behind that are seasonal
 changes~\cite{jacobs07amos}\dots this paper hints estimates 
 cloudiness from webcam image sequences\dots but in
 the current paper we can actually estimate the properties
+
+\todo{some of the following things might be good to push up into the
+introduction}
+
+would be nice to be able to estimate when to run algorithms for
+outdoor camera
+calibration\cite{jacobs13cloudcalibration,workman2014rainbow} and
+photometric stereo\todo{CITE these papers, two papers by abrams and
+one by ackermann?}
+
+human activities depend on the weather\dots so it is useful for
+anomaly detection~\cite{abrams12lost}
+
+you need to be able to filter out images in certain conditions when
+using webcams for environmental monitoring~\cite{jacobs09webcamgis}
+
+these attributes could be used as cues for webcam image
+geolocalization~\cite{jacobs07geolocate}
 
 
 \subsection{Background}
