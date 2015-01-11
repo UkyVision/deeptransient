@@ -132,57 +132,71 @@ The key contributions of this work are:
 
 \subsection{Related Work}
 
-\todo{Write me}
+Visual attributes are high-level descriptions of a visual property
+which offer some additional semantic context for understanding an
+object, activity, or scene. For example, a \emph{green} apple or a
+\emph{cloudy} day. Representations based on such visual attributes
+have become increasingly popular in the vision community as they offer
+the ability to to generalize across categories. The first
+learning-based methods to take advantage of such high-level attributes
+arose for the task of object
+recognition~\cite{farhadi2009describing,lampert2009learning},
+demonstrating the power of learning by description. Many methods were
+quick to follow suit, with applications ranging from content-based
+image retrieval~\cite{siddiquie2011image} to characterizing facial
+appearance~\cite{kumar2011describable}. Given their prowess, a
+significant amount of research has focused on identifying useful
+attributes~\cite{berg2010automatic} and crafting techniques to
+accurately detect them in images~\cite{vedaldi2014understanding}. 
 
-Previous approaches to this problem include (some general description
-of previous approaches and how they compare to what we propose).
+More recently, efforts have been made to adapt such attribute-based
+representations for outdoor scene understanding, where the appearance
+of a scene can change drastically over time.  Patterson and
+Hays~\cite{patterson2012sun} constructed the SUN attribute dataset
+using crowd-sourcing techniques to identify a taxonomy of 102 scene
+attributes from human descriptions, designed to distinguish between
+scene cates. Similarly, Laffont et al.~\cite{Laffont14} introduce the
+Transient Attributes dataset, focused instead on percieved scene
+properties and attributes that describe intra-scene variations. They
+define 40 such attributes, and present methods for identifying the
+presence of those attributes as well as applications in photo
+organization and high-level image editing via attribute manipulation. 
 
-List of related papers:
-\begin{itemize}
+To the best of our knowledge, we are the first to explore the
+application of deep learning architectures for learning such
+attributes using only the raw image intensities as input.
 
-	\item Laffont~\cite{Laffont14} et al. was the first to propose the 40
-		transient attributes and created the Transient Attributes Dataset.
-		Each attribute is given a value from 0 to 1 based on much a scene
-		has that attribute. 	They used SVMs, logistic regression, and SVRs 
-		to predict the attributes.  They use mean squared error and average 
-		precision to compare their methods.
+% these more in depth descriptions should go somewhere else
+%
+%Laffont~\cite{Laffont14} et al. was the first to propose the 40
+%		transient attributes and created the Transient Attributes Dataset.
+%		Each attribute is given a value from 0 to 1 based on much a scene
+%		has that attribute. 	They used SVMs, logistic regression, and SVRs 
+%		to predict the attributes.  They use mean squared error and average 
+%		precision to compare their methods.
+%
+%Lu et al.~\cite{lutwoclass} et al. classified images into one of two 
+%		classes, either sunny or cloudy.  They created the Two Class 
+%		Weather Classification Dataset.  They use learning and classification
+%		with their weather cues to classify the images. 
 
-	\item Lu~\cite{lutwoclass} et al. classified images into one of two 
-		classes, either sunny or cloudy.  They created the Two Class 
-		Weather Classification Dataset.  They use learning and classification
-		with their weather cues to classify the images. 
-
-\end{itemize}
-
-collect weather data, it has lots of errors because it comes from far
-away weather stations, needs to be corrected~\cite{islam13webcamweather}
-
-attempts to use webcams to estimate continental-scale satellite
-maps~\cite{murdock13clouds}
-
-weather and time of day are the most significant source of appearance
-variation in outdoor scenes, followed closely behind that are seasonal
-changes~\cite{jacobs07amos}\dots this paper hints estimates 
-cloudiness from webcam image sequences\dots but in
-the current paper we can actually estimate the properties
-
-\todo{some of the following things might be good to push up into the
-introduction}
-
-would be nice to be able to estimate when to run algorithms for
-outdoor camera
-calibration\cite{jacobs13cloudcalibration,workman2014rainbow} and
-photometric stereo\todo{CITE these papers, two papers by abrams and
-one by ackermann?}
-
-human activities depend on the weather\dots so it is useful for
-anomaly detection~\cite{abrams12lost}
-
-you need to be able to filter out images in certain conditions when
-using webcams for environmental monitoring~\cite{jacobs09webcamgis}
-
-these attributes could be used as cues for webcam image
-geolocalization~\cite{jacobs07geolocate}
+%\todo{some of the following things might be good to push up into the
+%introduction}
+%
+%would be nice to be able to estimate when to run algorithms for
+%outdoor camera
+%calibration\cite{jacobs13cloudcalibration,workman2014rainbow} and
+%photometric stereo\todo{CITE these papers, two papers by abrams and
+%one by ackermann?}
+%
+%human activities depend on the weather\dots so it is useful for
+%anomaly detection~\cite{abrams12lost}
+%
+%you need to be able to filter out images in certain conditions when
+%using webcams for environmental monitoring~\cite{jacobs09webcamgis}
+%
+%these attributes could be used as cues for webcam image
+%geolocalization~\cite{jacobs07geolocate}
 
 
 \subsection{Background}
