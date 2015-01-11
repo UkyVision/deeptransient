@@ -40,23 +40,29 @@ such networks may be used in several different applications.
 \end{abstract}
 
 \begin{keywords}
-	deep learning, transient attributes
+transient attributes, convolutional neural networks, deep learning
 \end{keywords}
 
 \begin{figure}[t!]
 	\centering
 		\includegraphics[width=0.5\textwidth]{figs/bars.pdf}
+
 		\caption{An example image from the Transient Attributes Dataset with the ground truth labels
-						 (red) and our network's predicted labels (blue).}\label{fig:sort}
+						 (red) and our network's predicted labels (blue).
+             \todo{fig:sort is used as a label twice}}
+             
+             % \label{fig:sort}
 \end{figure}
 
 \section{Introduction}
 
-	Deep learning has been used to obtain state of the art results in
-  problems ranging from object classification, object detection, and
-  scene classification.  Training and evaluating convolutional neural
-	networks has become faster and easier with new deep learning 
-	frameworks and modern computational cababilities.  
+\todo{later}
+
+Deep learning has been used to obtain state of the art results in
+problems ranging from object classification, object detection, and
+scene classification.  Training and evaluating convolutional neural
+networks has become faster and easier with new deep learning
+frameworks and modern computational cababilities.  
 
 % general intro to the problem and why it is important
 % what do we propose to do? 
@@ -68,16 +74,16 @@ and recognizing these transient attributes can help us analyze outdoor
 scenes. We propose a method for predicting transient attributes on images 
 using deep convolutional neural networks.  These networks achieve better 
 predictions for most of the attributes and predict the attributes
-faster than the methods proposed by Laffont\cite{Laffont14} et al.
+faster than the methods proposed by Laffont~\cite{Laffont14} et al.
 
 We propose a method for classifying images in the two class weather 
 dataset using deep convolutional neural networks.  These networks 
 achieves state of the art classification results on the dataset
-constructed by Lu\cite{lutwoclass} et al.
+constructed by Lu~\cite{lutwoclass} et al.
 % how do we evaluate this?
 
 We evaluate the proposed method on several benchmarks.  The first 
-benchmark is the Transient Attributes Dataset\cite{Laffont14}.  This 
+benchmark is the Transient Attributes Dataset~\cite{Laffont14}.  This 
 is the standard benchmark dataset for transient attributes in outdoor
 scenes.  We evaluate the proposed method on the holdout split, the 
 most difficult split, in the dataset.  
@@ -132,55 +138,108 @@ List of related papers:
 
 \section{Background}
 
-\textbf{Caffenet:} Caffenet is the reference network provided with 
-Caffe\cite{caffe14}.  It was trained on 1.2 million images from the 
-ILSVRC-2012\cite{ILSVRCarxiv14} challenge and is based on the architecture from 
-the NIPS 2012 paper by Krizhevsky\cite{caffenetnips12} et al.  This network has 
-8 learned layers, five convolutional layers and three fully-connected layers.  
-It was trained on parts of the ImageNet dataset used in the 
-ILSVRC-2010\cite{ILSVRCarxiv14} challenge.  This network was originally trained 
-for object classification, but works well for other problems. For our application, 
-we finetuned the final layer of Caffenet and changed the output of the final 
-layer to be 40 (one output for each attribute).
+Deep convolutional neural networks (CNNs) have been used extensively
+in recent years to obtain state-of-the-art results on a wide variety
+of computer vision problems.  In this work, we focus on a particular
+CNN architecture, often called ``AlexNet'', introduced by Alex
+Krizhevsky et al.~\cite{caffenetnips12} for single-image object
+classification. This network has eight layers with trainable
+parameters: five convolutional layers (each connected, in a
+feed-forward manner with pooling and dropout layers between each
+convolutional layer) and three fully connected layers. Essentially,
+the convolutional layers extract features from across the image and
+the fully connected layers combine these features to obtain a score
+for each possible class. The final classification decision is obtained
+by choosing the class with the highest output score.
 
-\textbf{Places} The Places205-CNN architecture is the Caffenet network retrained on 
-the Places Database\cite{zhou2014places}.  The Places205-CNN was trained on 2.5
-million randomly selected images with labels in 205 categories from the Places 
-Database.  We fine-tuned the final layer of Places205-CNN using the weights from the
-pretrained network model provided by Zhou\cite{zhou2014places} et al.
+While this network architecture was originally developed for
+single-image object classification, it has been shown to be adaptable
+to other problem domains. If the new problem involves multi-class
+classification, all that is needed is to modify the final fully
+connected layer to have the correct number of output classes. Then the
+network weights can be `fine-tuned' by running iterations of stocastic
+gradient descent on the training data for the new problem.  The key is
+to start the optimization with random weights for the new final layer
+and weights from an already trained network, for example using the
+weights from the original AlexNet~\cite{caffenetnips12}, as an initial
+condition. This approach was used in \todo{CITE}. If there is a large
+amount of training data available for the new domain, it is also
+possible to train the network from scratch by randomly initializing
+all weights~\cite{zhou2014places}.  If the new problem domain is
+regression, not classification, then the only change that is necessary
+is to change the network loss function, perhaps replacing the SOFT-MAX
+loss with an $L_2$ loss.
 
-\textbf{Hybrid:} The Hybrid-CNN architecture is the Caffenet network retrained on
-a combination of the Places Database\cite{zhou2014places} and images from the 
-training data of ILSVRC-2012\cite{ILSVRCarxiv14} challenge.  The full training set
-contained 205 scene categories from the Places Database and 978 object categories
-from ILSVRC-2012 totaling about 3.6 million images.  We fine-tuned the last 
-layer of Hybrid-CNN using the weights from the pretrained network model provided by 
-Zhou\cite{zhou2014places} et al.
+\section{Deep Networks for Estimating Transient Attributes}
 
-%\subsection{Deep Network Visualization}
+We propose to use deep convolutional neural networks to classify
+transient scene attributes. We develop networks for two single-image
+problems: the classification problem of estimating whether it is sunny
+or cloudy (CloudyNet) and a collection of regression problems that
+represent the degree to which a large number of transient attribute
+describe the scene (TransientNet).  For each of these problems, we
+use three different networks as starting conditions for optimization,
+resulting in a total of six networks.  For both problems, we use the
+``AlexNet'' CNN architecture, described in the previous section.  The
+remainder of this section describes how we estimate network weights
+for each of these networks.
 
-%\todo{pictures of what the network looks like\dots highlighting how it
-%is different from those trained for other purposes... probably
-%focusing on the one or two that work the best}
+\textbf{CloudyNet:} For the problem of classifying whether an image is
+sunny or cloudy, we use the data provided by Lu~\cite{lutwoclass} et
+al.\ to train our network, which we call CloudyNet.  We follow their
+protocol for training and testing: each list of sunny/cloudy images
+was randomly shuffled and the first 80\% of each list was chosen as
+the training data and the last 20\% was chosen as testing data.  The
+only modification to the network architecture that was required was
+dropping unnecessary output nodes from the final fully connected layer
+(in the end we have two output nodes).
 
-\section{Estimating Transient Attributes with Deep CNNs}
+\textbf{TransientNet:} In addition, we train a network for the more
+challenging problem of estimating a broad range of attributes proposed
+by Laffont~\cite{Laffont14}.  In this problem, there are 40 transient
+attributes (see Figure~\ref{figure_label} for the full list of
+attributes), each of which is assigned a value between zero and one
+for an image. We use the training set defined by
+Laffont~\cite{Laffont14} in which the images from 81 webcams are used
+for training and images from a distinct set of 20 webcams is used for
+testing.  The only modification of the network architecture that was
+required was changing the final fully connected layer to have 40
+nodes, one for each transient attribute, and changing the loss
+function to \todo{XX}. 
 
-\subsection{Description of how we train ours}
-\indent
+\todo{not sure if we still need this\dots Data from webcams in the
+training set does not appear in the testing set using the holdout
+split.  This is contrary to the random train/test split.  We finetuned
+the last layer of each of the networks using the holdout split in the
+transient attributes dataset.}
 
-\textbf{CloudyNet:} To train our networks, we use the Caffe\cite{caffe14} 
-deep learning framework. We finetuned the last layer of each network architecture
-for the two class weather classification as well.  The train/test split for this dataset
-was randomly chosen.  Each list of sunny/cloudy images was randomly shuffled and the 
-first 80\% of each list was chosen as the training data and the last 20\% was chosen
-as testing data.  This is similar to the approach used by Lu\cite{lutwoclass} et al.
+We trained both of these networks using three different initial
+conditions resulting in six distinct sets of network weights. The
+first set of initial conditions are taken from a network that was was
+trained for scene classification on 1.2 million images from the
+ImageNet ILSVRC-2012 challenge~\cite{ILSVRCarxiv14}.  We call the
+networks that result from this fine-tuning process CloudyNet(I) and
+TransientNet(I).  The second set of initial conditions were taken from
+a network~\cite{zhou2014places} was trained for scene classification
+on 2.5 million images with labels in 205 categories from the Places
+Database~\cite{zhou2014places}. We call the resulting networks
+CloudyNet(P) and TransientNet(P).  The final set of initial conditions
+were taken from a network that was trained~\cite{zhou2014places} for
+both object and scene classification.  This hybrid network was trained
+on a combination of the Places Database~\cite{zhou2014places} and
+images from the training data of ILSVRC-2012
+challenge~\cite{ILSVRCarxiv14}.  The full training set contained 205
+scene categories from the Places Database and 978 object categories
+from ILSVRC-2012 totaling about 3.6 million images.  We call the
+resulting networks CloudyNet(H) and TransientNet(H).
 
-\textbf{TransientNet:} For transient attributes, we finetuned the last layer of each
-of the networks using the holdout split in the transient attributes dataset.  This 
-train/test split uses the data from 81 webcams for training and the data from 20 separate 
-webcams for testing.  Data from webcams in the training set does not
-appear in the testing set using the holdout split.  This is contrary to 
-the random train/test split.  
+\textbf{Implementation Details:} We train each networks using the
+Caffe\cite{caffe14} deep learning software framework, the Caffenet
+reference network architecture, and pre-trained networks from the
+Caffe Model Zoo\footnote{\url{CITE}}.  In the interest of reproducible
+research, the full network optimization definition, the final network
+weights, and the output from our methods will be made available online
+for all six networks.
 
 \section{Evaluation}
 
@@ -343,4 +402,10 @@ and restructured.
 \bibliography{refs}
 
 \end{document}
+
+%\subsection{Deep Network Visualization}
+
+%\todo{pictures of what the network looks like\dots highlighting how it
+%is different from those trained for other purposes... probably
+%focusing on the one or two that work the best}
 
