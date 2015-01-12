@@ -228,6 +228,15 @@ resulting in a total of six networks.  For both problems, we use the
 remainder of this section describes how we estimate network weights
 for each of these networks.
 
+\begin{figure*}[t!]
+	\centering
+		\includegraphics[width=1.0\textwidth]{figs/avg_err_compare_cmr.pdf}
+		\caption{This shows the average errors for each attribute from proposed method
+						 by Laffont et al., TransientNet-I, TransientNet-P, and TransientNet-H.  
+             TransientNet-S has the lowest average error for most of the attributes.}
+		\label{fig:compare}
+\end{figure*}
+
 \textbf{CloudyNet:} For the problem of classifying whether an image is
 sunny or cloudy, we use the data provided by Lu~\cite{lutwoclass} et
 al.\ to train our network, which we call CloudyNet.  We follow their
@@ -317,7 +326,7 @@ train our networks for transient attribute prediction. The dataset
 contains images from outdoor webcams in the Archive of Many Outdoor
 Scenes~\cite{jacobs07amos} and the Webcam Clip Art
 Dataset~\cite{lalondesig09}.  The webcams span a wide range of outdoor
-scenes,from urban regions to wooded, mountainous regions. Each webcam
+scenes, from urban regions to wooded, mountainous regions. Each webcam
 has 60-120 representative images that feature variations in weather,
 lighting conditions, etc.  The images are high resolution and are
 aligned to a reference frame through a homography warp with manually
@@ -340,7 +349,6 @@ error.  For example, the difference between the two methods on the attribute
 night was around 3.2 percentage points, with TransientNet-I having the smaller 
 error.  TransientNet-I averages 0.0699s per image for prediction. \todo{time laffont's method}
 
- 
 %Suggested plots:
 %\begin{itemize}
 %
@@ -396,15 +404,6 @@ error.  TransientNet-I averages 0.0699s per image for prediction. \todo{time laf
 						 accurately by our method.}
 		\label{fig:relerr}
 \end{figure}
-
-\begin{figure*}[t]
-	\centering
-		\includegraphics[width=1.0\textwidth]{figs/avg_err_compare_cmr.pdf}
-		\caption{This shows the average errors for each attribute from proposed method
-						 by Laffont et al., TransientNet-I, TransientNet-P, and TransientNet-H.  
-             TransientNet-S has the lowest average error for most of the attributes.}
-		\label{fig:compare}
-\end{figure*}
 
 \begin{table}[t]
 	\centering
