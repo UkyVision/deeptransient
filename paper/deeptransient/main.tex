@@ -158,8 +158,8 @@ of a scene can change drastically over time.  Patterson and
 Hays~\cite{patterson2012sun} constructed the SUN attribute dataset
 using crowd-sourcing techniques to identify a taxonomy of 102 scene
 attributes from human descriptions, designed to distinguish between
-scene cates. Similarly, Laffont et al.~\cite{Laffont14} introduce the
-Transient Attributes dataset, focused instead on percieved scene
+scene categories. Similarly, Laffont et al.~\cite{Laffont14} introduce the
+Transient Attributes dataset, focused instead on perceived scene
 properties and attributes that describe intra-scene variations. They
 define 40 such attributes, and present methods for identifying the
 presence of those attributes as well as applications in photo
@@ -190,7 +190,7 @@ single-image object classification, it has been shown to be adaptable
 to other problem domains. If the new problem involves multi-class
 classification, all that is needed is to modify the final fully
 connected layer to have the correct number of output classes. Then the
-network weights can be `fine-tuned' by running iterations of stocastic
+network weights can be `fine-tuned' by running iterations of stochastic
 gradient descent on the training data for the new problem.  The key is
 to start the optimization with random weights for the new final layer
 and weights from an already trained network, for example using the
@@ -275,9 +275,9 @@ Caffe~\cite{caffe14} deep learning software framework, the Caffenet
 reference network architecture, and pre-trained networks from the
 Caffe Model
 Zoo\footnote{\url{http://caffe.berkeleyvision.org/model_zoo.html}}.
-All of our netowrks were trained on NVIDIA M2075 GPU Cards for 24 hours
+All of our networks were trained on NVIDIA M2075 GPU Cards for 24 hours
 each, and evaluated using Caffe in CPU mode on Dell C6220 Servers 
-equiped with Dual Intel E5-2670 8 Core (Sandy Bridge) @ 2.6 GHz.
+equipped with Dual Intel E5-2670 8 Core (Sandy Bridge) @ 2.6 GHz.
 The full network
 optimization definition, the final network weights, and the output
 from our methods will be made available online for all six networks.
@@ -407,13 +407,13 @@ One application of transient attribute estimation is automatic outdoor
 webcam labeling. Webcam collections such as AMOS\cite{jacobs07amos} contain
 thousands of geolocated webcams with years of archived data.  Searching
 for an scenes with a set of desired attributes is usually done by manually
-looking through lists of webcams and images.  TransientNet can simplfy this
+looking through lists of webcams and images.  TransientNet can simplify this
 process by using the output scores to tag images and webcams with certain 
 attributes.  If an attribute is above a defined threshold, the image could 
 be labeled with that attribute.  The opposite could be true as well.  If an
 attribute is below a defined threshold, the attribute could be added to a 
 list of attributes the image does not have.  \tblref{labels} shows examples of
-the potentail labels for images. This would enable users to use queries such 
+the potential labels for images. This would enable users to use queries such 
 as "sunny" or "not winter".  Attributes that appear frequently in a webcam 
 (aside from daylight, night, etc) could be used to tag the webcam.  This would 
 allow for much easier searching of large collections of webcams.
