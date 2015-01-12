@@ -1,5 +1,5 @@
 \documentclass{article}
-\usepackage{spconf,amsmath,graphicx,subfigure,multirow, bigstrut}
+\usepackage{spconf,amsmath,graphicx,subfigure,multirow, bigstrut, paralist}
 
 \usepackage[breaklinks=true,colorlinks,bookmarks=false]{hyperref}
 
@@ -53,9 +53,8 @@ hours, even minutes. The ability to quickly understand these fleeting,
 or transient, attributes is a critical skill that people often take
 for granted. The ability to automatically understand such subtle
 conditions has potential application ranging from self-driving cars to
-microclimate modeling\todo{add citations and potentially add more
-applications}.
-
+microclimate modeling.
+ 
 % what do we propose to do? 
 
 We propose a method for predicting transient attributes from a single
@@ -68,8 +67,8 @@ estimate transient scene attributes. We address two problems in
 estimating transient scene attributes. One is the problem of
 estimating whether it is sunny or cloudy~\cite{lutwoclass} and the
 other is predicting the degree to which various transient attributes
-are present in the scene~\cite{Laffont14}. We consider \todo{K (2?)}
-different networks and \todo{K (3?)} different training methods.
+are present in the scene~\cite{Laffont14}. We consider 2
+different networks and 3 different training methods.
 
 \begin{figure}
 	\centering
@@ -101,28 +100,23 @@ a way to estimate it at the camera
 
 % key contributions: repeat what was said above in bullet point form
 The key contributions of this work are:
-\begin{itemize}
+\begin{compactitem}
 
   \item We compare several deep learning network architectures for
     		predicting transient attributes of in an outdoor scene.
 
-	\item We achieve overall better predictions on the Transient Attributes
+	\item We achieve state of the art performance on the Transient Attributes
 				benchmark dataset and the Two Class Weather Classification 
 				benchmark dataset.
 
 	\item We propose a method for automatically labeling and tagging images
 				from outdoor webcam images for easier searching of webcam databases.
 
-      \item We make six pre-trained networks for classifying transient
-        scene attributes publicly available in a popular deep learning
-        framework~\cite{caffe14}.
+  \item We make six pre-trained networks for classifying transient
+    scene attributes publicly available in a popular deep learning
+    framework~\cite{caffe14}.
 
-  %\item state-of-the-art results on two benchmark datasets (transient
-  %  attributes and two class weather)
-
-  %\item something with running it on webcam data?
-
-\end{itemize}
+\end{compactitem}
 
 \subsection{Related Work}
 
@@ -347,15 +341,6 @@ error.  For example, the difference between the two methods on the attribute
 night was around 3.2 percentage points, with TransientNet-I having the smaller 
 error.  TransientNet-I averages 0.0699s per image for prediction. 
 
-%Suggested plots:
-%\begin{itemize}
-%
-%  \item summary results you have already shown
-%
-%  \item example good results, and plausible bad results
-%
-%\end{itemize}
-
 \begin{table}[t]
 	\centering
 	\begin{tabular}{ | l | c | }
@@ -419,7 +404,6 @@ error.  TransientNet-I averages 0.0699s per image for prediction.
 \end{table}
 
 \section{Applications}
-\todo{Think of more applications, expand on current one}
 \subsection{Automatic Webcam Image Labeling}
 \indent
 
@@ -438,8 +422,6 @@ as "sunny" or "not winter".  Attributes that appear frequently in a webcam
 (aside from daylight, night, etc) could be used to tag the webcam.  This would 
 allow for much easier searching of large collections of webcams.
 
-% need another subsection
-
 \section{Conclusions}
 
 We introduce six deep convolutional neural networks for predicting
@@ -457,10 +439,3 @@ publicly available outdoor webcams~\cite{islam13webcamweather}.
 \bibliography{refs}
 
 \end{document}
-
-%\subsection{Deep Network Visualization}
-
-%\todo{pictures of what the network looks like\dots highlighting how it
-%is different from those trained for other purposes... probably
-%focusing on the one or two that work the best}
-
