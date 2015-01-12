@@ -68,8 +68,8 @@ estimate transient scene attributes. We address two problems in
 estimating transient scene attributes. One is the problem of
 estimating whether it is sunny or cloudy~\cite{lutwoclass} and the
 other is predicting the degree to which various transient attributes
-are present in the scene~\cite{Laffont14}. We consider \todo{K}
-different networks and \todo{K} different training methods.
+are present in the scene~\cite{Laffont14}. We consider \todo{K (2?)}
+different networks and \todo{K (3?)} different training methods.
 
 \begin{figure}
 	\centering
@@ -251,12 +251,6 @@ required was changing the final fully connected layer to have 40
 nodes, one for each transient attribute, and changing the loss
 function to a Euclidean loss. 
 
-\todo{not sure if we still need this\dots Data from webcams in the
-training set does not appear in the testing set using the holdout
-split.  This is contrary to the random train/test split.  We finetuned
-the last layer of each of the networks using the holdout split in the
-transient attributes dataset.}
-
 We trained both of these networks using three different initial
 conditions resulting in six distinct sets of network weights. The
 first set of initial conditions are taken from a network that was was
@@ -329,18 +323,9 @@ aligned to a reference frame through a homography warp with manually
 specified correspondences.  The final dataset consists of 8571 images
 from 101 webcams.
 
-\figref{sort} shows the average errors from TransientNet-I for each attribute
-in a sorted graph.  The attributes where TransientNet-I performed best are towards
-the bottom of the graph and the attributes where TransientNet-I performed
-worst are on the top of the graph. \figref{relerr} and \figref{compare} 
-compare this performance to the state-of-the-art baseline.
-
 \figref{compare} shows the average errors from TransientNet-I, TransientNet-P, 
-TransientNet-H and Laffont et al. for each attribute in the dataset.  The green bars 
-represent the average errors from Laffont et al., the blue bars represent the average 
-errors from TransientNet-I, the red bars represent the average errors from TransientNet-P, 
-and the yellow bars represent the error from TransientNet-H. TransientNet-I performs best on 
-more than half of the attributes and is the best performing CNN that we trained.  
+TransientNet-H and Laffont et al. for each attribute in the dataset.  TransientNet-I 
+performs best on more than half of the attributes and is the best performing CNN that we trained.  
 Transient has the lowest overall average error as shown in \tblref{transient}.  TransientNet-P
 and TransientNet-H have similar performance, mostly due to them being pretrained on similar 
 sets of data.
@@ -382,19 +367,19 @@ error.
 \begin{table}
   \renewcommand{\arraystretch}{2}
   \centering
-  \begin{tabular}[b]{| c | c | c |}
+  \begin{tabular}[b]{| c | c |}
     \hline
-    Image & Is & Is not \\
+    Image & Labels \\
     \hline
     \multirow{3}[3]{*}[-2mm]{\includegraphics[width=0.19\textwidth]{figs/labels_1.jpg}}
-      & night & sunny \bigstrut \\
-      & dark & snow \bigstrut  \\
-      & glowing & midday \bigstrut  \\
+      & night, not sunny \bigstrut \\
+      & dark, not snow \bigstrut  \\
+      & glowing, not midday \bigstrut  \\
     \hline
     \multirow{3}[3]{*}[-2mm]{\includegraphics[width=0.18\textwidth]{figs/labels_2.jpg}}
-      & rugged & flowers \bigstrut  \\
-      & dawndusk & rain \bigstrut  \\
-      & sunrisesunset & storm  \bigstrut \\
+      & rugged, not flowers \bigstrut  \\
+      & dawndusk, not rain \bigstrut  \\
+      & sunrisesunset, not storm  \bigstrut \\
     \hline
   \end{tabular}
   \caption{example labels}
