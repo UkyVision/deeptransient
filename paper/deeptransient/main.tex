@@ -1,12 +1,11 @@
 \documentclass{article}
-\usepackage{spconf,amsmath,graphicx,subfigure}
+\usepackage{spconf,amsmath,graphicx,subfigure,multirow, bigstrut}
 
 \usepackage[breaklinks=true,colorlinks,bookmarks=false]{hyperref}
 
 \newcommand{\todo}[1]{\textcolor{red}{todo: {\em #1}}}
 \newcommand{\figref}[1]{Figure~\ref{fig:#1}}
 \newcommand{\tblref}[1]{Table~\ref{tbl:#1}}
-
 
 \title{Deep Methods for Estimating Transient Scene Properties}
 
@@ -380,37 +379,27 @@ error.
 	\label{tbl:twoclass}
 \end{table}
 
-\begin{figure}[t]
+\begin{table}
+  \renewcommand{\arraystretch}{2}
   \centering
-  \begin{subfigure}
-    \centering
-    \includegraphics[width=0.19\textwidth]{figs/labels_1.jpg}
-    \begin{tabular}[b]{| c | c |}
-        \hline
-        Is & Is not \\
-        \hline
-        night & sunny \\
-        dark & snow \\
-        glowing & midday \\
-        \hline
-    \end{tabular}
-  \end{subfigure}
-  \begin{subfigure}
-    \centering
-    \includegraphics[width=0.18\textwidth]{figs/labels_2.jpg}
-    \begin{tabular}[b]{| c | c |}
-        \hline
-        Is & Is not \\
-        \hline
-        rugged & flowers \\
-        dawndusk & rain \\
-        sunrisesunset & storm \\
-        \hline
-    \end{tabular}
-  \end{subfigure}
+  \begin{tabular}[b]{| c | c | c |}
+    \hline
+    Image & Is & Is not \\
+    \hline
+    \multirow{3}[3]{*}[-2mm]{\includegraphics[width=0.19\textwidth]{figs/labels_1.jpg}}
+      & night & sunny \bigstrut \\
+      & dark & snow \bigstrut  \\
+      & glowing & midday \bigstrut  \\
+    \hline
+    \multirow{3}[3]{*}[-2mm]{\includegraphics[width=0.18\textwidth]{figs/labels_2.jpg}}
+      & rugged & flowers \bigstrut  \\
+      & dawndusk & rain \bigstrut  \\
+      & sunrisesunset & storm  \bigstrut \\
+    \hline
+  \end{tabular}
   \caption{example labels}
-  \label{fig:labels}
-\end{figure}
+  \label{tbl:labels}
+\end{table}
 
 \begin{figure}[t]
 	\centering
@@ -460,7 +449,7 @@ process by using the output scores to tag images and webcams with certain
 attributes.  If an attribute is above a defined threshold, the image could 
 be labeled with that attribute.  The opposite could be true as well.  If an
 attribute is below a defined threshold, the attribute could be added to a 
-list of attributes the image does not have.  \figref{labels} shows examples of
+list of attributes the image does not have.  \tblref{labels} shows examples of
 the potentail labels for images. This would enable users to use queries such 
 as "sunny" or "not winter".  Attributes that appear frequently in a webcam 
 (aside from daylight, night, etc) could be used to tag the webcam.  This would 
