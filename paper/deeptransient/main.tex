@@ -30,8 +30,8 @@ have been used to achieve state-of-the-art results for many
 vision problems, from object detection to scene classification, but
 have not been used for such attributes. Transient scene attributes
 describe both the objective conditions, such as the weather, time of
-day, and the season, and subjective properties of a scene such, as 
-whether or not the scene is busy. We compare several methods for
+day, and the season, and subjective properties of a scene, such as 
+whether or not the scene seems busy. We compare several methods for
 pre-training an existing network architecture and obtain
 state-of-the-art results on two benchmark datasets.  We also show how
 such networks may be used in several different applications.
@@ -75,8 +75,8 @@ estimate transient scene attributes. We address two problems in
 estimating transient scene attributes. One is the problem of
 estimating whether it is sunny or cloudy~\cite{lutwoclass} and the
 other is predicting the degree to which various transient attributes
-are present in the scene~\cite{Laffont14}. We consider 2 different 
-networks and 3 different training methods. \figref{results} shows example
+are present in the scene~\cite{Laffont14}. We consider two different 
+networks and three different training methods. \figref{results} shows example
 images with their predicted attributes using our networks.
 
 
@@ -90,19 +90,18 @@ images with their predicted attributes using our networks.
 
 % what we can do now that we have this?
 
-The key contributions of this work are: 1) a comparison of several
+The key contributions of this work are: 1) proposing several
 deep learning network training methods for predicting transient
 attributes, 2) an evaluation on two benchmark
 datasets~\cite{lutwoclass,Laffont14}, which shows the proposed
 networks achieve state-of-the-art performance, and 3) releasing six
 pre-trained networks for classifying transient scene attributes
-publicly available in a popular deep learning
-framework~\cite{caffe14}. 
+in a popular deep learning framework~\cite{caffe14}. 
 
 \subsection{Related Work}
 \indent
 
-Visual attributes are high-level descriptions of a visual property
+Attributes are high-level descriptions of a visual property
 which offer some additional semantic context for understanding an
 object, activity, or scene. For example, a \emph{green} apple or a
 \emph{cloudy} day. Representations based on such visual attributes
@@ -128,7 +127,7 @@ attributes from human descriptions, designed to distinguish between
 scene categories. Similarly, Laffont et al.~\cite{Laffont14} introduce the
 Transient Attributes dataset, focused instead on perceived scene
 properties and attributes that describe intra-scene variations. They
-define 40 such attributes, and present methods for identifying the
+define 40 such attributes and present methods for identifying the
 presence of those attributes as well as applications in photo
 organization and high-level image editing via attribute manipulation. 
 
@@ -159,12 +158,12 @@ to other problem domains. If the new problem involves multi-class
 classification, all that is needed is to modify the final fully
 connected layer to have the correct number of output classes. Then the
 network weights can be `fine-tuned' by running iterations of stochastic
-gradient descent on the training data for the new problem.  The key is
+gradient descent on the training data for the new 
+problem~\cite{yosinski2014transferable}.  The key is
 to start the optimization with random weights for the new final layer
 and weights from an already trained network, for example using the
 weights from the original AlexNet~\cite{caffenetnips12}, as an initial
-condition. This approach was overviewed
-in~\cite{yosinski2014transferable}. If there is a large amount of
+condition. If there is a large amount of
 training data available for the new domain, it is also possible to
 train the network from scratch by randomly initializing all
 weights~\cite{zhou2014places}.  If the new problem domain is
@@ -178,9 +177,9 @@ loss with an $L_2$ loss.
 We propose to use deep convolutional neural networks to classify
 transient scene attributes. We develop networks for two single-image
 problems: the classification problem of estimating whether it is sunny
-or cloudy (CloudyNet) and a collection of regression problems that
+or cloudy and a collection of regression problems that
 represent the degree to which a large number of transient attribute
-describe the scene (TransientNet).  For each of these problems, we
+describe the scene.  For each of these problems, we
 use three different networks as starting conditions for optimization,
 resulting in a total of six networks.  For both problems, we use the
 ``AlexNet'' CNN architecture, described in the previous section.  The
@@ -217,7 +216,7 @@ for training and images from a distinct set of 20 webcams is used for
 testing.  The only modification of the network architecture that was
 required was changing the final fully connected layer to have 40
 nodes, one for each transient attribute, and changing the loss
-function to a Euclidean loss. 
+function to an $L_2$ loss. 
 
 We trained both of these networks using three different initial
 conditions resulting in six distinct sets of network weights. The
@@ -287,7 +286,7 @@ contains images from outdoor webcams in the Archive of Many Outdoor
 Scenes~\cite{jacobs07amos} and the Webcam Clip Art
 Dataset~\cite{lalondesig09}.  The webcams span a wide range of outdoor
 scenes, from urban regions to wooded, mountainous regions. Each webcam
-has 60-120 representative images that feature variations in weather,
+has 60--120 representative images that feature variations in weather,
 lighting conditions, etc.  The images are high resolution and are
 aligned to a reference frame through a homography warp with manually
 specified correspondences.  The final dataset consists of 8571 images
@@ -302,7 +301,7 @@ sets of data.
 
 \figref{relerr} shows the relative error between our method using TransientNet-I
 and the method presented by Laffont et al.~\cite{Laffont14}  The average relative error 
-for each attribute using the method by Laffont et al. was subtracted from
+for each attribute using the method by Laffont et al.\ was subtracted from
 the average relative error using TransientNet-I.  A negative value means TransientNet-I
 had a smaller error and a positive value means Laffont et al. had a smaller
 error.  For example, the difference between the two methods on the attribute
@@ -313,14 +312,14 @@ error.  TransientNet-I averages 0.0699s per image for prediction.
 	\centering
 	\begin{tabular}{ | l | c | }
 		\hline
-			Method & Normalized Accuracy \\ \hline
+			Method & Normalized Accuracy \\ \hline \hline
 			Lu et al.~\cite{lutwoclass}& 53.1\% \\ \hline
 			CloudyNet-I & 81.8\% \\ \hline
 			CloudyNet-P & \textbf{84.7\%} \\ \hline
 			CloudyNet-H & 83.1\% \\ 
 		\hline
 	\end{tabular}
-	\caption{Two Class Weather Classification Accuracy}
+	\caption{Two class weather classification accuracy}
 	\label{tbl:twoclass}
 \end{table}
 
@@ -360,14 +359,14 @@ error.  TransientNet-I averages 0.0699s per image for prediction.
 	\centering
 	\begin{tabular}{ | l | c | }
 		\hline
-			Method & Average Error \\ \hline
+			Method & Average Error \\ \hline \hline
 			Laffont et al.~\cite{Laffont14}& 8.48\% \\ \hline
 			TransientNet-I & \textbf{7.65\%} \\ \hline
 			TransientNet-P & 8.02\% \\ \hline
 			TransientNet-H & 8.13\% \\ 
 		\hline
 	\end{tabular}
-	\caption{Transient Attribute Prediction Errors}
+	\caption{Transient attribute prediction errors}
 	\label{tbl:transient}
 \end{table}
 
@@ -375,7 +374,7 @@ error.  TransientNet-I averages 0.0699s per image for prediction.
 \indent
 
 One application of transient attribute estimation is automatic outdoor
-webcam labeling. Webcam collections such as AMOS\cite{jacobs07amos} contain
+webcam labeling. Webcam collections such as AMOS~\cite{jacobs07amos} contain
 thousands of geolocated webcams with years of archived data.  Searching
 for scenes with a set of desired attributes is usually done by manually
 looking through lists of webcams and images.  TransientNet can simplify this
