@@ -30,8 +30,8 @@ have been used to achieve state-of-the-art results for many
 vision problems, from object detection to scene classification, but
 have not been used for such attributes. Transient scene attributes
 describe both the objective conditions, such as the weather, time of
-day, and the season, and subjective properties, such whether or not
-the scene is busy, of a scene. We compare several methods for
+day, and the season, and subjective properties of a scene such, as 
+whether or not the scene is busy. We compare several methods for
 pre-training an existing network architecture and obtain
 state-of-the-art results on two benchmark datasets.  We also show how
 such networks may be used in several different applications.
@@ -43,7 +43,7 @@ image understanding, neural networks
 \end{keywords}
 
 \section{Introduction}
-
+\indent
 % general intro to the problem and why it is important
 
 Outdoor scenes experience a wide range of lighting and weather
@@ -51,8 +51,8 @@ conditions which dramatically affect their appearance. A scene can
 change from rainy and brooding to sunny and pleasant in a matter of
 hours, even minutes. The ability to quickly understand these fleeting,
 or transient, attributes is a critical skill that people often take
-for granted. The ability to automatically understand such subtle
-conditions has many potential application, including: improving
+for granted. Automatically understanding such subtle
+conditions has many potential applications, including: improving
 context-dependent anomaly detection~\cite{abrams12lost}; enabling
 attribute-oriented browsing and search of large image
 sets\cite{jacobs07amos,skyfinder}; estimating micro-climate conditions
@@ -75,8 +75,10 @@ estimate transient scene attributes. We address two problems in
 estimating transient scene attributes. One is the problem of
 estimating whether it is sunny or cloudy~\cite{lutwoclass} and the
 other is predicting the degree to which various transient attributes
-are present in the scene~\cite{Laffont14}. We consider 2 different
-networks and 3 different training methods.
+are present in the scene~\cite{Laffont14}. We consider 2 different 
+networks and 3 different training methods. \figref{results} shows example
+images with their predicted attributes using our networks.
+
 
 \begin{figure}
 	\centering
@@ -98,6 +100,7 @@ publicly available in a popular deep learning
 framework~\cite{caffe14}. 
 
 \subsection{Related Work}
+\indent
 
 Visual attributes are high-level descriptions of a visual property
 which offer some additional semantic context for understanding an
@@ -134,6 +137,7 @@ application of deep learning architectures for learning such
 attributes using only the raw image intensities as input.
 
 \subsection{Background}
+\indent
 
 Deep convolutional neural networks (CNNs) have been used extensively
 in recent years to obtain state-of-the-art results on a wide variety
@@ -169,6 +173,7 @@ is to change the network loss function, perhaps replacing the SOFT-MAX
 loss with an $L_2$ loss.
 
 \section{Deep Networks for Estimating Transient Attributes}
+\indent
 
 We propose to use deep convolutional neural networks to classify
 transient scene attributes. We develop networks for two single-image
@@ -206,7 +211,7 @@ challenging problem of estimating a broad range of attributes proposed
 by Laffont~\cite{Laffont14}.  In this problem, there are 40 transient
 attributes (see \figref{compare} for the full list of
 attributes), each of which is assigned a value between zero and one
-for an image. We use the training set defined by
+for an image. We use the holdout train/test split defined by
 Laffont~\cite{Laffont14} in which the images from 81 webcams are used
 for training and images from a distinct set of 20 webcams is used for
 testing.  The only modification of the network architecture that was
@@ -221,11 +226,11 @@ trained for scene classification on 1.2 million images from the
 ImageNet ILSVRC-2012 challenge~\cite{ILSVRCarxiv14}.  We call the
 networks that result from this fine-tuning process CloudyNet-I and
 TransientNet-I.  The second set of initial conditions were taken from
-a network~\cite{zhou2014places} was trained for scene classification
+a network~\cite{zhou2014places} that was trained for scene classification
 on 2.5 million images with labels in 205 categories from the Places
 Database~\cite{zhou2014places}. We call the resulting networks
 CloudyNet-P and TransientNet-P.  The final set of initial conditions
-were taken from a network that was trained~\cite{zhou2014places} for
+were taken from a network~\cite{zhou2014places} that was trained for
 both object and scene classification.  This hybrid network was trained
 on a combination of the Places Database~\cite{zhou2014places} and
 images from the training data of ILSVRC-2012
@@ -234,25 +239,27 @@ scene categories from the Places Database and 978 object categories
 from ILSVRC-2012 totaling about 3.6 million images.  We call the
 resulting networks CloudyNet-H and TransientNet-H.
 
-\textbf{Implementation Details:} We train each networks using the
-Caffe~\cite{caffe14} deep learning software framework, the Caffenet
+\textbf{Implementation Details:} We train each network using the
+Caffe~\cite{caffe14} deep learning framework, the Caffenet
 reference network architecture, and pre-trained networks from the
 Caffe Model
 Zoo\footnote{\url{http://caffe.berkeleyvision.org/model_zoo.html}}.
 All of our networks were trained on NVIDIA M2075 GPU Cards for 24 hours
 each, and evaluated using Caffe in CPU mode on Dell C6220 Servers 
-equipped with Dual Intel E5-2670 8 Core (Sandy Bridge) @ 2.6 GHz.
-The full network
-optimization definition, the final network weights, and the output
-from our methods will be made available online for all six networks.
+equipped with Dual Intel E5-2670 8 Core (Sandy Bridge) at 2.6 GHz.
+The full network optimization definition, the final network weights, 
+and the output from our methods will be made available online for all
+six networks.
 
 \section{Evaluation}
+\indent
 
 We evaluate the six networks defined in the previous section on two
 large-scale benchmark datasets. The results show that these deep
 networks obtain state-of-the-the-art results. 
 
 \subsection{Two-Class Weather Classification}
+\indent
 
 In our first experiment, we use the dataset created by Lu et al.~\cite{lutwoclass} to train
 our networks for two class weather classification.  The dataset
@@ -272,6 +279,7 @@ predicting the most accurately.  CloudyNet-P averages 0.0672s per
 image for prediction. 
 
 \subsection{Transient Attributes}
+\indent
 
 We used the dataset created by Laffont et al.~\cite{Laffont14} to
 train our networks for transient attribute prediction. The dataset
@@ -288,17 +296,17 @@ from 101 webcams.
 \figref{compare} shows the average errors from TransientNet-I, TransientNet-P, 
 TransientNet-H and Laffont et al. for each attribute in the dataset.  TransientNet-I 
 performs best on more than half of the attributes and is the best performing CNN that we trained.  
-Transient has the lowest overall average error as shown in \tblref{transient}.  TransientNet-P
+TransientNet-I has the lowest overall average error as shown in \tblref{transient}.  TransientNet-P
 and TransientNet-H have similar performance, mostly due to them being pretrained on similar 
 sets of data.
 
 \figref{relerr} shows the relative error between our method using TransientNet-I
-and the method presented in~\cite{Laffont14}.  The average relative error 
-for each attribute using the method in~\cite{Laffont14} was subtracted from
+and the method presented by Laffont et al.~\cite{Laffont14}  The average relative error 
+for each attribute using the method by Laffont et al. was subtracted from
 the average relative error using TransientNet-I.  A negative value means TransientNet-I
-had a smaller error and a positive value means~\cite{Laffont14} had a smaller
+had a smaller error and a positive value means Laffont et al. had a smaller
 error.  For example, the difference between the two methods on the attribute
-night was around 3.2 percentage points, with TransientNet-I having the smaller 
+\emph{night} was around 3.2 percentage points, with TransientNet-I having the smaller 
 error.  TransientNet-I averages 0.0699s per image for prediction. 
 
 \begin{table}[t]
@@ -334,7 +342,7 @@ error.  TransientNet-I averages 0.0699s per image for prediction.
       & sunrisesunset, not storm  \bigstrut \\
     \hline
   \end{tabular}
-  \caption{example labels}
+  \caption{Example labels for images using TransientNet-I}
   \label{tbl:labels}
 \end{table}
 
@@ -359,18 +367,17 @@ error.  TransientNet-I averages 0.0699s per image for prediction.
 			TransientNet-H & 8.13\% \\ 
 		\hline
 	\end{tabular}
-	\caption{Transient Attribute prediction errors}
+	\caption{Transient Attribute Prediction Errors}
 	\label{tbl:transient}
 \end{table}
 
-\section{Applications}
-\subsection{Automatic Webcam Image Labeling}
+\section{Automatic Webcam Image Labeling}
 \indent
 
 One application of transient attribute estimation is automatic outdoor
 webcam labeling. Webcam collections such as AMOS\cite{jacobs07amos} contain
 thousands of geolocated webcams with years of archived data.  Searching
-for an scenes with a set of desired attributes is usually done by manually
+for scenes with a set of desired attributes is usually done by manually
 looking through lists of webcams and images.  TransientNet can simplify this
 process by using the output scores to tag images and webcams with certain 
 attributes.  If an attribute is above a defined threshold, the image could 
@@ -383,6 +390,7 @@ as "sunny" or "not winter".  Attributes that appear frequently in a webcam
 allow for much easier searching of large collections of webcams.
 
 \section{Conclusions}
+\indent
 
 We introduce six deep convolutional neural networks for predicting
 transient scene attributes from a single image. These networks achieve
@@ -391,9 +399,10 @@ of the proposed approach are that it requires no hand-engineered
 features, is simple to train, is very fast at test time, and makes
 accurate predictions. In addition, these networks can quickly extended
 to label additional attributes or adapted to new datasets with a small
-amount of retraining. In future work, we plan to explore the use of
-these networks in an application to micro-climate estimation from
-publicly available outdoor webcams~\cite{islam13webcamweather}. 
+amount of retraining. 
+%In future work, we plan to explore the use of
+%these networks in an application to micro-climate estimation from
+%publicly available outdoor webcams~\cite{islam13webcamweather}. 
 
 {\small
 \bibliographystyle{IEEEbib}
