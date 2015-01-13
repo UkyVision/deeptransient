@@ -124,10 +124,12 @@ of a scene can change drastically over time.  Patterson and
 Hays~\cite{patterson2012sun} constructed the SUN attribute dataset
 using crowd-sourcing techniques to identify a taxonomy of 102 scene
 attributes from human descriptions, designed to distinguish between
-scene categories. Similarly, Laffont et al.~\cite{Laffont14} introduce the
+scene categories. Lu et al.~\cite{lutwoclass} use this dataset, along
+with two others, to classify images as either sunny or cloudy.
+Similarly, Laffont et al.~\cite{Laffont14} introduced the
 Transient Attributes dataset, focused instead on perceived scene
 properties and attributes that describe intra-scene variations. They
-define 40 such attributes and present methods for identifying the
+defined 40 such attributes and presented methods for identifying the
 presence of those attributes as well as applications in photo
 organization and high-level image editing via attribute manipulation. 
 
@@ -188,7 +190,7 @@ for each of these networks.
 
 \begin{figure*}[t!]
 	\centering
-		\includegraphics[width=1.0\textwidth]{figs/avg_err_compare_cmr.pdf}
+		\includegraphics[width=1.0\textwidth, trim= 0 8mm 0 0]{figs/avg_err_compare_cmr.pdf}
 		\caption{This shows the average errors for each attribute from proposed method
 						 by Laffont et al., TransientNet-I, TransientNet-P, and TransientNet-H.  
              TransientNet-S has the lowest average error for most of the attributes.}
@@ -323,38 +325,6 @@ error.  TransientNet-I averages 0.0699s per image for prediction.
 	\label{tbl:twoclass}
 \end{table}
 
-\begin{table}
-  \renewcommand{\arraystretch}{2}
-  \centering
-  \begin{tabular}[b]{| c | c |}
-    \hline
-    Image & Labels \\
-    \hline
-    \multirow{3}[3]{*}[-2mm]{\includegraphics[width=0.19\textwidth]{figs/labels_1.jpg}}
-      & night, not sunny \bigstrut \\
-      & dark, not snow \bigstrut  \\
-      & glowing, not midday \bigstrut  \\
-    \hline
-    \multirow{3}[3]{*}[-2mm]{\includegraphics[width=0.18\textwidth]{figs/labels_2.jpg}}
-      & rugged, not flowers \bigstrut  \\
-      & dawndusk, not rain \bigstrut  \\
-      & sunrisesunset, not storm  \bigstrut \\
-    \hline
-  \end{tabular}
-  \caption{Example labels for images using TransientNet-I}
-  \label{tbl:labels}
-\end{table}
-
-\begin{figure}[t]
-	\centering
-		\includegraphics[width=0.5\textwidth]{figs/rel_err_cmr.pdf}
-		\caption{This shows the relative errors of TransientNet-I against the method 
-						 proposed by Laffont et al. for each attribute.  Attributes with a 
-						 negative average error are attributes that are predicting more 
-						 accurately by our method.}
-		\label{fig:relerr}
-\end{figure}
-
 \begin{table}[t]
 	\centering
 	\begin{tabular}{ | l | c | }
@@ -369,6 +339,38 @@ error.  TransientNet-I averages 0.0699s per image for prediction.
 	\caption{Transient attribute prediction errors}
 	\label{tbl:transient}
 \end{table}
+
+\begin{table}[t!]
+  \renewcommand{\arraystretch}{1.6}
+  \centering
+  \begin{tabular}[b]{| c | c |}
+    \hline
+    Image & Labels \\
+    \hline \hline
+    \multirow{3}[3]{*}[-2mm]{\includegraphics[width=0.19\textwidth]{figs/labels_1.jpg}}
+      & night, not sunny \bigstrut \\
+      & dark, not snow \bigstrut  \\
+      & glowing, not midday \bigstrut  \\
+    \hline
+    \multirow{3}[3]{*}[-1mm]{\includegraphics[width=0.17\textwidth]{figs/labels_2.jpg}}
+      & rugged, not flowers \bigstrut  \\
+      & dawndusk, not rain \bigstrut  \\
+      & sunrisesunset, not storm  \bigstrut \\
+    \hline
+  \end{tabular}
+  \caption{Example labels for images using TransientNet-I}
+  \label{tbl:labels}
+\end{table}
+
+\begin{figure}[t!]
+	\centering
+		\includegraphics[width=0.5\textwidth]{figs/rel_err_cmr.pdf}
+		\caption{This shows the relative errors of TransientNet-I against the method 
+						 proposed by Laffont et al. for each attribute.  Attributes with a 
+						 negative average error are attributes that are predicting more 
+						 accurately by our method.}
+		\label{fig:relerr}
+\end{figure}
 
 \section{Automatic Webcam Image Labeling}
 \indent
