@@ -223,7 +223,7 @@ function to an $L_2$ loss.
 We trained both of these networks using three different initial
 conditions resulting in six distinct sets of network weights. The
 first set of initial conditions are taken from a network that was was
-trained for scene classification on 1.2 million images from the
+trained for object classification on 1.2 million images from the
 ImageNet ILSVRC-2012 challenge~\cite{ILSVRCarxiv14}.  We call the
 networks that result from this fine-tuning process CloudyNet-I and
 TransientNet-I.  The second set of initial conditions were taken from
@@ -386,7 +386,7 @@ be labeled with that attribute.  The opposite could be true as well.  If an
 attribute is below a defined threshold, the attribute could be added to a 
 list of attributes the image does not have.  \tblref{labels} shows examples of
 the potential labels for images. This would enable users to use queries such 
-as "sunny" or "not winter".  Attributes that appear frequently in a webcam 
+as ``sunny'' or ``not winter''.  Attributes that appear frequently in a webcam 
 (aside from daylight, night, etc) could be used to tag the webcam.  This would 
 allow for much easier searching of large collections of webcams.
 
