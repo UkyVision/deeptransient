@@ -2,7 +2,9 @@ import os
 import csv
 import lmdb
 import caffe
+import random
 import numpy as np
+from matplotlib import pyplot as plt
 
 BASE_DIR =  '/scratch/nja224/transient/'
 
@@ -33,7 +35,7 @@ def make_database(db_name, files, map):
         label = label.reshape(label.shape + (1,1))
 
         # load the image (RGB)
-        im = caffe.io.load_image(BASE_DIR + 'imageAlignedLD/' + file)
+        im = caffe.io.load_image(BASE_DIR + 'imageAlignedLD/' + file[6:])
         im = caffe.io.resize_image(im, sz)
 
         # channel swap for pre-trained (RGB -> BGR)
@@ -64,25 +66,36 @@ def make_database(db_name, files, map):
 
 
 with open(BASE_DIR + 'holdout_split/training.txt','r') as f:
-  train_holdout_filenames = [x.strip() for x in f.readlines()]
+  train_holdout_filenames_temp = [x.strip() for x in f.readlines()]
 with open(BASE_DIR + 'holdout_split/test.txt','r') as f:
-  test_holdout_filenames = [x.strip() for x in f.readlines()]
-with open(BASE_DIR + 'random_split/training.txt','r') as f:
-  train_random_filenames = [x.strip() for x in f.readlines()]
-with open(BASE_DIR + 'random_split/test.txt','r') as f:
-  test_random_filenames = [x.strip() for x in f.readlines()]
+  test_holdout_filenames_temp = [x.strip() for x in f.readlines()]
+#with open(BASE_DIR + 'random_split/training.txt','r') as f:
+#  train_random_filenames_temp = [x.strip() for x in f.readlines()]
+#with open(BASE_DIR + 'random_split/test.txt','r') as f:
+#  test_random_filenames_temp = [x.strip() for x in f.readlines()]
+
+random.shuffle(train_holdout_filenames_temp)
+train_holdout_filenames = ["%05d_%s" % (idx, name) for idx, name in enumerate(train_holdout_filenames_temp)]
+random.shuffle(test_holdout_filenames_temp)
+test_holdout_filenames = ["%05d_%s" % (idx, name) for idx, name in enumerate(test_holdout_filenames_temp)]
 
 map = {}
+key = ''
 with open(BASE_DIR + 'annotations/annotations.tsv','r') as f:
   tsvin = csv.reader(f, delimiter='\t')
   for row in tsvin:
     filename = row[0].strip()
+    for train_im in train_holdout_filenames:
+      if filename in train_im:
+        key = train_im
+    for test_im in test_holdout_filenames:
+      if filename in test_im:
+        key = test_im
     # ignore confidence scores
     labels = [float(x.split(',')[0]) for x in row[1:]]
-    map[filename] = labels
+    map[key] = labels
 
-make_database('train', train_holdout_filenames, map)
-make_database('test', test_holdout_filenames, map)
-make_database('random_train', train_random_filenames, map)
-make_database('random_test', test_random_filenames, map)
-
+make_database('train_shuffled', train_holdout_filenames, map)
+make_database('test_shuffled', test_holdout_filenames, map)
+#make_database('random_train', train_random_filenames, map)
+#make_database('random_test', test_random_filenames, map)
