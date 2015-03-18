@@ -1,6 +1,6 @@
 import numpy as np
 
-net = 'places'
+net = 'new'
 
 data = np.loadtxt(open("data/two_class_" + net + ".txt","rb"), delimiter="\n")
 

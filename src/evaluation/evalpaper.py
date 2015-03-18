@@ -12,7 +12,7 @@ db_labels_name = '../testing_data/testing_label/'
 #
 # load labels
 #
-labels = np.ndarray(shape=(1,1,1,40))
+labels = []
 db_labels = lmdb.open(db_labels_name)
 
 with db_labels.begin(write=False) as db_labels_txn:
@@ -20,7 +20,9 @@ with db_labels.begin(write=False) as db_labels_txn:
 		label_datum = caffe.io.caffe_pb2.Datum().FromString(value)
 		lbl = caffe.io.datum_to_array(label_datum)
 		lbl = lbl.swapaxes(0,2).swapaxes(0,1)
-		labels = np.vstack((labels, [lbl]))
+		labels.append(lbl)
+
+labels = np.vstack(labels)
 
 # load paper data
 predictions = np.loadtxt(open("data/paper.txt","rb"),delimiter=",")
@@ -38,10 +40,11 @@ with db.begin(write=False) as db_txn:
     #error = ((predictions[ix] - labels[ix,:]) ** 2).mean()
     error += ((predictions[ix] - labels[ix,:]) ** 2).squeeze()
     
-    print ix #/ (ix + 1)
+    #print ix #/ (ix + 1)
     sys.stdout.flush()
 
     ix = ix + 1
 
-#error = error[:] / ix
-#print error
+error = error[:] / ix
+for ix in error:
+  print ix, ','

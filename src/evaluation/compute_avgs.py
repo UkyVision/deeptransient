@@ -12,15 +12,18 @@ db_labels_name = '../testing_data/testing_label/'
 #
 # load labels
 #
-labels = np.ndarray(shape=(1,1,1,40))
+labels = []
 db_labels = lmdb.open(db_labels_name)
 
 with db_labels.begin(write=False) as db_labels_txn:
-	for (key, value) in db_labels_txn.cursor():
-		label_datum = caffe.io.caffe_pb2.Datum().FromString(value)
-		lbl = caffe.io.datum_to_array(label_datum)
-		lbl = lbl.swapaxes(0,2).swapaxes(0,1)
-		labels = np.vstack((labels, [lbl]))
+  for (key, value) in db_labels_txn.cursor():
+    label_datum = caffe.io.caffe_pb2.Datum().FromString(value)
+    lbl = caffe.io.datum_to_array(label_datum)
+    lbl = lbl.swapaxes(0,2).swapaxes(0,1)
+    labels.append(lbl)
+
+labels = np.vstack(labels)
+
 
 #
 # load the trained net 
