@@ -6,8 +6,8 @@ import lmdb
 import h5py
 from matplotlib import pyplot as plt
 
-db_name = '../testing_data/testing_im/'
-db_labels_name = '../testing_data/testing_label/'
+db_name = '../testing_data/test_shuffled_im_db/'
+db_labels_name = '../testing_data/test_shuffled_label_db/'
 
 #
 # load labels
@@ -29,8 +29,8 @@ labels = np.vstack(labels)
 # load the trained net 
 #
 
-MODEL = '../prototxts/caffenet/deploy.prototxt'
-PRETRAINED = '../prototxts/caffenet/snapshots/caffenet_transient_iter_73000.caffemodel'
+MODEL = '../prototxts/caffenet_slowburn/deploy.prototxt'
+PRETRAINED = '../prototxts/caffenet_slowburn/snapshots/caffenet_slowburn_iter_47000.caffemodel'
 MEAN = '../mean/transient_mean.binaryproto'
 
 # load the mean image 
@@ -70,10 +70,14 @@ with db.begin(write=False) as db_txn:
 
     error += ((pred[:] - labels[ix,:]) ** 2).squeeze()
   
-    #print ix 
+    #print pred
     sys.stdout.flush()
 
     ix = ix + 1
 
 error = error[:] / ix
-print error
+for att in error:
+  sys.stdout.write(str(att))
+  sys.stdout.write(',')
+sys.stdout.write('\n')
+#print error

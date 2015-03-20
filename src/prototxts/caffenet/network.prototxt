@@ -4,7 +4,7 @@ layers {
   type: DATA
   top: "data"
   data_param {
-    source: "../../training_data/training_image"
+    source: "../../training_data/train_shuffled_im_db"
     backend: LMDB
     batch_size: 50
   }
@@ -20,7 +20,7 @@ layers {
   type: DATA
   top: "data"
   data_param {
-    source: "../../testing_data/testing_im"
+    source: "../../testing_data/test_shuffled_im_db"
     backend: LMDB
     batch_size: 50
   }
@@ -36,7 +36,7 @@ layers {
   type: DATA
   top: "label"
   data_param {
-    source: "../../training_data/training_label"
+    source: "../../training_data/train_shuffled_label_db"
     backend: LMDB
     batch_size: 50
   }
@@ -47,7 +47,7 @@ layers {
   type: DATA
   top: "label"
   data_param {
-    source: "../../testing_data/testing_label"
+    source: "../../testing_data/test_shuffled_label_db"
     backend: LMDB
     batch_size: 50
   }
