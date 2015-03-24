@@ -29,8 +29,8 @@ labels = np.vstack(labels)
 # load the trained net 
 #
 
-MODEL = '../prototxts/caffenet_slowburn/deploy.prototxt'
-PRETRAINED = '../prototxts/caffenet_slowburn/snapshots/caffenet_slowburn_iter_47000.caffemodel'
+MODEL = '../prototxts/caffenet_frozen_phase2/deploy.prototxt'
+PRETRAINED = '../prototxts/caffenet_frozen_phase2/snapshots/caffenet_slow_fp2_iter_55000.caffemodel'
 MEAN = '../mean/transient_mean.binaryproto'
 
 # load the mean image 
