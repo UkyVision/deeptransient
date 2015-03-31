@@ -88,18 +88,57 @@ for job in jobs:
       line = line.replace('SNAPSHOT_ITER', job['snapshot_iter'])
       line = line.replace('SNAPSHOT_PREFIX', job['snapshot_prefix'])
       f.write(line)
+  log_file = jobs_root + job['name'] + '/' + job['name'] + '.out'
+  job_files.append([solver_file, log_file, 'caffenet_pretrained.caffemodel', job['name']])
+
+
 
 #
-# make run script
+# templates
 #
 
-run_header = '#!/bin/bash'
-run_template = 'cd %s; sbatch %s'
+train_header_tmpl = """#!/bin/bash
+#SBATCH --time=24:00:00
+#SBATCH --partition=GPU
+#SBATCH -J cv_%003.0f
 
-with open('run_all_jobs.sh', 'w') as f:
-  f.write(run_header + '\n')
+CAFFE=~/bin/caffe/bin/caffe.bin
+"""
+train_job_tmpl = """
+cd %s; srun -n 1 --output="%s" $CAFFE train -gpu %d --solver=%s &
+"""
+train_job_tmpl_finetune = """
+cd %s; srun -n 1 --output="%s" $CAFFE train -gpu %d --solver=%s --weights=%s &
+"""
+train_footer_tmpl = """
+wait
+"""
 
-for job in jobs:
-  with open('run_all_jobs.sh', 'a') as f:
-    f.write(run_template % (os.path.abspath(os.path.join(jobs_root, job['name'])), os.path.abspath(os.path.join(jobs_root, job['name'], 'submit.sh'))) + '\n')
+
+#
+# make supercomputer job submission scripts (grouping onto nodes)
+#
+
+from itertools import islice, chain
+
+def batcher(iterable, size):
+    sourceiter = iter(iterable)
+    while True:
+        batchiter = islice(sourceiter, size)
+        yield chain([batchiter.next()], batchiter)
+
+with open(jobs_root + '/run_all_jobs.sh', 'w') as f_all:
+  f_all.write("#!/bin/bash\n")
+  for (i,batch) in enumerate(batcher(job_files,2)):
+    sbatch_file = jobs_root + 'start_training_%003.0f.sh' % (i)
+    with open(sbatch_file, 'w') as f:
+      f.write(train_header_tmpl % (i))
+      for (igpu, files) in enumerate(batch):
+        solver, log, model, name = files
+        if model:
+          f.write(train_job_tmpl_finetune % (os.path.abspath(os.path.join(jobs_root, name)), log, igpu, solver, model))
+        else:
+          f.write(train_job_tmpl % (name, log, igpu, solver))
+      f.write(train_footer_tmpl)
+    f_all.write('sbatch %s\n' % (sbatch_file))
 
