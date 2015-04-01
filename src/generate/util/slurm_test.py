@@ -18,9 +18,10 @@ for slurm in slurms:
     min_loss.append(min(loss))
     min_loss_iter.append(iteration[loss.index(min(loss))])
 
+slurms = np.vstack(slurms)
 min_loss = np.vstack(min_loss)
 min_loss_iter = np.vstack(min_loss_iter)
-min_loss_stacked = np.hstack([min_loss_iter, min_loss])
+min_loss_stacked = np.hstack([min_loss_iter, min_loss, slurms])
 
-for iter,loss in min_loss_stacked:
-  print iter, loss
+for iter,loss,slurm in min_loss_stacked:
+  print slurm, iter, loss
