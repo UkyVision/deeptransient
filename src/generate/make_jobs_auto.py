@@ -18,14 +18,19 @@ jobs_root = os.path.abspath('./jobs/') + '/'
 # auto generate stepsizes in a specified range
 jobs = [
   {
-    'name': 'caffenet_%dss',
-    'base_lr': '0.001',
+    'name': 'caffenet_%flr',
+    'base_lr': 'variable',
     'gamma': '0.99',
-    'stepsize': 'variable',
+    'stepsize': '6000',
     'snapshot_iter': '1000',
-    'snapshot_prefix': 'snapshots/caffenet_%dss',
+    'snapshot_prefix': 'snapshots/caffenet_%flr',
   },
 ]
+
+def frange(x, y, jump):
+  while x < y:
+    yield x
+    x += jump
 
 def safe_mkdir(root):
   if not os.path.isdir(root):
@@ -39,9 +44,9 @@ safe_mkdir(jobs_root)
 
 job_files = []
 for job in jobs:
-  for stepsize in range(1000, 10000, 1000):
+  for var in frange(0.0001, 0.0015, 0.0001):
 
-    job_path = jobs_root + job['name'] % stepsize + '/'
+    job_path = jobs_root + job['name'] % var + '/'
     subprocess.call(['cp', '-r', caffenet_root, job_path])
 
     with open('%ssolver_template.prototxt' % template_root, 'r') as f:
@@ -53,14 +58,14 @@ for job in jobs:
     
     with open(solver_file, 'w') as f:
       for line in solver_proto:
-        line = line.replace('BASE_LR', job['base_lr'])
+        line = line.replace('BASE_LR', str(var))
         line = line.replace('GAMMA', job['gamma'])
-        line = line.replace('STEPSIZE', str(stepsize))
+        line = line.replace('STEPSIZE', job['stepsize'])
         line = line.replace('SNAPSHOT_ITER', job['snapshot_iter'])
-        line = line.replace('SNAPSHOT_PREFIX', job['snapshot_prefix'] % stepsize)
+        line = line.replace('SNAPSHOT_PREFIX', job['snapshot_prefix'] % var)
         f.write(line)
-    log_file = jobs_root + job['name'] % stepsize + '/' + job['name'] % stepsize + '.out'
-    job_files.append([solver_file, log_file, 'caffenet_pretrained.caffemodel', job['name'] % stepsize])
+    log_file = jobs_root + job['name'] % var + '/' + job['name'] % var + '.out'
+    job_files.append([solver_file, log_file, 'caffenet_pretrained.caffemodel', job['name'] % var])
 
 
 
