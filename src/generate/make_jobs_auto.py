@@ -7,6 +7,8 @@ import os
 import lmdb
 import subprocess
 
+network_to_use = 'places'
+
 model_file = 'caffenet_pretrained.caffemodel'
 template_root = os.path.abspath('./templates/') + '/'
 caffenet_root = os.path.abspath('%scaffenet/' % template_root) + '/'
@@ -49,7 +51,10 @@ for job in jobs:
   for var in frange(0.0001, 0.0015, 0.0001):
 
     job_path = jobs_root + job['name'] % var + '/'
-    subprocess.call(['cp', '-r', caffenet_root, job_path])
+    if network_to_use == 'caffenet':
+      subprocess.call(['cp', '-r', caffenet_root, job_path])
+    elif network_to_use == 'places'
+      subprocess.call(['cp', '-r', places_root, job_path])
 
     with open('%ssolver_template.prototxt' % template_root, 'r') as f:
       solver_proto = f.readlines()
