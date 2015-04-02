@@ -7,8 +7,10 @@ import os
 import lmdb
 import subprocess
 
+model_file = 'caffenet_pretrained.caffemodel'
 template_root = os.path.abspath('./templates/') + '/'
 caffenet_root = os.path.abspath('%scaffenet/' % template_root) + '/'
+places_root = os.path.abspath('%splaces/' % template_root) + '/'
 jobs_root = os.path.abspath('./jobs/') + '/'
 
 #
@@ -65,7 +67,7 @@ for job in jobs:
         line = line.replace('SNAPSHOT_PREFIX', job['snapshot_prefix'] % var)
         f.write(line)
     log_file = jobs_root + job['name'] % var + '/' + job['name'] % var + '.out'
-    job_files.append([solver_file, log_file, 'caffenet_pretrained.caffemodel', job['name'] % var])
+    job_files.append([solver_file, log_file, model_file, job['name'] % var])
 
 
 
