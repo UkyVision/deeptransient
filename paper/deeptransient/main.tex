@@ -275,20 +275,20 @@ correspondences.  The final dataset consists of 8571 images from 101 webcams.
 
 \figref{compare} shows the average errors from TransientNet-I, TransientNet-P,
 TransientNet-H and Laffont et al. for each attribute in the dataset.
-TransientNet-I performs best on more than half of the attributes and is the
-best performing CNN that we trained.  TransientNet-I has the lowest overall
+TransientNet-H performs best on more than half of the attributes and is the
+best performing CNN that we trained.  TransientNet-H has the lowest overall
 average error as shown in \tblref{transient}.  TransientNet-P and
 TransientNet-H have similar performance, mostly due to them being pretrained on
 similar sets of data.
 
 \figref{relerr} shows the relative error between our method using
-TransientNet-I and the method presented by Laffont et al.~\cite{Laffont14}  The
+TransientNet-H and the method presented by Laffont et al.~\cite{Laffont14}  The
 average relative error for each attribute using the method by Laffont et al.\
-was subtracted from the average relative error using TransientNet-I.  A
-negative value means TransientNet-I had a smaller error and a positive value
+was subtracted from the average relative error using TransientNet-H.  A
+negative value means TransientNet-H had a smaller error and a positive value
 means Laffont et al. had a smaller error.  For example, the difference between
-the two methods on the attribute \emph{night} was around 3.2 percentage points,
-with TransientNet-I having the smaller error.  TransientNet-I averages 0.0699s
+the two methods on the attribute \emph{night} was around 2.5 percentage points,
+with TransientNet-H having the smaller error.  TransientNet-H averages 0.0699s
 per image for prediction. 
 
 \begin{table}[t]
