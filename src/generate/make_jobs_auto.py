@@ -7,13 +7,14 @@ import os
 import lmdb
 import subprocess
 
-network_to_use = 'places'
+network_to_use = 'hybrid'
 
-model_file = 'caffenet_pretrained.caffemodel'
+model_file = '%s_pretrained.caffemodel'
 template_root = os.path.abspath('./templates/') + '/'
 caffenet_root = os.path.abspath('%scaffenet/' % template_root) + '/'
 places_root = os.path.abspath('%splaces/' % template_root) + '/'
-jobs_root = os.path.abspath('./jobs/') + '/'
+hybrid_root = os.path.abspath('%shybrid/' % template_root) + '/'
+jobs_root = os.path.abspath('./jobs_hybrid/') + '/'
 
 #
 # setup jobs
@@ -22,12 +23,12 @@ jobs_root = os.path.abspath('./jobs/') + '/'
 # auto generate stepsizes in a specified range
 jobs = [
   {
-    'name': 'caffenet_%flr',
-    'base_lr': 'variable',
+    'name': '%s_%dss',
+    'base_lr': '0.001',
     'gamma': '0.99',
-    'stepsize': '6000',
+    'stepsize': 'variable',
     'snapshot_iter': '1000',
-    'snapshot_prefix': 'snapshots/caffenet_%flr',
+    'snapshot_prefix': 'snapshots/%s_%dss',
   },
 ]
 
@@ -48,13 +49,15 @@ safe_mkdir(jobs_root)
 
 job_files = []
 for job in jobs:
-  for var in frange(0.0001, 0.0015, 0.0001):
+  for var in frange(100, 3000, 100):
 
-    job_path = jobs_root + job['name'] % var + '/'
+    job_path = jobs_root + job['name'] % (network_to_use, var) + '/'
     if network_to_use == 'caffenet':
       subprocess.call(['cp', '-r', caffenet_root, job_path])
-    elif network_to_use == 'places'
+    elif network_to_use == 'places':
       subprocess.call(['cp', '-r', places_root, job_path])
+    elif network_to_use == 'hybrid':
+      subprocess.call(['cp', '-r', hybrid_root, job_path])
 
     with open('%ssolver_template.prototxt' % template_root, 'r') as f:
       solver_proto = f.readlines()
@@ -65,14 +68,14 @@ for job in jobs:
     
     with open(solver_file, 'w') as f:
       for line in solver_proto:
-        line = line.replace('BASE_LR', str(var))
+        line = line.replace('BASE_LR', job['base_lr'])
         line = line.replace('GAMMA', job['gamma'])
-        line = line.replace('STEPSIZE', job['stepsize'])
+        line = line.replace('STEPSIZE', str(var))
         line = line.replace('SNAPSHOT_ITER', job['snapshot_iter'])
-        line = line.replace('SNAPSHOT_PREFIX', job['snapshot_prefix'] % var)
+        line = line.replace('SNAPSHOT_PREFIX', job['snapshot_prefix'] % (network_to_use, var))
         f.write(line)
-    log_file = jobs_root + job['name'] % var + '/' + job['name'] % var + '.out'
-    job_files.append([solver_file, log_file, model_file, job['name'] % var])
+    log_file = jobs_root + job['name'] % (network_to_use, var) + '/' + job['name'] % (network_to_use, var) + '.out'
+    job_files.append([solver_file, log_file, model_file % network_to_use, job['name'] % (network_to_use, var)])
 
 
 

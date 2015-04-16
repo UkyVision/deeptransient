@@ -8,12 +8,12 @@ from matplotlib import pyplot as plt
 import glob
 
 stepsize_var = 0
-outfile = 'data/caffenet_lr_results.txt'
+outfile = 'data/hybrid_100ss_results.txt'
 
 #
 # get list of output files
 #
-slurms = glob.glob('../generate/jobs/**/*.out')
+slurms = glob.glob('../generate/jobs_hybrid/**/*.out')
 
 #
 # search for minimum loss and its 
@@ -59,7 +59,7 @@ labels = np.vstack(labels)
 # evaluate each network
 #
 for iteration in min_loss_iter:
-  stepsize_var += 1000
+  stepsize_var += 100
 
   #
   # load the trained net 
@@ -68,8 +68,8 @@ for iteration in min_loss_iter:
   #MODEL = '../prototxts/caffenet_frozen_phase2/deploy.prototxt'
   #PRETRAINED = '../prototxts/caffenet_frozen_phase2/snapshots/caffenet_slow_fp2_iter_55000.caffemodel'
   #MEAN = '../mean/transient_mean.binaryproto'
-  MODEL = '../generate/jobs/caffenet_%sss/deploy.prototxt' % stepsize_var
-  PRETRAINED = '../generate/jobs/caffenet_%sss/snapshots/caffenet_%sss_iter_%s.caffemodel' % (stepsize_var, stepsize_var, iteration)
+  MODEL = '../generate/jobs_hybrid/hybrid_%dss/deploy.prototxt' % stepsize_var
+  PRETRAINED = '../generate/jobs_hybrid/hybrid_%dss/snapshots/hybrid_%dss_iter_%s.caffemodel' % (stepsize_var, stepsize_var, iteration)
   MEAN = '../mean/transient_mean.binaryproto'
 
   # load the mean image 

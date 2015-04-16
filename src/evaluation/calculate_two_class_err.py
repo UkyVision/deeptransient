@@ -1,6 +1,7 @@
+import sys
 import numpy as np
 
-net = 'new'
+net = sys.argv[1]
 
 data = np.loadtxt(open("data/two_class_" + net + ".txt","rb"), delimiter="\n")
 

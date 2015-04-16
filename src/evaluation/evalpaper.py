@@ -25,7 +25,7 @@ with db_labels.begin(write=False) as db_labels_txn:
 labels = np.vstack(labels)
 
 # load paper data
-predictions = np.loadtxt(open("data/paper.txt","rb"),delimiter=",")
+predictions = np.loadtxt(open("data/paper/paper.txt","rb"),delimiter=",")
 
 #
 # process 
