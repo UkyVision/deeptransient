@@ -93,14 +93,6 @@ for iteration in min_loss_iter:
       im_datum.ParseFromString(value)
       im = caffe.io.datum_to_array(im_datum)
       
-      im = np.transpose(im, (1,2,0))
-      # channel swap for pre-trained (RGB -> BGR)
-      im = im[:, :, [2,1,0]]
-      # make channels x height x width
-      im = im.swapaxes(0,2).swapaxes(1,2)
-      # convert to uint8
-      im = (255*im).astype(np.uint8, copy=False) 
-      
       # subtract mean & resize
       caffe_input = im - means
       caffe_input = caffe_input.transpose((1,2,0))
@@ -114,7 +106,10 @@ for iteration in min_loss_iter:
       
       # squared difference
       error += ((pred[:] - labels[ix,:]) ** 2).squeeze()
-    
+      
+      if ix % 100 == 0:
+        print "Processed %d" % ix
+
       ix = ix + 1
 
   # write out to file
