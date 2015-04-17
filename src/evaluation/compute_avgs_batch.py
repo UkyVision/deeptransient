@@ -8,12 +8,12 @@ from matplotlib import pyplot as plt
 import glob
 
 stepsize_var = 0
-outfile = 'data/hybrid_100ss_results.txt'
+outfile = 'data/caffenet_weather_100ss_results.txt'
 
 #
 # get list of output files
 #
-slurms = glob.glob('../generate/jobs_hybrid/**/*.out')
+slurms = glob.glob('../generate/jobs/**/*.out')
 
 #
 # search for minimum loss and its 
@@ -37,8 +37,8 @@ for slurm in slurms:
 #
 # load testing dbs
 #
-db_name = '../testing_data/test_shuffled_im_db/'
-db_labels_name = '../testing_data/test_shuffled_label_db/'
+db_name = '../testing_data/test_deepweather_im_db/'
+db_labels_name = '../testing_data/test_deepweather_label_db/'
 
 #
 # load labels
@@ -68,8 +68,8 @@ for iteration in min_loss_iter:
   #MODEL = '../prototxts/caffenet_frozen_phase2/deploy.prototxt'
   #PRETRAINED = '../prototxts/caffenet_frozen_phase2/snapshots/caffenet_slow_fp2_iter_55000.caffemodel'
   #MEAN = '../mean/transient_mean.binaryproto'
-  MODEL = '../generate/jobs_hybrid/hybrid_%dss/deploy.prototxt' % stepsize_var
-  PRETRAINED = '../generate/jobs_hybrid/hybrid_%dss/snapshots/hybrid_%dss_iter_%s.caffemodel' % (stepsize_var, stepsize_var, iteration)
+  MODEL = '../generate/jobs/caffenet_weather_%dss/deploy.prototxt' % stepsize_var
+  PRETRAINED = '../generate/jobs/caffenet_weather_%dss/snapshots/caffenet_weather_%dss_iter_%s.caffemodel' % (stepsize_var, stepsize_var, iteration)
   MEAN = '../mean/transient_mean.binaryproto'
 
   # load the mean image 
@@ -88,7 +88,7 @@ for iteration in min_loss_iter:
   # process 
   #
   ix = 0
-  error = np.zeros(40)
+  error = np.zeros(16)
   db = lmdb.open(db_name)
 
   # get all keys
@@ -105,7 +105,6 @@ for iteration in min_loss_iter:
       # push through the network
       out = net.forward_all(data=caffe_input)
       pred = out['fc8-t'].squeeze()
-
       # squared difference
       error += ((pred[:] - labels[ix,:]) ** 2).squeeze()
     
@@ -115,4 +114,4 @@ for iteration in min_loss_iter:
   error = error[:] / ix
   with open(outfile, 'a+') as f:
     f.write(str(stepsize_var) + ' ' + str(iteration) + ' ' + str(np.average(error)) + '\n')
-  print np.average(error)
+  print stepsize_var, np.average(error)
