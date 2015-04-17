@@ -65,9 +65,6 @@ for iteration in min_loss_iter:
   # load the trained net 
   #
 
-  #MODEL = '../prototxts/caffenet_frozen_phase2/deploy.prototxt'
-  #PRETRAINED = '../prototxts/caffenet_frozen_phase2/snapshots/caffenet_slow_fp2_iter_55000.caffemodel'
-  #MEAN = '../mean/transient_mean.binaryproto'
   MODEL = '../generate/jobs/caffenet_weather_%dss/deploy.prototxt' % stepsize_var
   PRETRAINED = '../generate/jobs/caffenet_weather_%dss/snapshots/caffenet_weather_%dss_iter_%s.caffemodel' % (stepsize_var, stepsize_var, iteration)
   MEAN = '../mean/transient_mean.binaryproto'
