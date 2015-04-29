@@ -1,0 +1,102 @@
+REVIEW RESULT
+Your file reference number is: 388-A8Uo-91
+Result : 
+  
+Rejected
+
+Paper title : 
+  
+
+DEEP METHODS FOR ESTIMATING TRANSIENT SCENE PROPERTIES
+
+EDICS : 
+  
+
+6.3.3. Scene analysis   Second choice :  8.4.1. Image processing in vision sensor networks
+
+  
+
+Chair Comment : 
+  
+
+Area chair Comment : 
+  
+
+Reviewer grading : 
+
+Reviewer 1 :
+    
+Comment:    
+ 
+1. Confidence (How confident are you in your assessment of the paper?)
+  Confident(2)  
+2. Importance/Relevance
+  Of broad interest (4)   It is good and expected to see that deep learning is
+                          effective in solving more and more vision problems.
+3. Novelty/Originality
+  Moderately original (3)   The main contribution of this paper is to apply the
+                            popular deep learning techniques to transient attribute 
+                            prediction and weather classification.
+4. Technical correctness
+  Probably correct (did not checked completly) (3)
+    The implementation of the training system is built on Caffe. The authors
+    promise to release the network models so there should be no problem to repeat
+    the experiments.
+5. Experimental validation
+  Limited but convincing (3)  
+6. Presentation
+  Clear enough (3)  
+7. References
+  References adequate (3)   
+    
+
+    
+
+Reviewer 2 :
+    
+Comment:  This paper introduces six deep convolutional neural networks for
+predicting transient scene attributes from a single image. These networks
+achieve state-of-the-art results on two benchmark datasets. The key advantages
+of the proposed approach are that it requires no hand-engineered features, is
+simple to train, is very fast at test time, and makes accurate predictions. In
+addition, these networks can quickly extended to label additional attributes or
+adapted to new datasets with a small amount of retraining. In addition, the
+paper also proposes a method for automatically labeling outdoor webcams using
+these networks.  
+ 
+1. Confidence (How confident are you in your assessment of the paper?)
+  Confident(2)  
+2. Importance/Relevance
+  Of limited interest (2)   
+3. Novelty/Originality
+  Minor originality (2)   
+4. Technical correctness
+  Probably correct (did not checked completly) (3)  
+5. Experimental validation
+  Lacking in some respect (2)   
+6. Presentation
+  Clear enough (3)  
+7. References
+  References adequate (3)   
+    
+
+    
+
+Reviewer 3 :
+    
+Comment:    
+ 
+1. Confidence (How confident are you in your assessment of the paper?)
+  Confident(2)  
+2. Importance/Relevance
+  Of sufficient interest (3)  
+3. Novelty/Originality
+  Moderately original (3)   
+4. Technical correctness
+  Probably correct (did not checked completly) (3)  
+5. Experimental validation
+  Sufficient validation/theoretical paper (4)   
+6. Presentation
+  Very Clear (4)  
+7. References
+  References adequate (3)
