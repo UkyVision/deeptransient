@@ -1,5 +1,6 @@
-\documentclass{article}
-\usepackage{spconf,amsmath,graphicx,subfigure,multirow, bigstrut, paralist}
+\documentclass[10pt,twocolumn,letterpaper]{article}
+\usepackage{wacv,times,epsfig,amsmath,graphicx,subfigure,multirow,bigstrut,paralist}
+
 
 \usepackage[breaklinks=true,colorlinks,bookmarks=false]{hyperref}
 
@@ -7,20 +8,29 @@
 \newcommand{\figref}[1]{Figure~\ref{fig:#1}}
 \newcommand{\tblref}[1]{Table~\ref{tbl:#1}}
 
+%\wacvfinalcopy % *** Uncomment this line for the final submission
+
+\def\wacvPaperID{****} % *** Enter the wacv Paper ID here
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+% Pages are numbered in submission mode, and unnumbered in camera-ready
+\ifwacvfinal\pagestyle{empty}\fi
+\setcounter{page}{1}
+
+
+\begin{document}
 \title{Deep Methods for Estimating Transient Scene Properties}
 
 
-\name{Ryan Baltenberger, Connor Greenwell, Scott Workman, Nathan Jacobs
-  \vspace{-.75em}}
-\address{ 
+\author{Ryan Baltenberger, Connor Greenwell, Scott Workman, Nathan Jacobs \\
+  \vspace{-.75em} 
   Department of Computer Science, University of Kentucky \\
   {\tt\small \{rbalten, connor, scott, jacobs\}@cs.uky.edu}
 }
 
-
-\begin{document}
-
 \maketitle
+\ifwacvfinal\thispagestyle{empty}\fi
+
 
 \begin{abstract}
 
@@ -36,10 +46,6 @@ results on two benchmark datasets.  We also show how such networks may be used
 in several different applications.
 
 \end{abstract}
-
-\begin{keywords}
-image understanding, neural networks
-\end{keywords}
 
 \section{Introduction}
 \indent
