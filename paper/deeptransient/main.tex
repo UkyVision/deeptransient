@@ -51,7 +51,6 @@ in several different applications.
 \section{Introduction}
 \indent
 % general intro to the problem and why it is important
-
 Outdoor scenes experience a wide range of lighting and weather conditions which
 dramatically affect their appearance. A scene can change from rainy and
 brooding to sunny and pleasant in a matter of hours, even minutes. The ability
@@ -104,7 +103,6 @@ framework~\cite{caffe14}.
 
 \subsection{Related Work}
 \indent
-
 Attributes are high-level descriptions of a visual property which offer some
 additional semantic context for understanding an object, activity, or scene.
 For example, a \emph{green} apple or a \emph{cloudy} day. Representations based
@@ -141,7 +139,6 @@ image intensities as input.
 
 \subsection{Background}
 \indent
-
 Deep convolutional neural networks (CNNs) have been used extensively in recent
 years to obtain state-of-the-art results on a wide variety of computer vision
 problems.  In this work, we focus on a particular CNN architecture, often
@@ -172,8 +169,8 @@ classification, then the only change that is necessary is to change the network
 loss function, perhaps replacing the SOFT-MAX loss with an $L_2$ loss.
 
 \section{Deep Networks for Estimating Transient Attributes}
+\todo{the title of this section is too long. needs fixing} \\
 \indent
-
 We propose to use deep convolutional neural networks to classify transient
 scene attributes. We develop networks for two single-image problems: the
 classification problem of estimating whether it is sunny or cloudy and a
@@ -244,14 +241,12 @@ made available online for all six networks.
 
 \section{Evaluation}
 \indent
-
 We evaluate the six networks defined in the previous section on two large-scale
 benchmark datasets. The results show that these deep networks obtain
 state-of-the-the-art results. 
 
 \subsection{Two-Class Weather Classification}
 \indent
-
 In our first experiment, we use the dataset created by Lu et
 al.~\cite{lutwoclass} to train our networks for two class weather
 classification.  The dataset contains images collected from the SUN
@@ -269,7 +264,6 @@ most accurately.  CloudyNet-P averages 0.0672s per image for prediction.
 
 \subsection{Transient Attributes}
 \indent
-
 We used the dataset created by Laffont et al.~\cite{Laffont14} to train our
 networks for transient attribute prediction. The dataset contains images from
 outdoor webcams in the Archive of Many Outdoor Scenes~\cite{jacobs07amos} and
@@ -362,7 +356,6 @@ per image for prediction.
 
 \section{Automatic Webcam Image Labeling}
 \indent
-
 One application of transient attribute estimation is automatic outdoor webcam
 labeling. Webcam collections such as AMOS~\cite{jacobs07amos} contain thousands
 of geolocated webcams with years of archived data.  Searching for scenes with a
@@ -380,7 +373,6 @@ collections of webcams.
 
 \section{Conclusions}
 \indent
-
 We introduce six deep convolutional neural networks for predicting transient
 scene attributes from a single image. These networks achieve state-of-the-art
 results on two benchmark datasets. The key advantages of the proposed approach
