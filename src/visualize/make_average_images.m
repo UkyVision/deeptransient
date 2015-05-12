@@ -40,11 +40,7 @@ fNames = textscan(fopen(sprintf('/u/eag-d1/scratch/ryan/webcams/%s/features/tran
 
 
 % load weights
-if strcmp(imageset,weightset)
-  f_weights = [base_dir imageset '_features_' layer '.h5'];
-else
-  f_weights = [base_dir imageset '_' weightset(1) '_features.h5'];
-end
+f_weights = [base_dir weightset '_features_' layer '.h5'];
 
 features = h5read(f_weights, '/features');
 

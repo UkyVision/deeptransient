@@ -8,11 +8,11 @@ import h5py
 from collections import defaultdict
 
 
-dataset = '00000204'
+dataset = '00000260'
 base_dir = '/u/eag-d1/scratch/ryan/webcams/'
 
 out_dir  = '%s%s/features/' % (base_dir, dataset)
-im_db = '../webcam_dbs/00000204_im_db/'
+im_db = '../webcam_dbs/00000260_im_db/'
 
 
 #
