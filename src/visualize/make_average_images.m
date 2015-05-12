@@ -13,7 +13,7 @@
 
 function make_average_images(imageset,weightset,layer,Naverage)
 
-base_dir = '/u/eag-d1/scratch/ryan/webcams/00000065/features/transientneth/';
+base_dir = '/u/eag-d1/scratch/ryan/webcams/00000623/features/transientneth/';
 
 addpath ~/matlab_root/
 addpath ~/matlab_root/export_fig/
@@ -22,7 +22,7 @@ sz = [100 100]; % output image size;
 
 % choose a subset of this many nodes
 % (set it to <= 0 to compute averages for all)
-MAX_ACTIVATIONS = 512;
+MAX_ACTIVATIONS = 0;
 
 output_base = './activation_averages/';
 
@@ -36,7 +36,7 @@ end
 
 % f_images = [base_dir imageset '_features.h5'];
 % fNames = h5read(f_images, '/image_names');
-fNames = textscan(fopen('/u/eag-d1/scratch/ryan/webcams/00000065/features/image_names.txt'), '%s');
+fNames = textscan(fopen('/u/eag-d1/scratch/ryan/webcams/00000623/features/transientneth/image_names.txt'), '%s');
 
 
 % load weights
@@ -70,6 +70,9 @@ end
 % randomize the activations (an interesting baseline for comparison)
 % features_extract = rand(size(features_extract));
 
+% over_one = find(features_extract(:,:) > 1);
+% features_extract(over_one) = features_extract(over_one) - 1;
+
 [~, inds] = sort(features_extract, 'descend');
 inds_K = inds(1:Naverage,:);
 
@@ -81,8 +84,8 @@ valid_matrix(sub2ind(size(inds),inds_K,repmat(1:size(inds_K,2), [Naverage 1]))) 
 valid_matrix = reshape(valid_matrix,size(inds,1),1,1,size(inds,2));
 
 % only open the images we have to
-% valid_ids = unique(inds_K);
-valid_ids = inds_K;
+valid_ids = unique(inds_K);
+% valid_ids = inds_K;
 
 %
 % accumulate a running sum and the count for each node
@@ -129,14 +132,17 @@ im_means = max(min(bsxfun(@rdivide,ims_accum, count_accum),1),0);
 
 %% output all images
 
+% load up attribute names
+attr = textscan(fopen('/u/eag-d1/scratch/ryan/transient/annotations/attributes.txt'), '%s\n');
+
 for ix = 1:Nnodes
   imwrite(im_means(:,:,:,ix),...
-    sprintf('%s/z_%05.0f.jpg',outdir,ix));
+    sprintf('%s/z_%05.0f_%s.jpg',outdir,ix,char(attr{1}(ix))));
 end
 
 % make the montages sorted a few different ways
 
-sorts = {'image-pca','activation-pca',...Nav
+sorts = {'image-pca','activation-pca',...
   'activation-average','activation-max'};
 
 for ix = 1:numel(sorts)

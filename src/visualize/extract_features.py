@@ -11,11 +11,8 @@ from collections import defaultdict
 dataset = '00000162'
 base_dir = '/u/eag-d1/scratch/ryan/webcams/'
 
-if dataset == '00000162':
-  out_dir  = '%s%s/features/' % (base_dir, dataset)
-  im_db = '../webcam_dbs/00000162_im_db/'
-else:
-  raise Exception('unknown dataset provided')
+out_dir  = '%s%s/features/' % (base_dir, dataset)
+im_db = '../webcam_dbs/00000162_im_db/'
 
 
 #
@@ -24,24 +21,20 @@ else:
 
 base_dir = '../caffemodels/'
 
-#iter = 9000 
-
 jobs = [
   {
    'name': 'transientneth',
-   #'iter': iter,
    'mean': '../mean/transient_mean.binaryproto'
   },
 ]
 
 job = jobs[0]
 
-out_dir += '%s/' % (job['name'])#, iter)
+out_dir += '%s/' % (job['name'])
 if not os.path.exists(out_dir):
   os.makedirs(out_dir)
 
-#job_dir = '%sjobs/%s/' % (base_dir, job['name'])
-deploy_file = '../caffemodels/deploy.prototxt'# % job_dir
+deploy_file = '../caffemodels/deploy.prototxt'
 model_file = '../caffemodels/%s.caffemodel' % (job['name']) 
 mean_file = job['mean'] 
 
@@ -92,26 +85,30 @@ def compute_features(db_name, means, blobs, out_h5file):
         # initialize array to hold images 
         images = np.zeros((len(batch),3,)+(227,227))
         for idy, (key, value) in enumerate(batch):
-          im_datum = caffe.io.caffe_pb2.Datum().FromString(value)
-          im = caffe.io.datum_to_array(im_datum)
+          with open(out_dir + '/image_names.txt', 'a+') as f:
+            f.write(key[7:] + '\n')
+          
+        #  im_datum = caffe.io.caffe_pb2.Datum()
+        #  im_datum.ParseFromString(value)
+        #  im = caffe.io.datum_to_array(im_datum)
        
-          # subtract mean & resize
-          caffe_input = im - mean
-          caffe_input = caffe_input.transpose((1,2,0))
-          caffe_input = caffe.io.resize_image(caffe_input, (227,227))
+        #  # subtract mean & resize
+        #  caffe_input = im - mean
+        #  caffe_input = caffe_input.transpose((1,2,0))
+        #  caffe_input = caffe.io.resize_image(caffe_input, (227,227))
 
-          caffe_input = caffe_input.transpose((2,0,1))
-          caffe_input = caffe_input.reshape((1,)+caffe_input.shape)
-         
-          # store preprocessed images
-          image_ids.append(int(key[:5]))
-          images[idy,:,:,:] = caffe_input
+        #  caffe_input = caffe_input.transpose((2,0,1))
+        #  caffe_input = caffe_input.reshape((1,)+caffe_input.shape)
+        # 
+        #  # store preprocessed images
+        #  image_ids.append(int(key[:5]))
+        #  images[idy,:,:,:] = caffe_input
 
-        # push through the network
-        out = net.forward_all(data=images, blobs=blobs)
-        
-        for blob_name in blobs:
-          features[blob_name].append(out[blob_name])
+        ## push through the network
+        #out = net.forward_all(data=images)#, blobs=blobs)
+        #
+        #for blob_name in blobs:
+        #  features[blob_name].append(out[blob_name])
 
         print "(%s) processed batch %d (%s, %s)" % (db_name, idx+1, start_key, end_key)
 
@@ -125,7 +122,5 @@ def compute_features(db_name, means, blobs, out_h5file):
 #
 
 blobs = ['fc8-t']
-#blobs = ['fc7']
 
-if dataset == '00000162':
-  compute_features(im_db, mean, blobs, 'transientneth_features')
+compute_features(im_db, mean, blobs, 'transientneth_features')
