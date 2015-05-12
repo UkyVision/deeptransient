@@ -13,7 +13,7 @@
 
 function make_average_images(imageset,weightset,layer,Naverage)
 
-base_dir = '/u/eag-d1/scratch/ryan/webcams/00000623/features/transientneth/';
+base_dir = sprintf('/u/eag-d1/scratch/ryan/webcams/%s/features/transientneth/', imageset);
 
 addpath ~/matlab_root/
 addpath ~/matlab_root/export_fig/
@@ -36,7 +36,7 @@ end
 
 % f_images = [base_dir imageset '_features.h5'];
 % fNames = h5read(f_images, '/image_names');
-fNames = textscan(fopen('/u/eag-d1/scratch/ryan/webcams/00000623/features/transientneth/image_names.txt'), '%s');
+fNames = textscan(fopen(sprintf('/u/eag-d1/scratch/ryan/webcams/%s/features/transientneth/image_names.txt', imageset)), '%s');
 
 
 % load weights
@@ -70,9 +70,6 @@ end
 % randomize the activations (an interesting baseline for comparison)
 % features_extract = rand(size(features_extract));
 
-% over_one = find(features_extract(:,:) > 1);
-% features_extract(over_one) = features_extract(over_one) - 1;
-
 [~, inds] = sort(features_extract, 'descend');
 inds_K = inds(1:Naverage,:);
 
@@ -85,7 +82,6 @@ valid_matrix = reshape(valid_matrix,size(inds,1),1,1,size(inds,2));
 
 % only open the images we have to
 valid_ids = unique(inds_K);
-% valid_ids = inds_K;
 
 %
 % accumulate a running sum and the count for each node
@@ -130,10 +126,28 @@ end
 % compute mean images
 im_means = max(min(bsxfun(@rdivide,ims_accum, count_accum),1),0);
 
-%% output all images
+%% montage with attribute names
 
 % load up attribute names
 attr = textscan(fopen('/u/eag-d1/scratch/ryan/transient/annotations/attributes.txt'), '%s\n');
+
+% montage means and overlay attribute name
+attr_num = 0;
+montage(im_means)
+for y=5:100:605
+   for x=5:100:605
+       attr_num = attr_num + 1;
+       if attr_num < 41
+          text(x,y,attr{1}(attr_num)) 
+       end
+   end
+end
+
+% save out montage
+exportfigure(gcf, sprintf('%smontage_cam_%s.jpg',outdir, imageset), [10 10], 300)
+
+
+%% output all images
 
 for ix = 1:Nnodes
   imwrite(im_means(:,:,:,ix),...

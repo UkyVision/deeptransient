@@ -8,11 +8,11 @@ import h5py
 from collections import defaultdict
 
 
-dataset = '00000162'
+dataset = '00000204'
 base_dir = '/u/eag-d1/scratch/ryan/webcams/'
 
 out_dir  = '%s%s/features/' % (base_dir, dataset)
-im_db = '../webcam_dbs/00000162_im_db/'
+im_db = '../webcam_dbs/00000204_im_db/'
 
 
 #
@@ -85,30 +85,30 @@ def compute_features(db_name, means, blobs, out_h5file):
         # initialize array to hold images 
         images = np.zeros((len(batch),3,)+(227,227))
         for idy, (key, value) in enumerate(batch):
-          with open(out_dir + '/image_names.txt', 'a+') as f:
+          with open(os.path.join(out_dir, 'image_names.txt'), 'a+') as f:
             f.write(key[7:] + '\n')
           
-        #  im_datum = caffe.io.caffe_pb2.Datum()
-        #  im_datum.ParseFromString(value)
-        #  im = caffe.io.datum_to_array(im_datum)
+          im_datum = caffe.io.caffe_pb2.Datum()
+          im_datum.ParseFromString(value)
+          im = caffe.io.datum_to_array(im_datum)
        
-        #  # subtract mean & resize
-        #  caffe_input = im - mean
-        #  caffe_input = caffe_input.transpose((1,2,0))
-        #  caffe_input = caffe.io.resize_image(caffe_input, (227,227))
+          # subtract mean & resize
+          caffe_input = im - mean
+          caffe_input = caffe_input.transpose((1,2,0))
+          caffe_input = caffe.io.resize_image(caffe_input, (227,227))
 
-        #  caffe_input = caffe_input.transpose((2,0,1))
-        #  caffe_input = caffe_input.reshape((1,)+caffe_input.shape)
-        # 
-        #  # store preprocessed images
-        #  image_ids.append(int(key[:5]))
-        #  images[idy,:,:,:] = caffe_input
+          caffe_input = caffe_input.transpose((2,0,1))
+          caffe_input = caffe_input.reshape((1,)+caffe_input.shape)
+         
+          # store preprocessed images
+          image_ids.append(int(key[:5]))
+          images[idy,:,:,:] = caffe_input
 
-        ## push through the network
-        #out = net.forward_all(data=images)#, blobs=blobs)
-        #
-        #for blob_name in blobs:
-        #  features[blob_name].append(out[blob_name])
+        # push through the network
+        out = net.forward_all(data=images)#, blobs=blobs)
+        
+        for blob_name in blobs:
+          features[blob_name].append(out[blob_name])
 
         print "(%s) processed batch %d (%s, %s)" % (db_name, idx+1, start_key, end_key)
 
