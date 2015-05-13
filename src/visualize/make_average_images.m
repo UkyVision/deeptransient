@@ -210,15 +210,15 @@ for ix = 1:numel(sorts)
   
   %% show imscatter
   
-  if strcmp(sort_by, 'activation-pca')
-    figure(60); clf;
-    axes('Position', [0 0 1 1]);
-    hold on
-    imscatter(V(:,1), V(:,2), im_means, .0002)
-    hold off
-    axis ij off
-    export_fig(gcf,sprintf('%smontage_scatter.jpg', outdir), '-m2');
-  end
+  %if strcmp(sort_by, 'activation-pca')
+  %  figure(60); clf;
+  %  axes('Position', [0 0 1 1]);
+  %  hold on
+  %  imscatter(V(:,1), V(:,2), im_means, .0002)
+  %  hold off
+  %  axis ij off
+  %  export_fig(gcf,sprintf('%smontage_scatter.jpg', outdir), '-m2');
+  %end
   
 end
 

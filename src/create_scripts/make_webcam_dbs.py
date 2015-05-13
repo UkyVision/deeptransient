@@ -25,7 +25,11 @@ def make_database(db_name, files):
   with im_db.begin(write=True) as im_db_txn:
     for idx, file in enumerate(files):
       # load the image (RGB)
-      im = caffe.io.load_image(file[7:])
+      try:
+        im = caffe.io.load_image(file[7:])
+      except:
+        continue
+
       im = caffe.io.resize_image(im, sz)
 
       # channel swap for pre-trained (RGB -> BGR)
