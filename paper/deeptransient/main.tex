@@ -292,6 +292,10 @@ the two methods on the attribute \emph{night} was around 2.5 percentage points,
 with TransientNet-H having the smaller error.  TransientNet-H averages 0.0699s
 per image for prediction. 
 
+\subsection{Network Visualizations}
+\todo{discuss the network visualization images}
+
+
 \begin{table}[t]
 	\centering
 	\begin{tabular}{ | l | c | }
@@ -352,6 +356,15 @@ per image for prediction.
 						 negative average error are attributes that are predicted more 
 						 accurately by our method.}
 		\label{fig:relerr}
+\end{figure}
+
+\begin{figure}[t!]
+	\centering
+		\includegraphics[width=0.5\textwidth]{figs/montage_cam_00007371.pdf}
+		\caption{This shows the average of the top ten most confident images for
+             each of the attributes on a set of AMOS images run through 
+             TransientNet-H \todo{this caption is terrible}} 
+		\label{fig:netvis}
 \end{figure}
 
 \section{Automatic Webcam Image Labeling}

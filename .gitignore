@@ -1,6 +1,5 @@
 *.swp
 *.swo
 slurm*
-*.pdf
 *.caffemodel
 src/prototxts/*/snapshots*/
