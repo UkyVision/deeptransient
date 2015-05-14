@@ -293,8 +293,23 @@ with TransientNet-H having the smaller error.  TransientNet-H averages 0.0699s
 per image for prediction. 
 
 \subsection{Network Visualizations}
-\todo{discuss the network visualization images}
+\todo{discuss the network visualization images} \\
+\indent
+\figref{netvis} visualizes the top scoring images from a single
+AMOS~\cite{jacobs07amos} webcams.  The 100 images with the highest score for
+each attribute (per the \textit{fc8} output layer) were averaged to create each
+of the images in \figref{netvis}. The average images for most of the attributes
+in the visualization are a reasonable representation of the attribute for the
+scene.  The seasonal attributes (\textit{autumn, summer, etc.}) show how the
+scene changes throughout the year and lighting attributes
+(\textit{sunrise/sunset, daylight, night, etc.}) shows the scene in various
+lighting conditions.  Some attributes have similar average images though
+(\textit{e.g., glowing and colorful, windy and rain}), suggesting that the
+network may not distinguish between these attributes well or that these
+attributes have some correlation with each other.
 
+\todo{use the explore correlation script to find correlated attributes. these
+      may be the attributes with the similar average images.} 
 
 \begin{table}[t]
 	\centering
@@ -363,7 +378,9 @@ per image for prediction.
 		\includegraphics[width=0.5\textwidth]{figs/montage_cam_00007371.pdf}
 		\caption{This shows the average of the top ten most confident images for
              each of the attributes on a set of AMOS images run through 
-             TransientNet-H \todo{this caption is terrible}} 
+             TransientNet-H \todo{this caption is terrible} 
+             \todo{change font color on night and dark attributes}
+             \todo{make figure bigger?}} 
 		\label{fig:netvis}
 \end{figure}
 
