@@ -57,6 +57,10 @@ features2 = h5read(f_weights, '/features');
 fNames2 = textscan(fopen(sprintf('/u/eag-d1/scratch/ryan/webcams/%s/features/transientneth/image_names.txt', imageset)), '%s');
 fNames2 = fNames2{1};
 
+%% match up images between the cameras
+
+
+
 %% cca and other experiments
 
 [A,B,r,U,V] = canoncorr(features1(:,1:9000)', features2(:,1:9000)');
