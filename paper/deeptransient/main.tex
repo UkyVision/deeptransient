@@ -384,7 +384,32 @@ attributes have some correlation with each other.
 		\label{fig:netvis}
 \end{figure*}
 
-\section{Automatic Webcam Image Labeling}
+\section{Applications}
+\todo{better intro into the applications} \\
+\indent
+We take advantage of the transient attributes for outdoor webcams in several applications.
+We first use the transient attributes for geolocalizing static webcams using a method
+similar to Jacobs et al.~\cite{jacobs07geolocate}.  We then propose a method for
+automatically labeling images from outdoor webcams, allowing for advanced searching
+of webcam collections, such as AMOS~\cite{jacobs07amos}.
+\subsection{Webcam Geolocalization}
+\todo{get results and plot them} \\
+\indent
+Cameras in close proximity to each other should have a similar set of transient
+attributes.  We can use this to compare the transient attributes over a given
+time frame for a webcam with unknown location to a the attributes over a
+similar time frame for a set of webcams with known locations.  We predict the
+transient attributes for the unknown webcam using TransientNet-H.  We compute
+the interpolated timeseries for each attribute.  We use CCA to find how
+correlated the unknown webcam's timeseries is with each of the known webcam's
+timeseries.  The known webcam with the highest correlation is used as an
+estimate of the location of the unknown webcam.
+ 
+The results look good and allow us to accurately localize webcams based on their
+transient attributes.  \figref{localization} shows some results from this 
+experiment.
+
+\subsection{Automatic Webcam Image Labeling}
 \indent
 One application of transient attribute estimation is automatic outdoor webcam
 labeling. Webcam collections such as AMOS~\cite{jacobs07amos} contain thousands
