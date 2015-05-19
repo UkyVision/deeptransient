@@ -42,7 +42,7 @@ net = caffe.Classifier(MODEL, PRETRAINED, caffe.TEST)
 ix = 0
 db = lmdb.open(db_name)
 
-attributes = np.genfromtxt("attributes.txt", dtype='str')
+attributes = np.genfromtxt("data/attributes.txt", dtype='str')
 
 # get all keys
 with db.begin(write=False) as db_txn:
@@ -62,9 +62,9 @@ with db.begin(write=False) as db_txn:
     out = net.forward_all(data=caffe_input)
     pred = out['fc8-t'].squeeze()
     
-    plt.figure(1)
+    plt.subplot(2,1,1)
     plt.imshow(plt.imread(key[7:]))
-    plt.figure(2)
+    plt.subplot(2,1,2)
     plt.bar(xrange(0,40), pred)
     plt.xticks(xrange(0,40), attributes, rotation=90)
     plt.ylim((0,1))
