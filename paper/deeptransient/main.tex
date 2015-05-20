@@ -187,7 +187,8 @@ networks.
 		\includegraphics[width=1.0\textwidth, trim= 0 4mm 0 0]{figs/avg_err_compare_cmr.pdf}
 		\caption{This shows the average errors for each attribute from proposed method
 						 by Laffont et al., TransientNet-I, TransientNet-P, and TransientNet-H.  
-             TransientNet-H has the lowest average error for most of the attributes.}
+             TransientNet-H has the lowest average error for most of the attributes.
+             \todo{de-uglify this plot}}
 		\label{fig:compare}
 \end{figure*}
 
@@ -341,7 +342,7 @@ attributes have some correlation with each other.
 	\label{tbl:transient}
 \end{table}
 
-\begin{table}[t!]
+\begin{figure}[t!]
   \renewcommand{\arraystretch}{1.6}
   \centering
   \begin{tabular}[b]{| c | c |}
@@ -360,8 +361,8 @@ attributes have some correlation with each other.
     \hline
   \end{tabular}
   \caption{Example labels for images using TransientNet-H}
-  \label{tbl:labels}
-\end{table}
+  \label{fig:labels}
+\end{figure}
 
 \begin{figure}[t!]
 	\centering
@@ -420,7 +421,7 @@ scores to tag images and webcams with certain attributes.  If an attribute is
 above a defined threshold, the image could be labeled with that attribute.  The
 opposite could be true as well.  If an attribute is below a defined threshold,
 the attribute could be added to a list of attributes the image does not have.
-\tblref{labels} shows examples of the potential labels for images. This would
+\figref{labels} shows examples of the potential labels for images. This would
 enable users to use queries such as ``sunny'' or ``not winter''.  Attributes
 that appear frequently in a webcam (aside from daylight, night, etc) could be
 used to tag the webcam.  This would allow for much easier searching of large
