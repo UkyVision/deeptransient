@@ -134,7 +134,7 @@ for y=6:100:606
    for x=3:100:603
        attr_num = attr_num + 1;
        if attr_num < 41
-          text(x,y,attr{1}(attr_num), 'color', 'green') 
+          text(x,y,attr{1}(attr_num), 'Color', [.7 0 0]) 
        end
    end
 end
