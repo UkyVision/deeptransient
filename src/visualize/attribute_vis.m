@@ -43,7 +43,7 @@ ylim([0,1]);
 xlim([xData(inds(1)),xData(inds(end))]);
 ylabel(attr_names(10));
 set(get(gca,'ylabel'), 'fontsize', 15);
-set(gca, 'XTick', xData(inds(30:40:end)));
+set(gca, 'XTick', xData(inds(30:45:end)));
 set(gca, 'YTick', [0:0.25:1]);
 set(gca, 'TickLength', [0 0])
 datetick('x', 'mmm dd yyyy', 'keepticks', 'keeplimits');
