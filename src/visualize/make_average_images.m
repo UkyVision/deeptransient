@@ -130,17 +130,17 @@ attr = textscan(fopen('/u/eag-d1/scratch/ryan/transient/annotations/attributes.t
 % montage means and overlay attribute name
 attr_num = 0;
 montage(im_means)
-for y=5:100:605
-   for x=5:100:605
+for y=6:100:606
+   for x=3:100:603
        attr_num = attr_num + 1;
        if attr_num < 41
-          text(x,y,attr{1}(attr_num)) 
+          text(x,y,attr{1}(attr_num), 'color', 'green') 
        end
    end
 end
 
 % save out montage
-exportfigure(gcf, sprintf('%smontage_cam_%s.jpg',outdir, imageset), [10 10], 300)
+exportfigure(gcf, sprintf('%smontage_cam_%s.pdf',outdir, imageset), [10 10], 300)
 
 
 %% output all images
