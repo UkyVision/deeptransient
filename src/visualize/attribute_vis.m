@@ -16,31 +16,34 @@ xData = datenum(im_dates, 'yyyymmdd_HHMMSS');
 
 inds = find(xData >= datenum('02-16-2013') & xData <= datenum('02-24-2013'));
 
-figure(1);
-subplot(3,1,1);
+figure(1);clf;
+axes('Position', [.1 .38 .85 .27])
 plot(xData(inds), attrs(inds,2));
 ylim([0,1]);
 xlim([xData(inds(1)),xData(inds(end))]);
 ylabel(attr_names(2));
 set(get(gca,'ylabel'), 'fontsize', 15);
-set(gca, 'XTick', xData(inds(30:40:end)));
-datetick('x', 'mmm-dd-yyyy HH:MM:SS', 'keepticks', 'keeplimits');
-hold on;
+set(gca, 'XTick', []);
+set(gca, 'YTick', [0:0.25:1]);
+set(gca, 'TickLength', [0 0])
 
-subplot(3,1,2);
+axes('Position', [.1 .67 .85 .27])
 plot(xData(inds), attrs(inds,3));
 ylim([0,1]);
 xlim([xData(inds(1)),xData(inds(end))]);
 ylabel(attr_names(3));
 set(get(gca,'ylabel'), 'fontsize', 15);
-set(gca, 'XTick', xData(inds(30:40:end)));
-datetick('x', 'mmm-dd-yyyy HH:MM:SS', 'keepticks', 'keeplimits');
+set(gca, 'XTick', []);
+set(gca, 'YTick', [0:0.25:1]);
+set(gca, 'TickLength', [0 0])
 
-subplot(3,1,3);
+axes('Position', [.1 .09 .85 .27])
 plot(xData(inds), attrs(inds,10));
 ylim([0,1]);
 xlim([xData(inds(1)),xData(inds(end))]);
 ylabel(attr_names(10));
 set(get(gca,'ylabel'), 'fontsize', 15);
 set(gca, 'XTick', xData(inds(30:40:end)));
-datetick('x', 'mmm-dd-yyyy HH:MM:SS', 'keepticks', 'keeplimits');
+set(gca, 'YTick', [0:0.25:1]);
+set(gca, 'TickLength', [0 0])
+datetick('x', 'mmm dd yyyy', 'keepticks', 'keeplimits');
