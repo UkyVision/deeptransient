@@ -1,7 +1,7 @@
 import glob
 import numpy as np
 
-slurms = glob.glob('jobs_hybrid/**/*.out')
+slurms = glob.glob('jobs/**/*.out')
 
 min_loss = []
 min_loss_iter = []

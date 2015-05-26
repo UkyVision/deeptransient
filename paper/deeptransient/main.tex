@@ -1,26 +1,37 @@
-\documentclass{article}
-\usepackage{spconf,amsmath,graphicx,subfigure,multirow, bigstrut, paralist}
+\documentclass[10pt,twocolumn,letterpaper]{article}
+\usepackage{wacv,times,epsfig,graphicx,amsmath,amssymb}
+\usepackage{subfigure,multirow,bigstrut,paralist}
 
-\usepackage[breaklinks=true,colorlinks,bookmarks=false]{hyperref}
+
+\usepackage[pagebackref=true,breaklinks=true,letterpaper=true,colorlinks,bookmarks=false]{hyperref}
 
 \newcommand{\todo}[1]{\textcolor{red}{todo: {\em #1}}}
 \newcommand{\figref}[1]{Figure~\ref{fig:#1}}
 \newcommand{\tblref}[1]{Table~\ref{tbl:#1}}
 
+%\wacvfinalcopy % *** Uncomment this line for the final submission
+
+\def\wacvPaperID{****} % *** Enter the wacv Paper ID here
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+% Pages are numbered in submission mode, and unnumbered in camera-ready
+\ifwacvfinal\pagestyle{empty}\fi
+\setcounter{page}{1}
+
+
+\begin{document}
 \title{Deep Methods for Estimating Transient Scene Properties}
 
 
-\name{Ryan Baltenberger, Connor Greenwell, Scott Workman, Nathan Jacobs
-  \vspace{-.75em}}
-\address{ 
+\author{Ryan Baltenberger, Connor Greenwell, Scott Workman, Nathan Jacobs \\
+  \vspace{-.75em} 
   Department of Computer Science, University of Kentucky \\
   {\tt\small \{rbalten, connor, scott, jacobs\}@cs.uky.edu}
 }
 
-
-\begin{document}
-
 \maketitle
+\ifwacvfinal\thispagestyle{empty}\fi
+
 
 \begin{abstract}
 
@@ -37,14 +48,9 @@ in several different applications.
 
 \end{abstract}
 
-\begin{keywords}
-image understanding, neural networks
-\end{keywords}
-
 \section{Introduction}
 \indent
 % general intro to the problem and why it is important
-
 Outdoor scenes experience a wide range of lighting and weather conditions which
 dramatically affect their appearance. A scene can change from rainy and
 brooding to sunny and pleasant in a matter of hours, even minutes. The ability
@@ -97,7 +103,6 @@ framework~\cite{caffe14}.
 
 \subsection{Related Work}
 \indent
-
 Attributes are high-level descriptions of a visual property which offer some
 additional semantic context for understanding an object, activity, or scene.
 For example, a \emph{green} apple or a \emph{cloudy} day. Representations based
@@ -134,7 +139,6 @@ image intensities as input.
 
 \subsection{Background}
 \indent
-
 Deep convolutional neural networks (CNNs) have been used extensively in recent
 years to obtain state-of-the-art results on a wide variety of computer vision
 problems.  In this work, we focus on a particular CNN architecture, often
@@ -165,8 +169,8 @@ classification, then the only change that is necessary is to change the network
 loss function, perhaps replacing the SOFT-MAX loss with an $L_2$ loss.
 
 \section{Deep Networks for Estimating Transient Attributes}
+\todo{the title of this section is too long. needs fixing} \\
 \indent
-
 We propose to use deep convolutional neural networks to classify transient
 scene attributes. We develop networks for two single-image problems: the
 classification problem of estimating whether it is sunny or cloudy and a
@@ -180,10 +184,11 @@ networks.
 
 \begin{figure*}[t!]
 	\centering
-		\includegraphics[width=1.0\textwidth, trim= 0 8mm 0 0]{figs/avg_err_compare_cmr.pdf}
+		\includegraphics[width=1.0\textwidth, trim= 0 4mm 0 0]{figs/avg_err_compare_cmr.pdf}
 		\caption{This shows the average errors for each attribute from proposed method
 						 by Laffont et al., TransientNet-I, TransientNet-P, and TransientNet-H.  
-             TransientNet-H has the lowest average error for most of the attributes.}
+             TransientNet-H has the lowest average error for most of the attributes.
+             \todo{de-uglify this plot}}
 		\label{fig:compare}
 \end{figure*}
 
@@ -237,14 +242,12 @@ made available online for all six networks.
 
 \section{Evaluation}
 \indent
-
 We evaluate the six networks defined in the previous section on two large-scale
 benchmark datasets. The results show that these deep networks obtain
 state-of-the-the-art results. 
 
 \subsection{Two-Class Weather Classification}
 \indent
-
 In our first experiment, we use the dataset created by Lu et
 al.~\cite{lutwoclass} to train our networks for two class weather
 classification.  The dataset contains images collected from the SUN
@@ -262,7 +265,6 @@ most accurately.  CloudyNet-P averages 0.0672s per image for prediction.
 
 \subsection{Transient Attributes}
 \indent
-
 We used the dataset created by Laffont et al.~\cite{Laffont14} to train our
 networks for transient attribute prediction. The dataset contains images from
 outdoor webcams in the Archive of Many Outdoor Scenes~\cite{jacobs07amos} and
@@ -290,6 +292,25 @@ means Laffont et al. had a smaller error.  For example, the difference between
 the two methods on the attribute \emph{night} was around 2.5 percentage points,
 with TransientNet-H having the smaller error.  TransientNet-H averages 0.0699s
 per image for prediction. 
+
+\subsection{Network Visualizations}
+\todo{discuss the network visualization images} \\
+\indent
+\figref{netvis} visualizes the top scoring images from a single
+AMOS~\cite{jacobs07amos} webcams.  The 100 images with the highest score for
+each attribute (per the \textit{fc8} output layer) were averaged to create each
+of the images in \figref{netvis}. The average images for most of the attributes
+in the visualization are a reasonable representation of the attribute for the
+scene.  The seasonal attributes (\textit{autumn, summer, etc.}) show how the
+scene changes throughout the year and lighting attributes
+(\textit{sunrise/sunset, daylight, night, etc.}) shows the scene in various
+lighting conditions.  Some attributes have similar average images though
+(\textit{e.g., glowing and colorful, windy and rain}), suggesting that the
+network may not distinguish between these attributes well or that these
+attributes have some correlation with each other.
+
+\todo{use the explore correlation script to find correlated attributes. these
+      may be the attributes with the similar average images.} 
 
 \begin{table}[t]
 	\centering
@@ -321,7 +342,7 @@ per image for prediction.
 	\label{tbl:transient}
 \end{table}
 
-\begin{table}[t!]
+\begin{figure}[t!]
   \renewcommand{\arraystretch}{1.6}
   \centering
   \begin{tabular}[b]{| c | c |}
@@ -340,8 +361,8 @@ per image for prediction.
     \hline
   \end{tabular}
   \caption{Example labels for images using TransientNet-H}
-  \label{tbl:labels}
-\end{table}
+  \label{fig:labels}
+\end{figure}
 
 \begin{figure}[t!]
 	\centering
@@ -353,9 +374,52 @@ per image for prediction.
 		\label{fig:relerr}
 \end{figure}
 
-\section{Automatic Webcam Image Labeling}
-\indent
+\begin{figure}[t]
+	\centering
+		\includegraphics[width=0.5\textwidth]{figs/attr_compare.pdf}
+		\caption{This shows a snapshot of three attributes over a week for an AMOS
+             webcam. \todo{discuss this figure}}
+		\label{fig:attrcmp}
+\end{figure}
 
+\begin{figure*}[t!]
+	\centering
+		\includegraphics[width=\textwidth, trim= 0 40mm 0 31mm]{figs/montage_cam_00007371.pdf}
+		\caption{This shows the average of the top ten most confident images for
+             each of the attributes on a set of AMOS images run through 
+             TransientNet-H \todo{this caption is terrible} 
+             \todo{change font color on night and dark attributes}
+             \todo{make figure bigger?}} 
+		\label{fig:netvis}
+\end{figure*}
+
+\section{Applications}
+\todo{better intro into the applications} \\
+\indent
+We take advantage of the transient attributes for outdoor webcams in several applications.
+We first use the transient attributes for geolocalizing static webcams using a method
+similar to Jacobs et al.~\cite{jacobs07geolocate}.  We then propose a method for
+automatically labeling images from outdoor webcams, allowing for advanced searching
+of webcam collections, such as AMOS~\cite{jacobs07amos}.
+\subsection{Webcam Geolocalization}
+\todo{get results and plot them} \\
+\indent
+Cameras in close proximity to each other should have a similar set of transient
+attributes.  We can use this to compare the transient attributes over a given
+time frame for a webcam with unknown location to a the attributes over a
+similar time frame for a set of webcams with known locations.  We predict the
+transient attributes for the unknown webcam using TransientNet-H.  We compute
+the interpolated timeseries for each attribute.  We use CCA to find how
+correlated the unknown webcam's timeseries is with each of the known webcam's
+timeseries.  The known webcam with the highest correlation is used as an
+estimate of the location of the unknown webcam.
+ 
+The results look good and allow us to accurately localize webcams based on their
+transient attributes.  \figref{localization} shows some results from this 
+experiment.
+
+\subsection{Automatic Webcam Image Labeling}
+\indent
 One application of transient attribute estimation is automatic outdoor webcam
 labeling. Webcam collections such as AMOS~\cite{jacobs07amos} contain thousands
 of geolocated webcams with years of archived data.  Searching for scenes with a
@@ -365,7 +429,7 @@ scores to tag images and webcams with certain attributes.  If an attribute is
 above a defined threshold, the image could be labeled with that attribute.  The
 opposite could be true as well.  If an attribute is below a defined threshold,
 the attribute could be added to a list of attributes the image does not have.
-\tblref{labels} shows examples of the potential labels for images. This would
+\figref{labels} shows examples of the potential labels for images. This would
 enable users to use queries such as ``sunny'' or ``not winter''.  Attributes
 that appear frequently in a webcam (aside from daylight, night, etc) could be
 used to tag the webcam.  This would allow for much easier searching of large
@@ -373,7 +437,6 @@ collections of webcams.
 
 \section{Conclusions}
 \indent
-
 We introduce six deep convolutional neural networks for predicting transient
 scene attributes from a single image. These networks achieve state-of-the-art
 results on two benchmark datasets. The key advantages of the proposed approach

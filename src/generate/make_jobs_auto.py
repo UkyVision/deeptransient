@@ -7,14 +7,15 @@ import os
 import lmdb
 import subprocess
 
-network_to_use = 'hybrid'
+network_to_use = 'caffenet_weather'
 
 model_file = '%s_pretrained.caffemodel'
 template_root = os.path.abspath('./templates/') + '/'
 caffenet_root = os.path.abspath('%scaffenet/' % template_root) + '/'
 places_root = os.path.abspath('%splaces/' % template_root) + '/'
 hybrid_root = os.path.abspath('%shybrid/' % template_root) + '/'
-jobs_root = os.path.abspath('./jobs_hybrid/') + '/'
+caffenet_weather_root = os.path.abspath('%scaffenet_weather/' % template_root) + '/'
+jobs_root = os.path.abspath('./jobs/') + '/'
 
 #
 # setup jobs
@@ -49,7 +50,7 @@ safe_mkdir(jobs_root)
 
 job_files = []
 for job in jobs:
-  for var in frange(100, 3000, 100):
+  for var in frange(100, 2000, 100):
 
     job_path = jobs_root + job['name'] % (network_to_use, var) + '/'
     if network_to_use == 'caffenet':
@@ -58,6 +59,8 @@ for job in jobs:
       subprocess.call(['cp', '-r', places_root, job_path])
     elif network_to_use == 'hybrid':
       subprocess.call(['cp', '-r', hybrid_root, job_path])
+    elif network_to_use == 'caffenet_weather':
+      subprocess.call(['cp', '-r', caffenet_weather_root, job_path])
 
     with open('%ssolver_template.prototxt' % template_root, 'r') as f:
       solver_proto = f.readlines()
