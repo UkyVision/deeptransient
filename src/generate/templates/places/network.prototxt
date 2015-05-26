@@ -4,13 +4,13 @@ layers {
   type: DATA
   top: "data"
   data_param {
-    source: "../../training_data/train_shuffled_im_db"
+    source: "../../../training_data/train_shuffled_im_db"
     backend: LMDB
     batch_size: 50
   }
   transform_param {
     crop_size: 227
-    mean_file: "../../mean/transient_mean.binaryproto"
+    mean_file: "../../../mean/transient_mean.binaryproto"
     mirror: true
   }
  include: { phase: TRAIN }
@@ -20,13 +20,13 @@ layers {
   type: DATA
   top: "data"
   data_param {
-    source: "../../testing_data/test_shuffled_im_db"
+    source: "../../../testing_data/test_shuffled_im_db"
     backend: LMDB
     batch_size: 50
   }
   transform_param {
     crop_size: 227
-    mean_file: "../../mean/transient_mean.binaryproto"
+    mean_file: "../../../mean/transient_mean.binaryproto"
     mirror: false
   }
  include: { phase: TEST }
@@ -36,7 +36,7 @@ layers {
   type: DATA
   top: "label"
   data_param {
-    source: "../../training_data/train_shuffled_label_db"
+    source: "../../../training_data/train_shuffled_label_db"
     backend: LMDB
     batch_size: 50
   }
@@ -47,7 +47,7 @@ layers {
   type: DATA
   top: "label"
   data_param {
-    source: "../../testing_data/test_shuffled_label_db"
+    source: "../../../testing_data/test_shuffled_label_db"
     backend: LMDB
     batch_size: 50
   }

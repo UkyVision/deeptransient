@@ -6,7 +6,7 @@ import random
 import numpy as np
 from matplotlib import pyplot as plt
 
-BASE_DIR =  '/scratch/nja224/transient/'
+BASE_DIR =  '/scratch/rmba229/transient_weather/'
 
 def make_database(db_name, files, map):
 
@@ -81,7 +81,7 @@ test_holdout_filenames = ["%05d_%s" % (idx, name) for idx, name in enumerate(tes
 
 map = {}
 key = ''
-with open(BASE_DIR + 'annotations/annotations.tsv','r') as f:
+with open(BASE_DIR + 'annotations/weather_annotations.tsv','r') as f:
   tsvin = csv.reader(f, delimiter='\t')
   for row in tsvin:
     filename = row[0].strip()
@@ -95,7 +95,7 @@ with open(BASE_DIR + 'annotations/annotations.tsv','r') as f:
     labels = [float(x.split(',')[0]) for x in row[1:]]
     map[key] = labels
 
-make_database('train_shuffled', train_holdout_filenames, map)
-make_database('test_shuffled', test_holdout_filenames, map)
+make_database('train_deepweather', train_holdout_filenames, map)
+make_database('test_deepweather', test_holdout_filenames, map)
 #make_database('random_train', train_random_filenames, map)
 #make_database('random_test', test_random_filenames, map)

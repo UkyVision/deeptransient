@@ -4,6 +4,5 @@
 
 source ~/projects/caffe/setup_paths.sh
 
-#srun start_training.sh
-srun retrain.sh
+srun ./retrain.sh
 
