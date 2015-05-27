@@ -1,0 +1,25 @@
+# to be used with GNU parallel
+# parallel --slf machines.slf ls
+#
+# Each record is formatted like this:
+# number of cores / machine name (number of cores is a guess,
+# hopefully this prevents too many processes on any individual
+# machine)
+# 
+# WARNING:
+#   this is too many for the number of MATLAB image processing
+#   toolbox licenses... so comment some of these out
+
+# our servers
+3/vulture
+3/eagle
+10/osprey
+
+# our desktops
+2/stork
+1/magpie
+1/harpy
+1/raven
+8/robin
+3/ostrich
+3/cardinal
