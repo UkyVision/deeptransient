@@ -1,0 +1,7 @@
+*.caffemodel
+*.solverstate
+*.log
+deploy.prototxt
+solver.prototxt
+train_test.prototxt
+/models
