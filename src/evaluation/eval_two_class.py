@@ -29,8 +29,8 @@ labels = np.vstack(labels)
 # load the trained net 
 #
 
-MODEL = '../prototxts/caffenet_play/caffenet_two_class/deploy.prototxt'
-PRETRAINED = '../prototxts/caffenet_play/caffenet_two_class/snapshots/caffenet_two_class_iter_38000.caffemodel'
+MODEL = '../generate/experiments/places_two_class/deploy.prototxt'
+PRETRAINED = '../generate/experiments/places_two_class/snapshots/places_two_class_iter_32000.caffemodel'
 MEAN = '../mean/two_class_mean.binaryproto'
 
 # load the mean image 
@@ -40,10 +40,8 @@ blob.ParseFromString(file.read())
 means = caffe.io.blobproto_to_array(blob)
 means = means[0]
 
-net = caffe.Classifier(MODEL, PRETRAINED,
-    mean=means)
-net.set_phase_test()
-net.set_mode_cpu()
+caffe.set_mode_cpu()
+net = caffe.Classifier(MODEL, PRETRAINED, caffe.TEST)
 
 #
 # process 
@@ -52,20 +50,24 @@ ix = 0
 db = lmdb.open(db_name)
 pred_class = -1
 truth_class = -1
+num_correct = 0
 total_time = 0
 
 # get all keys
 with db.begin(write=False) as db_txn:
   for (key, value) in db_txn.cursor():
     start = time.time()
-    im_datum = caffe.io.caffe_pb2.Datum().FromString(value)
+    im_datum = caffe.io.caffe_pb2.Datum()
+    im_datum.ParseFromString(value)
     im = caffe.io.datum_to_array(im_datum)
-    im = im.swapaxes(0,2).swapaxes(0,1)
-    
-    # let caffe subtract mean and resize for me
-    caffe_input = net.preprocess('data', im)
+
+    # subtract mean & resize
+    caffe_input = im - means
+    caffe_input = caffe_input.transpose((1,2,0))
+    caffe_input = caffe.io.resize_image(caffe_input, (227,227))
+    caffe_input = caffe_input.transpose((2,0,1))
     caffe_input = caffe_input.reshape((1,)+caffe_input.shape)
-    
+
 		# push through the network
     out = net.forward_all(data=caffe_input)
     pred = out['fc8-t'].squeeze()
@@ -85,12 +87,20 @@ with db.begin(write=False) as db_txn:
     total_time += pred_time
 
     if pred_class == truth_class:
-      print 1#, pred_time
-    else:
-      print 0#, pred_time
+      num_correct += 1
 
-    sys.stdout.flush()
+    if ix % 100 == 0:
+      print "Processed %d" % ix
 
     ix = ix + 1
 
 #print total_time / ix
+
+acc = float(num_correct) / ix
+norm_acc = max((acc - 0.5) / (1 - 0.5), 0)
+
+# write out to file
+print 'Number Correct: %d' % num_correct
+print 'Accuracy: %f' % acc
+print 'Normalized Accuracy: %f' % norm_acc
+

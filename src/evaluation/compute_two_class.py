@@ -8,13 +8,13 @@ from matplotlib import pyplot as plt
 import glob
 import sys
 
-outfile = sys.argv[1]
+#outfile = sys.argv[1]
 
 #
 # load testing dbs
 #
-db_name = '../testing_data/test_shuffled_im_db/'
-db_labels_name = '../testing_data/test_shuffled_label_db/'
+db_name = '../testing_data/test_two_class_im_db/'
+db_labels_name = '../testing_data/test_two_class_label_db/'
 
 #
 # load labels
@@ -38,15 +38,8 @@ labels = np.vstack(labels)
 #
 # load the trained net 
 #
-#stepsize_var = 1200
-#iteration = 59000
-
-#MODEL = '../generate/jobs_places/places_%dss/deploy.prototxt' % stepsize_var
-#PRETRAINED = '../generate/jobs_places/places_%dss/snapshots/places_%dss_iter_%s.caffemodel' % (stepsize_var, stepsize_var, iteration)
-#MEAN = '../mean/transient_mean.binaryproto'
-
-MODEL = '/home/rmba229/projects/deeptransient/src/generate/experiments/transientneth-highlr/deploy.prototxt'
-PRETRAINED = '/home/rmba229/projects/deeptransient/src/generate/experiments/transientneth-highlr/snapshots/transientneth_iter_51000.caffemodel'
+MODEL = '../caffemodels/deploy.prototxt' 
+PRETRAINED = '../caffemodels/transientnetp.caffemodel' 
 MEAN = '../mean/transient_mean.binaryproto'
 
 # load the mean image 
@@ -63,7 +56,9 @@ net = caffe.Classifier(MODEL, PRETRAINED, caffe.TEST)
 # process 
 #
 ix = 0
-error = np.zeros(40)
+pred_class = -1
+num_correct = 0
+truth_class = -1
 db = lmdb.open(db_name)
 
 # get all keys
@@ -84,13 +79,48 @@ with db.begin(write=False) as db_txn:
     out = net.forward_all(data=caffe_input)
     pred = out['fc8-t'].squeeze()
 
-    # squared difference
-    error += ((pred[:] - labels[ix,:]) ** 2).squeeze()
+    sunny = pred[5]
+    cloudy = pred[6]
+
+    #plt.subplot(1,2,1)
+    #plt.imshow(plt.imread('/home/rmba229/workspace/twoclassweather/weather_database/' + key))
+    #plt.axis('off')
+    #plt.subplot(1,2,2)
+    #plt.bar(xrange(0,2), [pred[5], pred[6]]) 
+    #plt.ylim((0,1))
+    #plt.xticks([0.25, 1.25], ['sunny', 'cloudy'])
+    #plt.title(key)
+    #plt.show()
+
+
+    if sunny > cloudy:
+      pred_class = 0
+    else:
+      pred_class = 1
+
+    if labels[ix,0,0] > labels[ix,0,1]:
+      truth_class = 0
+    else:
+      truth_class = 1
+
+    if pred_class == truth_class:
+      num_correct += 1
+    
+    # print sunny, cloudy, pred_class, truth_class
+
+    if ix % 100 == 0:
+      print "Processed %d" % ix
   
     ix = ix + 1
 
+
+acc = float(num_correct) / ix
+norm_acc = max((acc - 0.5) / (1 - 0.5), 0)
+
 # write out to file
-error = error[:] / ix
-print np.average(error)
+print 'Number Correct: %d' % num_correct
+print 'Accuracy: %f' % acc
+print 'Normalized Accuracy: %f' % norm_acc
+
 #with open(outfile, 'a+') as f:
 #  f.write(str(error) + '\n')
