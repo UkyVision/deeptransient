@@ -3,10 +3,10 @@ name: "models/partial_siamese"
 #MACRO_IN
 CROP_SIZE_ = 227
 
-TRAIN_BATCH_ = 100
+TRAIN_BATCH_ = 64
 TEST_BATCH_ = 21
 
-DB_DIR_ = /scratch/mzh234/deeptransient/lmdbs 
+DB_DIR_ = /scratch/mzh234/deeptransient/lmdbs/siamese/
 #MACRO_OUT
 
 
@@ -26,13 +26,13 @@ layer {
   top: "data_all"
   top: "sia_label"
   data_param {
-    source: "DB_DIR_/siamese/train/image_db"
+    source: "DB_DIR_/train/image_db"
     batch_size: TRAIN_BATCH_
     backend: LMDB
   }
   transform_param {
 	crop_size: CROP_SIZE_
-    mean_file: "DB_DIR_/siamese/mean.binaryproto"
+    mean_file: "DB_DIR_/mean.binaryproto"
   }
   include {phase: TRAIN}
 }
@@ -41,7 +41,7 @@ layer {
   type: "Data"
   top: "tran_label"
   data_param {
-    source: "DB_DIR_/siamese/train/label_db"
+    source: "DB_DIR_/train/label_db"
     batch_size: TRAIN_BATCH_
     backend: LMDB
   }
@@ -56,13 +56,13 @@ layer {
   top: "data_all"
   top: "sia_label"
   data_param {
-    source: "DB_DIR_/siamese/val/image_db"
+    source: "DB_DIR_/val/image_db"
     batch_size: TEST_BATCH_
     backend: LMDB
   }
   transform_param {
 	crop_size: CROP_SIZE_
-    mean_file: "DB_DIR_/siamese/mean.binaryproto"
+    mean_file: "DB_DIR_/mean.binaryproto"
   }
   include {phase: TEST}
 }
@@ -71,7 +71,7 @@ layer {
   type: "Data"
   top: "tran_label"
   data_param {
-    source: "DB_DIR_/siamese/val/label_db"
+    source: "DB_DIR_/val/label_db"
     batch_size: TEST_BATCH_
     backend: LMDB
   }
@@ -106,10 +106,12 @@ layer {
   bottom: "data"
   top: "conv1"
   param {
+    name: "conv1_w"
     lr_mult: 0
     decay_mult: 1
   }
   param {
+    name: "conv1_b"
     lr_mult: 0
     decay_mult: 0
   }
@@ -161,10 +163,12 @@ layer {
   bottom: "norm1"
   top: "conv2"
   param {
+    name: "conv2_w"
     lr_mult: 0
     decay_mult: 1
   }
   param {
+    name: "conv2_b"
     lr_mult: 0
     decay_mult: 0
   }
@@ -217,10 +221,12 @@ layer {
   bottom: "norm2"
   top: "conv3"
   param {
+    name: "conv3_w"
     lr_mult: 0
     decay_mult: 1
   }
   param {
+    name: "conv3_b"
     lr_mult: 0
     decay_mult: 0
   }
@@ -250,10 +256,12 @@ layer {
   bottom: "conv3"
   top: "conv4"
   param {
+    name: "conv4_w"      
     lr_mult: 0
     decay_mult: 1
   }
   param {
+    name: "conv4_b"
     lr_mult: 0
     decay_mult: 0
   }
@@ -284,10 +292,12 @@ layer {
   bottom: "conv4"
   top: "conv5"
   param {
+    name: "conv5_w"
     lr_mult: 0
     decay_mult: 1
   }
   param {
+    name: "conv5_b"
     lr_mult: 0
     decay_mult: 0
   }
@@ -329,10 +339,12 @@ layer {
   bottom: "pool5"
   top: "fc6"
   param {
+    name: "fc6_w"      
     lr_mult: 0
     decay_mult: 1
   }
   param {
+    name: "fc6_b"
     lr_mult: 0
     decay_mult: 0
   }
@@ -369,11 +381,13 @@ layer {
   bottom: "fc6"
   top: "fc7"
   param {
-    lr_mult: 0
+    name: "fc7_w"
+    lr_mult: 1
     decay_mult: 1
   }
   param {
-    lr_mult: 0
+    name: "fc7_b"
+    lr_mult: 2
     decay_mult: 0
   }
   inner_product_param {
@@ -409,10 +423,12 @@ layer {
   bottom: "fc7"
   top: "fc8-t"
   param {
+    name: "fc8_w"
     lr_mult: 1
     decay_mult: 1
   }
   param {
+    name: "fc8_b"
     lr_mult: 2
     decay_mult: 0
   }
@@ -440,10 +456,12 @@ layer {
   bottom: "data_p"
   top: "conv1_p"
   param {
+    name: "conv1_w"
     lr_mult: 0
     decay_mult: 1
   }
   param {
+    name: "conv1_b"
     lr_mult: 0
     decay_mult: 0
   }
@@ -495,10 +513,12 @@ layer {
   bottom: "norm1_p"
   top: "conv2_p"
   param {
+    name: "conv2_w"
     lr_mult: 0
     decay_mult: 1
   }
   param {
+    name: "conv2_b"
     lr_mult: 0
     decay_mult: 0
   }
@@ -551,10 +571,12 @@ layer {
   bottom: "norm2_p"
   top: "conv3_p"
   param {
+    name: "conv3_w"
     lr_mult: 0
     decay_mult: 1
   }
   param {
+    name: "conv3_b"
     lr_mult: 0
     decay_mult: 0
   }
@@ -584,10 +606,12 @@ layer {
   bottom: "conv3_p"
   top: "conv4_p"
   param {
+    name: "conv4_w"      
     lr_mult: 0
     decay_mult: 1
   }
   param {
+    name: "conv4_b"
     lr_mult: 0
     decay_mult: 0
   }
@@ -618,10 +642,12 @@ layer {
   bottom: "conv4_p"
   top: "conv5_p"
   param {
+    name: "conv5_w"
     lr_mult: 0
     decay_mult: 1
   }
   param {
+    name: "conv5_b"
     lr_mult: 0
     decay_mult: 0
   }
@@ -663,10 +689,12 @@ layer {
   bottom: "pool5_p"
   top: "fc6_p"
   param {
+    name: "fc6_w"
     lr_mult: 0
     decay_mult: 1
   }
   param {
+    name: "fc6_b"
     lr_mult: 0
     decay_mult: 0
   }
@@ -703,11 +731,13 @@ layer {
   bottom: "fc6_p"
   top: "fc7_p"
   param {
-    lr_mult: 0
+    name: "fc7_w"
+    lr_mult: 1
     decay_mult: 1
   }
   param {
-    lr_mult: 0
+    name: "fc7_b"
+    lr_mult: 2
     decay_mult: 0
   }
   inner_product_param {
@@ -743,10 +773,12 @@ layer {
   bottom: "fc7_p"
   top: "fc8-t_p"
   param {
+    name: "fc8_w"
     lr_mult: 1
     decay_mult: 1
   }
   param {
+    name: "fc8_b"
     lr_mult: 2
     decay_mult: 0
   }
@@ -780,7 +812,7 @@ layer {
   bottom: "fc8-t"
   bottom: "fc8-t_p"
   top: "feat2feat-loss"
-  loss_weight: 0.5
+  loss_weight: 0.1
 }
 #<<< train_test.prototxt
 
