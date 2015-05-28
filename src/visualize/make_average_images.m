@@ -127,6 +127,10 @@ im_means = max(min(bsxfun(@rdivide,ims_accum, count_accum),1),0);
 % load up attribute names
 attr = textscan(fopen('/u/eag-d1/scratch/ryan/transient/annotations/attributes.txt'), '%s\n');
 
+im_prune = cat(4, im_means(:,:,:,2), im_means(:,:,:,3), im_means(:,:,:,4), im_means(:,:,:,8), ...
+            im_means(:,:,:,10), im_means(:,:,:,11), im_means(:,:,:,17), im_means(:,:,:,18), ...
+            im_means(:,:,:,19));
+
 % montage means and overlay attribute name
 attr_num = 0;
 montage(im_means)
@@ -143,6 +147,31 @@ end
 exportfigure(gcf, sprintf('%smontage_cam_%s.pdf',outdir, imageset), [10 10], 300)
 
 
+%% pruned montage
+
+% load up attribute names
+attr = textscan(fopen('/u/eag-d1/scratch/ryan/transient/annotations/attributes.txt'), '%s\n');
+attr = cat(2, attr{1}(2), attr{1}(3), attr{1}(4), attr{1}(8), attr{1}(40), attr{1}(11), attr{1}(17), ...
+           attr{1}(18), attr{1}(19));
+
+im_prune = cat(4, im_means(:,:,:,2), im_means(:,:,:,3), im_means(:,:,:,4), im_means(:,:,:,8), ...
+            im_means(:,:,:,40), im_means(:,:,:,11), im_means(:,:,:,17), im_means(:,:,:,18), ...
+            im_means(:,:,:,19));
+
+        
+% montage means and overlay attribute name
+attr_num = 0;
+montage(im_prune)
+for y=6:100:206
+   for x=3:100:203
+       attr_num = attr_num + 1;
+       text(x,y,attr(attr_num), 'Color', [.7 0 0]) 
+   end
+end
+        
+% save out montage
+exportfigure(gcf, sprintf('%smontage_pruned_cam_%s.pdf',outdir, imageset), [10 10], 300)
+        
 %% output all images
 
 for ix = 1:Nnodes
