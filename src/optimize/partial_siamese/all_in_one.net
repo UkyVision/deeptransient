@@ -6,7 +6,7 @@ CROP_SIZE_ = 227
 TRAIN_BATCH_ = 64
 TEST_BATCH_ = 21
 
-DB_DIR_ = /scratch/mzh234/deeptransient/lmdbs/siamese/
+DB_DIR_ = /u/eag-d1/scratch/ted/deeptransient/lmdbs/siamese/
 #MACRO_OUT
 
 
@@ -382,12 +382,12 @@ layer {
   top: "fc7"
   param {
     name: "fc7_w"
-    lr_mult: 1
+    lr_mult: 0
     decay_mult: 1
   }
   param {
     name: "fc7_b"
-    lr_mult: 2
+    lr_mult: 0
     decay_mult: 0
   }
   inner_product_param {
@@ -732,12 +732,12 @@ layer {
   top: "fc7_p"
   param {
     name: "fc7_w"
-    lr_mult: 1
+    lr_mult: 0
     decay_mult: 1
   }
   param {
     name: "fc7_b"
-    lr_mult: 2
+    lr_mult: 0
     decay_mult: 0
   }
   inner_product_param {
@@ -821,14 +821,15 @@ layer {
 net: "train_test.prototxt"
 test_iter: 10
 test_interval: 100
-base_lr: 1e-5
+base_lr: 5e-5
 lr_policy: "step"
 gamma: 0.99
 stepsize: 1000
 display: 20
 max_iter: 450000
 momentum: 0.9
-weight_decay: 0.0005
+# weight_decay: 0.0005
+weight_decay: 0
 snapshot: 1000
 snapshot_prefix: "snapshot"
 solver_mode: GPU

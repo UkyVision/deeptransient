@@ -1,6 +1,6 @@
 backup_dir=$(shell head -n 1 all_in_one.net | cut -d '"' -f 2)
 snapshot = "snapshot_iter_25000.solverstate"
-weights = "/scratch/mzh234/deeptransient/caffemodels/transientneth.caffemodel"
+weights = "$(SCRATCH_DIR)/deeptransient/caffemodels/transientneth.caffemodel"
 log_file = output.log
 gpu_node = 0
 
