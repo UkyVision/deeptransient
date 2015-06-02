@@ -3,10 +3,12 @@ name: "models/imagenet"
 #MACRO_IN
 CROP_SIZE_ = 227
 
-TRAIN_BATCH_ = 100
-TEST_BATCH_ = 64
+TRAIN_BATCH_ = 50
+TEST_BATCH_ = 40
 
 DB_DIR_ = /scratch/mzh234/deeptransient/lmdbs/imagenet/
+DB_TEST_DIR_ = /scratch/mzh234/deeptransient/lmdbs/transient/
+MEAN_FILE_ = /home/mzh234/software/caffe/models/hybridCNN/hybridCNN_mean.binaryproto 
 #MACRO_OUT
 
 
@@ -31,7 +33,7 @@ layer {
   }
   transform_param {
 	crop_size: CROP_SIZE_
-    mean_file: "DB_DIR_/mean.binaryproto"
+    mean_file: "MEAN_FILE_"
   }
   include {phase: TRAIN}
 }
@@ -54,13 +56,13 @@ layer {
   type: "Data"
   top: "data"
   data_param {
-    source: "DB_DIR_/val/image_db"
+    source: "DB_TEST_DIR_/test_shuffled_im_db"
     batch_size: TEST_BATCH_
     backend: LMDB
   }
   transform_param {
 	crop_size: CROP_SIZE_
-    mean_file: "DB_DIR_/mean.binaryproto"
+    mean_file: "MEAN_FILE_"
   }
   include {phase: TEST}
 }
@@ -69,7 +71,7 @@ layer {
   type: "Data"
   top: "label"
   data_param {
-    source: "DB_DIR_/val/label_db"
+    source: "DB_TEST_DIR_/test_shuffled_label_db"
     batch_size: TEST_BATCH_
     backend: LMDB
   }
@@ -406,7 +408,6 @@ layer {
   }
 }
 
-
 #
 # loss
 #
@@ -423,18 +424,17 @@ layer {
 
 ###>>> solver.prototxt
 net: "train_test.prototxt"
-test_iter: 100
-test_interval: 1000
-base_lr: 0.001
+test_iter: 40
+test_interval: 200
+base_lr: 2e-3
 lr_policy: "step"
-gamma: 0.99
-stepsize: 1300
+gamma: 0.8
+stepsize: 2000
 display: 20
 max_iter: 450000
 momentum: 0.9
 weight_decay: 0.0005
-snapshot: 5000
+snapshot: 2500
 snapshot_prefix: "snapshot"
-test_initialization: false
 solver_mode: GPU
 ###<<< solver.prototxt
