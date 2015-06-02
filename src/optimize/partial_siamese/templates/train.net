@@ -1,38 +1,17 @@
-name: "models/partial_siamese"
-
-#MACRO_IN
-CROP_SIZE_ = 227
-
-TRAIN_BATCH_ = 64
-TEST_BATCH_ = 21
-
-DB_DIR_ = /scratch/mzh234/deeptransient/lmdbs/siamese/
-#MACRO_OUT
-
-
-#>>> deploy.prototxt
-input: "data"
-input_dim: 1
-input_dim: 3
-input_dim: CROP_SIZE_
-input_dim: CROP_SIZE_
-#<<< deploy.prototxt
-
-
-#>>> train_test.prototxt
+name: "partial_siamese"
 layer {
   name: "data_all"
   type: "Data"
   top: "data_all"
   top: "sia_label"
   data_param {
-    source: "DB_DIR_/train/image_db"
+    source: "IMAGE_DB_TRAIN_"
     batch_size: TRAIN_BATCH_
     backend: LMDB
   }
   transform_param {
 	crop_size: CROP_SIZE_
-    mean_file: "DB_DIR_/mean.binaryproto"
+    mean_file: "MEAN_FILE_"
   }
   include {phase: TRAIN}
 }
@@ -41,28 +20,25 @@ layer {
   type: "Data"
   top: "tran_label"
   data_param {
-    source: "DB_DIR_/train/label_db"
+    source: "LABEL_DB_TRAIN_"
     batch_size: TRAIN_BATCH_
     backend: LMDB
   }
   include {phase: TRAIN}
 }
-
-
-# Test phase
 layer {
   name: "data"
   type: "Data"
   top: "data_all"
   top: "sia_label"
   data_param {
-    source: "DB_DIR_/val/image_db"
+    source: "IMAGE_DB_TEST_"
     batch_size: TEST_BATCH_
     backend: LMDB
   }
   transform_param {
 	crop_size: CROP_SIZE_
-    mean_file: "DB_DIR_/mean.binaryproto"
+    mean_file: "MEAN_FILE_"
   }
   include {phase: TEST}
 }
@@ -71,14 +47,12 @@ layer {
   type: "Data"
   top: "tran_label"
   data_param {
-    source: "DB_DIR_/val/label_db"
+    source: "LABEL_DB_TEST_"
     batch_size: TEST_BATCH_
     backend: LMDB
   }
   include {phase: TEST}
 }
-
-
 layer {
   name: "shut-up"
   type: "Silence"
@@ -95,11 +69,6 @@ layer {
     slice_point: 3
   }
 }
-#<<< train_test.prototxt
-
-#
-# left side
-#
 layer {
   name: "conv1"
   type: "Convolution"
@@ -444,12 +413,6 @@ layer {
     }
   }
 }
-
-
-#
-# right side
-#
-#>>> train_test.prototxt
 layer {
   name: "conv1_p"
   type: "Convolution"
@@ -794,10 +757,6 @@ layer {
     }
   }
 }
-
-#
-# loss
-#
 layer {
   name: "l2nloss"
   type: "EuclideanLoss"
@@ -805,31 +764,11 @@ layer {
   bottom: "tran_label"
   top: "feat2label-loss"
 }
-
 layer {
   name: "sialoss"
   type: "EuclideanLoss"
   bottom: "fc8-t"
   bottom: "fc8-t_p"
   top: "feat2feat-loss"
-  loss_weight: 0.1
+  loss_weight: SIA_LOSS_WEIGHT_
 }
-#<<< train_test.prototxt
-
-
-###>>> solver.prototxt
-net: "train_test.prototxt"
-test_iter: 10
-test_interval: 100
-base_lr: 1e-5
-lr_policy: "step"
-gamma: 0.99
-stepsize: 1000
-display: 20
-max_iter: 450000
-momentum: 0.9
-weight_decay: 0.0005
-snapshot: 1000
-snapshot_prefix: "snapshot"
-solver_mode: GPU
-###<<< solver.prototxt

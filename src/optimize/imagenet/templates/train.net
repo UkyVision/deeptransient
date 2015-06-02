@@ -1,33 +1,10 @@
-name: "models/imagenet"
-
-#MACRO_IN
-CROP_SIZE_ = 227
-
-TRAIN_BATCH_ = 50
-TEST_BATCH_ = 40
-
-DB_DIR_ = /scratch/mzh234/deeptransient/lmdbs/imagenet/
-DB_TEST_DIR_ = /scratch/mzh234/deeptransient/lmdbs/transient/
-MEAN_FILE_ = /home/mzh234/software/caffe/models/hybridCNN/hybridCNN_mean.binaryproto 
-#MACRO_OUT
-
-
-#>>> deploy.prototxt
-input: "data"
-input_dim: 1
-input_dim: 3
-input_dim: CROP_SIZE_
-input_dim: CROP_SIZE_
-#<<< deploy.prototxt
-
-
-#>>> train_test.prototxt
+name: "imagenet"
 layer {
   name: "data"
   type: "Data"
   top: "data"
   data_param {
-    source: "DB_DIR_/train/image_db"
+    source: "IMAGE_DB_TRAIN_"
     batch_size: TRAIN_BATCH_
     backend: LMDB
   }
@@ -42,21 +19,18 @@ layer {
   type: "Data"
   top: "label"
   data_param {
-    source: "DB_DIR_/train/label_db"
+    source: "LABEL_DB_TRAIN_"
     batch_size: TRAIN_BATCH_
     backend: LMDB
   }
   include {phase: TRAIN}
 }
-
-
-# Test phase
 layer {
   name: "data"
   type: "Data"
   top: "data"
   data_param {
-    source: "DB_TEST_DIR_/test_shuffled_im_db"
+    source: "IMAGE_DB_TEST_"
     batch_size: TEST_BATCH_
     backend: LMDB
   }
@@ -71,14 +45,12 @@ layer {
   type: "Data"
   top: "label"
   data_param {
-    source: "DB_TEST_DIR_/test_shuffled_label_db"
+    source: "LABEL_DB_TEST_"
     batch_size: TEST_BATCH_
     backend: LMDB
   }
   include {phase: TEST}
 }
-#<<< train_test.prototxt
-
 layer {
   name: "conv1"
   type: "Convolution"
@@ -407,11 +379,6 @@ layer {
     }
   }
 }
-
-#
-# loss
-#
-#>>> train_test.prototxt
 layer {
   name: "loss"
   type: "EuclideanLoss"
@@ -419,22 +386,3 @@ layer {
   bottom: "label"
   top: "loss"
 }
-#<<< train_test.prototxt
-
-
-###>>> solver.prototxt
-net: "train_test.prototxt"
-test_iter: 40
-test_interval: 200
-base_lr: 2e-3
-lr_policy: "step"
-gamma: 0.8
-stepsize: 2000
-display: 20
-max_iter: 450000
-momentum: 0.9
-weight_decay: 0.0005
-snapshot: 2500
-snapshot_prefix: "snapshot"
-solver_mode: GPU
-###<<< solver.prototxt
