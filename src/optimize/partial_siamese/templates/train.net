@@ -1,4 +1,5 @@
 name: "partial_siamese"
+
 layer {
   name: "data_all"
   type: "Data"
@@ -351,12 +352,12 @@ layer {
   top: "fc7"
   param {
     name: "fc7_w"
-    lr_mult: 1
+    lr_mult: 0
     decay_mult: 1
   }
   param {
     name: "fc7_b"
-    lr_mult: 2
+    lr_mult: 0
     decay_mult: 0
   }
   inner_product_param {
@@ -695,12 +696,12 @@ layer {
   top: "fc7_p"
   param {
     name: "fc7_w"
-    lr_mult: 1
+    lr_mult: 0
     decay_mult: 1
   }
   param {
     name: "fc7_b"
-    lr_mult: 2
+    lr_mult: 0
     decay_mult: 0
   }
   inner_product_param {

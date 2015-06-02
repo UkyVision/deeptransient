@@ -12,7 +12,7 @@ transientDir = '/u/eag-d1/data/transient/transient/imageAlignedLD/'
 image_label_file = '/u/eag-d1/scratch/ted/webcamattri/transient/annotations.csv'
 
 # location to store train/val database
-db_location = '/u/eag-d1/scratch/ted/deeptransient/lmdbs/baseline/'
+db_location = '/u/eag-d1/scratch/ted/deeptransient/lmdbs/imagenet/'
 if not os.path.isdir(db_location):
   os.mkdir(db_location)
 
@@ -54,6 +54,14 @@ def parse_pairs_txt(pairs_txt):
   return pairs
 
 
+def parse_and_generate_base_list(base_txt):
+  base_list = {}
+  with open(base_txt, 'r') as f:
+    for x in f.readlines():
+      key = transientDir + x.strip()
+      base_list[key] = transientLabels[key]
+  return base_list
+
 def generate_db_list(pairs):
 
   db_list = {}
@@ -81,7 +89,7 @@ def chunk(s, n):
     yield s
 
 
-def make_database(pairs_txt, mode):
+def make_database(base_txt, pairs_txt, mode):
 
   dbDir = os.path.join(db_location, mode)
 
@@ -96,10 +104,16 @@ def make_database(pairs_txt, mode):
   # initiate lmdb env
   im_db = lmdb.Environment(dbDir + '/image_db', map_size=1000000000000)
   lb_db = lmdb.Environment(dbDir + '/label_db', map_size=1000000000000)
-  
+
+  # extract image name and features
   pairs = parse_pairs_txt(pairs_txt)
+  base_list = parse_and_generate_base_list(base_txt)
   db_list = generate_db_list(pairs)
 
+  print 'merge %d images from transient database.' % len(base_list)
+  db_list.update(base_list)
+
+  # inset data to lmdb
   with im_db.begin(write=True) as im_db_txn:
     with lb_db.begin(write=True) as lb_db_txn:
 
@@ -152,6 +166,9 @@ def make_database(pairs_txt, mode):
           print "processed %d of %d images (%s)" % (key, len(db_list), mode)
 
 
-make_database('../siamese_pairs/debug_pairs.txt', 'debug')
-make_database('../siamese_pairs/train_pairs.txt', 'train')
-make_database('../siamese_pairs/val_pairs.txt', 'val')
+make_database(base_txt='/u/eag-d1/scratch/ted/webcamattri/transient/debug.txt',
+              pairs_txt='../siamese_pairs/debug_pairs.txt', mode='debug')
+make_database(base_txt='/u/eag-d1/data/transient/transient/holdout_split/training.txt',
+              pairs_txt='../siamese_pairs/train_pairs.txt', mode='train')
+make_database(base_txt='/u/eag-d1/data/transient/transient/holdout_split/test.txt',
+              pairs_txt='../siamese_pairs/val_pairs.txt', mode='val')

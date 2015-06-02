@@ -3,8 +3,8 @@
 # N.B. this is available in data/ilsvrc12
 
 MAKE_MEAN_BIN=$CAFFE_DIR/build/tools/compute_image_mean.bin
-database=/u/eag-d1/scratch/ted/deeptransient/lmdbs/baseline/train/image_db
-mean_output=/u/eag-d1/scratch/ted/deeptransient/lmdbs/baseline/mean.binaryproto
+database=/u/eag-d1/scratch/ted/deeptransient/lmdbs/imagenet/train/image_db
+mean_output=/u/eag-d1/scratch/ted/deeptransient/lmdbs/imagenet/mean.binaryproto
 
 $MAKE_MEAN_BIN -backend lmdb $database $mean_output
 
