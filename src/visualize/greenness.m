@@ -1,17 +1,23 @@
 addpath ~/matlab_root/
 %% load images
-% greenness_index = green / (red + green + blue)
-
 files = rdir('/u/eag-d1/scratch/ryan/amos_labeling/AMOS_Data/00007371/*/*.jpg');
 
+
 %% compute greenness before filtering
+% using visible vegetation index http://phl.upr.edu/projects/visible-vegetation-index-vvi
+% reference green = [30 50 0]
+w = 2;
 greenness_index = zeros(size(files,1), 1);
 for ix=1:size(files,1)
     im = imread(files(ix).name);
-   
-    greenness = mean2(im(end-200:end,1:200,2)) / (mean2(im(end-200:end,1:200,1)) + mean2(im(end-200:end,1:200,2)) + mean2(im(end-200:end,1:200,3)));
     
-    greenness_index(ix) = greenness;
+    red_component = 1 - (mean2(im(end-200:end,1:200,1)) - 40)/(mean2(im(end-200:end,1:200,1)) + 40);
+    green_component = 1 - (mean2(im(end-200:end,1:200,2)) - 60)/(mean2(im(end-200:end,1:200,2)) + 60);
+    blue_component = 1 - (mean2(im(end-200:end,1:200,3)) - 10)/(mean2(im(end-200:end,1:200,3)) + 10);
+    
+    vvi = (red_component * green_component * blue_component)^(1/w);
+    
+    greenness_index(ix) = vvi;
     
     if mod(ix, 100) == 0
        fprintf('Processed %d of %d\n', ix, size(files,1))
@@ -23,7 +29,7 @@ data = textscan(fopen('/u/eag-d1/scratch/ryan/amos_labeling/AMOS_Data/00007371/a
 
 
 %% filter images
-to_clear = data{3 + 1} > 0.3;
+to_clear = data{25 + 1} > 0.3;
 
 for ind=1:size(data, 2)
    data{ind}(to_clear) = []; 
@@ -35,9 +41,13 @@ greenness_index = zeros(size(data{1},1), 1);
 for ix=1:size(files,1)
     im = imread(strcat('/u/eag-d1/scratch/ryan/amos_labeling/AMOS_Data/', data{1}{ix}));
    
-    greenness = mean2(im(end-200:end,1:200,2)) / (mean2(im(end-200:end,1:200,1)) + mean2(im(end-200:end,1:200,2)) + mean2(im(end-200:end,1:200,3)));
+    red_component = 1 - (mean2(im(end-200:end,1:200,1)) - 40)/(mean2(im(end-200:end,1:200,1)) + 40);
+    green_component = 1 - (mean2(im(end-200:end,1:200,2)) - 60)/(mean2(im(end-200:end,1:200,2)) + 60);
+    blue_component = 1 - (mean2(im(end-200:end,1:200,3)) - 10)/(mean2(im(end-200:end,1:200,3)) + 10);
     
-    greenness_index(ix) = greenness;
+    vvi = (red_component * green_component * blue_component)^(1/w);
+    
+    greenness_index(ix) = vvi;
     
     if mod(ix, 100) == 0
        fprintf('Processed %d of %d\n', ix, size(data{1},1))
