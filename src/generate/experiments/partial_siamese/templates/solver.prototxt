@@ -11,5 +11,5 @@ momentum: 0.9
 weight_decay: 0.0005
 snapshot: 1000
 snapshot_prefix: "snapshots/partial_siamese"
-solver_mode: GPU
+solver_mode: CPU
 

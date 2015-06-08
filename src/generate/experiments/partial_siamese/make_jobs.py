@@ -14,9 +14,9 @@ jobs_root = '/home/rmba229/projects/deeptransient/src/generate/jobs_partial_siam
 # setup jobs
 #
 
-train_batch_size_ = 1
-test_batch_size_ = 1
-computation_mode_ = 'GPU'
+train_batch_size_ = 50
+test_batch_size_ = 50
+computation_mode_ = 'CPU'
 mean_file_ = dataset_root + 'mean.binaryproto'
 model_file_ = '/scratch/mzh234/deeptransient/caffemodels/transientneth.caffemodel'
 

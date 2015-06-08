@@ -45,8 +45,8 @@ labels = np.vstack(labels)
 #PRETRAINED = '../generate/jobs_places/places_%dss/snapshots/places_%dss_iter_%s.caffemodel' % (stepsize_var, stepsize_var, iteration)
 #MEAN = '../mean/transient_mean.binaryproto'
 
-MODEL = '/home/rmba229/projects/deeptransient/src/generate/experiments/transientneth-highlr/deploy.prototxt'
-PRETRAINED = '/home/rmba229/projects/deeptransient/src/generate/experiments/transientneth-highlr/snapshots/transientneth_iter_51000.caffemodel'
+MODEL = '/home/rmba229/projects/deeptransient/src/generate/experiments/hybrid_1300ss/deploy.prototxt'
+PRETRAINED = '/home/rmba229/projects/deeptransient/src/generate/experiments/hybrid_1300ss/snapshots/hybrid_1300ss_iter_59000.caffemodel'
 MEAN = '../mean/transient_mean.binaryproto'
 
 # load the mean image 
