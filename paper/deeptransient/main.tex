@@ -293,25 +293,6 @@ the two methods on the attribute \emph{night} was around 2.5 percentage points,
 with TransientNet-H having the smaller error.  TransientNet-H averages 0.0699s
 per image for prediction. 
 
-\subsection{Network Visualizations}
-\todo{discuss the network visualization images} \\
-\indent
-\figref{netvis} visualizes the top scoring images from a single
-AMOS~\cite{jacobs07amos} webcams.  The 100 images with the highest score for
-each attribute (per the \textit{fc8} output layer) were averaged to create each
-of the images in \figref{netvis}. The average images for most of the attributes
-in the visualization are a reasonable representation of the attribute for the
-scene.  The seasonal attributes (\textit{autumn, summer, etc.}) show how the
-scene changes throughout the year and lighting attributes
-(\textit{sunrise/sunset, daylight, night, etc.}) shows the scene in various
-lighting conditions.  Some attributes have similar average images though
-(\textit{e.g., glowing and colorful, windy and rain}), suggesting that the
-network may not distinguish between these attributes well or that these
-attributes have some correlation with each other.
-
-\todo{use the explore correlation script to find correlated attributes. these
-      may be the attributes with the similar average images.} 
-
 \begin{table}[t]
 	\centering
 	\begin{tabular}{ | l | c | }
@@ -390,6 +371,21 @@ attributes have some correlation with each other.
              \todo{this caption is terrible}} 
 		\label{fig:netvis}
 \end{figure}
+
+\section{Discussion}
+\indent
+\figref{netvis} visualizes the top scoring images from a single
+AMOS~\cite{jacobs07amos} webcams across a subset of the transient attributes.
+The 100 images with the highest score for each attribute (per the \textit{fc8}
+output layer) were averaged to create each of the images in \figref{netvis}.
+The average images for most of the attributes in the visualization are a
+reasonable representation of the attribute for the scene.  The seasonal
+attributes (\textit{autumn, summer, etc.}) show how the scene changes
+throughout the year and lighting attributes (\textit{sunrise/sunset, daylight,
+night, etc.}) shows the scene in various lighting conditions.  Some attributes
+have similar average images though (\textit{e.g., glowing and colorful, windy
+and rain}), suggesting that the network may not distinguish between these
+attributes well or that these attributes have some correlation with each other.
 
 \section{Applications}
 \todo{better intro into the applications} \\
