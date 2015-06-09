@@ -359,7 +359,7 @@ per image for prediction.
 	\centering
 		\includegraphics[width=0.5\textwidth]{figs/attr_compare.pdf}
 		\caption{This shows a snapshot of three attributes over a week for an AMOS
-             webcam. \todo{discuss this figure}}
+             webcam.}
 		\label{fig:attrcmp}
 \end{figure}
 
@@ -374,8 +374,17 @@ per image for prediction.
 
 \section{Discussion}
 \indent
+\figref{attrcmp} shows the timeseries for three selected attributes
+(\textit{night, daylight, and snow}) from an AMOS~\cite{jacobs07amos} webcam
+over the period February 16th, 2013 to February 23rd, 2013.  The correspondence
+between the \textit{daylight} and \textit{night} timeseries can be clearly seen
+in this Figure.  The peaks in one correspond to the valleys in the other and
+vice versa.  \figref{attrcmp} also shows snapshots of the scene from points
+along the timeseries.  The snapshots show correctly labeled snowy periods in
+the scene as well non-snowy periods.
+
 \figref{netvis} visualizes the top scoring images from a single
-AMOS~\cite{jacobs07amos} webcam across a subset of the transient attributes.
+AMOS webcam across a subset of the transient attributes.
 100 images with the highest score for each attribute (per the \textit{fc8}
 output layer) were averaged to create the images in \figref{netvis}.  The
 subset of attributes shown in \figref{netvis} represent a wide variety of
