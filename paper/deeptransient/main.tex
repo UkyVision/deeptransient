@@ -230,6 +230,8 @@ categories from the Places Database and 978 object categories from ILSVRC-2012
 totaling about 3.6 million images.  We call the resulting networks CloudyNet-H
 and TransientNet-H.
 
+\textbf{Partial Siamese TransientNet:}
+
 \textbf{Implementation Details:} We train each network using the
 Caffe~\cite{caffe14} deep learning framework, the Caffenet reference network
 architecture, and pre-trained networks from the Caffe Model
@@ -292,25 +294,6 @@ means Laffont et al. had a smaller error.  For example, the difference between
 the two methods on the attribute \emph{night} was around 2.5 percentage points,
 with TransientNet-H having the smaller error.  TransientNet-H averages 0.0699s
 per image for prediction. 
-
-\subsection{Network Visualizations}
-\todo{discuss the network visualization images} \\
-\indent
-\figref{netvis} visualizes the top scoring images from a single
-AMOS~\cite{jacobs07amos} webcams.  The 100 images with the highest score for
-each attribute (per the \textit{fc8} output layer) were averaged to create each
-of the images in \figref{netvis}. The average images for most of the attributes
-in the visualization are a reasonable representation of the attribute for the
-scene.  The seasonal attributes (\textit{autumn, summer, etc.}) show how the
-scene changes throughout the year and lighting attributes
-(\textit{sunrise/sunset, daylight, night, etc.}) shows the scene in various
-lighting conditions.  Some attributes have similar average images though
-(\textit{e.g., glowing and colorful, windy and rain}), suggesting that the
-network may not distinguish between these attributes well or that these
-attributes have some correlation with each other.
-
-\todo{use the explore correlation script to find correlated attributes. these
-      may be the attributes with the similar average images.} 
 
 \begin{table}[t]
 	\centering
@@ -378,7 +361,7 @@ attributes have some correlation with each other.
 	\centering
 		\includegraphics[width=0.5\textwidth]{figs/attr_compare.pdf}
 		\caption{This shows a snapshot of three attributes over a week for an AMOS
-             webcam. \todo{discuss this figure}}
+             webcam.}
 		\label{fig:attrcmp}
 \end{figure}
 
@@ -391,30 +374,36 @@ attributes have some correlation with each other.
 		\label{fig:netvis}
 \end{figure}
 
+\section{Discussion}
+\indent
+\figref{attrcmp} shows the timeseries for three selected attributes
+(\textit{night, daylight, and snow}) from an AMOS~\cite{jacobs07amos} webcam
+over the period February 16th, 2013 to February 23rd, 2013.  The correspondence
+between the \textit{daylight} and \textit{night} timeseries can be clearly seen
+in this Figure.  The peaks in one correspond to the valleys in the other and
+vice versa.  \figref{attrcmp} also shows snapshots of the scene from points
+along the timeseries.  The snapshots show correctly labeled snowy periods in
+the scene as well non-snowy periods.
+
+\figref{netvis} visualizes the top scoring images from a single
+AMOS webcam across a subset of the transient attributes.
+100 images with the highest score for each attribute (per the \textit{fc8}
+output layer) were averaged to create the images in \figref{netvis}.  The
+subset of attributes shown in \figref{netvis} represent a wide variety of
+conditions of the scene.  The seasonal attributes (\textit{autumn, summer,
+winter}) show how the scene changes throughout the year and lighting attributes
+(\textit{sunrise/sunset, daylight, night}) shows the scene in various lighting
+conditions.  Other attributes not shown in this montage have similar average
+images to the ones shown, (\textit{e.g., glowing and colorful similar to
+sunrise/sunset, windy and rain similar to fog}).  This suggests that the
+network may not distinguish between these attributes well or that these
+attributes have some correlation with each other.
+
 \section{Applications}
 \todo{better intro into the applications} \\
 \indent
-We take advantage of the transient attributes for outdoor webcams in several applications.
-We first use the transient attributes for geolocalizing static webcams using a method
-similar to Jacobs et al.~\cite{jacobs07geolocate}.  We then propose a method for
-automatically labeling images from outdoor webcams, allowing for advanced searching
-of webcam collections, such as AMOS~\cite{jacobs07amos}.
-\subsection{Webcam Geolocalization}
-\todo{get results and plot them} \\
-\indent
-Cameras in close proximity to each other should have a similar set of transient
-attributes.  We can use this to compare the transient attributes over a given
-time frame for a webcam with unknown location to a the attributes over a
-similar time frame for a set of webcams with known locations.  We predict the
-transient attributes for the unknown webcam using TransientNet-H.  We compute
-the interpolated timeseries for each attribute.  We use CCA to find how
-correlated the unknown webcam's timeseries is with each of the known webcam's
-timeseries.  The known webcam with the highest correlation is used as an
-estimate of the location of the unknown webcam.
- 
-The results look good and allow us to accurately localize webcams based on their
-transient attributes.  \figref{localization} shows some results from this 
-experiment.
+We method for automatically labeling images from outdoor webcams, allowing for
+advanced searching of webcam collections, such as AMOS~\cite{jacobs07amos}.
 
 \subsection{Automatic Webcam Image Labeling}
 \indent
