@@ -9,7 +9,7 @@ import numpy as np
 
 dataset_root = '/scratch/mzh234/deeptransient/lmdbs/imagenet/'
 template_root = os.path.abspath('./templates/') + '/'
-jobs_root = '/home/rmba229/projects/deeptransient/src/generate/jobs_imagenet_expanded/'
+jobs_root = '/home/rmba229/projects/deeptransient/src/generate/jobs_ie_sslr/'
 
 #
 # setup jobs
@@ -42,7 +42,7 @@ jobs = [
             },
     'solver': {'COMPUTATION_MODE_': computation_mode_,
                'STEP_SIZE_': 'variable',
-               'GAMMA_': 'variable'},
+               'BASE_LR_': 'variable'},
     'common': {'IMAGE_SIZE_': 256, 'CROP_SIZE_': 227},
   },
   
@@ -68,7 +68,7 @@ train_header_tmpl = """#!/bin/bash
 #SBATCH --partition=GPU
 #SBATCH -N 1
 #SBATCH -n 16
-#SBATCH -J cv_%003.0f
+#SBATCH -J sslr_%003.0f
 
 CAFFE=~/bin/caffe/bin/caffe.bin
 """
@@ -106,10 +106,10 @@ local_job_tmpl_resume = """
 
 job_files = []
 for job in jobs:
-  for stepsize in xrange(100, 2000, 100):
-    for gamma in frange(0.5, 0.99, 0.05): 
+  for stepsize in xrange(500, 2000, 100):
+    for base_lr in frange(0.0001, 0.0015, 0.0001): 
 
-      job_path = jobs_root + job['name'] + '_' + str(stepsize) + '_' + str(gamma) + '/'
+      job_path = jobs_root + job['name'] + '_' + str(stepsize) + '_' + str(base_lr) + '/'
       safe_mkdir(job_path)
       safe_mkdir(job_path + 'snapshots/')
 
@@ -157,7 +157,7 @@ for job in jobs:
             for key in job['solver'].keys():
               line = line.replace(key, str(job['solver'][key]))
               line = line.replace('STEPSIZE', str(stepsize))
-              line = line.replace('GAMMA', str(gamma))
+              line = line.replace('BASE_LR', str(base_lr))
           # if 'common' in job:
           #   for key in job['common'].keys():
           #     line = line.replace(key, str(job['common'][key]))
@@ -170,8 +170,8 @@ for job in jobs:
       model_file = None
       if 'model_file' in job:
         model_file = job['model_file']
-      log_file = jobs_root + job['name'] + '_' + str(stepsize) + '_' + str(gamma) + '/output.log'
-      job_name = job['name'] + '_' + str(stepsize) + '_' + str(gamma)
+      log_file = jobs_root + job['name'] + '_' + str(stepsize) + '_' + str(base_lr) + '/output.log'
+      job_name = job['name'] + '_' + str(stepsize) + '_' + str(base_lr)
       job_files.append([solver_file, model_file, log_file, snapshot_file, job_name])
 
 #
@@ -203,17 +203,17 @@ def batcher(iterable, size):
 
 with open(jobs_root + '/run_all_jobs.sh', 'w') as f_all:
   f_all.write("#!/bin/bash\n")
-  for (i,batch) in enumerate(batcher(job_files,2)):
+  for (i,batch) in enumerate(batcher(job_files,6)):
     sbatch_file = jobs_root + 'start_training_%003.0f.sh' % (i)
     with open(sbatch_file, 'w') as f:
       f.write(train_header_tmpl % (i))
       for (igpu, files) in enumerate(batch):
         solver, model, log, snapshot, name = files
         if model:
-          f.write(train_job_tmpl_finetune % (os.path.abspath(os.path.join(jobs_root, name)), log, igpu, solver, model))
+          f.write(train_job_tmpl_finetune % (os.path.abspath(os.path.join(jobs_root, name)), log, igpu % 2, solver, model))
         else:
           f.write(train_job_tmpl % (log, igpu, solver))
-        f.write(train_job_tmpl_resume % (os.path.abspath(os.path.join(jobs_root, name)), log, igpu, solver, snapshot))
+        f.write(train_job_tmpl_resume % (os.path.abspath(os.path.join(jobs_root, name)), log, igpu % 2, solver, snapshot))
       f.write(train_footer_tmpl)
     f_all.write('sbatch %s\n' % (sbatch_file))
 
