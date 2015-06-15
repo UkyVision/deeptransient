@@ -42,6 +42,7 @@ for slurm in slurms:
     min_loss_iter.append(iteration[-2])
     min_loss.append(loss[iteration.index(iteration[-2])])
 
+
 #
 # load testing dbs
 #
@@ -66,62 +67,66 @@ labels = np.vstack(labels)
 #
 # evaluate each network
 #
-for iteration in min_loss_iter:
-  for param_1 in rand_stepsizes:
-    for param_2 in rand_gammas:
 
-      #
-      # load the trained net 
-      #
-      MODEL = '../generate/jobs_imagenet_expanded/imagenet_expanded_sweep_%s_%s/deploy.net' % (param_1, str(param_2).rstrip('0')) 
-      PRETRAINED = '../generate/jobs_imagenet_expanded/imagenet_expanded_sweep_%s_%s/snapshots/imagenet_expanded_iter_%s.caffemodel' % (param_1, str(param_2).rstrip('0'), iteration)
-      MEAN = '../mean/transient_mean.binaryproto'
+count = 0
+for param_1 in rand_stepsizes:
+  for param_2 in rand_gammas:
 
-      # load the mean image 
-      blob=caffe.io.caffe_pb2.BlobProto()
-      file=open(MEAN,'rb')
-      blob.ParseFromString(file.read())
-      means = caffe.io.blobproto_to_array(blob)
-      means = means[0]
+    iteration = min_loss_iter[count]
+    count += 1
 
-      caffe.set_mode_cpu()
-      net = caffe.Net(MODEL, PRETRAINED, caffe.TEST)
+    #
+    # load the trained net 
+    #
+    MODEL = '../generate/jobs_imagenet_expanded/imagenet_expanded_sweep_%s_%s/deploy.net' % (param_1, str(param_2).rstrip('0')) 
+    PRETRAINED = '../generate/jobs_imagenet_expanded/imagenet_expanded_sweep_%s_%s/snapshots/imagenet_expanded_iter_%s.caffemodel' % (param_1, str(param_2).rstrip('0'), iteration)
+    MEAN = '../mean/transient_mean.binaryproto'
 
-      #
-      # process 
-      #
-      ix = 0
-      error = np.zeros(40)
-      db = lmdb.open(db_name)
+    # load the mean image 
+    blob=caffe.io.caffe_pb2.BlobProto()
+    file=open(MEAN,'rb')
+    blob.ParseFromString(file.read())
+    means = caffe.io.blobproto_to_array(blob)
+    means = means[0]
 
-      # get all keys
-      with db.begin(write=False) as db_txn:
-        for (key, value) in db_txn.cursor():
-          im_datum = caffe.io.caffe_pb2.Datum()
-          im_datum.ParseFromString(value)
-          im = caffe.io.datum_to_array(im_datum)
-          
-          # subtract mean & resize
-          caffe_input = im - means
-          caffe_input = caffe_input.transpose((1,2,0))
-          caffe_input = caffe.io.resize_image(caffe_input, (227,227))
-          caffe_input = caffe_input.transpose((2,0,1))
-          caffe_input = caffe_input.reshape((1,)+caffe_input.shape)
-           
-          # push through the network
-          out = net.forward_all(data=caffe_input)
-          pred = out['fc8-t'].squeeze()
-          
-          # squared difference
-          error += ((pred[:] - labels[ix,:]) ** 2).squeeze()
-          
-          if ix % 100 == 0:
-            print "Processed %d" % ix
+    caffe.set_mode_cpu()
+    net = caffe.Net(MODEL, PRETRAINED, caffe.TEST)
 
-          ix = ix + 1
+    #
+    # process 
+    #
+    ix = 0
+    error = np.zeros(40)
+    db = lmdb.open(db_name)
 
-  # write out to file
-  error = error[:] / ix
-  with open(outfile, 'a+') as f:
-    f.write(str(param_1) + ' ' + str(param_2) + ' ' + str(iteration) + ' ' + str(np.average(error)) + '\n')
-  print param_1, param_2, np.average(error)
+    # get all keys
+    with db.begin(write=False) as db_txn:
+      for (key, value) in db_txn.cursor():
+        im_datum = caffe.io.caffe_pb2.Datum()
+        im_datum.ParseFromString(value)
+        im = caffe.io.datum_to_array(im_datum)
+        
+        # subtract mean & resize
+        caffe_input = im - means
+        caffe_input = caffe_input.transpose((1,2,0))
+        caffe_input = caffe.io.resize_image(caffe_input, (227,227))
+        caffe_input = caffe_input.transpose((2,0,1))
+        caffe_input = caffe_input.reshape((1,)+caffe_input.shape)
+         
+        # push through the network
+        out = net.forward_all(data=caffe_input)
+        pred = out['fc8-t'].squeeze()
+        
+        # squared difference
+        error += ((pred[:] - labels[ix,:]) ** 2).squeeze()
+        
+        if ix % 100 == 0:
+          print "Processed %d" % ix
+
+        ix = ix + 1
+
+    # write out to file
+    error = error[:] / ix
+    with open(outfile, 'a+') as f:
+      f.write(str(param_1) + ' ' + str(param_2) + ' ' + str(iteration) + ' ' + str(np.average(error)) + '\n')
+    print param_1, param_2, np.average(error)
