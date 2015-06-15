@@ -46,7 +46,7 @@ labels = np.vstack(labels)
 #MEAN = '../mean/transient_mean.binaryproto'
 
 MODEL = '/home/rmba229/projects/deeptransient/src/generate/experiments/hybrid_1300ss/deploy.prototxt'
-PRETRAINED = '/home/rmba229/projects/deeptransient/src/generate/experiments/hybrid_1300ss/snapshots/hybrid_1300ss_iter_59000.caffemodel'
+PRETRAINED = '/home/rmba229/projects/deeptransient/src/generate/experiments/hybrid_1300ss/snapshots/hybrid_1300ss_iter_73000.caffemodel'
 MEAN = '../mean/transient_mean.binaryproto'
 
 # load the mean image 
