@@ -1,7 +1,8 @@
 import glob
 import numpy as np
+import matplotlib.pyplot as plt 
 
-slurms = glob.glob('jobs_expanded_imagenet/**/*.log')
+slurms = glob.glob('experiments/twoclass/finetune_connor/*.out')
 
 min_loss = []
 min_loss_iter = []
@@ -22,6 +23,12 @@ slurms = np.vstack(slurms)
 min_loss = np.vstack(min_loss)
 min_loss_iter = np.vstack(min_loss_iter)
 min_loss_stacked = np.hstack([min_loss_iter, min_loss, slurms])
+
+print np.shape(iteration)
+print np.shape(loss)
+
+plt.plot(iteration, loss)
+plt.show()
 
 for iter,loss,slurm in min_loss_stacked:
   print slurm, iter, loss

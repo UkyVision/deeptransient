@@ -7,12 +7,12 @@ import h5py
 from matplotlib import pyplot as plt
 import glob
 
-outfile = 'data/imagenet_expanded_rand_results.txt'
+outfile = 'data/partial_siamese_rand_results.txt'
 
 #
 # get list of output files
 #
-slurms = glob.glob('../generate/jobs_imagenet_expanded/*/*.log')
+slurms = glob.glob('../generate/jobs_ps_rand/*/*.log')
 
 #
 # search for minimum loss and its 
@@ -34,14 +34,16 @@ for slurm in slurms:
     for line in f:
       if 'Testing net' in line:
         iteration.append(line.split()[5][:-1])
-      if 'Test net output' in line:
+      if 'Test net output #1' in line:
         loss.append(line.split()[10])
-   
+
     #min_loss.append(min(loss))
     #min_loss_iter.append(iteration[loss.index(min(loss))])
     min_loss_iter.append(iteration[-2])
     min_loss.append(loss[iteration.index(iteration[-2])])
 
+rand_stepsizes = np.unique(rand_stepsizes)
+rand_gammas = np.unique(rand_gammas)
 
 #
 # load testing dbs
@@ -78,8 +80,8 @@ for param_1 in rand_stepsizes:
     #
     # load the trained net 
     #
-    MODEL = '../generate/jobs_imagenet_expanded/imagenet_expanded_sweep_%s_%s/deploy.net' % (param_1, str(param_2).rstrip('0')) 
-    PRETRAINED = '../generate/jobs_imagenet_expanded/imagenet_expanded_sweep_%s_%s/snapshots/imagenet_expanded_iter_%s.caffemodel' % (param_1, str(param_2).rstrip('0'), iteration)
+    MODEL = '../generate/jobs_ps_rand/partial_siamese_sweep_%s_%s/deploy.net' % (param_1, str(param_2).rstrip('0')) 
+    PRETRAINED = '../generate/jobs_ps_rand/partial_siamese_sweep_%s_%s/snapshots/partial_siamese_iter_%s.caffemodel' % (param_1, str(param_2).rstrip('0'), iteration)
     MEAN = '../mean/transient_mean.binaryproto'
 
     # load the mean image 

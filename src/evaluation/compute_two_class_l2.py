@@ -38,7 +38,7 @@ labels = np.vstack(labels)
 # load the trained net 
 #
 MODEL = '../generate/experiments/twoclass/from_scratch/deploy.net' 
-PRETRAINED = '../generate/experiments/twoclass/from_scratch/snapshots/caffenet_two_class_iter_72000.caffemodel' 
+PRETRAINED = '../generate/experiments/twoclass/from_scratch/snapshots/caffenet_two_class_iter_60000.caffemodel' 
 MEAN = '../mean/two_class_mean.binaryproto'
 
 # load the mean image 

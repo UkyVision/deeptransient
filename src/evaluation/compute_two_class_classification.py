@@ -12,8 +12,8 @@ import sys
 #
 # load testing dbs
 #
-db_name = '../testing_data/test_two_class_im_db/'
-db_labels_name = '../testing_data/test_two_class_label_db/'
+db_name = '../testing_data/test_tc_classification_1_im_db/'
+db_labels_name = '../testing_data/test_tc_classification_1_label_db/'
 
 #
 # load labels
@@ -37,8 +37,8 @@ labels = np.vstack(labels)
 #
 # load the trained net 
 #
-MODEL = '../generate/experiments/twoclass/from_scratch/deploy.net' 
-PRETRAINED = '../generate/experiments/twoclass/from_scratch/snapshots/caffenet_two_class_iter_72000.caffemodel' 
+MODEL = '../generate/experiments/twoclass/finetune_connor/deploy.net' 
+PRETRAINED = '../generate/experiments/twoclass/finetune_connor/snapshots/finetune_connor_iter_9000.caffemodel' 
 MEAN = '../mean/two_class_mean.binaryproto'
 
 # load the mean image 
@@ -76,36 +76,25 @@ with db.begin(write=False) as db_txn:
 
     # push through the network
     out = net.forward_all(data=caffe_input)
-    pred = out['fc8-twoclass'].squeeze()
-
-    sunny = pred[0]
-    cloudy = pred[1]
+    pred = out['prob'].squeeze()
 
     #plt.subplot(1,2,1)
-    #plt.imshow(plt.imread('/home/rmba229/workspace/twoclassweather/weather_database/' + key))
+    #plt.imshow(plt.imread('/home/rmba229/workspace/twoclassweather/weather_database/' + key[6:]))
     #plt.axis('off')
     #plt.subplot(1,2,2)
-    #plt.bar(xrange(0,2), [pred[5], pred[6]]) 
+    #plt.bar(xrange(0,2), [pred[0], pred[1]]) 
     #plt.ylim((0,1))
     #plt.xticks([0.25, 1.25], ['sunny', 'cloudy'])
     #plt.title(key)
     #plt.show()
 
-
-    if sunny > cloudy:
-      pred_class = 0
-    else:
-      pred_class = 1
-
-    if labels[ix,0,0] > labels[ix,0,1]:
-      truth_class = 0
-    else:
-      truth_class = 1
+    pred_class = np.argmax(pred)
+    truth_class = int(labels[ix,0,0])
 
     if pred_class == truth_class:
       num_correct += 1
     
-    #print sunny, cloudy, pred_class, truth_class
+    #print pred_class, truth_class
 
     if ix % 100 == 0:
       print "Processed %d" % ix

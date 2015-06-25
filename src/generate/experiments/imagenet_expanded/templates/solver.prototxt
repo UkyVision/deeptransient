@@ -1,9 +1,9 @@
 net: "train.net"
 test_iter: 1000
 test_interval: 1000
-base_lr: BASE_LR
+base_lr: 0.001
 lr_policy: "step"
-gamma: 0.99
+gamma: GAMMA
 stepsize: STEPSIZE
 display: 20
 max_iter: 100000

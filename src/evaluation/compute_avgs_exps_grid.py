@@ -7,12 +7,12 @@ import h5py
 from matplotlib import pyplot as plt
 import glob
 
-outfile = 'data/imagenet_expanded_sweep1_results.txt'
+outfile = 'data/ie_sslr_results.txt'
 
 #
 # get list of output files
 #
-slurms = glob.glob('../generate/jobs_imagenet_expanded/*/*.log')
+slurms = glob.glob('../generate/jobs_ie_sslr/*/*.log')
 
 #
 # search for minimum loss and its 
@@ -29,7 +29,9 @@ for slurm in slurms:
         iteration.append(line.split()[5][:-1])
       if 'Test net output' in line:
         loss.append(line.split()[10])
-   
+  
+    if iteration == []:
+      continue
     #min_loss.append(min(loss))
     #min_loss_iter.append(iteration[loss.index(min(loss))])
     min_loss_iter.append(iteration[-2])
@@ -60,23 +62,23 @@ labels = np.vstack(labels)
 # evaluate each network
 #
 count = 0
-param_1 = 700
-param_2 = 0.55
+param_1 = 500
+param_2 = 0.000
 for iteration in min_loss_iter:
   count += 1
 
-  if count == 9:
+  if count == 16:
     count = 1
     param_1 += 100
-    param_2 = 0.55
+    param_2 = 0.0
 
-  param_2 += 0.05
+  param_2 += 0.0001
 
   #
   # load the trained net 
   #
-  MODEL = '../generate/jobs_imagenet_expanded/imagenet_expanded_sweep_%d_%s/deploy.net' % (param_1, str(param_2).rstrip('0')) 
-  PRETRAINED = '../generate/jobs_imagenet_expanded/imagenet_expanded_sweep_%d_%s/snapshots/imagenet_expanded_iter_%s.caffemodel' % (param_1, str(param_2).rstrip('0'), iteration)
+  MODEL = '../generate/jobs_ie_sslr/imagenet_expanded_sweep_%d_%s/deploy.net' % (param_1, str(param_2).rstrip('0')) 
+  PRETRAINED = '../generate/jobs_ie_sslr/imagenet_expanded_sweep_%d_%s/snapshots/imagenet_expanded_iter_%s.caffemodel' % (param_1, str(param_2).rstrip('0'), iteration)
   MEAN = '../mean/transient_mean.binaryproto'
 
   # load the mean image 

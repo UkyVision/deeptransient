@@ -9,7 +9,7 @@ import numpy as np
 
 dataset_root = '/scratch/mzh234/deeptransient/lmdbs/imagenet/'
 template_root = os.path.abspath('./templates/') + '/'
-jobs_root = '/home/rmba229/projects/deeptransient/src/generate/jobs_imagenet_expanded/'
+jobs_root = '/home/rmba229/projects/deeptransient/src/generate/jobs_ie_rand/'
 
 #
 # setup jobs
@@ -99,8 +99,11 @@ local_job_tmpl_resume = """
 #$CAFFE train --solver=%s --snapshot=%s 2>&1 | tee "%s"
 """
 
-rand_stepsizes = np.random.random_integers(700,1500, 7)
-rand_gammas = np.random.random(7)
+rand_stepsizes = np.random.random_integers(100,3000, 36)
+rand_stepsizes = np.reshape(rand_stepsizes, (36,1))
+rand_gammas = np.random.random(36)
+rand_gammas = np.reshape(rand_gammas, (36,1))
+params = np.concatenate((rand_stepsizes, rand_gammas), axis=1)
 
 #
 # process jobs
@@ -108,73 +111,73 @@ rand_gammas = np.random.random(7)
 
 job_files = []
 for job in jobs:
-  for stepsize in rand_stepsizes:
-    for gamma in rand_gammas: 
+  for stepsize,gamma in params:
 
-      job_path = jobs_root + job['name'] + '_' + str(stepsize) + '_' + str(gamma) + '/'
-      safe_mkdir(job_path)
-      safe_mkdir(job_path + 'snapshots/')
+    stepsize = int(stepsize)
+    job_path = jobs_root + job['name'] + '_' + str(stepsize) + '_' + str(gamma) + '/'
+    safe_mkdir(job_path)
+    safe_mkdir(job_path + 'snapshots/')
 
-      with open(template_root + job['train_file'], 'r') as f:
-        train_net = f.readlines()
-      with open(template_root + job['deploy_file'], 'r') as f:
-        deploy_net = f.readlines()
-      with open(template_root + job['solver_file'], 'r') as f:
-        solver_proto = f.readlines()
-        
-      # make new network 
-      train_file = job_path + 'train.net'
+    with open(template_root + job['train_file'], 'r') as f:
+      train_net = f.readlines()
+    with open(template_root + job['deploy_file'], 'r') as f:
+      deploy_net = f.readlines()
+    with open(template_root + job['solver_file'], 'r') as f:
+      solver_proto = f.readlines()
+      
+    # make new network 
+    train_file = job_path + 'train.net'
 
-      with open(train_file, 'w') as f:
-        for line in train_net:
-          if 'train' in job:
-            for key in job['train'].keys():
-              line = line.replace(key, str(job['train'][key]))
-          if 'common' in job:
-            for key in job['common'].keys():
-              line = line.replace(key, str(job['common'][key]))
-          f.write(line)
+    with open(train_file, 'w') as f:
+      for line in train_net:
+        if 'train' in job:
+          for key in job['train'].keys():
+            line = line.replace(key, str(job['train'][key]))
+        if 'common' in job:
+          for key in job['common'].keys():
+            line = line.replace(key, str(job['common'][key]))
+        f.write(line)
+    
+    # make new deploy
+    deploy_file = job_path + 'deploy.net'
+    
+    with open(deploy_file, 'w') as f:
+      for line in deploy_net:
+        if 'deploy' in job:
+          for key in job['deploy'].keys():
+            line = line.replace(key, str(job['deploy'][key]))
+        if 'common' in job:
+          for key in job['common'].keys():
+            line = line.replace(key, str(job['common'][key]))
+        f.write(line)
       
-      # make new deploy
-      deploy_file = job_path + 'deploy.net'
-      
-      with open(deploy_file, 'w') as f:
-        for line in deploy_net:
-          if 'deploy' in job:
-            for key in job['deploy'].keys():
-              line = line.replace(key, str(job['deploy'][key]))
-          if 'common' in job:
-            for key in job['common'].keys():
-              line = line.replace(key, str(job['common'][key]))
-          f.write(line)
-        
-      # make new solver
-      solver_file = job_path + 'solver.prototxt'
-      
-      with open(solver_file, 'w') as f:
-        for line in solver_proto:
-          line = line.replace('NETWORK_FILE', train_file)
-          line = line.replace('SNAPSHOT_PREFIX', '%ssnapshots/%s' % (job_path, job['name']))
-          if 'solver' in job:
-            for key in job['solver'].keys():
-              line = line.replace(key, str(job['solver'][key]))
-              line = line.replace('STEPSIZE', str(stepsize))
-              line = line.replace('GAMMA', str(gamma))
-          # if 'common' in job:
-          #   for key in job['common'].keys():
-          #     line = line.replace(key, str(job['common'][key]))
-          f.write(line)
+    # make new solver
+    solver_file = job_path + 'solver.prototxt'
+    
+    with open(solver_file, 'w') as f:
+      for line in solver_proto:
+        line = line.replace('NETWORK_FILE', train_file)
+        line = line.replace('SNAPSHOT_PREFIX', '%ssnapshots/%s' % (job_path, job['name']))
+        if 'solver' in job:
+          for key in job['solver'].keys():
+            line = line.replace(key, str(job['solver'][key]))
+            line = line.replace('STEPSIZE', str(stepsize))
+            line = line.replace('GAMMA', str(gamma))
+        # if 'common' in job:
+        #   for key in job['common'].keys():
+        #     line = line.replace(key, str(job['common'][key]))
+        f.write(line)
 
-      # for resuming
-      snapshot_file = '%ssnapshots/%s_iter_1000.solverstate' % (job_path, job['name'])
-      
-      # store solver, model, & log file
-      model_file = None
-      if 'model_file' in job:
-        model_file = job['model_file']
-      log_file = jobs_root + job['name'] + '_' + str(stepsize) + '_' + str(gamma) + '/output.log'
-      job_name = job['name'] + '_' + str(stepsize) + '_' + str(gamma)
-      job_files.append([solver_file, model_file, log_file, snapshot_file, job_name])
+    # for resuming
+    snapshot_file = '%ssnapshots/%s_iter_1000.solverstate' % (job_path, job['name'])
+    
+    # store solver, model, & log file
+    model_file = None
+    if 'model_file' in job:
+      model_file = job['model_file']
+    log_file = jobs_root + job['name'] + '_' + str(stepsize) + '_' + str(gamma) + '/output.log'
+    job_name = job['name'] + '_' + str(stepsize) + '_' + str(gamma)
+    job_files.append([solver_file, model_file, log_file, snapshot_file, job_name])
 
 #
 # make local job scripts

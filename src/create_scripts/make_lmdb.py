@@ -69,25 +69,28 @@ with open(BASE_DIR + 'holdout_split/training.txt','r') as f:
   train_holdout_filenames_temp = [x.strip() for x in f.readlines()]
 with open(BASE_DIR + 'holdout_split/test.txt','r') as f:
   test_holdout_filenames_temp = [x.strip() for x in f.readlines()]
-#with open(BASE_DIR + 'random_split/training.txt','r') as f:
-#  train_random_filenames_temp = [x.strip() for x in f.readlines()]
-#with open(BASE_DIR + 'random_split/test.txt','r') as f:
-#  test_random_filenames_temp = [x.strip() for x in f.readlines()]
+val_holdout_filenames_temp = train_holdout_filenames_temp[6655:]
+train_holdout_filenames_temp = train_holdout_filenames_temp[:6655]
 
 random.shuffle(train_holdout_filenames_temp)
 train_holdout_filenames = ["%05d_%s" % (idx, name) for idx, name in enumerate(train_holdout_filenames_temp)]
+random.shuffle(val_holdout_filenames_temp)
+val_holdout_filenames = ["%05d_%s" % (idx, name) for idx, name in enumerate(val_holdout_filenames_temp)]
 random.shuffle(test_holdout_filenames_temp)
 test_holdout_filenames = ["%05d_%s" % (idx, name) for idx, name in enumerate(test_holdout_filenames_temp)]
 
 map = {}
 key = ''
-with open(BASE_DIR + 'annotations/weather_annotations.tsv','r') as f:
+with open(BASE_DIR + 'annotations/annotations.tsv','r') as f:
   tsvin = csv.reader(f, delimiter='\t')
   for row in tsvin:
     filename = row[0].strip()
     for train_im in train_holdout_filenames:
       if filename in train_im:
         key = train_im
+    for val_im in val_holdout_filenames:
+      if filename in val_im:
+        key = val_im
     for test_im in test_holdout_filenames:
       if filename in test_im:
         key = test_im
@@ -95,7 +98,6 @@ with open(BASE_DIR + 'annotations/weather_annotations.tsv','r') as f:
     labels = [float(x.split(',')[0]) for x in row[1:]]
     map[key] = labels
 
-make_database('train_deepweather', train_holdout_filenames, map)
-make_database('test_deepweather', test_holdout_filenames, map)
-#make_database('random_train', train_random_filenames, map)
-#make_database('random_test', test_random_filenames, map)
+make_database('train_valtest', train_holdout_filenames, map)
+make_database('val_valtest', val_holdout_filenames, map)
+make_database('test_valtest', test_holdout_filenames, map)
