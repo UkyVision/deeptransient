@@ -175,7 +175,7 @@ We propose the use deep convolutional neural networks to estimate transient
 scene attributes. We develop networks for two single-image problems: the
 classification problem of estimating whether it is sunny or cloudy and a
 collection of regression problems that represent the degree to which a large
-number of transient attribute describe the scene.  For each of these problems,
+number of transient attributes describe the scene.  For each of these problems,
 we use three different networks as starting conditions for optimization,
 resulting in a total of six networks.  For both problems, we use the
 ``AlexNet'' CNN architecture, described in the previous section.  The remainder
@@ -203,14 +203,15 @@ layer (in the end we have two output nodes).
 
 \textbf{TransientNet:} In addition, we train a network for the more challenging
 problem of estimating a broad range of attributes proposed by
-Laffont~\cite{Laffont14}.  In this problem, there are 40 transient attributes
+Laffont et al.~\cite{Laffont14}.  In this problem, there are 40 transient attributes
 (see \figref{compare} for the full list of attributes), each of which is
 assigned a value between zero and one for an image. We use the holdout
-train/test split defined by Laffont~\cite{Laffont14} in which the images from
-81 webcams are used for training and images from a distinct set of 20 webcams
-is used for testing.  The only modification of the network architecture that
-was required was changing the final fully connected layer to have 40 nodes, one
-for each transient attribute, and changing the loss function to an $L_2$ loss. 
+train/test split defined by Laffont et al.~\cite{Laffont14} in which the images
+from 81 webcams are used for training and images from a distinct set of 20
+webcams is used for testing.  The only modification of the network architecture
+that was required was changing the final fully connected layer to have 40
+nodes, one for each transient attribute, and changing the loss function to an
+$L_2$ loss. 
 
 We trained both of these networks using three different initial conditions
 resulting in six distinct sets of network weights. The first set of initial
@@ -251,6 +252,8 @@ evaluated using Caffe in CPU mode on Dell C6220 Servers equipped with Dual
 Intel E5-2670 8 Core (Sandy Bridge) at 2.6 GHz.  The full network optimization
 definition, the final network weights, and the output from our methods will be
 made available online for all six networks.
+
+\todo{discuss parameter searching and optimization done?}
 
 \section{Evaluation}
 \indent
