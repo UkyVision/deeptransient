@@ -197,9 +197,11 @@ cloudy, we use the data provided by Lu~\cite{lutwoclass} et al.\ to train our
 network, which we call CloudyNet.  We follow their protocol for training and
 testing: each list of sunny/cloudy images was randomly shuffled and the first
 80\% of each list was chosen as the training data and the last 20\% was chosen
-as testing data.  The only modification to the network architecture that was
-required was dropping unnecessary output nodes from the final fully connected
-layer (in the end we have two output nodes).
+as testing data.  We generate five random 80/20 splits of the data and use five
+fold cross validation to report the mean and variance of the accuracy for our
+networks.  The only modification to the network architecture that was required
+was dropping unnecessary output nodes from the final fully connected layer (in
+the end we have two output nodes).
 
 \textbf{TransientNet:} In addition, we train a network for the more challenging
 problem of estimating a broad range of attributes proposed by
