@@ -171,7 +171,7 @@ loss function, perhaps replacing the SOFT-MAX loss with an $L_2$ loss.
 \section{Deep Networks for Estimating Transient Attributes}
 \todo{the title of this section is too long. needs fixing} \\
 \indent
-We propose to use deep convolutional neural networks to classify transient
+We propose the use deep convolutional neural networks to estimate transient
 scene attributes. We develop networks for two single-image problems: the
 classification problem of estimating whether it is sunny or cloudy and a
 collection of regression problems that represent the degree to which a large
@@ -230,17 +230,17 @@ categories from the Places Database and 978 object categories from ILSVRC-2012
 totaling about 3.6 million images.  We call the resulting networks CloudyNet-H
 and TransientNet-H.
 
-\textbf{Expanded Dataset:} We expand the Transient Attributes dataset from
-Laffont et al.~\cite{Laffont14} using AMOS~\cite{jacobs07amos} webcams.  We
-first find the geolocation of the AMOS webcams within the transient attributes
-dataset.  Images from cameras with locations near these webcams are downloaded.
-Images from nearby webcams with corresponding timestamps to images in the
-Transient Attributes Dataset are assigned the ground truth labels from the
-dataset.  This is based on the idea that nearby webcams should have similar
-transient attributes at any given time. 
-\todo{get more specifics from Ted} 
-
-\textbf{Partial Siamese TransientNet:}
+%\textbf{Expanded Dataset:} We expand the Transient Attributes dataset from
+%Laffont et al.~\cite{Laffont14} using AMOS~\cite{jacobs07amos} webcams.  We
+%first find the geolocation of the AMOS webcams within the transient attributes
+%dataset.  Images from cameras with locations near these webcams are downloaded.
+%Images from nearby webcams with corresponding timestamps to images in the
+%Transient Attributes Dataset are assigned the ground truth labels from the
+%dataset.  This is based on the idea that nearby webcams should have similar
+%transient attributes at any given time. 
+%\todo{get more specifics from Ted} 
+%
+%\textbf{Partial Siamese TransientNet:}
 
 \textbf{Implementation Details:} We train each network using the
 Caffe~\cite{caffe14} deep learning framework, the Caffenet reference network
