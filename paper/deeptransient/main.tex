@@ -389,6 +389,15 @@ per image for prediction.
 		\label{fig:netvis}
 \end{figure}
 
+\begin{figure}[t]
+	\centering
+		\includegraphics[width=0.5\textwidth, trim= 0mm 0mm 0mm 0mm]{figs/snow_dt_vs_hays.pdf}
+		\caption{This plot shows our predictions versus those of Laffont et al. 
+             for the snow attribute over eleven months of webcam data.
+             \todo{placeholder fig. should add example images to the plot}} 
+		\label{fig:dtvshays_snow}
+\end{figure}
+
 \section{Discussion}
 \indent
 \figref{attrcmp} shows the timeseries for three selected attributes
@@ -413,6 +422,8 @@ images to the ones shown, (\textit{e.g., glowing and colorful similar to
 sunrise/sunset, windy and rain similar to fog}).  This suggests that the
 network may not distinguish between these attributes well or that these
 attributes have some correlation with each other.
+
+\todo{talk about \figref{dtvshays_snow}}
 
 \section{Applications}
 \todo{better intro into the applications} \\
