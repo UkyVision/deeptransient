@@ -44,6 +44,27 @@ local_date_numbers = date_numbers + (utc_offset/24);
 %% plot everything
 
 example_ims = [2 40 80];
+example_im_colors = ['b', 'm', 'k'];
+
+% recover image names from datenums
+im_names = datestr(date_numbers(example_ims), 'yyyymmdd_HHMMSS');
+folder_names = datestr(date_numbers(example_ims), 'yyyy.mm');
+
+% display the example images with a border corresponding
+% to the highlight color in the plot
+for ix = 1:3
+   figure(ix*3); clf;
+   example_image = imread(strcat(base_dir, folder_names(ix,:), '/', im_names(ix,:), '.jpg')); 
+   imagesc(example_image)
+   axis image
+   set(gca, 'TickLength', [0,0])
+   set(gca, 'Color', example_im_colors(ix))
+   set(gca, 'XColor', example_im_colors(ix))
+   set(gca, 'YColor', example_im_colors(ix))
+   set(gca, 'LineWidth', 6)
+   set(gca, 'XTick', 0)
+   set(gca, 'YTick', 0)
+end
 
 for iLabel = 1:40
 
