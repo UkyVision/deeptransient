@@ -24,7 +24,7 @@ date_numbers = cellfun(@(x) datenum(x, 'yyyymmdd_HHMMSS'), names);
 features = cell2mat(table2cell(data(:, 2:end)));
 hays_features = cell2mat(table2cell(hays_data(:, 2:end)));
 
-if true
+if false && true
   % find daylight images (sun above the horizon) 
   location = struct('latitude',  loc(1), ...
     'longitude', loc(2), ...
@@ -43,12 +43,12 @@ local_date_numbers = date_numbers + (utc_offset/24);
 
 %% plot everything
 
-example_ims = [2 40 80];
-example_im_colors = ['b', 'm', 'k'];
+example_ims = [48 171 305];
+example_im_colors = ['r', 'g', 'b'];
 
 % recover image names from datenums
-im_names = datestr(date_numbers(example_ims), 'yyyymmdd_HHMMSS');
-folder_names = datestr(date_numbers(example_ims), 'yyyy.mm');
+im_names = datestr(date_numbers(example_ims * 20), 'yyyymmdd_HHMMSS');
+folder_names = datestr(date_numbers(example_ims * 20), 'yyyy.mm');
 
 % display the example images with a border corresponding
 % to the highlight color in the plot
@@ -78,20 +78,35 @@ for iLabel = 1:40
 
     days_to_plot = unique(days);
     
+    figure(1004); clf;
+    subplot(211)
+    imagesc(avg_att', [0 1])
+    subplot(212)
+    imagesc(avg_hays_att', [0 1])
+    
+    figure(1005); clf;
+    subplot(121)
+    % + .005*randn(size(date_numbers))
+    scatter(mod(date_numbers,1),floor(date_numbers), 20,features(:, iLabel), 'filled')
+    set(gca, 'CLim', [0 1])
+    subplot(122)
+    scatter(mod(date_numbers,1),floor(date_numbers), 20,hays_features(:, iLabel), 'filled')   
+    set(gca, 'CLim', [0 1])
+    
     figure(4); clf;
     hold on
 
     % plot the full data
-    plot(days_to_plot, avg_att, 'r.')
-    plot(unique(days), avg_hays_att, 'g.')
+    plot(days_to_plot, avg_att, 'kx')
+    plot(days_to_plot, avg_hays_att, 'k.')
 
     % highlight the example images
-    plot(days_to_plot(example_ims(1)), avg_att(example_ims(1)), 'bo', 'MarkerSize', 10);
-    plot(days_to_plot(example_ims(1)), avg_hays_att(example_ims(1)), 'bo', 'MarkerSize', 10);
-    plot(days_to_plot(example_ims(2)), avg_att(example_ims(2)), 'mo', 'MarkerSize', 10);
-    plot(days_to_plot(example_ims(2)), avg_hays_att(example_ims(2)), 'mo', 'MarkerSize', 10);
-    plot(days_to_plot(example_ims(3)), avg_att(example_ims(3)), 'ko', 'MarkerSize', 10);
-    plot(days_to_plot(example_ims(3)), avg_hays_att(example_ims(3)), 'ko', 'MarkerSize', 10);
+    plot(days_to_plot(example_ims(1)), avg_att(example_ims(1)), 'ro', 'MarkerSize', 10);
+    plot(days_to_plot(example_ims(1)), avg_hays_att(example_ims(1)), 'ro', 'MarkerSize', 10);
+    plot(days_to_plot(example_ims(2)), avg_att(example_ims(2)), 'go', 'MarkerSize', 10);
+    plot(days_to_plot(example_ims(2)), avg_hays_att(example_ims(2)), 'go', 'MarkerSize', 10);
+    plot(days_to_plot(example_ims(3)), avg_att(example_ims(3)), 'bo', 'MarkerSize', 10);
+    plot(days_to_plot(example_ims(3)), avg_hays_att(example_ims(3)), 'bo', 'MarkerSize', 10);
 
     hold off
     set(gca, 'YLim', [0 1])
