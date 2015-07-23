@@ -26,8 +26,25 @@ hays_features = cell2mat(table2cell(hays_data(:, 2:end)));
 
 local_date_numbers = date_numbers + (utc_offset/24);
 
+%% create the summary images
+sz = [886 120];
+summary = zeros(sz);
 
-%% plot everything
+% date nums to x value
+x_inds = floor(((date_numbers - date_numbers(1)) / 365) * 886) + 1;
+
+% date nums to y value
+y_inds = floor(mod(date_numbers, 1) * 120);
+
+% sub2ind
+locs = sub2ind(sz, x_inds, y_inds);
+
+% color the image
+summary(locs) = features(:,10);
+imagesc(summary')
+axis image off
+
+%% plot summaries as a scatter plot
 
 for iLabel = 1:40
     
