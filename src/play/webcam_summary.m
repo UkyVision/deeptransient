@@ -27,22 +27,57 @@ hays_features = cell2mat(table2cell(hays_data(:, 2:end)));
 local_date_numbers = date_numbers + (utc_offset/24);
 
 %% create the summary images
-sz = [886 120];
-summary = zeros(sz);
+sz = [48 365];
+
+soy = datevec(date_numbers(1));
+soy(2:6) = [1 1 1,0,0];
+soy = datenum(soy);
 
 % date nums to x value
-x_inds = floor(((date_numbers - date_numbers(1)) / 365) * 886) + 1;
+x_inds = floor(((date_numbers - soy) / 365) * 365) + 1;
 
 % date nums to y value
-y_inds = floor(mod(date_numbers, 1) * 120);
+y_inds = floor(mod(date_numbers, 1) * 48);
 
 % sub2ind
-locs = sub2ind(sz, x_inds, y_inds);
+locs = sub2ind(sz, y_inds, x_inds);
 
-% color the image
-summary(locs) = features(:,10);
-imagesc(summary')
-axis image off
+% composite image
+sr = zeros(sz);
+sg = zeros(sz);
+sb = zeros(sz);
+sr(locs) = features(:,10);
+sg(locs) = features(:,2);
+sb(locs) = features(:,9);
+summary = cat(3,sr,sg,sb);
+allofthem = cell(1,40);
+for ix = 1:40
+    tmp  = zeros(sz);
+    tmp(locs) = features(:,ix);
+    allofthem{ix} = tmp;
+end
+
+% all of the attributes
+attrs = textscan(fopen('attributes.txt'), '%s'); attrs = attrs{1};
+
+figure(1); clf
+title('camera')
+subplot(121)
+imagesc(cat(1,allofthem{1:20}), [0 1]); axis image
+set(gca, 'YTick', linspace(sz(1)/2,20*sz(1)-sz(1)/2,20), 'YTickLabel',attrs(1:20));
+axis image xy
+set(gca, 'XTick', []);
+set(gca, 'TickLength', [0 0]);
+subplot(122)
+imagesc(cat(1,allofthem{21:40}), [0 1]); axis image
+set(gca, 'YTick', linspace(sz(1)/2,20*sz(1)-sz(1)/2,20), 'YTickLabel',attrs(21:40),'YAxisLocation','right');
+set(gca, 'XTick', []);
+set(gca, 'TickLength', [0 0]);
+axis image xy
+
+% summary = max(min(summary,1),0);
+% image(summary)
+% axis image off
 
 %% plot summaries as a scatter plot
 
