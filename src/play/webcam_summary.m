@@ -5,39 +5,39 @@
 
 addpath ~/matlab_root/
 
-base_dir = '/u/vul-d1/scratch/ryan/00007371/';
+base_dir = '/u/vul-d1/scratch/ryan/stable_cam_data/00000075/';
 
-data = readtable([base_dir 'attributes.csv'], 'ReadVariableNames', false);
+data = readtable([base_dir '2013_attributes.csv'], 'ReadVariableNames', false);
+data = unique(data);
 data = sortrows(data, {'Var1'}, {'ascend'});
-hays_data = readtable([base_dir 'hays_attributes.csv'], 'ReadVariableNames', false);
-hays_data = sortrows(hays_data, {'Var1'}, {'ascend'});
-
 labels = readtable('/u/vul-d1/scratch/ryan/attributes.txt', 'ReadVariableNames', false);
 
-loc = [47.367922, 8.539977];
-altitude = 408;
-utc_offset = - timezone(loc(2));
+data(cellfun(@(x) length(x) < 15, table2cell(data(:,1))),:) = [];
+data(cellfun(@(x) ~floor(mean(x(1:4) == base_dir(1:4))), table2cell(data(:,1))),:) = [];
 
 [~, names] = cellfun(@(x) fileparts(x), table2cell(data(:, 1)), 'uni', 0);
 date_numbers = cellfun(@(x) datenum(x, 'yyyymmdd_HHMMSS'), names);
 
 features = cell2mat(table2cell(data(:, 2:end)));
-hays_features = cell2mat(table2cell(hays_data(:, 2:end)));
 
-local_date_numbers = date_numbers + (utc_offset/24);
+
+% hays_data = readtable([base_dir 'hays_attributes.csv'], 'ReadVariableNames', false);
+% hays_data = sortrows(hays_data, {'Var1'}, {'ascend'});
+% hays_features = cell2mat(table2cell(hays_data(:, 2:end)));
+
 
 %% create the summary images
 sz = [48 365];
 
 soy = datevec(date_numbers(1));
-soy(2:6) = [1 1 1,0,0];
+soy(2:6) = [1 1 0,0,0];
 soy = datenum(soy);
 
 % date nums to x value
 x_inds = floor(((date_numbers - soy) / 365) * 365) + 1;
 
 % date nums to y value
-y_inds = floor(mod(date_numbers, 1) * 48);
+y_inds = floor(mod(date_numbers, 1) * 48) + 1;
 
 % sub2ind
 locs = sub2ind(sz, y_inds, x_inds);
