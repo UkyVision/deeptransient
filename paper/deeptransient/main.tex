@@ -413,6 +413,7 @@ per image for prediction.
 
 \section{Discussion}
 \todo{intro to discussion section}
+
 We visualize aspects of TransientNet and convert it to a fully convolutional
 network. 
 
@@ -442,7 +443,7 @@ network may not distinguish between these attributes well or that these
 attributes have some correlation with each other.
 
 \subsection{Fully Convolutional Network}
-\todo{talk about \figref{false_color_ims}}
+\todo{make this section better}
 
 We convert the the final, fully connected layers of TransientNet to be
 convolutional with the same number of outputs.  The output from this new,
@@ -499,7 +500,22 @@ used to tag the webcam.  This would allow for much easier searching of large
 collections of webcams.
 
 \subsection{Webcam Summaries}
-\todo{talk about \figref{webcam_summary}}
+\todo{expand and make better}
+
+We create summaries of the transient attributes for webcams using images pushed
+through TransientNet.  Each column in the summary is a single day and each row
+a different time of the day (in 30 minute intervals).  Each pixel is colored
+based on the attribute value for the corresponding webcam image.
+\figref{webcam_summary} shows all 40 attribute summaries for an AMOS webcam.
+Attributes such as \textit{snow}, \textit{cold}, \textit{winter}, etc. have
+higher values in the winter months and lower values during the summer months.
+The \textit{night} and \textit{daylight} attributes clearly show the day/night
+cycle for the location of the image.  Properties about the scene can be
+inferred from these summaries.  Consistently high values for the
+\textit{glowing} attribute at night indicate the presence of streetlights
+and/or other man made light sources in the scene.
+
+\todo{add in a composite webcam summary?}
 
 \section{Conclusions}
 \indent
