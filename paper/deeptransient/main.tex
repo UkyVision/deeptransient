@@ -188,7 +188,7 @@ networks.
 		\caption{This shows the average errors for each attribute from proposed method
 						 by Laffont et al., TransientNet-I, TransientNet-P, and TransientNet-H.  
              TransientNet-H has the lowest average error for most of the attributes.
-             \todo{de-uglify this plot}}
+             \todo{de-uglify this plot}, \todo{do we need this?}}
 		\label{fig:compare}
 \end{figure*}
 
@@ -368,7 +368,7 @@ per image for prediction.
 		\caption{This shows the relative errors of TransientNet-H against the method 
 						 proposed by Laffont et al. for each attribute.  Attributes with a 
 						 negative average error are attributes that are predicted more 
-						 accurately by our method.}
+						 accurately by our method. \todo{do we need this?}}
 		\label{fig:relerr}
 \end{figure}
 
@@ -389,36 +389,30 @@ per image for prediction.
 		\label{fig:netvis}
 \end{figure}
 
-\begin{figure}[t]
-	\centering
-		\includegraphics[width=0.5\textwidth, trim= 0mm 0mm 0mm 0mm]{figs/snow_dt_vs_hays.pdf}
-		\caption{This plot shows our predictions versus those of Laffont et al. 
-             for the snow attribute over eleven months of webcam data.
-             \todo{placeholder fig. should add example images to the plot}} 
-		\label{fig:dtvshays_snow}
-\end{figure}
-
 \begin{figure}
   \centering
   \begin{subfigure}[b]{0.49\textwidth}
     \centering
 		\includegraphics[width=\textwidth, trim= 0mm 0mm 0mm 0mm]{figs/false_color_7371.pdf}
     \caption{false color image, RGB = [sunny, lush, snow]}
-    \label{false_color_1}
+    \label{fig:false_color_1}
   \end{subfigure}
   \begin{subfigure}[b]{0.49\textwidth}
     \centering
 		\includegraphics[width=\textwidth, trim= 0mm 0mm 0mm 0mm]{figs/false_color_82.pdf}
     \caption{false color image, RGB = [sunny, storm, snow]}
-    \label{false_color_2}
+    \label{fig:false_color_2}
   \end{subfigure}
   \caption{false color image, red channel is sunny attribute, green channel
            is lush attribute, blue channel is snow attribute
            \todo{write actual captions for these figures}}
-  \label{false_color_ims}
+  \label{fig:false_color_ims}
 \end{figure}
 
 \section{Discussion}
+\todo{intro to discussion section}
+
+\subsection{Visualizations}
 \indent
 \figref{attrcmp} shows the timeseries for three selected attributes
 (\textit{night, daylight, and snow}) from an AMOS~\cite{jacobs07amos} webcam
@@ -443,13 +437,24 @@ sunrise/sunset, windy and rain similar to fog}).  This suggests that the
 network may not distinguish between these attributes well or that these
 attributes have some correlation with each other.
 
-\todo{talk about \figref{dtvshays_snow}}
+\subsection{Fully Convolutional Network}
+\todo{talk about \figref{false_color_ims}}
+
+\begin{figure}[t]
+	\centering
+		\includegraphics[width=0.5\textwidth, trim= 0mm 0mm 0mm 0mm]{figs/summary_260.pdf}
+		\caption{An attribute summary of 2013 for an AMOS webcam
+             \todo{download august data}} 
+		\label{fig:webcam_summary}
+\end{figure}
 
 \section{Applications}
 \todo{better intro into the applications} \\
 \indent
-We method for automatically labeling images from outdoor webcams, allowing for
-advanced searching of webcam collections, such as AMOS~\cite{jacobs07amos}.
+We propose a method for automatically labeling images from outdoor webcams, allowing for
+advanced searching of webcam collections, such as AMOS~\cite{jacobs07amos}. We
+also use labeled webcam images to create year-long summaries of transient 
+attributes for a webcam.
 
 \subsection{Automatic Webcam Image Labeling}
 \indent
@@ -467,6 +472,9 @@ enable users to use queries such as ``sunny'' or ``not winter''.  Attributes
 that appear frequently in a webcam (aside from daylight, night, etc) could be
 used to tag the webcam.  This would allow for much easier searching of large
 collections of webcams.
+
+\subsection{Webcam Summaries}
+\todo{talk about \figref{webcam_summary}}
 
 \section{Conclusions}
 \indent
