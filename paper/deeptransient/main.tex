@@ -182,6 +182,9 @@ resulting in a total of six networks.  For both problems, we use the
 of this section describes how we estimate network weights for each of these
 networks.
 
+% I don't know if we still need this plot.  It takes up 
+% a lot of space and isn't terribly informative.  I think
+% the space is better used by some of the other figures
 \begin{figure*}[t!]
 	\centering
 		\includegraphics[width=1.0\textwidth, trim= 0 4mm 0 0]{figs/avg_err_compare.pdf}
@@ -362,6 +365,8 @@ per image for prediction.
   \label{fig:labels}
 \end{figure}
 
+% I think we could do without this plot as well.  At the very least
+% we should get rid of this plot or the bigger bar chart
 \begin{figure}[t!]
 	\centering
 		\includegraphics[width=0.5\textwidth]{figs/rel_err_cmr.pdf}
@@ -384,8 +389,7 @@ per image for prediction.
 	\centering
 		\includegraphics[width=0.5\textwidth, trim= 35mm 50mm 30mm 31mm]{figs/montage_pruned_cam_00007371.pdf}
 		\caption{This shows the average of the top 100 most confident images for
-             a subset of transient attributes on a images from an AMOS webcam.
-             \todo{this caption is terrible}} 
+             a subset of transient attributes on webcam imagery.} 
 		\label{fig:netvis}
 \end{figure}
 
@@ -405,9 +409,9 @@ per image for prediction.
              \todo{crop the black bar}}
     \label{fig:false_color_2}
   \end{subfigure}
-  \caption{false color image, red channel is sunny attribute, green channel
-           is lush attribute, blue channel is snow attribute
-           \todo{write actual captions for these figures}}
+  \caption{This shows example images run through the fully convolutional
+           TransientNet with various attributes as the color channels in the composite
+           image.}
   \label{fig:false_color_ims}
 \end{figure*}
 
@@ -514,8 +518,6 @@ cycle for the location of the image.  Properties about the scene can be
 inferred from these summaries.  Consistently high values for the
 \textit{glowing} attribute at night indicate the presence of streetlights
 and/or other man made light sources in the scene.
-
-\todo{add in a composite webcam summary?}
 
 \section{Conclusions}
 \indent
