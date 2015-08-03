@@ -279,7 +279,7 @@ state-of-the-the-art results.
 
 
 \subsection{Two-Class Weather Classification}
-\todo{the following is weird because you have already said which
+\todo{the following intros are weird because you have already said which
 datasets you used for training}
 In our first experiment, we use the dataset created by Lu et
 al.~\cite{lutwoclass} to train our networks for two class weather
@@ -455,7 +455,7 @@ that appear frequently in a webcam (aside from daylight, night, etc) could be
 used to tag the webcam.  This would allow for much easier searching of large
 collections of webcams.
 
-\subsection{Visualizations}
+\subsection{Timeseries Analysis}
 \figref{attrcmp} shows the timeseries for three selected attributes
 (\textit{night, daylight, and snow}) from an AMOS~\cite{jacobs07amos} webcam
 over the period February 16th, 2013 to February 23rd, 2013.  The correspondence
@@ -479,7 +479,21 @@ sunrise/sunset, windy and rain similar to fog}).  This suggests that the
 network may not distinguish between these attributes well or that these
 attributes have some correlation with each other.
 
-\subsection{Fully Convolutional Network}
+\subsection{Summarizing a Webcam}
+We create summaries of the transient attributes for webcams using images pushed
+through TransientNet.  Each column in the summary is a single day and each row
+a different time of the day (in 30 minute intervals).  Each pixel is colored
+based on the attribute value for the corresponding webcam image.
+\figref{webcam_summary} shows all 40 attribute summaries for an AMOS webcam.
+Attributes such as \textit{snow}, \textit{cold}, \textit{winter}, etc. have
+higher values in the winter months and lower values during the summer months.
+The \textit{night} and \textit{daylight} attributes clearly show the day/night
+cycle for the location of the image.  Properties about the scene can be
+inferred from these summaries.  Consistently high values for the
+\textit{glowing} attribute at night indicate the presence of streetlights
+and/or other man made light sources in the scene.
+
+\subsection{Semantically Labeling an Image}
 
 We convert the the final, fully connected layers of TransientNet to be
 convolutional with the same number of outputs.  The output from this new,
@@ -509,22 +523,6 @@ the middle middle of the image.
 		\label{fig:webcam_summary}
 \end{figure}
 
-
-\subsection{Webcam Summaries}
-\todo{expand and edit}
-
-We create summaries of the transient attributes for webcams using images pushed
-through TransientNet.  Each column in the summary is a single day and each row
-a different time of the day (in 30 minute intervals).  Each pixel is colored
-based on the attribute value for the corresponding webcam image.
-\figref{webcam_summary} shows all 40 attribute summaries for an AMOS webcam.
-Attributes such as \textit{snow}, \textit{cold}, \textit{winter}, etc. have
-higher values in the winter months and lower values during the summer months.
-The \textit{night} and \textit{daylight} attributes clearly show the day/night
-cycle for the location of the image.  Properties about the scene can be
-inferred from these summaries.  Consistently high values for the
-\textit{glowing} attribute at night indicate the presence of streetlights
-and/or other man made light sources in the scene.
 
 \section{Conclusions}
 We introduce six deep convolutional neural networks for predicting transient
