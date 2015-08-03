@@ -55,7 +55,6 @@ applications.
 \end{abstract}
 
 \section{Introduction}
-\indent
 % general intro to the problem and why it is important
 Outdoor scenes experience a wide range of lighting and weather conditions which
 dramatically affect their appearance. A scene can change from rainy and
@@ -114,7 +113,6 @@ framework~\cite{caffe14}, and 4) demonstrating the real world utility
 of our methods for automatic webcam image labeling. 
 
 \subsection{Related Work}
-\indent
 Attributes are high-level descriptions of a visual property which offer some
 additional semantic context for understanding an object, activity, or scene.
 For example, a \emph{green} apple or a \emph{cloudy} day. Representations based
@@ -181,7 +179,6 @@ classification, then the only change that is necessary is to change the network
 loss function, perhaps replacing the SOFT-MAX loss with an $L_2$ loss.
 
 \section{Estimating Transient Attributes with CNNs}
-\indent
 We propose the use of deep convolutional neural networks for estimating transient
 scene attributes. We develop networks for two single-image problems: the
 classification problem of estimating whether it is sunny or cloudy and a
@@ -284,7 +281,6 @@ state-of-the-the-art results.
 \subsection{Two-Class Weather Classification}
 \todo{the following is weird because you have already said which
 datasets you used for training}
-\indent
 In our first experiment, we use the dataset created by Lu et
 al.~\cite{lutwoclass} to train our networks for two class weather
 classification.  The dataset contains images collected from the SUN
@@ -301,7 +297,6 @@ of the art for two class weather classification with CloudyNet-H predicting the
 most accurately.  CloudyNet-H averages 0.0672s per image for prediction. 
 
 \subsection{Transient Attributes}
-\indent
 We used the dataset created by Laffont et al.~\cite{Laffont14} to train our
 networks for transient attribute prediction. The dataset contains images from
 outdoor webcams in the Archive of Many Outdoor Scenes~\cite{jacobs07amos} and
@@ -435,6 +430,8 @@ per image for prediction.
 
 \section{Application to Automatic Webcam Image Labeling}
 
+\todo{work on this section!!!!!}
+
 Our methods are so fast and badass we can do things like label and
 organize a bunch of webcam images.
 
@@ -459,7 +456,6 @@ used to tag the webcam.  This would allow for much easier searching of large
 collections of webcams.
 
 \subsection{Visualizations}
-\indent
 \figref{attrcmp} shows the timeseries for three selected attributes
 (\textit{night, daylight, and snow}) from an AMOS~\cite{jacobs07amos} webcam
 over the period February 16th, 2013 to February 23rd, 2013.  The correspondence
@@ -531,7 +527,6 @@ inferred from these summaries.  Consistently high values for the
 and/or other man made light sources in the scene.
 
 \section{Conclusions}
-\indent
 We introduce six deep convolutional neural networks for predicting transient
 scene attributes from a single image. These networks achieve state-of-the-art
 results on two benchmark datasets. The key advantages of the proposed approach
