@@ -322,6 +322,8 @@ average error as shown in \tblref{transient}.  TransientNet-P and
 TransientNet-H have similar performance, mostly due to them being pretrained on
 similar sets of data.
 
+\todo{edit this text to not talk about rel err plot}
+
 \figref{relerr} shows the relative error between our method using
 TransientNet-H and the method presented by Laffont et al.~\cite{Laffont14}  The
 average relative error for each attribute using the method by Laffont et al.\
@@ -362,39 +364,39 @@ per image for prediction.
 	\label{tbl:transient}
 \end{table}
 
-\begin{figure}[t!]
-  \renewcommand{\arraystretch}{1.6}
-  \centering
-  \begin{tabular}[b]{| c | c |}
-    \hline
-    Image & Labels \\
-    \hline \hline
-    \multirow{3}[3]{*}[-2mm]{\includegraphics[width=0.19\textwidth]{figs/labels_1.jpg}}
-      & night, not sunny \bigstrut \\
-      & dark, not snow \bigstrut  \\
-      & glowing, not midday \bigstrut  \\
-    \hline
-    \multirow{3}[3]{*}[-1mm]{\includegraphics[width=0.17\textwidth]{figs/labels_2.jpg}}
-      & rugged, not flowers \bigstrut  \\
-      & dawndusk, not rain \bigstrut  \\
-      & sunrisesunset, not storm  \bigstrut \\
-    \hline
-  \end{tabular}
-  \caption{Example labels for images using TransientNet-H}
-  \label{fig:labels}
-\end{figure}
+%\begin{figure}[t!]
+%  \renewcommand{\arraystretch}{1.6}
+%  \centering
+%  \begin{tabular}[b]{| c | c |}
+%    \hline
+%    Image & Labels \\
+%    \hline \hline
+%    \multirow{3}[3]{*}[-2mm]{\includegraphics[width=0.19\textwidth]{figs/labels_1.jpg}}
+%      & night, not sunny \bigstrut \\
+%      & dark, not snow \bigstrut  \\
+%      & glowing, not midday \bigstrut  \\
+%    \hline
+%    \multirow{3}[3]{*}[-1mm]{\includegraphics[width=0.17\textwidth]{figs/labels_2.jpg}}
+%      & rugged, not flowers \bigstrut  \\
+%      & dawndusk, not rain \bigstrut  \\
+%      & sunrisesunset, not storm  \bigstrut \\
+%    \hline
+%  \end{tabular}
+%  \caption{Example labels for images using TransientNet-H}
+%  \label{fig:labels}
+%\end{figure}
 
 % I think we could do without this plot as well.  At the very least
 % we should get rid of this plot or the bigger bar chart
-\begin{figure}[t!]
-	\centering
-		\includegraphics[width=0.5\textwidth]{figs/rel_err_cmr.pdf}
-		\caption{This shows the relative errors of TransientNet-H against the method 
-						 proposed by Laffont et al. for each attribute.  Attributes with a 
-						 negative average error are attributes that are predicted more 
-						 accurately by our method.}
-		\label{fig:relerr}
-\end{figure}
+%\begin{figure}[t!]
+%	\centering
+%		\includegraphics[width=0.5\textwidth]{figs/rel_err_cmr.pdf}
+%		\caption{This shows the relative errors of TransientNet-H against the method 
+%						 proposed by Laffont et al. for each attribute.  Attributes with a 
+%						 negative average error are attributes that are predicted more 
+%						 accurately by our method.}
+%		\label{fig:relerr}
+%\end{figure}
 
 \begin{figure}[t]
 	\centering
@@ -446,6 +448,8 @@ We propose a method for automatically labeling images from outdoor webcams, allo
 advanced searching of webcam collections, such as AMOS~\cite{jacobs07amos}. We
 also use labeled webcam images to create year-long summaries of transient 
 attributes for a webcam.
+
+\todo{edit to remove reference to old figure}
 
 One application of transient attribute estimation is automatic outdoor webcam
 labeling. Webcam collections such as AMOS~\cite{jacobs07amos} contain thousands
