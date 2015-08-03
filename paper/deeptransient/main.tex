@@ -87,18 +87,25 @@ predicting the degree to which various transient attributes are
 present in the scene~\cite{Laffont14}. To this end, we present two
 different networks and three different training methods. Our methods
 achieve state-of-the-art results on two benchmark datasets, despite
-being significantly faster. \figref{results} shows the output of our
-methods for several example images.
+being significantly faster. 
+%\figref{results} shows the output of our
+%methods for several example images.
 
-
-\begin{figure}
+\begin{figure}[t]
 	\centering
-		\includegraphics[width=0.5\textwidth]{figs/bars.pdf}
-		\caption{Example images from the Transient Attributes Dataset
-      with our network's confidence in each predicted label.
-      \todo{boring}}
-    \label{fig:results}
+		\includegraphics[width=0.5\textwidth, trim= 5mm 15mm 0mm 10mm]{figs/summary_260.pdf}
+		\caption{An attribute summary of 2013 for an AMOS webcam}
+		\label{fig:webcam_summary}
 \end{figure}
+
+%\begin{figure}
+%	\centering
+%		\includegraphics[width=0.5\textwidth]{figs/bars.pdf}
+%		\caption{Example images from the Transient Attributes Dataset
+%      with our network's confidence in each predicted label.
+%      \todo{boring}}
+%    \label{fig:results}
+%\end{figure}
 
 % what we can do now that we have this?
 
@@ -515,14 +522,6 @@ show in the green channel.  The storm attribute is higher towards the top
 of the image in the overcast sky.  The snow covering the ground from the 
 snow-storm appears in blue channel with high values for the snow attribute in
 the middle middle of the image.
-
-\begin{figure}[t]
-	\centering
-		\includegraphics[width=0.5\textwidth, trim= 5mm 15mm 0mm 10mm]{figs/summary_260.pdf}
-		\caption{An attribute summary of 2013 for an AMOS webcam}
-		\label{fig:webcam_summary}
-\end{figure}
-
 
 \section{Conclusions}
 We introduce six deep convolutional neural networks for predicting transient
