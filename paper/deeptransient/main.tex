@@ -75,19 +75,21 @@ monitoring~\cite{jacobs09webcamgis}.
 
 % what do we propose to do? 
 
-We propose a method for predicting transient attributes from a single image
-using deep convolutional neural networks. Such techniques have has been used to
+We propose a fast method for predicting transient attributes from a single image
+using deep convolutional neural networks (CNNs). CNNs have been used to
 obtain state-of-the-art results in problems ranging from object
 classification~\cite{krizhevsky2012imagenet}, object
 detection~\cite{girshick2013rich}, and scene
 classification~\cite{zhou2014places} but have not been used to estimate
-transient scene attributes. We address two problems in estimating transient
-scene attributes. One is the problem of estimating whether it is sunny or
-cloudy~\cite{lutwoclass} and the other is predicting the degree to which
-various transient attributes are present in the scene~\cite{Laffont14}. We
-consider two different networks and three different training methods.
-\figref{results} shows example images with their predicted attributes using our
-networks.
+transient scene attributes. Our work addresses two specific problems
+related to estimating transient scene attributes. First, the problem of
+estimating whether it is sunny or cloudy~\cite{lutwoclass} and second,
+predicting the degree to which various transient attributes are
+present in the scene~\cite{Laffont14}. To this end, we present two
+different networks and three different training methods. Our methods
+achieve state-of-the-art results on two benchmark datasets, despite
+being significantly faster. \figref{results} shows the output of our
+methods for several example images.
 
 
 \begin{figure}
@@ -101,12 +103,15 @@ networks.
 
 % what we can do now that we have this?
 
-The key contributions of this work are: 1) proposing several deep learning
-network training methods for predicting transient attributes, 2) an evaluation
-on two benchmark datasets~\cite{lutwoclass,Laffont14}, which shows the proposed
-networks achieve state-of-the-art performance, and 3) releasing six pre-trained
-networks for classifying transient scene attributes in a popular deep learning
-framework~\cite{caffe14}. 
+The key contributions of this work are: 1) proposing several CNN
+network training methods for predicting transient attributes, 2) a
+comprehensive evaluation on two benchmark
+datasets~\cite{lutwoclass,Laffont14}, which shows the speed and
+accuracy of the proposed networks, achieving state-of-the-art
+performance, 3) releasing six pre-trained networks for classifying
+transient scene attributes in a popular deep learning
+framework~\cite{caffe14}, and 4) demonstrating the real world utility
+of our methods for automatic webcam image labeling. 
 
 \subsection{Related Work}
 \indent
@@ -141,12 +146,12 @@ attributes as well as applications in photo organization and high-level image
 editing via attribute manipulation. 
 
 To the best of our knowledge, we are the first to explore the application of
-deep learning architectures for learning such attributes using only the raw
+convolutional neural networks for learning such attributes using only raw
 image intensities as input.
 
 \subsection{Background}
-\indent
-Deep convolutional neural networks (CNNs) have been used extensively in recent
+
+CNNs have been used extensively in recent
 years to obtain state-of-the-art results on a wide variety of computer vision
 problems.  In this work, we focus on a particular CNN architecture, often
 called ``AlexNet'', introduced by Alex Krizhevsky et al.~\cite{caffenetnips12}
@@ -163,11 +168,11 @@ While this network architecture was originally developed for single-image
 object classification, it has been shown to be adaptable to other problem
 domains. If the new problem involves multi-class classification, all that is
 needed is to modify the final fully connected layer to have the correct number
-of output classes. Then the network weights can be `fine-tuned' by running
+of output classes. Then, the network weights can be `fine-tuned' by running
 iterations of stochastic gradient descent on the training data for the new
 problem~\cite{yosinski2014transferable}.  The key is to start the optimization
 with random weights for the new final layer and weights from an already trained
-network, for example using the weights from the original
+network for the other layers, for example using the weights from the original
 AlexNet~\cite{caffenetnips12}, as an initial condition. If there is a large
 amount of training data available for the new domain, it is also possible to
 train the network from scratch by randomly initializing all
