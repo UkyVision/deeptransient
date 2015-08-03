@@ -97,7 +97,8 @@ methods for several example images.
 		\includegraphics[width=0.5\textwidth]{figs/bars.pdf}
 		\caption{Example images from the Transient Attributes Dataset
       with our network's confidence in each predicted label.
-      \todo{double check the values in this figure}}
+      \todo{double check the values in this figure}
+      \todo{boring front-page figure}}
     \label{fig:results}
 \end{figure}
 
@@ -180,13 +181,13 @@ weights~\cite{zhou2014places}.  If the new problem domain is regression, not
 classification, then the only change that is necessary is to change the network
 loss function, perhaps replacing the SOFT-MAX loss with an $L_2$ loss.
 
-\section{DCNNs for Estimating Transient Attributes}
+\section{Estimating Transient Attributes with CNNs}
 \indent
-We propose the use deep convolutional neural networks to estimate transient
+We propose the use of deep convolutional neural networks for estimating transient
 scene attributes. We develop networks for two single-image problems: the
 classification problem of estimating whether it is sunny or cloudy and a
-collection of regression problems that represent the degree to which a large
-number of transient attributes describe the scene.  For each of these problems,
+collection of regression problems for representing the degree to which a large
+number of transient attributes exist in the scene.  For each of these problems,
 we use three different networks as starting conditions for optimization,
 resulting in a total of six networks.  For both problems, we use the
 ``AlexNet'' CNN architecture, described in the previous section.  The remainder
@@ -208,28 +209,31 @@ networks.
 
 \textbf{CloudyNet:} For the problem of classifying whether an image is sunny or
 cloudy, we use the data provided by Lu~\cite{lutwoclass} et al.\ to train our
-network, which we call CloudyNet.  We follow their protocol for training and
-testing: each list of sunny/cloudy images was randomly shuffled and the first
-80\% of each list was chosen as the training data and the last 20\% was chosen
-as testing data.  We generate five random 80/20 splits of the data and use five
-fold cross validation to report the mean and variance of the accuracy for our
-networks.  The only modification to the network architecture that was required
-was dropping unnecessary output nodes from the final fully connected layer (in
-the end we have two output nodes).
+network, which we call CloudyNet.  We follow their protocol for
+generating a train/test split: we randomly shuffle sunny/cloudy images
+and then select 80\% of each class for training and 20\% for testing.
+This process is repeated five times resulting in five random 80/20
+splits of the data. During evaluation we report the mean and variance
+of normalized accuracy using five fold cross validation. The only
+modification to the network architecture that was required was
+dropping unnecessary output nodes from the final fully connected layer
+(in the end we have two output nodes).
 
-\textbf{TransientNet:} In addition, we train a network for the more challenging
-problem of estimating a broad range of attributes proposed by
-Laffont et al.~\cite{Laffont14}.  In this problem, there are 40 transient attributes
+\textbf{TransientNet:} For the more challenging problem of estimating
+the presence of a broad range of attributes in an image, we take
+advatange of the attributes and associated dataset introduced by Laffont
+et al.~\cite{Laffont14}. The authors define a set of 40 transient attributes
 (see \figref{compare} for the full list of attributes), each of which is
-assigned a value between zero and one for an image. We use the holdout
-train/test split defined by Laffont et al.~\cite{Laffont14} in which the images
-from 81 webcams are used for training and images from a distinct set of 20
-webcams is used for testing.  The only modification of the network architecture
-that was required was changing the final fully connected layer to have 40
-nodes, one for each transient attribute, and changing the loss function to an
-$L_2$ loss. 
+assigned a value between zero and one, representing the confidence
+of that attribute appearing in an image. We use the same holdout
+train/test split in which images from 81 static outdoor webcams are
+used for training and images from a distinct set of 20 other webcams are
+used for testing.  In this scenario, we modify the network architecture
+by changing the final fully connected layer to have 40 output nodes, one for
+each transient attribute, and updating the loss function to an $L_2$
+loss. 
 
-We trained both of these networks using three different initial conditions
+For each network, we train starting from three different initial conditions,
 resulting in six distinct sets of network weights. The first set of initial
 conditions are taken from a network that was was trained for object
 classification on 1.2 million images from the ImageNet ILSVRC-2012
@@ -259,15 +263,17 @@ and TransientNet-H.
 %
 %\textbf{Partial Siamese TransientNet:}
 
-\textbf{Implementation Details:} We train each network using the
-Caffe~\cite{caffe14} deep learning framework, the Caffenet reference network
-architecture, and pre-trained networks from the Caffe Model
-Zoo\footnote{\url{http://caffe.berkeleyvision.org/model_zoo.html}}.  All of our
-networks were trained on NVIDIA M2075 GPU Cards for 24 hours each, and
-evaluated using Caffe in CPU mode on Dell C6220 Servers equipped with Dual
-Intel E5-2670 8 Core (Sandy Bridge) at 2.6 GHz.  The full network optimization
-definition, the final network weights, and the output from our methods will be
-made available online for all six networks.
+\textbf{Implementation Details:} Our networks are trained using the
+Caffe~\cite{caffe14} deep learning framework, the CaffeNet reference network
+architecture (a variant of AlexNet), and pre-trained networks
+from the Caffe Model
+Zoo\footnote{\url{http://caffe.berkeleyvision.org/model_zoo.html}}.
+All of our networks were trained on NVIDIA M2075 GPU Cards for 24
+hours each, and evaluated using Caffe in CPU mode on Dell C6220
+Servers equipped with Dual Intel E5-2670 8 Core (Sandy Bridge)
+processors at 2.6 GHz.  The full network optimization definition, the
+final network weights, and the output from our methods will be made
+available online for all six networks \emph{pending publication}.
 
 \todo{discuss parameter searching and optimization done?}
 
