@@ -49,8 +49,8 @@ detection to scene classification, but have not previously been used
 for estimating transient attributes. We compare several methods for
 adapting an existing network architecture and present state-of-the-art
 results on two benchmark datasets. Our method is more accurate and
-significantly faster than all previous methods, enabling several different
-real-world applications. 
+significantly faster than all previous methods, enabling real-world
+applications. 
 
 \end{abstract}
 
@@ -97,8 +97,7 @@ methods for several example images.
 		\includegraphics[width=0.5\textwidth]{figs/bars.pdf}
 		\caption{Example images from the Transient Attributes Dataset
       with our network's confidence in each predicted label.
-      \todo{double check the values in this figure}
-      \todo{boring front-page figure}}
+      \todo{boring}}
     \label{fig:results}
 \end{figure}
 
@@ -147,8 +146,8 @@ attributes as well as applications in photo organization and high-level image
 editing via attribute manipulation. 
 
 To the best of our knowledge, we are the first to explore the application of
-convolutional neural networks for learning such attributes using only raw
-image intensities as input.
+convolutional neural networks for learning transient scene attributes
+using only raw image intensities as input.
 
 \subsection{Background}
 
@@ -202,8 +201,7 @@ networks.
 		\includegraphics[width=1.0\textwidth, trim= 0 4mm 0 0]{figs/avg_err_compare.pdf}
 		\caption{This shows the average errors for each attribute from proposed method
 						 by Laffont et al., TransientNet-I, TransientNet-P, and TransientNet-H.  
-             TransientNet-H has the lowest average error for most of the attributes.
-             \todo{de-uglify this plot}, \todo{do we need this?}}
+           TransientNet-H has the lowest average error for most of the attributes.}
 		\label{fig:compare}
 \end{figure*}
 
@@ -275,15 +273,17 @@ processors at 2.6 GHz.  The full network optimization definition, the
 final network weights, and the output from our methods will be made
 available online for all six networks \emph{pending publication}.
 
-\todo{discuss parameter searching and optimization done?}
-
 \section{Evaluation}
-\indent
+\todo{there isn't enough emphasis on how much faster this method is
+than the others... make explicit comparisons (maybe a table)}
 We evaluate the six networks defined in the previous section on two large-scale
 benchmark datasets. The results show that these deep networks obtain
 state-of-the-the-art results. 
 
+
 \subsection{Two-Class Weather Classification}
+\todo{the following is weird because you have already said which
+datasets you used for training}
 \indent
 In our first experiment, we use the dataset created by Lu et
 al.~\cite{lutwoclass} to train our networks for two class weather
@@ -390,7 +390,7 @@ per image for prediction.
 		\caption{This shows the relative errors of TransientNet-H against the method 
 						 proposed by Laffont et al. for each attribute.  Attributes with a 
 						 negative average error are attributes that are predicted more 
-						 accurately by our method. \todo{do we need this?}}
+						 accurately by our method.}
 		\label{fig:relerr}
 \end{figure}
 
@@ -543,11 +543,12 @@ results on two benchmark datasets. The key advantages of the proposed approach
 are that it requires no hand-engineered features, is simple to train, is very
 fast at test time, and makes accurate predictions. In addition, these networks
 can quickly extended to label additional attributes or adapted to new datasets
-with a small amount of retraining.  We also propose a method for automatically
-labeling outdoor webcams using these networks.
-%In future work, we plan to explore the use of these networks in an application
-%to micro-climate estimation from publicly available outdoor
-%webcams~\cite{islam13webcamweather}. 
+with a small amount of retraining.  We demonstrate the real world
+ability of our methods for the task of automatically labeling outdoor
+webcams.
+%In future work, we plan to explore the use of these networks in an
+%application to micro-climate estimation from publicly available
+%outdoor webcams~\cite{islam13webcamweather}. 
 
 {\small
 \bibliographystyle{IEEEbib}
