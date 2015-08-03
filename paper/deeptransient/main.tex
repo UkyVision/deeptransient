@@ -432,11 +432,31 @@ per image for prediction.
   \label{fig:false_color_ims}
 \end{figure*}
 
-\section{Discussion}
-\todo{intro to discussion section}
 
-We visualize aspects of TransientNet and convert it to a fully convolutional
-network. 
+\section{Application to Automatic Webcam Image Labeling}
+
+Our methods are so fast and badass we can do things like label and
+organize a bunch of webcam images.
+
+We propose a method for automatically labeling images from outdoor webcams, allowing for
+advanced searching of webcam collections, such as AMOS~\cite{jacobs07amos}. We
+also use labeled webcam images to create year-long summaries of transient 
+attributes for a webcam.
+
+One application of transient attribute estimation is automatic outdoor webcam
+labeling. Webcam collections such as AMOS~\cite{jacobs07amos} contain thousands
+of geolocated webcams with years of archived data.  Searching for scenes with a
+set of desired attributes is usually done by manually looking through lists of
+webcams and images.  TransientNet can simplify this process by using the output
+scores to tag images and webcams with certain attributes.  If an attribute is
+above a defined threshold, the image could be labeled with that attribute.  The
+opposite could be true as well.  If an attribute is below a defined threshold,
+the attribute could be added to a list of attributes the image does not have.
+\figref{labels} shows examples of the potential labels for images. This would
+enable users to use queries such as ``sunny'' or ``not winter''.  Attributes
+that appear frequently in a webcam (aside from daylight, night, etc) could be
+used to tag the webcam.  This would allow for much easier searching of large
+collections of webcams.
 
 \subsection{Visualizations}
 \indent
@@ -464,7 +484,6 @@ network may not distinguish between these attributes well or that these
 attributes have some correlation with each other.
 
 \subsection{Fully Convolutional Network}
-\todo{make this section better}
 
 We convert the the final, fully connected layers of TransientNet to be
 convolutional with the same number of outputs.  The output from this new,
@@ -494,30 +513,6 @@ the middle middle of the image.
 		\label{fig:webcam_summary}
 \end{figure}
 
-\section{Applications}
-\todo{better intro into the applications} \\
-\indent
-We propose a method for automatically labeling images from outdoor webcams, allowing for
-advanced searching of webcam collections, such as AMOS~\cite{jacobs07amos}. We
-also use labeled webcam images to create year-long summaries of transient 
-attributes for a webcam.
-
-\subsection{Automatic Webcam Image Labeling}
-\indent
-One application of transient attribute estimation is automatic outdoor webcam
-labeling. Webcam collections such as AMOS~\cite{jacobs07amos} contain thousands
-of geolocated webcams with years of archived data.  Searching for scenes with a
-set of desired attributes is usually done by manually looking through lists of
-webcams and images.  TransientNet can simplify this process by using the output
-scores to tag images and webcams with certain attributes.  If an attribute is
-above a defined threshold, the image could be labeled with that attribute.  The
-opposite could be true as well.  If an attribute is below a defined threshold,
-the attribute could be added to a list of attributes the image does not have.
-\figref{labels} shows examples of the potential labels for images. This would
-enable users to use queries such as ``sunny'' or ``not winter''.  Attributes
-that appear frequently in a webcam (aside from daylight, night, etc) could be
-used to tag the webcam.  This would allow for much easier searching of large
-collections of webcams.
 
 \subsection{Webcam Summaries}
 \todo{expand and edit}
