@@ -322,17 +322,19 @@ average error as shown in \tblref{transient}.  TransientNet-P and
 TransientNet-H have similar performance, mostly due to them being pretrained on
 similar sets of data.
 
-\todo{edit this text to not talk about rel err plot}
+\todo{discuss \tblref{timing}}
 
-\figref{relerr} shows the relative error between our method using
-TransientNet-H and the method presented by Laffont et al.~\cite{Laffont14}  The
-average relative error for each attribute using the method by Laffont et al.\
-was subtracted from the average relative error using TransientNet-H.  A
-negative value means TransientNet-H had a smaller error and a positive value
-means Laffont et al. had a smaller error.  For example, the difference between
-the two methods on the attribute \emph{night} was around 2.5 percentage points,
-with TransientNet-H having the smaller error.  TransientNet-H averages 0.0699s
-per image for prediction. 
+%\todo{edit this text to not talk about rel err plot}
+%
+%\figref{relerr} shows the relative error between our method using
+%TransientNet-H and the method presented by Laffont et al.~\cite{Laffont14}  The
+%average relative error for each attribute using the method by Laffont et al.\
+%was subtracted from the average relative error using TransientNet-H.  A
+%negative value means TransientNet-H had a smaller error and a positive value
+%means Laffont et al. had a smaller error.  For example, the difference between
+%the two methods on the attribute \emph{night} was around 2.5 percentage points,
+%with TransientNet-H having the smaller error.  TransientNet-H averages 0.0699s
+%per image for prediction. 
 
 \begin{table}[t]
 	\centering
@@ -362,6 +364,19 @@ per image for prediction.
 	\end{tabular}
 	\caption{Transient attribute prediction errors}
 	\label{tbl:transient}
+\end{table}
+
+\begin{table}[t]
+	\centering
+	\begin{tabular}{ | l | c | }
+		\hline
+			Method & Average Prediction Speed \\ \hline \hline
+			Laffont et al.~\cite{lutwoclass}& $ ?? $ \\ \hline
+			TransientNet-H & $ \textbf{??} $ \\ 
+		\hline
+	\end{tabular}
+	\caption{Transient attribute prediction speed}
+	\label{tbl:timing}
 \end{table}
 
 %\begin{figure}[t!]
@@ -449,22 +464,18 @@ advanced searching of webcam collections, such as AMOS~\cite{jacobs07amos}. We
 also use labeled webcam images to create year-long summaries of transient 
 attributes for a webcam.
 
-\todo{edit to remove reference to old figure}
-
-One application of transient attribute estimation is automatic outdoor webcam
-labeling. Webcam collections such as AMOS~\cite{jacobs07amos} contain thousands
-of geolocated webcams with years of archived data.  Searching for scenes with a
+Webcam collections such as AMOS~\cite{jacobs07amos} contain thousands of
+geolocated webcams with years of archived data.  Searching for scenes with a
 set of desired attributes is usually done by manually looking through lists of
 webcams and images.  TransientNet can simplify this process by using the output
 scores to tag images and webcams with certain attributes.  If an attribute is
 above a defined threshold, the image could be labeled with that attribute.  The
 opposite could be true as well.  If an attribute is below a defined threshold,
 the attribute could be added to a list of attributes the image does not have.
-\figref{labels} shows examples of the potential labels for images. This would
-enable users to use queries such as ``sunny'' or ``not winter''.  Attributes
-that appear frequently in a webcam (aside from daylight, night, etc) could be
-used to tag the webcam.  This would allow for much easier searching of large
-collections of webcams.
+This would enable users to use queries such as ``sunny'' or ``not winter''.
+Attributes that appear frequently in a webcam (aside from daylight, night, etc)
+could be used to tag the webcam.  This would allow for much easier searching of
+large collections of webcams.
 
 \subsection{Time Series Analysis}
 \figref{attrcmp} shows the time series for three selected attributes
