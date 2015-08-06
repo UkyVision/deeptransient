@@ -13,8 +13,25 @@ dir_names = dir_names(3:end);
 
 % want image from 01/05 around 1415
 
-data_flickr = textscan(fopen('/u/amo-d0/grad/rbalten/research/scenic_labeling/data/flickr_transient_pred.csv'), strcat('%s%f%f%s',repmat('%f', 1, 40)), 'delimiter', ',');
+all_cams_data = [];
 
+for ix = 1:size(dir_names, 2)
+    try
+        fid = fopen(char(strcat(base_dir, dir_names(ix), '/2014.01/attributes.csv')));
+        data_cam = textscan(fid, strcat('%s',repmat('%f', 1, 40)), 'delimiter', ',');
+    catch
+       continue 
+    end
+    
+    ims = strfind([data_cam{1}], '20140105_14');
+    ims_inds = find(not(cellfun('isempty', ims)));
+    
+    if not(isempty(ims_inds))
+        all_cams_data = [all_cams_data; dir_names(ix), data_cam{10 +1}(ims_inds(1))];
+    end
+    
+    fclose(fid);
+end
 
 
 
@@ -25,7 +42,7 @@ attr = textscan(fopen('/u/eag-d1/scratch/ryan/transient/annotations/attributes.t
 %% plot a single attribute map
 % extract attribute values and make one big list
 attr_to_plot = 40 + 4;
-attr_val = data_flickr{attr_to_plot};
+attr_val = data_cam{attr_to_plot};
 
 % remove alaska images
 data_full = cat(2, data_lat, data_lon, attr_val);
