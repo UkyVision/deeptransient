@@ -5,14 +5,22 @@ set(0,'Format','longg')
 %% load data
 base_dir = '/u/vul-d1/scratch/ryan/download_amos/AMOS_Data/';
 
-locs = textscan(fopen('data/amos_locs.csv'), '%f%f%f', 'Delimiter', ',');
+% load amos locations
+locs = textscan(fopen('data/amos_locs.csv'), '%s%f%f', 'Delimiter', ',');
 
+% pad the camera ids
+for j = 1:size(locs{1}, 1)
+   locs{1}(j) = cellstr(sprintf('%08d', str2double(locs{1}(j)))); 
+end
+
+% list all of the downloaded cameras
 dirs = dir(base_dir);
 dir_names = {dirs([dirs.isdir]).name};
 dir_names = dir_names(3:end);
 
 % want image from 01/05 around 1415
-
+% grab single image from every camera and
+% its value for the snow attribute
 all_cams_data = [];
 
 for ix = 1:size(dir_names, 2)
@@ -33,16 +41,13 @@ for ix = 1:size(dir_names, 2)
     fclose(fid);
 end
 
-
-
 % load the attribute names
 attr = textscan(fopen('/u/eag-d1/scratch/ryan/transient/annotations/attributes.txt'), '%s\n');
 
 
 %% plot a single attribute map
 % extract attribute values and make one big list
-attr_to_plot = 40 + 4;
-attr_val = data_cam{attr_to_plot};
+attr_val = all_cams_data(:,2);
 
 % remove alaska images
 data_full = cat(2, data_lat, data_lon, attr_val);
