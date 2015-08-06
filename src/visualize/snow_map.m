@@ -41,13 +41,26 @@ for ix = 1:size(dir_names, 2)
     fclose(fid);
 end
 
+cam_loc_inds = [];
+for k = 1:size(all_cams_data, 1)
+    [m, i] = ismember(all_cams_data(k,1), locs{1});
+    
+    if m
+        cam_loc_inds = [cam_loc_inds; i];
+    end
+end
+
+% get the lat and lon of cams
+data_lat = locs{2}(cam_loc_inds);
+data_lon = locs{3}(cam_loc_inds);
+
 % load the attribute names
 attr = textscan(fopen('/u/eag-d1/scratch/ryan/transient/annotations/attributes.txt'), '%s\n');
 
 
 %% plot a single attribute map
 % extract attribute values and make one big list
-attr_val = all_cams_data(:,2);
+attr_val = cell2mat(all_cams_data(:,2));
 
 % remove alaska images
 data_full = cat(2, data_lat, data_lon, attr_val);
@@ -63,4 +76,4 @@ imagesc(smooth_map, 'XData', lon_centers, 'YData', lat_centers, 'AlphaData', alp
 axis image xy off
 %colorbar('SouthOutside')
 colormap(jet(256))
-title(attr{1}{attr_to_plot - 4})
+title(attr{1}{10})
