@@ -278,8 +278,8 @@ final network weights, and the output from our methods will be made
 available online for all six networks \emph{pending publication}.
 
 \section{Evaluation}
-\todo{there isn't enough emphasis on how much faster this method is
-than the others... make explicit comparisons (maybe a table)}
+%\todo{there isn't enough emphasis on how much faster this method is
+%than the others... make explicit comparisons (maybe a table)}
 We evaluate the six networks defined in the previous section on two large-scale
 benchmark datasets. The results show that these deep networks obtain
 state-of-the-the-art results. 
@@ -322,7 +322,18 @@ average error as shown in \tblref{transient}.  TransientNet-P and
 TransientNet-H have similar performance, mostly due to them being pretrained on
 similar sets of data.
 
-\todo{discuss \tblref{timing}}
+\todo{discuss \tblref{timing}, discuss how we got these numbers?}
+
+\tblref{timing} compares the average prediction speed for the method provided
+by Laffont et al.~\cite{Laffont14} and our best performing network,
+TransientNet-H.  Laffont et al.'s method takes an average of \textbf{????}
+seconds to label a single image.  Our network takes an average of 0.064 seconds
+to label a single image.  Labeling a million images using our network on a
+single machine would take approximately 18 hours, although this number is
+easily reduced through simple distributed processing.  This \textbf{??} times
+speed up allows for large scale, real world applications of the transient
+attributes.
+
 
 %\todo{edit this text to not talk about rel err plot}
 %
