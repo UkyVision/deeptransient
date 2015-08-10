@@ -438,7 +438,7 @@ attributes.
 
 \begin{figure}[t]
 	\centering
-		\includegraphics[width=0.5\textwidth, trim= 35mm 50mm 30mm 31mm]{figs/montage_pruned_cam_00007371.pdf}
+		\includegraphics[width=0.5\textwidth, trim= 35mm 50mm 30mm 31mm]{figs/montage_pruned_cam_7211.pdf}
 		\caption{This shows the average of the 100 most confident images for
              a subset of transient attributes from a given webcam.} 
 		\label{fig:netvis}
@@ -469,26 +469,13 @@ attributes.
 
 \todo{work on this section!!!!!}
 
-We take advantage of the speed gained using our network to apply transient
-attributes to real world data.  We propose a method for automatically labeling
-images from outdoor webcams, allowing for advanced searching of webcam
-collections, such as AMOS~\cite{jacobs07amos}. We also use labeled webcam
-images to create year-long summaries of transient attributes for a webcam.
-
-\todo{make this paragraph less hypothetical}
-
-Webcam collections such as AMOS~\cite{jacobs07amos} contain thousands of
-geolocated webcams with years of archived data.  Searching for scenes with a
-set of desired attributes is usually done by manually looking through lists of
-webcams and images.  TransientNet can simplify this process by using the output
-scores to tag images and webcams with certain attributes.  If an attribute is
-above a defined threshold, the image could be labeled with that attribute.  The
-opposite could be true as well.  If an attribute is below a defined threshold,
-the attribute could be added to a list of attributes the image does not have.
-This would enable users to use queries such as ``sunny'' or ``not winter''.
-Attributes that appear frequently in a webcam (aside from daylight, night, etc)
-could be used to tag the webcam.  This would allow for much easier searching of
-large collections of webcams.
+The speed gained using our network allows us to apply transient attributes to
+real world data.  We discuss how the attributes change over time and look at
+the most confident images per attribute for webcam data.  We then propose a
+method for automatically labeling images from outdoor webcams, allowing for
+advanced searching of webcam collections, such as AMOS~\cite{jacobs07amos}. We
+also use labeled webcam images to create year-long summaries of transient
+attributes for a webcam.
 
 \subsection{Time Series Analysis}
 \figref{attrcmp} shows the time series for three selected attributes
@@ -514,7 +501,23 @@ sunrise/sunset, windy and rain similar to fog}).  This suggests that the
 network may not distinguish between these attributes well or that these
 attributes have some correlation with each other.
 
-\subsection{Summarizing a Webcam}
+\subsection{Labeling and Summarizing a Webcam}
+
+Webcam collections such as AMOS~\cite{jacobs07amos} contain thousands of
+geolocated webcams with years of archived data.  Searching for scenes with a
+set of desired attributes is usually done by manually looking through lists of
+webcams and images.  TransientNet simplifies this process by using output
+scores to tag images and webcams with certain attributes.  If an attribute is
+above a defined threshold, the image is labeled with that attribute.  The
+opposite is true as well.  If an attribute is below a defined threshold, the
+attribute is added to a list of attributes the image does not have.  This
+enables users to use queries such as ``sunny'' or ``not winter''.  Labeling is
+done on the image level as well as the webcam level.  Attributes that
+frequently have high values in a webcam (aside from daylight, night, etc) are
+used to tag the webcam.  A labeling scheme like this one allows a user to
+search for the snowy images from a \textit{mysterious} webcam. This allows for
+easier searching of large collections of webcams.
+
 We create summaries of the transient attributes for webcams using images pushed
 through TransientNet.  Each column in the summary is a single day and each row
 a different time of the day (in 30 minute intervals).  Each pixel is colored
