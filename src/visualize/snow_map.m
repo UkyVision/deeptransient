@@ -18,10 +18,18 @@ dirs = dir(base_dir);
 dir_names = {dirs([dirs.isdir]).name};
 dir_names = dir_names(3:end);
 
-% want image from 01/05 around 1415
-% grab single image from every camera and
-% its value for the snow attribute
+for attribute = 1:40
+for var = 0:23
+
+if var < 10
+    time = sprintf('20140102_0%d', var);
+else
+    time = sprintf('20140102_%d', var);
+end
+    
 all_cams_data = [];
+
+% attribute = 10;
 
 for ix = 1:size(dir_names, 2)
     try
@@ -31,23 +39,39 @@ for ix = 1:size(dir_names, 2)
        continue 
     end
     
-    ims = strfind([data_cam{1}], '20140105_14');
+    if var < 10
+        ims = strfind([data_cam{1}], time);
+    else
+        ims = strfind([data_cam{1}], time);
+    end
     ims_inds = find(not(cellfun('isempty', ims)));
     
     if not(isempty(ims_inds))
-        all_cams_data = [all_cams_data; dir_names(ix), data_cam{10 +1}(ims_inds(1))];
+        all_cams_data = [all_cams_data; dir_names(ix), data_cam{attribute + 1}(ims_inds(1))];
     end
     
     fclose(fid);
+    
+    if mod(ix, 100) == 0
+       fprintf(sprintf('Day: %d, Processed %d of %d\n', var, ix, size(dir_names, 2))) 
+    end
 end
 
-cam_loc_inds = [];
-for k = 1:size(all_cams_data, 1)
-    [m, i] = ismember(all_cams_data(k,1), locs{1});
-    
-    if m
-        cam_loc_inds = [cam_loc_inds; i];
+if not(isempty(all_cams_data))
+    cam_loc_inds = [];
+    for k = 1:size(all_cams_data, 1)
+        [m, i] = ismember(all_cams_data(k,1), locs{1});
+
+        if m
+            cam_loc_inds = [cam_loc_inds; i];
+        end
+        
+        if mod(k, 100) == 0
+            fprintf(sprintf('Day: %d, Processed %d of %d\n', var, k, size(all_cams_data, 1))) 
+        end
     end
+else
+    continue
 end
 
 % get the lat and lon of cams
@@ -62,18 +86,34 @@ attr = textscan(fopen('/u/eag-d1/scratch/ryan/transient/annotations/attributes.t
 % extract attribute values and make one big list
 attr_val = cell2mat(all_cams_data(:,2));
 
-% remove alaska images
 data_full = cat(2, data_lat, data_lon, attr_val);
-data_full(data_full(:,2) < -130,:) = [];
+% remove alaska
+data_full(data_full(:,2) < -125,:) = [];
+% remove nova scotia/canada
+data_full(data_full(:,2) > -66.9,:) = [];
+data_full(data_full(:,1) > 49,:) = [];
+% remove everything below florida
+data_full(data_full(:,1) < 25,:) = [];
 
 % make smooth map
 [smooth_map, lon_centers, lat_centers, alpha] = make_smooth_map(data_full(:,3), [data_full(:,1) data_full(:,2)]);
 
-% plot smooth map
+% plot map
+shp = shaperead('usastatelo', 'UseGeoCoords', true, 'Selector',...
+  {@(name) ~any(strcmp(name,{'Alaska','Hawaii'})), 'Name'});   
+close all
 figure(1); clf;
 axes('Position', [0 0 1 1]);
-imagesc(smooth_map, 'XData', lon_centers, 'YData', lat_centers, 'AlphaData', alpha);
+imagesc(smooth_map, 'XData', lon_centers, 'YData', lat_centers, 'AlphaData', alpha, [0 1]);
 axis image xy off
-%colorbar('SouthOutside')
+hold on
+plot([shp.Lon], [shp.Lat], 'k')
+hold off
+axis image xy off
 colormap(jet(256))
-title(attr{1}{10})
+title(strcat(attr{1}{attribute}, '_', time, '0000'), 'interpreter', 'none')
+
+exportfigure(gcf, sprintf('maps/%s_maps_time/%s_%d.pdf', attr{1}{attribute}, attr{1}{attribute}, var), [9 6], 400)
+
+end
+end
