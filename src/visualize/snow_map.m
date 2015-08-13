@@ -5,6 +5,9 @@ set(0,'Format','longg')
 %% load data
 base_dir = '/u/vul-d1/scratch/ryan/download_amos/AMOS_Data/';
 
+% load the attribute names
+attr = textscan(fopen('/u/eag-d1/scratch/ryan/transient/annotations/attributes.txt'), '%s\n');
+
 % load amos locations
 locs = textscan(fopen('data/amos_locs.csv'), '%s%f%f', 'Delimiter', ',');
 
@@ -19,6 +22,9 @@ dir_names = {dirs([dirs.isdir]).name};
 dir_names = dir_names(3:end);
 
 for attribute = 1:40
+
+mkdir(sprintf('maps/%s_maps_20140102/', attr{1}{attribute}));
+
 for var = 0:23
 
 if var < 10
@@ -77,9 +83,6 @@ end
 % get the lat and lon of cams
 data_lat = locs{2}(cam_loc_inds);
 data_lon = locs{3}(cam_loc_inds);
-
-% load the attribute names
-attr = textscan(fopen('/u/eag-d1/scratch/ryan/transient/annotations/attributes.txt'), '%s\n');
 
 
 %% plot a single attribute map
