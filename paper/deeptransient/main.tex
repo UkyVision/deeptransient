@@ -325,17 +325,15 @@ average error as shown in \tblref{transient}.  TransientNet-P and
 TransientNet-H have similar performance, mostly due to them being pretrained on
 similar sets of data.
 
-\todo{discuss \tblref{timing}, discuss how we got these numbers?}
-
 \tblref{timing} compares the average prediction speed for the method provided
 by Laffont et al.~\cite{Laffont14} and our best performing network,
-TransientNet-H.  Laffont et al.'s method takes an average of \textbf{????}
-seconds to label a single image.  Our network takes an average of 0.064 seconds
-to label a single image.  Labeling a million images using our network on a
-single machine would take approximately 18 hours, although this number is
-easily reduced through simple distributed processing.  This \textbf{??} times
-speed up allows for large scale, real world applications of the transient
-attributes.
+TransientNet-H.  Laffont et al.'s method takes an average of 3.486 seconds to
+label a single image.  Our network takes an average of 0.064 seconds to label a
+single image.  Labeling a million images using Laffont et al.'s method on a
+single machine would take upwards of 40 days, whereas our network on a single
+machine would take approximately 18 hours. This number is easily reduced
+through simple distributed processing, though.  This 54x speed up allows for
+large scale, real world applications of the transient attributes.
 
 
 %\todo{edit this text to not talk about rel err plot}
@@ -352,6 +350,7 @@ attributes.
 
 \begin{table}[t]
 	\centering
+	\caption{Two class weather classification accuracy}
 	\begin{tabular}{ | l | c | }
 		\hline
 			Method & Normalized Accuracy \\ \hline \hline
@@ -361,12 +360,12 @@ attributes.
 			CloudyNet-H & $ \textbf{87.14} \pm 0.263 $ \\ 
 		\hline
 	\end{tabular}
-	\caption{Two class weather classification accuracy}
 	\label{tbl:twoclass}
 \end{table}
 
 \begin{table}[t]
 	\centering
+	\caption{Transient attribute prediction errors}
 	\begin{tabular}{ | l | c | }
 		\hline
 			Method & Average Error \\ \hline \hline
@@ -376,20 +375,19 @@ attributes.
 			TransientNet-H & \textbf{3.83\%} \\ 
 		\hline
 	\end{tabular}
-	\caption{Transient attribute prediction errors}
 	\label{tbl:transient}
 \end{table}
 
 \begin{table}[t]
 	\centering
+	\caption{Transient attribute prediction speed}
 	\begin{tabular}{ | l | c | }
 		\hline
 			Method & Average Prediction Speed \\ \hline \hline
-			Laffont et al.~\cite{lutwoclass}& $ ?? $ \\ \hline
+			Laffont et al.~\cite{Laffont14}& $ 3.486 s $ \\ \hline
 			TransientNet-H & $ \textbf{0.064 s} $ \\ 
 		\hline
 	\end{tabular}
-	\caption{Transient attribute prediction speed}
 	\label{tbl:timing}
 \end{table}
 
