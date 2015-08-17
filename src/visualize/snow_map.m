@@ -116,7 +116,7 @@ axis image xy off
 colormap(jet(256))
 title(strcat(attr{1}{attribute}, '_', time, '0000'), 'interpreter', 'none')
 
-exportfigure(gcf, sprintf('maps/%s_maps_time/%s_%d.pdf', attr{1}{attribute}, attr{1}{attribute}, var), [9 6], 400)
+exportfigure(gcf, sprintf('maps/%s_maps_20140102/%s_%d.pdf', attr{1}{attribute}, attr{1}{attribute}, var), [9 6], 400)
 
 end
 end
