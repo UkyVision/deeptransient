@@ -23,14 +23,14 @@ dir_names = dir_names(3:end);
 
 for attribute = 1:40
 
-mkdir(sprintf('maps/%s_maps_20140102/', attr{1}{attribute}));
+mkdir(sprintf('maps/%s_maps_month/', attr{1}{attribute}));
 
-for var = 0:23
+for var = 1:30
 
 if var < 10
-    time = sprintf('20140102_0%d', var);
+    time = sprintf('2014010%d_18', var);
 else
-    time = sprintf('20140102_%d', var);
+    time = sprintf('201401%d_18', var);
 end
     
 all_cams_data = [];
@@ -116,7 +116,7 @@ axis image xy off
 colormap(jet(256))
 title(strcat(attr{1}{attribute}, '_', time, '0000'), 'interpreter', 'none')
 
-exportfigure(gcf, sprintf('maps/%s_maps_20140102/%s_%d.pdf', attr{1}{attribute}, attr{1}{attribute}, var), [9 6], 400)
+exportfigure(gcf, sprintf('maps/%s_maps_month/%s_%d.pdf', attr{1}{attribute}, attr{1}{attribute}, var), [9 6], 400)
 
 end
 end
