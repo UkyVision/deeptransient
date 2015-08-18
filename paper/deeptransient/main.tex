@@ -556,23 +556,25 @@ the middle of the image.
   \centering
   \begin{subfigure}[b]{0.3\textwidth}
     \centering
-		\includegraphics[width=\textwidth, trim= 0mm 0mm 0mm 0mm]{figs/snow_map_1.pdf}
-    \caption{snow map}
+		\includegraphics[width=\textwidth, trim= 0mm 20mm 0mm 0mm]{figs/snow_map_1.pdf}
+    \caption{}
     \label{fig:snow_map_1}
   \end{subfigure}
   \begin{subfigure}[b]{0.3\textwidth}
     \centering
-		\includegraphics[width=\textwidth, trim= 0mm 0mm 0mm 0mm]{figs/snow_map_2.pdf}
-    \caption{snow map}
+		\includegraphics[width=\textwidth, trim= 0mm 20mm 0mm 0mm]{figs/snow_map_2.pdf}
+    \caption{}
     \label{fig:snow_map_2}
   \end{subfigure}
   \begin{subfigure}[b]{0.3\textwidth}
     \centering
-		\includegraphics[width=\textwidth, trim= 0mm 0mm 0mm 0mm]{figs/snow_map_3.pdf}
-    \caption{snow map}
+		\includegraphics[width=\textwidth, trim= 0mm 20mm 0mm 0mm]{figs/snow_map_3.pdf}
+    \caption{}
     \label{fig:snow_map_3}
   \end{subfigure}
-  \caption{snow maps \todo{captions}}
+  \caption{This shows three maps of the snow attribute from webcams across the
+           continental United States in the month of January, 2014. 
+           \todo{more here}}
   \label{fig:snow_maps}
 \end{figure*}
 
@@ -580,6 +582,17 @@ the middle of the image.
 
 \todo{discuss \figref{snow_maps}}
 
+\figref{snow_maps} shows three maps for the snow attribute across the
+continental United States.  Data from January 2014 for AMOS webcams within the
+continental United States and the southern edge of Canada was downloaded and
+labeled using TransientNet-H.  We split the region into approximately one
+degree bins.  These maps show predicted snow coverage using only transient
+attributes from webcam data.  Variation between the three maps shows heavy snow
+coverage in the beginning of the month, snow melting in the middle of the
+month, and a large snow storm in the north-east at the end of the month.
+Anomalous regions of high snow values, such as those along the California
+coast, likely come from webcams facing a beach scene.  A beach with light
+colored sand covering the ground appears visually similar to a snowy scene.
 
 \section{Conclusions}
 We introduce a fast method for predicting transient scene properties in a
