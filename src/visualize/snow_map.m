@@ -22,13 +22,14 @@ dir_names = {dirs([dirs.isdir]).name};
 dir_names = dir_names(3:end);
 
 attribute = 10;
+% vars in paper: 1, 15, 29
 var = 15;
 
-for attribute = 1:40
+% for attribute = 1:40
 
 mkdir(sprintf('maps/%s_maps_month/', attr{1}{attribute}));
 
-for var = 1:30
+% for var = 1:30
 
 % day of month
 if var < 10
@@ -45,8 +46,6 @@ end
 % end
     
 all_cams_data = [];
-
-% attribute = 10;
 
 for ix = 1:size(dir_names, 2)
     try
@@ -131,5 +130,5 @@ hold off
 
 export_fig(sprintf('maps/%s_maps_month/%s_%d.png', attr{1}{attribute}, attr{1}{attribute}, var), '-m1.5')
 
-end
-end
+% end
+% end
