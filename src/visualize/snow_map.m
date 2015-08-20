@@ -28,9 +28,9 @@ mkdir(sprintf('maps/%s_maps_month/', attr{1}{attribute}));
 for var = 1:30
 
 if var < 10
-    time = sprintf('2014010%d_18', var);
+    time = sprintf('20140102_0%d', var);
 else
-    time = sprintf('201401%d_18', var);
+    time = sprintf('20140102_%d', var);
 end
     
 all_cams_data = [];
@@ -102,19 +102,20 @@ data_full(data_full(:,1) < 25,:) = [];
 [smooth_map, lon_centers, lat_centers, alpha] = make_smooth_map(data_full(:,3), [data_full(:,1) data_full(:,2)]);
 
 % plot map
-shp = shaperead('usastatelo', 'UseGeoCoords', true, 'Selector',...
-  {@(name) ~any(strcmp(name,{'Alaska','Hawaii'})), 'Name'});   
 close all
 figure(1); clf;
-axes('Position', [0 0 1 1]);
-imagesc(smooth_map, 'XData', lon_centers, 'YData', lat_centers, 'AlphaData', alpha, [0 1]);
-axis image xy off
+image(imread('~/matlab_root/bmng.jpg'), 'XData', [-180 180], 'YData', [90 -90])
 hold on
+shp = shaperead('usastatelo', 'UseGeoCoords', true, 'Selector',...
+  {@(name) ~any(strcmp(name,{'Alaska','Hawaii'})), 'Name'});   
+imagesc(smooth_map, 'XData', lon_centers, 'YData', lat_centers, 'AlphaData', smooth_map, [0 1]);
 plot([shp.Lon], [shp.Lat], 'k')
 hold off
 axis image xy off
-colormap(jet(256))
-title(strcat(attr{1}{attribute}, '_', time, '0000'), 'interpreter', 'none')
+colormap(gray(256))
+xlim([-125 -66])
+ylim([25 50])
+% title(strcat(attr{1}{attribute}, '_', time, '0000'), 'interpreter', 'none')
 
 exportfigure(gcf, sprintf('maps/%s_maps_month/%s_%d.pdf', attr{1}{attribute}, attr{1}{attribute}, var), [9 6], 400)
 
