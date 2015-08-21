@@ -23,7 +23,7 @@ dir_names = dir_names(3:end);
 
 attribute = 10;
 % vars in paper: 1, 15, 29
-var = 1;
+var = 29;
 
 % for attribute = 1:40
 
@@ -110,6 +110,15 @@ data_full(data_full(:,1) > 49,:) = [];
 data_full(data_full(:,1) < 25,:) = [];
 
 data_full(data_full(:,4) == 4786,:) = []; % this camera is on a white sand beach
+data_full(data_full(:,4) == 18881,:) = []; % white roof tops
+data_full(data_full(:,4) == 18997,:) = []; % white overlay on camera images
+data_full(data_full(:,4) == 19816,:) = []; % not texas
+data_full(data_full(:,4) == 17392,:) = []; % dried up river
+
+% example_cams = [];
+% example_cams = [example_cams; data_full(data_full(:,4) == 1110, 2), data_full(data_full(:,4) == 1110, 1)];
+% example_cams = [example_cams; data_full(data_full(:,4) == 12369, 2), data_full(data_full(:,4) == 12369, 1)];
+% example_cams = [example_cams; data_full(data_full(:,4) == 17952, 2), data_full(data_full(:,4) == 17952, 1)];
 
 % make smooth map
 [smooth_map, lon_centers, lat_centers, alpha] = make_smooth_map(data_full(:,3), [data_full(:,1) data_full(:,2)]);
@@ -124,19 +133,20 @@ shp = shaperead('usastatelo', 'UseGeoCoords', true, 'Selector',...
 imagesc(smooth_map, 'XData', lon_centers, 'YData', lat_centers, 'AlphaData', smooth_map, [.2 .4]);
 plot([shp.Lon], [shp.Lat], 'k')
 % text(data_full(:,2),data_full(:,1), num2str(data_full(:,4)), 'FontSize', 10)
+% scatter(example_cams(:,1), example_cams(:,2), 100, 'b.')
 load coast
-geoshow(flipud(lat),flipud(long),'DisplayType','polygon','FaceColor',[0 0 .5])
+geoshow(flipud(lat),flipud(long),'DisplayType','polygon','FaceColor',[0 0 .3])
 
 % hold off
 set(gca, 'XTick', [], 'YTick', [])
 axis image xy
 colormap(gray(50))
-xlim([-125 -66])
-ylim([25 50])
+xlim([-125 -67])
+ylim([25 49])
 
 % title(strcat(attr{1}{attribute}, '_', time, '0000'), 'interpreter', 'none')
 
-% export_fig(sprintf('maps/%s_maps_month/%s_%d.png', attr{1}{attribute}, attr{1}{attribute}, var), '-m1.5')
+export_fig(sprintf('maps/%s_maps_month/%s_%d.png', attr{1}{attribute}, attr{1}{attribute}, var))
 
 % end
 % end
