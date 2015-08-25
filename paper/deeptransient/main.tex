@@ -599,8 +599,8 @@ the middle of the image.
   \end{subfigure}
   \caption{This shows maps of the snow attribute from webcams across the
            continental United States in the month of January, 2014 and the corresponding
-           ground truth data.\protect\footnotemark 
-           The top row shows the ground truth snow maps and the bottom row 
+           map of snow depth created using remote sensing data.\protect\footnotemark 
+           The top row shows the remote sensing snow maps and the bottom row 
            shows the snow maps using the snow attribute.}
   \label{fig:snow_maps}
 \end{figure*}
@@ -609,7 +609,7 @@ the middle of the image.
 \begin{figure}[t]
 	\centering
 		\includegraphics[width=0.5\textwidth, trim= 0mm 0mm 0mm 0mm]{figs/snow_exs.pdf}
-		\caption{\todo{am I good? caption me please}}
+		\caption{This shows example snowy images from collected webcam data.}
 		\label{fig:snow_exs}
 \end{figure}
 
@@ -622,21 +622,26 @@ with known locations to create maps of transient attributes across the
 continental United States.  \figref{snow_maps} shows three maps for the snow
 attribute across the continental United States.  Data from January 2014 for
 AMOS webcams within the continental United States and the southern edge of
-Canada was downloaded and labeled using TransientNet-H.  We split the region
-into approximately one degree bins.  These maps show predicted snow coverage
-using only transient attributes from webcam data.  Variation between the three
-maps shows heavy snow coverage in the beginning of the month, snow melting in
-the middle of the month, and a large snow storm in the north-east at the end of
-the month.  Anomalous regions of high snow values, such as those along the
-California coast, likely come from webcams facing a beach scene.  A beach with
-light colored sand covering the ground appears visually similar to a snowy
-scene.  Maps for other attributes show expected natural phenomena (the
-\textit{daylight} attribute increasing/decreasing east to west as the sun
-rises/sets) and cues about the natural world (the \textit{rugged} attribute
-higher in the mountainous west and low in the plains of the midwest).  Using a
-method such as this one allows us to create live-updating attribute maps of an
-area with webcam data.  The images are labeled as they are captured, updating
-the bin containing the webcam with the new attribute value.  
+Canada was downloaded and labeled using TransientNet-H.  These maps show
+predicted snow coverage using only transient attributes from webcam data.
+Variation between the three maps shows heavy snow coverage in the beginning of
+the month, snow melting in the middle of the month, and a large snow storm in
+the north-east at the end of the month.  Anomalous regions of high snow values,
+such as those along the California coast, likely come from webcams facing a
+beach scene.  A beach with light colored sand covering the ground appears
+visually similar to a snowy scene.  Maps for other attributes show expected
+natural phenomena (the \textit{daylight} attribute increasing/decreasing east
+to west as the sun rises/sets) and cues about the natural world (the
+\textit{rugged} attribute higher in the mountainous west and low in the plains
+of the midwest).  Using a method such as this one allows us to create
+live-updating attribute maps of an area with webcam data.  The images are
+labeled as they are captured, updating the bin containing the webcam with the
+new attribute value.  
+
+\figref{snow_exs} shows example images from selected webcams on January 29th,
+2014. The first two example images show heavy snow cover in northern areas, 
+but the third example image shows the light snow cover in the south-eastern
+region of the United States.  
 
 \section{Conclusions}
 We introduce a fast method for predicting transient scene properties in a
