@@ -109,15 +109,14 @@ being significantly faster.
 
 % what we can do now that we have this?
 
-The key contributions of this work are: 1) proposing several CNN
-network training methods for predicting transient attributes, 2) a
-comprehensive evaluation on two benchmark
-datasets~\cite{lutwoclass,Laffont14}, which shows the speed and
-accuracy of the proposed networks, achieving state-of-the-art
-performance, 3) releasing six pre-trained networks for classifying
-transient scene attributes in a popular deep learning
-framework~\cite{caffe14}, and 4) demonstrating the real world utility
-of our methods for automatic webcam image labeling. 
+The key contributions of this work are: 1) proposing several CNN network
+training methods for predicting transient attributes, 2) a comprehensive
+evaluation on two benchmark datasets~\cite{lutwoclass,Laffont14}, which shows
+the speed and accuracy of the proposed networks, achieving state-of-the-art
+performance, 3) releasing pre-trained networks for classifying transient scene
+attributes in a popular deep learning framework~\cite{caffe14}, and 4)
+demonstrating the real world utility of our methods for automatic webcam image
+labeling. 
 
 \subsection{Related Work}
 Attributes are high-level descriptions of a visual property which offer some
@@ -326,11 +325,11 @@ similar sets of data.
 \tblref{timing} compares the average prediction speed for the method provided
 by Laffont et al.~\cite{Laffont14} and our best performing network,
 TransientNet-H.  Laffont et al.'s method takes an average of 3.486 seconds to
-label a single image.  Our network takes an average of 0.064 seconds to label a
+label a single image.  Our network takes an average of 0.192 seconds to label a
 single image.  Labeling a million images using Laffont et al.'s method on a
 single machine would take upwards of 40 days, whereas our network on a single
-machine would take approximately 18 hours. This number is easily reduced
-through simple distributed processing, though.  This 54x speed up allows for
+machine would take approximately 2.2 days. This number is easily reduced
+through simple distributed processing, though.  This 18x speed up allows for
 large scale, real world applications of the transient attributes.
 
 
@@ -383,7 +382,7 @@ large scale, real world applications of the transient attributes.
 		\hline
 			Method & Average Prediction Speed \\ \hline \hline
 			Laffont et al.~\cite{Laffont14}& $ 3.486 s $ \\ \hline
-			TransientNet-H & $ \textbf{0.064 s} $ \\ 
+			TransientNet-H & $ \textbf{0.192 s} $ \\ 
 		\hline
 	\end{tabular}
 	\label{tbl:timing}
