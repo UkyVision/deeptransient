@@ -74,27 +74,31 @@ monitoring~\cite{jacobs09webcamgis}.
 
 % what do we propose to do? 
 
-We propose a fast method for predicting transient attributes from a single image
-using deep convolutional neural networks (CNNs). CNNs have been used to
+We propose a fast method for predicting transient attributes from a single
+image using deep convolutional neural networks (CNNs). CNNs have been used to
 obtain state-of-the-art results in problems ranging from object
 classification~\cite{krizhevsky2012imagenet}, object
 detection~\cite{girshick2013rich}, and scene
 classification~\cite{zhou2014places} but have not been used to estimate
-transient scene attributes. Our work addresses two specific problems
-related to estimating transient scene attributes. First, the problem of
-estimating whether it is sunny or cloudy~\cite{lutwoclass} and second,
-predicting the degree to which various transient attributes are
-present in the scene~\cite{Laffont14}. To this end, we present two
-different networks and three different training methods. Our methods
-achieve state-of-the-art results on two benchmark datasets, despite
-being significantly faster. 
+transient scene attributes. Our work addresses two specific problems related to
+estimating transient scene attributes. First, the problem of estimating whether
+it is sunny or cloudy~\cite{lutwoclass} and second, predicting the degree to
+which various transient attributes are present in the scene~\cite{Laffont14}.
+To this end, we present two different networks and three different training
+methods. Our methods achieve state-of-the-art results on two benchmark
+datasets, despite being significantly faster.  \figref{cartoon} shows an
+overview of our method.  Input images are pushed through the specially trained
+CNN that outputs a set of attribute values.
+
 %\figref{results} shows the output of our
 %methods for several example images.
 
 \begin{figure}[t]
 	\centering
 		\includegraphics[width=0.5\textwidth, trim= 0mm 0mm 0mm 0mm]{figs/cartoon.pdf}
-		\caption{\todo{replace me with a better cartoon?}}
+		\caption{This shows an overview of our proposed method and a subset of the
+             output attributes.  In this case, red is a low attribute value and
+             green is a high attribute value.}
 		\label{fig:cartoon}
 \end{figure}
 
@@ -464,8 +468,6 @@ large scale, real world applications of the transient attributes.
 
 \section{Application to Automatic Webcam Image Labeling}
 
-\todo{work on this section!!!!!}
-
 The speed gained using our network allows us to apply transient attributes to
 real world data.  We discuss how the attributes change over time and look at
 the most confident images per attribute for webcam data.  We then propose a
@@ -475,6 +477,8 @@ also use labeled webcam images to create year-long summaries of transient
 attributes for a webcam.
 
 \subsection{Time Series Analysis}
+\todo{intro into this subsection?}
+
 \figref{attrcmp} shows the time series for three selected attributes
 (\textit{night, daylight, and snow}) from an AMOS~\cite{jacobs07amos} webcam
 over the period February 16th, 2013 to February 23rd, 2013.  The correspondence
@@ -537,7 +541,8 @@ inferred from these summaries.  Consistently high values for the
 \textit{glowing} attribute at night indicate the presence of streetlights
 and/or other man made light sources in the scene.
 
-\subsection{Semantically Labeling an Image}
+\subsection{Visualizing Attributes}
+\todo{better title for this subsection}
 
 We convert the the final, fully connected layers of TransientNet to be
 convolutional with the same number of outputs.  The output from this new,
@@ -556,7 +561,7 @@ a composite image using the \textit{sunny}, \textit{storm}, and \textit{snow}
 attributes as the color channels.  The image has low values for the sunny
 attribute, shown in the red channel, and high values for the storm attribute,
 show in the green channel.  The storm attribute is higher towards the top
-of the image in the overcast sky.  The snow covering the ground from the 
+of the image in the overcast sky.  The snow covered ground from the 
 snow-storm appears in blue channel with high values for the snow attribute in
 the middle of the image.
 
@@ -616,8 +621,6 @@ the middle of the image.
 
 \subsection{Weather Mapping}
 
-\todo{write me!}
-
 We take advantage of the large number of labeled webcam images from webcams
 with known locations to create maps of transient attributes across the
 continental United States.  \figref{snow_maps} shows three maps for the snow
@@ -630,19 +633,20 @@ the month, snow melting in the middle of the month, and a large snow storm in
 the north-east at the end of the month.  Anomalous regions of high snow values,
 such as those along the California coast, likely come from webcams facing a
 beach scene.  A beach with light colored sand covering the ground appears
-visually similar to a snowy scene.  Maps for other attributes show expected
-natural phenomena (the \textit{daylight} attribute increasing/decreasing east
-to west as the sun rises/sets) and cues about the natural world (the
-\textit{rugged} attribute higher in the mountainous west and low in the plains
-of the midwest).  Using a method such as this one allows us to create
-live-updating attribute maps of an area with webcam data.  The images are
-labeled as they are captured, updating the bin containing the webcam with the
-new attribute value.  
-
+visually similar to a snowy scene.  Several cameras of this nature were
+manually pruned from the list of cameras used in \figref{snow_maps}.
 \figref{snow_exs} shows example images from selected webcams on January 29th,
-2014. The first two example images show heavy snow cover in northern areas, 
-but the third example image shows the light snow cover in the south-eastern
-region of the United States.  
+2014. The first two example images show heavy snow cover in northern areas, but
+the third example image shows the light snow cover in the south-eastern region
+of the United States.  
+
+Maps for other attributes show expected natural phenomena (the
+\textit{daylight} attribute increasing/decreasing east to west as the sun
+rises/sets) and cues about the natural world (the \textit{rugged} attribute
+higher in the mountainous west and low in the plains of the midwest).  Using a
+method such as this one allows us to create live-updating attribute maps of an
+area with webcam data.  The images are labeled as they are captured, updating
+the map with the new attribute values. 
 
 \section{Conclusions}
 We introduce a fast method for predicting transient scene properties in a
