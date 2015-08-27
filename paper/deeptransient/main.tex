@@ -653,10 +653,21 @@ using their transient attributes. Since the local weathers vary
 from place to place, the changing pattern of weather attribute can be
 treat as a figure print in that region.
 
-Using the framework proposed in~\cite{jacobs07geolocate}, we replace
-the webcam PCA coefficents with transient attribute features. The
-geolocalization is done by computing the correlation map between pixel
-density of satellite imagery and webcam transient attribute features.
+Using the framework of~\cite{jacobs07geolocate}, where the webcam
+location is found by computing the correlation map between pixel
+densities of geo-registered satellite imagery and the PCA coefficients
+of webcam frames, we replace the webcam PCA coefficents with transient
+attribute features.
+
+\begin{figure}[t]
+	\centering
+		\includegraphics[width=0.5\textwidth, trim= 0mm 0mm 0mm 0mm]{figs/geoloc/webcam_dist}
+		\caption{Distribution of 180 webcams used for evaluation}
+		\label{fig:webcamdist}
+\end{figure}
+
+We select 180 webcams for evaluation (\figref{webcamdist}). The satellite imagery used
+in our experiment can be downloaded from~\footnote{mesonet.agron.iastate.edu}.
 
 
 \section{Conclusions}
