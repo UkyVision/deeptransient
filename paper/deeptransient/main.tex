@@ -661,15 +661,16 @@ the map with the new attribute values.
 \section{Application to Webcam Geolocalization}
 
 In this section, we show that it is possible to geolocalize webcams
-using their transient attributes (\figref{geoloc}). Since the local
-weathers vary from place to place, the changing pattern of weather
-attribute can be treat as a figure print in that region.
+better using their transient attributes (\figref{geoloc}). Since the
+local weathers vary from place to place, the changing pattern of the
+local weather (\textit{i.e.} sunny, clouds, and storm) can be used as
+fingerprint of the region.
 
 Using the framework of~\cite{jacobs07geolocate}, where the webcam
-location is found by computing the correlation map between pixel
-densities of geo-registered satellite imagery and the PCA coefficients
-of webcam frames, we replace the webcam PCA coefficents with transient
-attribute features.
+location is found by investigating similarity between pixel variations
+of geo-registered satellite imagery and the PCA coefficient variations
+of webcam frames, we replace the PCA coefficents with \textit{sunny}
+attribute as global feature of webcam images.
 
 \begin{figure}
 	\centering
@@ -678,8 +679,23 @@ attribute features.
 		\label{fig:webcamdist}
 \end{figure}
 
-We select 180 webcams for evaluation (\figref{webcamdist}). The satellite imagery used
-in our experiment can be downloaded from~\footnote{mesonet.agron.iastate.edu}.
+For evaluation, we downloaded 2013 archives of 180 randomly selected
+webcams in United State from AMOS dataset~\cite{jacobs07amos}
+(\figref{webcamdist}). The satellite imagery used in our experiment
+can be downloaded
+from~\footnote{mesonet.agron.iastate.edu}. \figref{locerror} shows the
+evaluation results. We found that \textit{sunny} attribute helps the
+most in this task. Using \textit{sunny} attribute, we managed to
+locate 58\% of webcams within 250km from the ground truth. As a
+baseline method, we repeated the experiment with webcam image PCA
+coefficients of top 5 PCA components. The best of them, the first PCA
+component, only locates 9\% of webcams within 250km.
+
+The adventage of using transient attributes in this task lies on the
+fact that transient attributes are invariant to camera jitter, while
+the PCA encoding relies on the stationarity of cameras, which is
+rarely satisfied in webcams of long period.
+
 
 \begin{figure}
 	\centering
@@ -696,6 +712,15 @@ in our experiment can be downloaded from~\footnote{mesonet.agron.iastate.edu}.
           between satellite image pixel variations and webcam
           transient attribute variations.}
 		\label{fig:geoloc}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=.235\textwidth]{figs/geoloc/tran_errors}
+  \includegraphics[width=.235\textwidth]{figs/geoloc/pca_errors}
+  \caption{Comparison with method using first PCA coefficients. (left)
+    PCA method. (right) Our method.}
+  \label{fig:locerror}
 \end{figure}
 
 
