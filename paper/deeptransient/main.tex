@@ -305,13 +305,28 @@ processors at 2.6 GHz.  The full network optimization definition, the
 final network weights, and the output from our methods will be made
 available online for all six networks \emph{pending publication}.
 
-\section{Quantitative Evaluation}
+\section{Evaluation}
 
 We evaluated our networks on two benchmark datasets. The results show
 that our proposed approaches are significantly faster and more
 accurate than previous methods. 
 
 \subsection{Two-Class Weather Classification}
+
+\begin{table}[t]
+	\centering
+	\caption{Two class weather classification accuracy}
+	\begin{tabular}{ | l | c | }
+		\hline
+			Method & Normalized Accuracy \\ \hline \hline
+			Lu et al.~\cite{lutwoclass}& $ 53.1 \pm 2.2 $ \\ \hline
+			CloudyNet-I & $ 85.72 \pm 0.527 $ \\ \hline
+			CloudyNet-P & $ 86.18 \pm 0.572 $ \\ \hline
+			CloudyNet-H & $ \textbf{87.14} \pm 0.263 $ \\ 
+		\hline
+	\end{tabular}
+	\label{tbl:twoclass}
+\end{table}
 
 We evaluated our three CloudyNet variants using the dataset created by Lu et
 al.~\cite{lutwoclass} (introduced in Section~\ref{sec:method}). 
@@ -337,6 +352,21 @@ most accurately.
 
 \subsection{Transient Attributes Estimation}
 
+\begin{table}[t]
+	\centering
+	\caption{Transient attribute prediction errors}
+	\begin{tabular}{ | l | c | }
+		\hline
+			Method & Average Error \\ \hline \hline
+			Laffont et al.~\cite{Laffont14}& 4.2\% \\ \hline
+			TransientNet-I & 4.05\% \\ \hline
+			TransientNet-P & 3.87\% \\ \hline
+			TransientNet-H & \textbf{3.83\%} \\ 
+		\hline
+	\end{tabular}
+	\label{tbl:transient}
+\end{table}
+
 We evaluted our three TransientNet variants on the dataset created by
 Laffont et al.~\cite{Laffont14}.
 We use the same holdout
@@ -360,6 +390,57 @@ In addition to having higher accuracy, our method is significantly
 faster.  For a single image, Laffont et al.'s method takes an
 average of 3.486, but our method only requires 0.192 seconds, and 18x speed up. 
 
+\subsection{Example Results}
+
+\begin{figure}[t]
+	\centering
+		\includegraphics[width=0.5\textwidth, trim= 5mm 15mm 0mm 10mm]{figs/attr_compare.pdf}
+		\caption{This shows a snapshot of three attributes over a week of data for
+             an AMOS webcam.  The example images show that our network 
+             correctly labels snowy scenes.}
+		\label{fig:attrcmp}
+\end{figure}
+
+\begin{figure}[t]
+	\centering
+		\includegraphics[width=0.5\textwidth, trim= 35mm 50mm 30mm 31mm]{figs/montage_pruned_cam_7211.pdf}
+		\caption{This shows the average of the 100 most confident images for
+             a subset of transient attributes from a given webcam.} 
+		\label{fig:netvis}
+\end{figure}
+
+%We look at the values for selected attributes over a given span of time and
+%their corresponding webcam images.  We qualitatively confirm the predicted
+%attribute values and visualize the scene which maximizes each attribute.
+
+As qualitative evaluation, we show (\figref{attrcmp}) the time series
+of the predicted value (using TransientNet-H) for three attributes
+(\textit{night, daylight, and snow}) from an AMOS~\cite{jacobs07amos}
+webcam over the period February 16th, 2013 to February 23rd, 2013.
+Note that no temporal smoothing was performed, these are raw per-image
+estimates.  The inverse relationship between the \textit{daylight} and
+\textit{night} time series can be clearly seen.  \figref{attrcmp} also
+shows images of the scene captured at different times, highlighting
+snowy and non-snowy periods.
+
+\figref{netvis} shows semantic average of images for a single scene.
+Each image is the average of the 100 images with the highest score for
+a particular attribute.  The subset of attributes shown in
+\figref{netvis} represent a wide variety of conditions of the scene.
+The seasonal attributes (\textit{autumn, summer, winter}) show how the
+scene changes throughout the year and lighting attributes
+(\textit{sunrise/sunset, daylight, night}) shows the scene in various
+lighting conditions.  
+Such images are easy to create and highlight the ability of our
+proposed technique to work across a broad range of conditions and
+scene types. 
+
+%Other attributes not shown in this montage have similar average
+%images to the ones shown, (\textit{e.g., glowing and colorful similar to
+%sunrise/sunset, windy and rain similar to fog}).  This suggests that the
+%network may not distinguish between these attributes well or that these
+%attributes have some correlation with each other.
+
 %Labeling a million images using
 %Laffont et al.'s method on a single machine would take upwards of 40
 %days, whereas our network on a single machine would take approximately
@@ -376,36 +457,6 @@ average of 3.486, but our method only requires 0.192 seconds, and 18x speed up.
 %the two methods on the attribute \emph{night} was around 2.5 percentage points,
 %with TransientNet-H having the smaller error.  TransientNet-H averages 0.0699s
 %per image for prediction. 
-
-\begin{table}[t]
-	\centering
-	\caption{Two class weather classification accuracy}
-	\begin{tabular}{ | l | c | }
-		\hline
-			Method & Normalized Accuracy \\ \hline \hline
-			Lu et al.~\cite{lutwoclass}& $ 53.1 \pm 2.2 $ \\ \hline
-			CloudyNet-I & $ 85.72 \pm 0.527 $ \\ \hline
-			CloudyNet-P & $ 86.18 \pm 0.572 $ \\ \hline
-			CloudyNet-H & $ \textbf{87.14} \pm 0.263 $ \\ 
-		\hline
-	\end{tabular}
-	\label{tbl:twoclass}
-\end{table}
-
-\begin{table}[t]
-	\centering
-	\caption{Transient attribute prediction errors}
-	\begin{tabular}{ | l | c | }
-		\hline
-			Method & Average Error \\ \hline \hline
-			Laffont et al.~\cite{Laffont14}& 4.2\% \\ \hline
-			TransientNet-I & 4.05\% \\ \hline
-			TransientNet-P & 3.87\% \\ \hline
-			TransientNet-H & \textbf{3.83\%} \\ 
-		\hline
-	\end{tabular}
-	\label{tbl:transient}
-\end{table}
 
 %\begin{table}[t]
 %	\centering
@@ -454,22 +505,6 @@ average of 3.486, but our method only requires 0.192 seconds, and 18x speed up.
 %		\label{fig:relerr}
 %\end{figure}
 
-\begin{figure}[t]
-	\centering
-		\includegraphics[width=0.5\textwidth, trim= 5mm 15mm 0mm 10mm]{figs/attr_compare.pdf}
-		\caption{This shows a snapshot of three attributes over a week of data for
-             an AMOS webcam.  The example images show that our network 
-             correctly labels snowy scenes.}
-		\label{fig:attrcmp}
-\end{figure}
-
-\begin{figure}[t]
-	\centering
-		\includegraphics[width=0.5\textwidth, trim= 35mm 50mm 30mm 31mm]{figs/montage_pruned_cam_7211.pdf}
-		\caption{This shows the average of the 100 most confident images for
-             a subset of transient attributes from a given webcam.} 
-		\label{fig:netvis}
-\end{figure}
 
 \begin{figure*}
   \centering
@@ -491,6 +526,15 @@ average of 3.486, but our method only requires 0.192 seconds, and 18x speed up.
   \label{fig:false_color_ims}
 \end{figure*}
 
+\begin{figure}[t]
+	\centering
+		\includegraphics[width=0.5\textwidth, trim= 5mm 15mm 0mm 10mm]{figs/summary_260.pdf}
+		\caption{This shows the transient attribute values for a year of webcam 
+             data.  Each column corresponds to a day of the year and each row
+             corresponds to a time of day.}
+		\label{fig:webcam_summary}
+\end{figure}
+
 
 \section{Applications}
 
@@ -502,44 +546,7 @@ advanced searching of webcam collections, such as AMOS~\cite{jacobs07amos}. We
 also use labeled webcam images to create year-long summaries of transient
 attributes for a webcam.
 
-\subsection{Time Series and Scene Analysis}
-
-We look at the values for selected attributes over a given span of time and
-their corresponding webcam images.  We qualitatively confirm the predicted
-attribute values and visualize the scene which maximizes each attribute.
-\figref{attrcmp} shows the time series for three selected attributes
-(\textit{night, daylight, and snow}) from an AMOS~\cite{jacobs07amos} webcam
-over the period February 16th, 2013 to February 23rd, 2013.  The correspondence
-between the \textit{daylight} and \textit{night} time series can be clearly
-seen in this Figure.  The peaks in one correspond to the valleys in the other
-and vice versa.  \figref{attrcmp} also shows snapshots of the scene from points
-along the time series.  The snapshots show correctly labeled snowy periods in
-the scene as well non-snowy periods.
-
-\figref{netvis} visualizes the top scoring images from a single
-AMOS webcam across a subset of the transient attributes.
-100 images with the highest score for each attribute (per the \textit{fc8}
-output layer) were averaged to create the images in \figref{netvis}.  The
-subset of attributes shown in \figref{netvis} represent a wide variety of
-conditions of the scene.  The seasonal attributes (\textit{autumn, summer,
-winter}) show how the scene changes throughout the year and lighting attributes
-(\textit{sunrise/sunset, daylight, night}) shows the scene in various lighting
-conditions.  Other attributes not shown in this montage have similar average
-images to the ones shown, (\textit{e.g., glowing and colorful similar to
-sunrise/sunset, windy and rain similar to fog}).  This suggests that the
-network may not distinguish between these attributes well or that these
-attributes have some correlation with each other.
-
-\begin{figure}[t]
-	\centering
-		\includegraphics[width=0.5\textwidth, trim= 5mm 15mm 0mm 10mm]{figs/summary_260.pdf}
-		\caption{This shows the transient attribute values for a year of webcam 
-             data.  Each column corresponds to a day of the year and each row
-             corresponds to a time of day.}
-		\label{fig:webcam_summary}
-\end{figure}
-
-\subsection{Labeling and Summarizing a Webcam}
+\subsection{Browsing and Querying Webcam Archives}
 
 Webcam collections such as AMOS~\cite{jacobs07amos} contain thousands of
 geolocated webcams with years of archived data.  Searching for scenes with a
@@ -569,7 +576,7 @@ inferred from these summaries.  Consistently high values for the
 \textit{glowing} attribute at night indicate the presence of streetlights
 and/or other man made light sources in the scene.
 
-\subsection{Visualizing Attributes}
+\subsection{Rapidly Labeling Sub-Images}
 
 We convert the the final, fully connected layers of TransientNet to be
 convolutional with the same number of outputs.  The output from this new,
@@ -646,7 +653,7 @@ the middle of the image.
 		\label{fig:snow_exs}
 \end{figure}
 
-\subsection{Weather Mapping}
+\subsection{Using Webcams to Make Weather Maps}
 
 We take advantage of the large number of labeled webcam images from webcams
 with known locations to create maps of transient attributes across the
@@ -675,7 +682,7 @@ method such as this one allows us to create live-updating attribute maps of an
 area with webcam data.  The images are labeled as they are captured, updating
 the map with the new attribute values. 
 
-\section{Application to Webcam Geolocalization}
+\subsection{Transient Semantics for Geolocalization}
 
 In this section, we show that it is possible to geolocalize webcams
 better using their transient attributes (\figref{geoloc}). Since the
