@@ -26,10 +26,10 @@
 \title{A Fast Method for Estimating Transient Scene Properties}
 
 
-\author{Ryan Baltenberger, Connor Greenwell, Scott Workman, Nathan Jacobs \\
+\author{some combination of Ryan Baltenberger, Menghua Zhai, Connor Greenwell, Scott Workman, Nathan Jacobs \\
   \vspace{-.75em} 
   Department of Computer Science, University of Kentucky \\
-  {\tt\small \{rbalten, connor, scott, jacobs\}@cs.uky.edu}
+  {\tt\small \{rbalten, ted, connor, scott, jacobs\}@cs.uky.edu}
 }
 
 \maketitle
@@ -86,19 +86,27 @@ it is sunny or cloudy~\cite{lutwoclass} and second, predicting the degree to
 which various transient attributes are present in the scene~\cite{Laffont14}.
 To this end, we present two different networks and three different training
 methods. Our methods achieve state-of-the-art results on two benchmark
-datasets, despite being significantly faster.  \figref{cartoon} shows an
-overview of our method.  Input images are pushed through the specially trained
-CNN that outputs a set of attribute values.
+datasets and are significantly faster than previous approaches.  \figref{cartoon} shows an
+overview of our method.  
+
+%Input images are pushed through the specially trained
+%CNN that outputs a set of attribute values.
 
 %\figref{results} shows the output of our
 %methods for several example images.
 
 \begin{figure}[t]
 	\centering
-		\includegraphics[width=0.5\textwidth, trim= 0mm 0mm 0mm 0mm]{figs/cartoon.pdf}
-		\caption{This shows an overview of our proposed method and a subset of the
-             output attributes.  In this case, red is a low attribute value and
-             green is a high attribute value.}
+		\includegraphics[width=\linewidth, trim= 0mm 0mm 0mm 0mm]{figs/cartoon.pdf}
+    \caption{Our method predicts transient scene attributes from a
+      single image using a deep convolutional neural network. For a
+      subset of attributes, the predicted values (green=attribute
+      present, gray=uncertain, red=attribute absent) are shown for
+      three example images. 
+    }
+      %This shows an overview of our proposed method and a subset of the
+      %       output attributes.  In this case, red is a low attribute value and
+      %       green is a high attribute value.
 		\label{fig:cartoon}
 \end{figure}
 
@@ -113,16 +121,12 @@ CNN that outputs a set of attribute values.
 
 % what we can do now that we have this?
 
-\todo{reword this}
-
-The key contributions of this work are: 1) proposing several CNN network
-training methods for predicting transient attributes, 2) a comprehensive
-evaluation on two benchmark datasets~\cite{lutwoclass,Laffont14}, which shows
-the speed and accuracy of the proposed networks, achieving state-of-the-art
-performance, 3) releasing pre-trained networks for classifying transient scene
-attributes in a popular deep learning framework~\cite{caffe14}, and 4)
-demonstrating the real world utility of our methods for automatic webcam image
-labeling. 
+The key contributions of this work are: 1) proposing several CNN
+training methods for predicting transient attributes, 2) evaluating
+the proposed methods on two benchmark datasets, 3) releasing
+pre-trained networks for classifying transient scene attributes in a
+popular deep learning framework, and 4) demonstrating several
+applications of the networks to webcam image understanding. 
 
 \subsection{Related Work}
 Attributes are high-level descriptions of a visual property which offer some
@@ -159,26 +163,30 @@ To the best of our knowledge, we are the first to explore the application of
 convolutional neural networks for learning transient scene attributes
 using only raw image intensities as input.
 
+\todo{do we need to say ``using only \dots''?  it makes the
+contribution sound weaker than if it wasn't there}
+
 \subsection{Background}
 
-CNNs have been used extensively in recent
+Convolutional neural networks have been used extensively in recent
 years to obtain state-of-the-art results on a wide variety of computer vision
 problems.  In this work, we focus on a particular CNN architecture, often
-called ``AlexNet'', introduced by Alex Krizhevsky et al.~\cite{caffenetnips12}
+called {\em AlexNet}, introduced by Alex Krizhevsky et al.~\cite{caffenetnips12}
 for single-image object classification. This network has eight layers with
 trainable parameters: five convolutional layers (each connected, in a
 feed-forward manner with pooling and dropout layers between each convolutional
-layer) and three fully connected layers. Essentially, the convolutional layers
+layer) and three fully connected layers. The network parameters are selected by minimizing a
+softmax loss function. Essentially, the convolutional layers
 extract features from across the image and the fully connected layers combine
 these features to obtain a score for each possible class. The final
 classification decision is obtained by choosing the class with the highest
-output score.
+output score.  
 
 While this network architecture was originally developed for single-image
 object classification, it has been shown to be adaptable to other problem
 domains. If the new problem involves multi-class classification, all that is
 needed is to modify the final fully connected layer to have the correct number
-of output classes. Then, the network weights can be `fine-tuned' by running
+of output classes. Then, the network weights can be {\em fine-tuned} by running
 iterations of stochastic gradient descent on the training data for the new
 problem~\cite{yosinski2014transferable}.  The key is to start the optimization
 with random weights for the new final layer and weights from an already trained
@@ -186,9 +194,9 @@ network for the other layers, for example using the weights from the original
 AlexNet~\cite{caffenetnips12}, as an initial condition. If there is a large
 amount of training data available for the new domain, it is also possible to
 train the network from scratch by randomly initializing all
-weights~\cite{zhou2014places}.  If the new problem domain is regression, not
-classification, then the only change that is necessary is to change the network
-loss function, perhaps replacing the SOFT-MAX loss with an $L_2$ loss.
+weights~\cite{zhou2014places}.  For regression problems, the loss
+function is usually changed, often replacing the softmax loss with an
+$L_2$ loss.
 
 \section{Estimating Transient Attributes with CNNs}
 We propose the use of deep convolutional neural networks for estimating transient
