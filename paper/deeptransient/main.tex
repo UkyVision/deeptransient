@@ -649,9 +649,9 @@ the map with the new attribute values.
 \section{Application to Webcam Geolocalization}
 
 In this section, we show that it is possible to geolocalize webcams
-using their transient attributes. Since the local weathers vary
-from place to place, the changing pattern of weather attribute can be
-treat as a figure print in that region.
+using their transient attributes (\figref{geoloc}). Since the local
+weathers vary from place to place, the changing pattern of weather
+attribute can be treat as a figure print in that region.
 
 Using the framework of~\cite{jacobs07geolocate}, where the webcam
 location is found by computing the correlation map between pixel
@@ -659,15 +659,33 @@ densities of geo-registered satellite imagery and the PCA coefficients
 of webcam frames, we replace the webcam PCA coefficents with transient
 attribute features.
 
-\begin{figure}[t]
+\begin{figure}
 	\centering
 		\includegraphics[width=0.5\textwidth, trim= 0mm 0mm 0mm 0mm]{figs/geoloc/webcam_dist}
-		\caption{Distribution of 180 webcams used for evaluation}
+		\caption{Distribution of 180 webcams used for evaluation.}
 		\label{fig:webcamdist}
 \end{figure}
 
 We select 180 webcams for evaluation (\figref{webcamdist}). The satellite imagery used
 in our experiment can be downloaded from~\footnote{mesonet.agron.iastate.edu}.
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.18\textwidth]{figs/geoloc/297}
+		\includegraphics[width=0.27\textwidth]{figs/geoloc/geoloc_8_297}
+		\includegraphics[width=0.18\textwidth]{figs/geoloc/5207}
+		\includegraphics[width=0.27\textwidth]{figs/geoloc/geoloc_24_5207}
+		\includegraphics[width=0.18\textwidth]{figs/geoloc/23573}
+		\includegraphics[width=0.27\textwidth]{figs/geoloc/geoloc_152_23573}
+		\caption{Example of webcam geolocalization using
+          \textit{sunny} attributes. (left) Webcam imagery
+          samples. (right) Corresponding probabilistic representation
+          of webcam locations, each pixel is colored by correlation
+          between satellite image pixel variations and webcam
+          transient attribute variations.}
+		\label{fig:geoloc}
+\end{figure}
+
 
 
 \section{Conclusions}
