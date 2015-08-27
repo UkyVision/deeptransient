@@ -229,15 +229,18 @@ network, which we call CloudyNet.  We follow their protocol for
 generating a train/test split: we randomly shuffle sunny/cloudy images
 and then select 80\% of each class for training and 20\% for testing.
 This process is repeated five times resulting in five random 80/20
-splits of the data. During evaluation we report the mean and variance
-of normalized accuracy using five fold cross validation. The only
-modification to the network architecture that was required was
-dropping unnecessary output nodes from the final fully connected layer
-(in the end we have two output nodes).
+splits of the data. 
+% nbj: probably don't need to say this here\dots and this isn't really
+% five-fold cross validation since you are rerandomizing between
+% splits
+%During evaluation we report the mean and variance
+%of normalized accuracy using five-fold cross validation. 
+The only modification to the network architecture that was required
+was dropping the final fully connected layer and replacing it with a
+fully connected layer with two output nodes.
 
 \textbf{TransientNet:} For the more challenging problem of estimating
-the presence of a broad range of attributes in an image, we take
-advantage of the attributes and associated dataset introduced by Laffont
+the presence of a broad range of attributes in an image, we use the dataset introduced by Laffont
 et al.~\cite{Laffont14}. The authors define a set of 40 transient attributes
 (see \figref{compare} for the full list of attributes), each of which is
 assigned a value between zero and one, representing the confidence
@@ -249,7 +252,7 @@ by changing the final fully connected layer to have 40 output nodes, one for
 each transient attribute, and updating the loss function to an $L_2$
 loss. 
 
-For each network, we train starting from three different initial conditions,
+For each network, we start the training procedure from three different initial conditions,
 resulting in six distinct sets of network weights. The first set of initial
 conditions are taken from a network that was was trained for object
 classification on 1.2 million images from the ImageNet ILSVRC-2012
@@ -285,7 +288,8 @@ architecture (a variant of AlexNet), and pre-trained networks
 from the Caffe Model
 Zoo\footnote{\url{http://caffe.berkeleyvision.org/model_zoo.html}}.
 All of our networks were trained on NVIDIA M2075 GPU Cards for 24
-hours each, and evaluated using Caffe in CPU mode on Dell C6220
+hours each, and evaluated using Caffe in CPU~\todo{was CPU or GPU mode used
+for timing experiments?} mode on Dell C6220
 Servers equipped with Dual Intel E5-2670 8 Core (Sandy Bridge)
 processors at 2.6 GHz.  The full network optimization definition, the
 final network weights, and the output from our methods will be made
