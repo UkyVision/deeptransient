@@ -536,15 +536,38 @@ scene types.
 \end{figure}
 
 
+\subsection{Rapidly Labeling Sub-Images}
+
+We convert the the final, fully connected layers of TransientNet to be
+convolutional with the same number of outputs.  The output from this new,
+''fully convolutional'' network allows us to create images showing an
+attribute's value across an input image.  \figref{false_color_ims} shows two
+examples of this.  The values for each attribute can be visualized in a single
+channel image.  Combining three of these images results in the composite
+images.  \figref{false_color_1} shows a composite image using the
+\textit{sunny}, \textit{lush}, and \textit{snow} attributes as the color
+channels.  As expected, there are no snowy areas in the input image, shown
+in the blue channel, and the bottom of the image contains high values for the
+lush attribute, shown in the green channel.  The sunny attribute is higher 
+towards the horizon and middle of the sky, show in the red channel, possibly 
+due to the sky being brighter in these regions.  \figref{false_color_2} shows
+a composite image using the \textit{sunny}, \textit{storm}, and \textit{snow}
+attributes as the color channels.  The image has low values for the sunny
+attribute, shown in the red channel, and high values for the storm attribute,
+show in the green channel.  The storm attribute is higher towards the top
+of the image in the overcast sky.  The snow covered ground from the 
+snow-storm appears in blue channel with high values for the snow attribute in
+the middle of the image.
+
+
 \section{Applications}
 
-The speed gained using our network allows us to apply transient attributes to
-real world data.  We discuss how the attributes change over time and look at
-the most confident images per attribute for webcam data.  We then propose a
-method for automatically labeling images from outdoor webcams, allowing for
-advanced searching of webcam collections, such as AMOS~\cite{jacobs07amos}. We
-also use labeled webcam images to create year-long summaries of transient
-attributes for a webcam.
+Our proposed method is both faster and more accurate than previous
+methods, and has potential application to many real-world problems.
+Here we explore applications to webcam imagery,
+including: 1) to support automatic browsing and querying of large
+archives of webcam images, 2) to construct maps of transient
+attributes from webcam imagery, and 3) to geolocalize webcams.
 
 \subsection{Browsing and Querying Webcam Archives}
 
@@ -576,28 +599,7 @@ inferred from these summaries.  Consistently high values for the
 \textit{glowing} attribute at night indicate the presence of streetlights
 and/or other man made light sources in the scene.
 
-\subsection{Rapidly Labeling Sub-Images}
-
-We convert the the final, fully connected layers of TransientNet to be
-convolutional with the same number of outputs.  The output from this new,
-''fully convolutional'' network allows us to create images showing an
-attribute's value across an input image.  \figref{false_color_ims} shows two
-examples of this.  The values for each attribute can be visualized in a single
-channel image.  Combining three of these images results in the composite
-images.  \figref{false_color_1} shows a composite image using the
-\textit{sunny}, \textit{lush}, and \textit{snow} attributes as the color
-channels.  As expected, there are no snowy areas in the input image, shown
-in the blue channel, and the bottom of the image contains high values for the
-lush attribute, shown in the green channel.  The sunny attribute is higher 
-towards the horizon and middle of the sky, show in the red channel, possibly 
-due to the sky being brighter in these regions.  \figref{false_color_2} shows
-a composite image using the \textit{sunny}, \textit{storm}, and \textit{snow}
-attributes as the color channels.  The image has low values for the sunny
-attribute, shown in the red channel, and high values for the storm attribute,
-show in the green channel.  The storm attribute is higher towards the top
-of the image in the overcast sky.  The snow covered ground from the 
-snow-storm appears in blue channel with high values for the snow attribute in
-the middle of the image.
+\subsection{Using Webcams to Make Weather Maps}
 
 \begin{figure*}
   \centering
@@ -652,8 +654,6 @@ the middle of the image.
 		\caption{This shows example snowy images from collected webcam data.}
 		\label{fig:snow_exs}
 \end{figure}
-
-\subsection{Using Webcams to Make Weather Maps}
 
 We take advantage of the large number of labeled webcam images from webcams
 with known locations to create maps of transient attributes across the
