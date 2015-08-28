@@ -571,33 +571,39 @@ attributes from webcam imagery, and 3) to geolocalize webcams.
 
 \subsection{Browsing and Querying Webcam Archives}
 
-Webcam collections such as AMOS~\cite{jacobs07amos} contain thousands of
-geolocated webcams with years of archived data.  Searching for scenes with a
-set of desired attributes is usually done by manually looking through lists of
-webcams and images.  TransientNet simplifies this process by using output
-scores to tag images and webcams with certain attributes.  If an attribute is
-above a defined threshold, the image is labeled with that attribute.  The
-opposite is true as well.  If an attribute is below a defined threshold, the
-attribute is added to a list of attributes the image does not have.  This
-enables users to use queries such as ``sunny'' or ``not winter''.  Labeling is
-done on the image level as well as the webcam level.  Attributes that
-frequently have high values in a webcam (aside from daylight, night, etc) are
-used to tag the webcam.  A labeling scheme like this one allows a user to
-search for the snowy images from a \textit{mysterious} webcam. This allows for
-easier searching of large collections of webcams.
+Webcam collections such as AMOS~\cite{jacobs07amos} contain thousands
+of geolocated webcams with years of archived data.  Searching for
+scenes, and images, with a set of desired attributes is currently a
+time-consuming manual process. For example, when working on outdoor
+photometric stereo~\cite{abramsheliometric} it is common to manually
+filter out all cloudy images. We simplify this process by using
+TransientNet to tag images and webcams with certain attributes.  If an
+attribute is above a threshold ($t_h = ???$ \todo{what do we use}),
+the image is labeled with that attribute.  The opposite is true as
+well. If an attribute is below a threshold ($t_l = ???$ \todo{what do
+we use}), the attribute is added to a list of attributes the image
+does not have. This enables users to use queries such as ``sunny'' or
+``not winter''. Labeling is done on the image level as well as the
+webcam level. Attributes that are uniquely high for a webcam (i.e.,
+$P(label|camera)\gg P(label|all\ cameras)$) are used to tag the
+webcam. A labeling scheme like this one allows a user to, for example,
+search for the snowy images from a \textit{mysterious} webcam. This
+allows for easier searching of large collections of webcams.
 
-We create summaries of the transient attributes for webcams using images pushed
-through TransientNet.  Each column in the summary is a single day and each row
-a different time of the day (in 30 minute intervals).  Each pixel is colored
-based on the attribute value for the corresponding webcam image.
-\figref{webcam_summary} shows all 40 attribute summaries for an AMOS webcam.
-Attributes such as \textit{snow}, \textit{cold}, \textit{winter}, etc. have
-higher values in the winter months and lower values during the summer months.
-The \textit{night} and \textit{daylight} attributes clearly show the day/night
-cycle for the location of the image.  Properties about the scene can be
-inferred from these summaries.  Consistently high values for the
-\textit{glowing} attribute at night indicate the presence of streetlights
-and/or other man made light sources in the scene.
+To support rapid browsing of a large webcam image collection, we create
+summaries of the transient attributes estimated by TransientNet.
+\figref{webcam_summary} summarizes a year of images from a single AMOS webcam.
+Each column in the summary is a single day and each row a different time of the
+day (in 30 minute intervals).  Each pixel is colored based on the attribute
+value for the corresponding webcam image. Attributes such as \textit{snow},
+\textit{cold}, \textit{winter}, etc. have higher values in the winter months
+and lower values during the summer months. The \textit{night} and
+\textit{daylight} attributes clearly show the day/night cycle for the location
+of the image. Properties about the scene can be inferred from these summaries.
+Consistently high values for the \textit{glowing} attribute at night indicate
+the presence of streetlights and/or other man made light sources in the scene.
+Such visualizations, are more robust to camera motion and more semantically
+meaningful than those based on PCA~\cite{jacobs09webcamdata}.
 
 \subsection{Using Webcams to Make Weather Maps}
 
