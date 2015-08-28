@@ -28,13 +28,17 @@ end
 %% webcam distribution
 im_bmng = imread('bmng.jpg');
 figure(121);clf
+hold on;
 set(gca, 'position', [0 0 1 1])
 image(im_bmng, 'XData', [-180 180], 'YData', [90 -90]); hold on
 plot([usShape.Lon], [usShape.Lat], 'white')
+load coast
+geoshow(flipud(lat),flipud(long),'DisplayType','polygon','FaceColor',[0 0 .3])
 axis image
 plot([results.lon], [results.lat], 'or','MarkerFaceColor','r','MarkerEdgeColor','none')
 xlim(lonRange); ylim(latRange)
 axis off xy
+hold off;
 exportfigure(gcf, '~/webcam_dist.pdf', [4, 2], 100)
 
 
