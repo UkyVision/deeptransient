@@ -160,11 +160,7 @@ attributes as well as applications in photo organization and high-level image
 editing via attribute manipulation. 
 
 To the best of our knowledge, we are the first to explore the application of
-convolutional neural networks for learning transient scene attributes
-using only raw image intensities as input.
-
-\todo{do we need to say ``using only \dots''?  it makes the
-contribution sound weaker than if it wasn't there}
+convolutional neural networks for learning transient scene attributes.
 
 \subsection{Background}
 
@@ -690,17 +686,14 @@ the map with the new attribute values.
 
 \subsection{Transient Semantics for Geolocalization}
 
-In this section, we show that it is possible to geolocalize webcams
-better using their transient attributes (\figref{geoloc}). Since the
-local weathers vary from place to place, the changing pattern of the
-local weather (\textit{i.e.} sunny, clouds, and storm) can be used as
-fingerprint of the region.
-
-Using the framework of~\cite{jacobs07geolocate}, where the webcam
-location is found by investigating similarity between pixel variations
-of geo-registered satellite imagery and the PCA coefficient variations
-of webcam frames, we replace the PCA coefficents with \textit{sunny}
-attribute as global feature of webcam images.
+In this section, we show how to geolocalize an outdoor webcam using
+TransientNet. The intuition is that, given a sufficient amount of time, the
+temporal pattern of the transient attributes is a unique fingerprint of the
+location. We adopt the framework of~\cite{jacobs07geolocate}, in which the
+webcam location is found by relating pixel variations of geo-registered
+satellite imagery and the PCA coefficients of webcam images. The only change is
+replacing the PCA coefficents (which are unsupervised, but camera specific)
+with the transient attributes (which are supervised, but not camera specific).
 
 \begin{figure}
 	\centering
@@ -709,23 +702,22 @@ attribute as global feature of webcam images.
 		\label{fig:webcamdist}
 \end{figure}
 
-For evaluation, we downloaded 2013 archives of 180 randomly selected
-webcams in United State from AMOS dataset~\cite{jacobs07amos}
-(\figref{webcamdist}). The satellite imagery used in our experiment
-can be downloaded
-from~\footnote{mesonet.agron.iastate.edu}. \figref{locerror} shows the
-evaluation results. We found that \textit{sunny} attribute helps the
-most in this task. Using \textit{sunny} attribute, we managed to
-locate 58\% of webcams within 250km from the ground truth. As a
-baseline method, we repeated the experiment with webcam image PCA
-coefficients of top 5 PCA components. The best of them, the first PCA
-component, only locates 9\% of webcams within 250km error.
-
-The adventage of using transient attributes in this task lies on the
-fact that transient attributes are invariant to camera jitter, while
-the PCA encoding relies on the stationarity of cameras, which is
-rarely satisfied in webcams of long period.
-
+For evaluation, we downloaded a year (2013) of images from 180 randomly
+selected webcams (\figref{webcamdist}) from the AMOS
+dataset~\cite{jacobs07amos} and corresponding satellite
+images\footnote{\url{http://mesonet.agron.iastate.edu}}.  We tried all
+transient attributes and found that the \textit{sunny} attribute provided the
+most accurate localization results, we use it for all further figures.
+\figref{geoloc} shows examples of the heat-maps we estimate using our method.
+\figref{locerror} shows the evaluation results.  Using \textit{sunny}
+attribute, we managed to locate 58\% of webcams within 250km from the ground
+truth. As a baseline method, we repeated the experiment with the top 5 PCA
+coefficients. The best coefficient (the first) only locates 9\% of webcams
+within 250km error. We think the main advantage of using the transient
+attribute for this task is that it is less sensitive to camera jitter, a
+significant problem when applying PCA to outdoor webcam data. When the camera
+jitters it is likely that the PCA coefficients encode for motion, not changes
+in transient attributes.
 
 \begin{figure}
 	\centering
@@ -753,8 +745,6 @@ rarely satisfied in webcams of long period.
     Geolocalization results with first PCA coefficients.}
   \label{fig:locerror}
 \end{figure}
-
-
 
 \section{Conclusions}
 We introduce a fast method for predicting transient scene properties in a
