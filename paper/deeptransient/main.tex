@@ -38,19 +38,17 @@
 
 \begin{abstract}
 
-We propose to use deep convolutional neural networks to estimate the
-transient attributes of a scene from a single image.  Transient scene
-attributes describe both the objective conditions, such as the
-weather, time of day, and the season, and subjective properties of a
-scene, such as whether or not the scene seems busy. Recently,
-convolutional neural networks have been used to achieve
-state-of-the-art results for many vision problems, from object
-detection to scene classification, but have not previously been used
-for estimating transient attributes. We compare several methods for
-adapting an existing network architecture and present state-of-the-art
-results on two benchmark datasets. Our method is more accurate and
-significantly faster than all previous methods, enabling real-world
-applications. 
+We propose to use deep convolutional neural networks to estimate the transient
+attributes of a scene from a single image.  Transient scene attributes describe
+both the objective conditions, such as the weather, time of day, and the
+season, and subjective properties of a scene, such as whether or not the scene
+seems busy. Recently, convolutional neural networks have been used to achieve
+state-of-the-art results for many vision problems, from object detection to
+scene classification, but have not previously been used for estimating
+transient attributes. We compare several methods for adapting an existing
+network architecture and present state-of-the-art results on two benchmark
+datasets. Our method is more accurate and significantly faster than previous
+methods, enabling real-world applications. 
 
 \end{abstract}
 
@@ -221,6 +219,7 @@ networks.
 		\label{fig:compare}
 \end{figure*}
 
+\vspace{-1em}
 \paragraph{CloudyNet:} For the problem of classifying whether an image is sunny or
 cloudy, we use the data provided by Lu et al.~\cite{lutwoclass} to train our
 network, which we call CloudyNet. 
@@ -316,9 +315,9 @@ accurate than previous methods.
 		\hline
 			Method & Normalized Accuracy \\ \hline \hline
 			Lu et al.~\cite{lutwoclass}& $ 53.1 \pm 2.2 $ \\ \hline
-			CloudyNet-I & $ 85.72 \pm 0.527 $ \\ \hline
-			CloudyNet-P & $ 86.18 \pm 0.572 $ \\ \hline
-			CloudyNet-H & $ \textbf{87.14} \pm 0.263 $ \\ 
+			CloudyNet-I & $ 85.7 \pm 0.5 $ \\ \hline
+			CloudyNet-P & $ 86.1 \pm 0.6 $ \\ \hline
+			CloudyNet-H & $ \textbf{87.1} \pm 0.3 $ \\ 
 		\hline
 	\end{tabular}
 	\label{tbl:twoclass}
@@ -391,7 +390,7 @@ average of 3.486, but our method only requires 0.192 seconds, and 18x speed up.
 \begin{figure}[t]
 	\centering
 		\includegraphics[width=0.5\textwidth, trim= 5mm 15mm 0mm 10mm]{figs/attr_compare.pdf}
-		\caption{This shows a snapshot of three attributes over a week of data for
+		\caption{A snapshot of three attributes over a week of data for
              an AMOS webcam.  The example images show that our network 
              correctly labels snowy scenes.}
 		\label{fig:attrcmp}
@@ -400,7 +399,7 @@ average of 3.486, but our method only requires 0.192 seconds, and 18x speed up.
 \begin{figure}[t]
 	\centering
 		\includegraphics[width=0.5\textwidth, trim= 35mm 50mm 30mm 31mm]{figs/montage_pruned_cam_7211.pdf}
-		\caption{This shows the average of the 100 most confident images for
+		\caption{The average of the 100 most confident images for
              a subset of transient attributes from a given webcam.} 
 		\label{fig:netvis}
 \end{figure}
@@ -516,7 +515,7 @@ scene types.
     \caption{RGB = [\textit{sunny, storm, snow}]}
     \label{fig:false_color_2}
   \end{subfigure}
-  \caption{This shows example images run through the fully convolutional
+  \caption{Example images run through the fully convolutional
            TransientNet-H with different attributes as the color channels for
            the composite image.}
   \label{fig:false_color_ims}
@@ -525,7 +524,7 @@ scene types.
 \begin{figure}[t]
 	\centering
 		\includegraphics[width=0.5\textwidth, trim= 5mm 15mm 0mm 10mm]{figs/summary_260.pdf}
-		\caption{This shows the transient attribute values for a year of webcam 
+		\caption{The transient attribute values for a year of webcam 
              data.  Each column corresponds to a day of the year and each row
              corresponds to a time of day.}
 		\label{fig:webcam_summary}
@@ -534,7 +533,7 @@ scene types.
 
 \subsection{Rapidly Labeling Sub-Images}
 
-We convert the the final, fully connected layers of TransientNet to be
+We convert the final, fully connected layers of TransientNet to be
 convolutional with the same number of outputs.  The output from this new,
 ''fully convolutional'' network allows us to create images showing an
 attribute's value across an input image.  \figref{false_color_ims} shows two
@@ -542,18 +541,17 @@ examples of this.  The values for each attribute can be visualized in a single
 channel image.  Combining three of these images results in the composite
 images.  \figref{false_color_1} shows a composite image using the
 \textit{sunny}, \textit{lush}, and \textit{snow} attributes as the color
-channels.  As expected, there are no snowy areas in the input image, shown
-in the blue channel, and the bottom of the image contains high values for the
-lush attribute, shown in the green channel.  The sunny attribute is higher 
-towards the horizon and middle of the sky, show in the red channel, possibly 
-due to the sky being brighter in these regions.  \figref{false_color_2} shows
-a composite image using the \textit{sunny}, \textit{storm}, and \textit{snow}
-attributes as the color channels.  The image has low values for the sunny
-attribute, shown in the red channel, and high values for the storm attribute,
-show in the green channel.  The storm attribute is higher towards the top
-of the image in the overcast sky.  The snow covered ground from the 
-snow-storm appears in blue channel with high values for the snow attribute in
-the middle of the image.
+channels.  As expected, there are no snowy areas in the input image, shown in
+the blue channel, and the bottom of the image contains high values for the lush
+attribute, shown in the green channel.  The sunny attribute is higher towards
+the horizon and middle of the sky, show in the red channel, possibly due to the
+sky being brighter in these regions.  \figref{false_color_2} shows a composite
+image using the \textit{sunny}, \textit{storm}, and \textit{snow} attributes as
+the color channels.  The image has low values for the sunny attribute, shown in
+the red channel, and high values for the storm attribute, show in the green
+channel.  The storm attribute is higher towards the top of the image in the
+overcast sky.  The snow covered ground from the snow-storm appears in blue
+channel with high values for the snow attribute in the middle of the image.
 
 
 \section{Applications}
@@ -643,7 +641,7 @@ meaningful than those based on PCA~\cite{jacobs09webcamdata}.
     \caption{January 29th, 2014}
     \label{fig:snow_map_est_3}
   \end{subfigure}
-  \caption{This shows maps of the snow attribute from webcams across the
+  \caption{Maps of the snow attribute from webcams across the
            continental United States in the month of January, 2014 and the corresponding
            map of snow depth created using remote sensing data.\protect\footnotemark 
            The top row shows the remote sensing snow maps and the bottom row 
@@ -655,7 +653,7 @@ meaningful than those based on PCA~\cite{jacobs09webcamdata}.
 \begin{figure}[t]
 	\centering
 		\includegraphics[width=0.5\textwidth, trim= 0mm 10mm 0mm 0mm]{figs/snow_exs.pdf}
-		\caption{This shows example snowy images from collected webcam data.}
+		\caption{Example snowy images from collected webcam data.}
 		\label{fig:snow_exs}
 \end{figure}
 
