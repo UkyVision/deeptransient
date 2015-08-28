@@ -603,6 +603,8 @@ meaningful than those based on PCA~\cite{jacobs09webcamdata}.
 
 \subsection{Using Webcams to Make Weather Maps}
 
+\todo{this section needs help}
+
 \begin{figure*}
   \centering
   \begin{subfigure}[b]{0.33\textwidth}
@@ -657,12 +659,13 @@ meaningful than those based on PCA~\cite{jacobs09webcamdata}.
 		\label{fig:snow_exs}
 \end{figure}
 
-We take advantage of the large number of labeled webcam images from webcams
-with known locations to create maps of transient attributes across the
-continental United States.  \figref{snow_maps} shows three maps for the snow
+We show how to use webcams with known locations to capture the
+geo-spatial distribution of transient attributes. \todo{how did we do
+it?} \figref{snow_maps} shows three maps for the snow
 attribute across the continental United States.  Data from January 2014 for
 AMOS webcams within the continental United States and the southern edge of
-Canada was downloaded and labeled using TransientNet-H.  These maps show
+Canada was downloaded and labeled using TransientNet-H. \todo{the rest
+of this is really wordy} These maps show
 predicted snow coverage using only transient attributes from webcam data.
 Variation between the three maps shows heavy snow coverage in the beginning of
 the month, snow melting in the middle of the month, and a large snow storm in
@@ -677,23 +680,29 @@ the third example image shows the light snow cover in the south-eastern region
 of the United States.  
 
 Maps for other attributes show expected natural phenomena (the
-\textit{daylight} attribute increasing/decreasing east to west as the sun
-rises/sets) and cues about the natural world (the \textit{rugged} attribute
-higher in the mountainous west and low in the plains of the midwest).  Using a
-method such as this one allows us to create live-updating attribute maps of an
-area with webcam data.  The images are labeled as they are captured, updating
-the map with the new attribute values. 
+\textit{daylight} attribute increasing/decreasing east to west as the
+sun rises/sets) and cues about the natural world (the \textit{rugged}
+attribute higher in the mountainous west and low in the plains of the
+midwest).  \todo{these feel tacked on} Using a method such as this one
+allows us to create live-updating attribute maps~\todo{what are
+  live-updating attribute maps?  use the same terminology throughout.}
+  of an area with webcam data.  The images are labeled as they are
+  captured, updating the map with the new attribute values. 
 
 \subsection{Transient Semantics for Geolocalization}
 
-In this section, we show how to geolocalize an outdoor webcam using
-TransientNet. The intuition is that, given a sufficient amount of time, the
-temporal pattern of the transient attributes is a unique fingerprint of the
-location. We adopt the framework of~\cite{jacobs07geolocate}, in which the
-webcam location is found by relating pixel variations of geo-registered
-satellite imagery and the PCA coefficients of webcam images. The only change is
-replacing the PCA coefficents (which are unsupervised, but camera specific)
-with the transient attributes (which are supervised, but not camera specific).
+Given a sufficient amount of time, the temporal pattern of the
+transient attributes is a unique fingerprint of a location. We use
+this observation and propose a robust method for geolocalizing outdoor
+webcams. We adopt the framework of~\cite{jacobs07geolocate}, in which
+the webcam location is found by relating temporal variations of
+geo-registered satellite imagery and the time series of features
+extracted from webcam images. The estimated camera location is the
+center of the satellite pixel for which the intensity is most
+correlated with the webcam time series. The only change from the
+original work is replacing the PCA coefficents (which are
+unsupervised, but camera specific) with the transient attributes
+(which are supervised, but not camera specific).
 
 \begin{figure}
 	\centering
@@ -702,22 +711,22 @@ with the transient attributes (which are supervised, but not camera specific).
 		\label{fig:webcamdist}
 \end{figure}
 
-For evaluation, we downloaded a year (2013) of images from 180 randomly
-selected webcams (\figref{webcamdist}) from the AMOS
+For evaluation, we downloaded a year (2013) of images from 180
+randomly selected webcams (\figref{webcamdist}) from the AMOS
 dataset~\cite{jacobs07amos} and corresponding satellite
-images\footnote{\url{http://mesonet.agron.iastate.edu}}.  We tried all
-transient attributes and found that the \textit{sunny} attribute provided the
-most accurate localization results, we use it for all further figures.
-\figref{geoloc} shows examples of the heat-maps we estimate using our method.
-\figref{locerror} shows the evaluation results.  Using \textit{sunny}
-attribute, we managed to locate 58\% of webcams within 250km from the ground
-truth. As a baseline method, we repeated the experiment with the top 5 PCA
-coefficients. The best coefficient (the first) only locates 9\% of webcams
-within 250km error. We think the main advantage of using the transient
-attribute for this task is that it is less sensitive to camera jitter, a
-significant problem when applying PCA to outdoor webcam data. When the camera
-jitters it is likely that the PCA coefficients encode for motion, not changes
-in transient attributes.
+images\footnote{\url{http://mesonet.agron.iastate.edu}}.  We found
+that the \textit{sunny} attribute provided the most accurate results
+and use it for all further figures. \figref{geoloc} shows example 
+correlation maps we estimated and \figref{locerror}
+shows the evaluation results. Our method localizes 58\% of webcams
+within 250km from the ground truth. As a baseline method, we repeated
+the experiment with the top 5 PCA coefficients. The best coefficient
+(the first) only locates 9\% of webcams within 250km. We think
+the main advantage of using the transient attribute for this task is
+that it is less sensitive to camera jitter, a significant problem when
+applying PCA to outdoor webcam data. When the camera jitters it is
+likely that the PCA coefficients encode for motion, not changes
+visible in satellite imagery.
 
 \begin{figure}
 	\centering
