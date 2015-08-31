@@ -4,10 +4,22 @@
 %
 
 addpath ~/matlab_root/
+addpath ~/matlab_root/export_fig/
 
-base_dir = '/u/vul-d1/scratch/ryan/stable_cam_data/00000075/';
+cams = dir('/u/vul-d1/scratch/ryan/stable_cam_data/');
+
+for id = 3:size(cams, 1)
+
+cam_id = cams(id).name;
+mkdir(sprintf('attr_summary/%s/', cam_id));
+
+base_dir = sprintf('/u/vul-d1/scratch/ryan/stable_cam_data/%s/', cam_id);
 
 data = readtable([base_dir '2013_attributes.csv'], 'ReadVariableNames', false);
+if mean(size(data) == 0) == 1
+   continue 
+end
+
 data = unique(data);
 data = sortrows(data, {'Var1'}, {'ascend'});
 labels = readtable('/u/vul-d1/scratch/ryan/attributes.txt', 'ReadVariableNames', false);
@@ -25,7 +37,7 @@ features = cell2mat(table2cell(data(:, 2:end)));
 % hays_data = sortrows(hays_data, {'Var1'}, {'ascend'});
 % hays_features = cell2mat(table2cell(hays_data(:, 2:end)));
 
-
+for attr_id = 1:40
 %% create the summary images
 sz = [48 365];
 
@@ -58,26 +70,40 @@ for ix = 1:40
 end
 
 % all of the attributes
-attrs = textscan(fopen('attributes.txt'), '%s'); attrs = attrs{1};
+attrs = textscan(fopen('fcn_fun/attributes.txt'), '%s'); attrs = attrs{1};
 
-figure(1); clf
-title('camera')
-subplot(121)
-imagesc(cat(1,allofthem{1:20}), [0 1]); axis image
-set(gca, 'YTick', linspace(sz(1)/2,20*sz(1)-sz(1)/2,20), 'YTickLabel',attrs(1:20));
+% figure(1); clf
+% title('camera')
+% subplot(121)
+% imagesc(cat(1,allofthem{1:20}), [0 1]); axis image
+% set(gca, 'YTick', linspace(sz(1)/2,20*sz(1)-sz(1)/2,20), 'YTickLabel',attrs(1:20));
+% axis image xy
+% set(gca, 'XTick', []);
+% set(gca, 'TickLength', [0 0]);
+% subplot(122)
+% imagesc(cat(1,allofthem{21:40}), [0 1]); axis image
+% set(gca, 'YTick', linspace(sz(1)/2,20*sz(1)-sz(1)/2,20), 'YTickLabel',attrs(21:40),'YAxisLocation','right');
+% set(gca, 'XTick', []);
+% set(gca, 'TickLength', [0 0]);
+% axis image xy
+
+figure(2); clf
+imagesc(cat(1,allofthem{[attr_id]}), [0 1]); axis image
+set(gca, 'YTick', linspace(sz(1)/2,3*sz(1)-sz(1)/2,3), 'YTickLabel',attrs([attr_id]));
 axis image xy
 set(gca, 'XTick', []);
 set(gca, 'TickLength', [0 0]);
-subplot(122)
-imagesc(cat(1,allofthem{21:40}), [0 1]); axis image
-set(gca, 'YTick', linspace(sz(1)/2,20*sz(1)-sz(1)/2,20), 'YTickLabel',attrs(21:40),'YAxisLocation','right');
-set(gca, 'XTick', []);
-set(gca, 'TickLength', [0 0]);
-axis image xy
 
-% summary = max(min(summary,1),0);
-% image(summary)
-% axis image off
+
+export_fig(sprintf('attr_summary/%s/%s_%s.pdf', cam_id, cam_id, char(attrs(attr_id))), '-transparent', '-m1.5')
+
+end
+end
+
+%%
+summary = max(min(summary,1),0);
+image(summary)
+axis image off
 
 %% plot summaries as a scatter plot
 

@@ -521,14 +521,36 @@ scene types.
   \label{fig:false_color_ims}
 \end{figure*}
 
-\begin{figure}[t]
+\begin{figure}
 	\centering
-		\includegraphics[width=0.5\textwidth, trim= 5mm 15mm 0mm 10mm]{figs/summary_260.pdf}
-		\caption{The transient attribute values for a year of webcam 
-             data.  Each column corresponds to a day of the year and each row
-             corresponds to a time of day.}
-		\label{fig:webcam_summary}
+  \begin{subfigure}[b]{\columnwidth}
+    \centering
+		\includegraphics[width=0.49\columnwidth]{figs/cam_summary/623_01191411.jpg}
+		\includegraphics[width=0.49\columnwidth]{figs/cam_summary/623_10071911.jpg}
+		\includegraphics[width=\columnwidth]{figs/cam_summary/00000623_clouds.pdf}
+    \caption{\emph{Clouds}}
+	\end{subfigure}	
+  \begin{subfigure}[b]{\columnwidth}
+    \centering
+		\includegraphics[width=0.49\columnwidth]{figs/cam_summary/260_01011844.jpg}
+		\includegraphics[width=0.49\columnwidth]{figs/cam_summary/260_09011714.jpg}
+    \includegraphics[width=\columnwidth]{figs/cam_summary/00000260_snow.pdf}
+    \caption{\emph{Snow}}
+	\end{subfigure}	
+	\caption{Example attribute summaries over a year of webcam data.  The images
+           from each scene are denoted by the purple dots within each of the 
+           attribute summaries.}
+	\label{fig:webcam_summary}
 \end{figure}
+
+%\begin{figure}[t]
+%	\centering
+%		\includegraphics[width=0.5\textwidth, trim= 5mm 15mm 0mm 10mm]{figs/summary_260.pdf}
+%		\caption{The transient attribute values for a year of webcam 
+%             data.  Each column corresponds to a day of the year and each row
+%             corresponds to a time of day.}
+%		\label{fig:webcam_summary}
+%\end{figure}
 
 
 \subsection{Rapidly Labeling Sub-Images}
