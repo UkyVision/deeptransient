@@ -361,7 +361,7 @@ most accurately.
 	\label{tbl:transient}
 \end{table}
 
-We evaluted our three TransientNet variants on the dataset created by Laffont
+We evaluated our three TransientNet variants on the dataset created by Laffont
 et al.~\cite{Laffont14}.  We use the same holdout train/test split in which
 images from 81 webcams are used for training and images from a distinct set of
 20 other webcams are used for testing. 
@@ -719,7 +719,7 @@ the third example image shows the light snow cover in the south-eastern region
 of the United States.  Maps for other attributes show expected natural
 phenomena (the \textit{daylight} attribute increasing/decreasing east to west
 as the sun rises/sets) and cues about the natural world (the \textit{rugged}
-attribute higher in the mountainous west and low in the plains of the midwest).  
+attribute higher in the mountainous west and low in the central plains).  
 
 \subsection{Transient Semantics for Geolocalization}
 
@@ -732,7 +732,7 @@ geo-registered satellite imagery and the time series of features
 extracted from webcam images. The estimated camera location is the
 center of the satellite pixel for which the intensity is most
 correlated with the webcam time series. The only change from the
-original work is replacing the PCA coefficents (which are
+original work is replacing the PCA coefficients (which are
 unsupervised, but camera specific) with the transient attributes
 (which are supervised, but not camera specific).
 
@@ -770,8 +770,8 @@ visible in satellite imagery.
 		\includegraphics[width=0.27\textwidth]{figs/geoloc/geoloc_152_23573}
 		\caption{Example of webcam geolocalization using
           \textit{sunny} attributes. (left) Webcam images. (right)
-          Correlation maps with satllite imagery, where red regions
-          for larger correlations. Groundtruths are marked by green
+          Correlation maps with satellite imagery, where red regions
+          for larger correlations. Ground-truth locations are marked by green
           dots, predictions by blue stars.}
 		\label{fig:geoloc}
 \end{figure}
