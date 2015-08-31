@@ -383,7 +383,7 @@ average of 3.486, but our method only requires 0.192 seconds, and 18x speed up.
 
 \begin{figure}[t]
 	\centering
-		\includegraphics[width=0.5\textwidth, trim= 5mm 15mm 0mm 10mm]{figs/attr_compare.pdf}
+		\includegraphics[width=\linewidth, trim= 5mm 15mm 0mm 10mm]{figs/attr_compare.pdf}
 		\caption{A snapshot of three attributes over a week of data for
              an AMOS webcam.  The example images show that our network 
              correctly labels snowy scenes.}
@@ -520,13 +520,13 @@ that was labeled as being a daylight image.
   \centering
   \begin{subfigure}[b]{0.49\textwidth}
     \centering
-		\includegraphics[width=\textwidth, trim= 15mm 17mm 10mm 10mm]{figs/false_color_7371.pdf}
+		\includegraphics[width=\textwidth]{figs/false_color_7371.pdf}
     \caption{RGB = [\textit{sunny, lush, snow}]}
     \label{fig:false_color_1}
   \end{subfigure}
   \begin{subfigure}[b]{0.49\textwidth}
     \centering
-		\includegraphics[width=\textwidth, trim= 15mm 17mm 10mm 10mm]{figs/false_color_82.pdf}
+		\includegraphics[width=\textwidth]{figs/false_color_82.pdf}
     \caption{RGB = [\textit{sunny, storm, snow}]}
     \label{fig:false_color_2}
   \end{subfigure}
@@ -778,8 +778,9 @@ visible in satellite imagery.
 
 \begin{figure}
   \centering
-  \includegraphics[width=.235\textwidth]{figs/geoloc/tran_errors}
-  \includegraphics[width=.235\textwidth]{figs/geoloc/pca_errors}
+  \includegraphics[width=.9\linewidth]{figs/geoloc/tran_errors}
+
+  \includegraphics[width=.9\linewidth]{figs/geoloc/pca_errors}
   \caption{Comparison with method using first PCA coefficients. (left)
     Geolocalization results with \textit{sunny} attribute. (right)
     Geolocalization results with first PCA coefficients.}
