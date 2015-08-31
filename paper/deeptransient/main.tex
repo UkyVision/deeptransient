@@ -405,6 +405,24 @@ average of 3.486, but our method only requires 0.192 seconds, and 18x speed up.
 		\label{fig:netvis}
 \end{figure}
 
+\begin{figure}
+	\centering
+  \begin{subfigure}[b]{0.49\columnwidth}
+    \centering
+		\includegraphics[width=\columnwidth]{figs/ex_bad_ims/snow_bad_1.jpg}
+    \caption{\emph{Mislabeled \emph{snow}}}
+    \label{fig:ex_bad_snow}
+	\end{subfigure}	
+  \begin{subfigure}[b]{0.49\columnwidth}
+    \centering
+		\includegraphics[width=\columnwidth]{figs/ex_bad_ims/daylight_bad_1.jpg}
+    \caption{\emph{Mislabeled \emph{daylight}}}
+    \label{fig:ex_bad_daylight}
+	\end{subfigure}	
+	\caption{Example images with a mislabeled attribute}
+	\label{fig:ex_bad}
+\end{figure}
+
 %We look at the values for selected attributes over a given span of time and
 %their corresponding webcam images.  We qualitatively confirm the predicted
 %attribute values and visualize the scene which maximizes each attribute.
@@ -419,17 +437,20 @@ estimates.  The inverse relationship between the \textit{daylight} and
 shows images of the scene captured at different times, highlighting
 snowy and non-snowy periods.
 
-\figref{netvis} shows semantic average of images for a single scene.
-Each image is the average of the 100 images with the highest score for
-a particular attribute.  The subset of attributes shown in
-\figref{netvis} represent a wide variety of conditions of the scene.
-The seasonal attributes (\textit{autumn, summer, winter}) show how the
-scene changes throughout the year and lighting attributes
-(\textit{sunrise/sunset, daylight, night}) shows the scene in various
-lighting conditions.  
-Such images are easy to create and highlight the ability of our
-proposed technique to work across a broad range of conditions and
-scene types. 
+\figref{netvis} shows semantic average of images for a single scene.  Each
+image is the average of the 100 images with the highest score for a particular
+attribute.  The subset of attributes shown in \figref{netvis} represent a wide
+variety of conditions of the scene.  The seasonal attributes (\textit{autumn,
+summer, winter}) show how the scene changes throughout the year and lighting
+attributes (\textit{sunrise/sunset, daylight, night}) shows the scene in
+various lighting conditions.  Such images are easy to create and highlight the
+ability of our proposed technique to work across a broad range of conditions
+and scene types. 
+
+\figref{ex_bad} shows examples of images with an attribute that TransientNet-H
+mislabeled.  \figref{ex_bad_snow} shows a white-sand beach that was labeled as
+being a snowy image.  \figref{ex_bad_daylight} shows a lit sports arena at night
+that was labeled as being a daylight image.
 
 %Other attributes not shown in this montage have similar average
 %images to the ones shown, (\textit{e.g., glowing and colorful similar to
