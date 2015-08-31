@@ -626,8 +626,6 @@ meaningful than those based on PCA~\cite{jacobs09webcamdata}.
 
 \subsection{Mapping Weather Using Webcams}
 
-\todo{this section needs help}
-
 \begin{figure*}
   \centering
   \begin{subfigure}[b]{0.33\textwidth}
@@ -667,10 +665,9 @@ meaningful than those based on PCA~\cite{jacobs09webcamdata}.
     \label{fig:snow_map_est_3}
   \end{subfigure}
   \caption{Maps of the snow attribute from webcams across the
-           continental United States in the month of January, 2014 and the corresponding
-           map of snow depth created using remote sensing data.\protect\footnotemark 
-           The top row shows the remote sensing snow maps and the bottom row 
-           shows the snow maps using the snow attribute.}
+           continental United States in the month of January, 2014 (\emph{bottom})
+           and the corresponding map of snow depth created using remote 
+           sensing data (\emph{top}).\protect\footnotemark} 
   \label{fig:snow_maps}
 \end{figure*}
 \footnotetext{Ground truth snow maps from: \url{http://www.nohrsc.noaa.gov/nsa/index.html}}
@@ -683,25 +680,26 @@ meaningful than those based on PCA~\cite{jacobs09webcamdata}.
 \end{figure}
 
 We show how to use webcams with known locations to capture the geo-spatial
-distribution of transient attributes. \todo{how did we do it?}
-
-\figref{snow_maps} shows three maps for the snow attribute across the
-continental United States.  Data from January 2014 for AMOS webcams within the
-continental United States and the southern edge of Canada was downloaded and
-labeled using TransientNet-H. These maps show predicted snow coverage using
-only the \emph{snow} attribute.  Variation between the three maps shows snow
-accumulating and melting throughout the month.  Anomalous regions of high snow
-values, such as those along the California coast, come from false positive
-labels.  One such region comes from a camera facing a white-sand beach, which
-appears visually similar to a snowy scene.  Several cameras of this nature were
-manually pruned from the dataset.  \figref{snow_exs} shows example images from
-selected webcams on January 29th, 2014. The first two example images show heavy
-snow cover in northern areas and the third example image shows the light snow
-cover in the south-eastern region of the United States.  Maps for other
-attributes show expected natural phenomena (the \textit{daylight} attribute
-increasing/decreasing east to west as the sun rises/sets) and cues about the
-natural world (the \textit{rugged} attribute higher in the mountainous west and
-low in the plains of the midwest).  
+distribution of transient attributes. We downloaded data for January 2014 from
+3500 AMOS webcams across the United States.  The images were labeled using
+TransientNet-H to create a sparse distribution of points.  We then used locally
+weighted averaging to estimate the attribute map.  \figref{snow_maps} shows
+three maps for the snow attribute across the continental United States.  Data
+from January 2014 for AMOS webcams within the continental United States and the
+southern edge of Canada was downloaded and labeled using TransientNet-H. These
+maps show predicted snow coverage using only the \emph{snow} attribute.
+Variation between the three maps shows snow accumulating and melting throughout
+the month.  Anomalous regions of high snow values, such as those along the
+California coast, come from false positive labels.  One such region comes from
+a camera facing a white-sand beach, which appears visually similar to a snowy
+scene.  Several cameras of this nature were manually pruned from the dataset.
+\figref{snow_exs} shows example images from selected webcams on January 29th,
+2014. The first two example images show heavy snow cover in northern areas and
+the third example image shows the light snow cover in the south-eastern region
+of the United States.  Maps for other attributes show expected natural
+phenomena (the \textit{daylight} attribute increasing/decreasing east to west
+as the sun rises/sets) and cues about the natural world (the \textit{rugged}
+attribute higher in the mountainous west and low in the plains of the midwest).  
 
 \subsection{Transient Semantics for Geolocalization}
 
