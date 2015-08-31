@@ -290,15 +290,16 @@ and TransientNet-H.
 \vspace{-1em}
 \paragraph{Implementation Details:} Our networks are trained using the
 Caffe~\cite{caffe14} deep learning framework, the CaffeNet reference network
-architecture (a variant of AlexNet), and pre-trained networks
-from the Caffe Model
-Zoo\footnote{\url{http://caffe.berkeleyvision.org/model_zoo.html}}.
-All of our networks were trained on NVIDIA M2075 GPU Cards for 24
-hours each, and evaluated using Caffe in CPU mode on Dell C6220
-Servers equipped with Dual Intel E5-2670 8 Core (Sandy Bridge)
-processors at 2.6 GHz.  The full network optimization definition, the
-final network weights, and the output from our methods will be made
-available online for all six networks \emph{pending publication}.
+architecture (a variant of AlexNet), and pre-trained networks from the Caffe
+Model Zoo\footnote{\url{http://caffe.berkeleyvision.org/model_zoo.html}}.  The
+full network optimization definition, the final network weights, and the output
+from our methods will be made available online for all six networks
+\emph{pending publication}.
+
+%All of our networks were trained on NVIDIA M2075 GPU Cards for 24
+%hours each, and evaluated using Caffe in CPU mode on Dell C6220
+%Servers equipped with Dual Intel E5-2670 8 Core (Sandy Bridge)
+%processors at 2.6 GHz.  
 
 \section{Evaluation}
 
@@ -683,7 +684,12 @@ We show how to use webcams with known locations to capture the geo-spatial
 distribution of transient attributes. We downloaded data for January 2014 from
 3500 AMOS webcams across the United States.  The images were labeled using
 TransientNet-H to create a sparse distribution of points.  We then used locally
-weighted averaging to estimate the attribute map.  \figref{snow_maps} shows
+weighted averaging to estimate the attribute map.  This differs from the method
+proposed in Murdock et al.~\cite{murdock13clouds} in that our method uses a
+single model to make predictions for all cameras, while Murdock et al. create
+camera-specific models.
+
+\figref{snow_maps} shows
 three maps for the snow attribute across the continental United States.  Data
 from January 2014 for AMOS webcams within the continental United States and the
 southern edge of Canada was downloaded and labeled using TransientNet-H. These
