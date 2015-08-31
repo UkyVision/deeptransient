@@ -515,9 +515,10 @@ scene types.
     \caption{RGB = [\textit{sunny, storm, snow}]}
     \label{fig:false_color_2}
   \end{subfigure}
-  \caption{Example images run through the fully convolutional
-           TransientNet-H with different attributes as the color channels for
-           the composite image.}
+  \caption{Example images run through the fully convolutional TransientNet-H.
+           Brighter areas in each of the color channels indicate a high
+           attribute value.  The composite image shows areas with high values
+           for multiple attributes.}
   \label{fig:false_color_ims}
 \end{figure*}
 
@@ -606,6 +607,7 @@ webcam. A labeling scheme like this one allows a user to, for example,
 search for the snowy images from a \textit{mysterious} webcam. This
 allows for easier searching of large collections of webcams.
 
+\todo{change this text}
 To support rapid browsing of a large webcam image collection, we create
 summaries of the transient attributes estimated by TransientNet.
 \figref{webcam_summary} summarizes a year of images from a single AMOS webcam.
