@@ -209,15 +209,15 @@ networks.
 % I don't know if we still need this plot.  It takes up 
 % a lot of space and isn't terribly informative.  I think
 % the space is better used by some of the other figures
-\begin{figure*}[t!]
-	\centering
-		\includegraphics[width=1.0\textwidth, trim= 0 4mm 0 0]{figs/avg_err_compare.pdf}
-		\caption{This shows the average errors for each attribute from the method proposed
-						 by Laffont et al., and our three networks: TransientNet-I, TransientNet-P,
-             and TransientNet-H.  TransientNet-H has the lowest average error for a 
-             majority of the attributes.}
-		\label{fig:compare}
-\end{figure*}
+%\begin{figure*}[t!]
+%	\centering
+%		\includegraphics[width=1.0\textwidth, trim= 0 4mm 0 0]{figs/avg_err_compare.pdf}
+%		\caption{This shows the average errors for each attribute from the method proposed
+%						 by Laffont et al., and our three networks: TransientNet-I, TransientNet-P,
+%             and TransientNet-H.  TransientNet-H has the lowest average error for a 
+%             majority of the attributes.}
+%		\label{fig:compare}
+%\end{figure*}
 
 \vspace{-1em}
 \paragraph{CloudyNet:} For the problem of classifying whether an image is sunny or
@@ -238,23 +238,21 @@ drop the final fully connected layer and replace it with a
 fully connected layer with two output nodes.
 
 \vspace{-1em}
-\paragraph{TransientNet:} For the more challenging problem of estimating
-the presence of a broad range of attributes in an image, we use the dataset introduced by Laffont
-et al.~\cite{Laffont14}. 
-The dataset contains images from
-outdoor webcams in the Archive of Many Outdoor Scenes~\cite{jacobs07amos} and
-the Webcam Clip Art Dataset~\cite{lalondesig09}.  The webcams span a wide range
-of outdoor scenes, from urban regions to wooded, mountainous regions. Each
-webcam has 60--120 images captured in a wide range of conditions
-at different times of day and on
-different days of the year.  The final dataset consists of $8\,571$ high resolution images from 101 webcams.
-The authors define a set of 40 transient attributes
-(see \figref{compare} for the full list of attributes), each of which is
-assigned a value between zero and one, representing the confidence
-of that attribute appearing in an image. We modify the AlexNet network architecture
-by changing the final fully connected layer to have 40 output nodes, one for
-each transient attribute, and updating the loss function to an $L_2$
-loss. We call the resulting network TransientNet. 
+\paragraph{TransientNet:} For the more challenging problem of estimating the
+presence of a broad range of attributes in an image, we use the dataset
+introduced by Laffont et al.~\cite{Laffont14}.  The dataset contains images
+from outdoor webcams in the Archive of Many Outdoor Scenes~\cite{jacobs07amos}
+and the Webcam Clip Art Dataset~\cite{lalondesig09}.  The webcams span a wide
+range of outdoor scenes, from urban regions to wooded, mountainous regions.
+Each webcam has 60--120 images captured in a wide range of conditions at
+different times of day and on different days of the year.  The final dataset
+consists of $8\,571$ high resolution images from 101 webcams.  The authors
+define a set of 40 transient attributes, each of which is assigned a value
+between zero and one, representing the confidence of that attribute appearing
+in an image. We modify the AlexNet network architecture by changing the final
+fully connected layer to have 40 output nodes, one for each transient
+attribute, and updating the loss function to an $L_2$ loss. We call the
+resulting network TransientNet. 
 
 \vspace{-1em}
 \paragraph{Network Training:} For each network architecture, we start the training procedure from three different initial conditions,
@@ -363,20 +361,15 @@ most accurately.
 	\label{tbl:transient}
 \end{table}
 
-We evaluted our three TransientNet variants on the dataset created by
-Laffont et al.~\cite{Laffont14}.
-We use the same holdout
-train/test split in which images from 81 webcams are
-used for training and images from a distinct set of 20 other webcams are
-used for testing. \figref{compare} shows the average
-errors from TransientNet-I, TransientNet-P,
-TransientNet-H and Laffont et al.\ for each attribute in the dataset.
+We evaluted our three TransientNet variants on the dataset created by Laffont
+et al.~\cite{Laffont14}.  We use the same holdout train/test split in which
+images from 81 webcams are used for training and images from a distinct set of
+20 other webcams are used for testing. 
 %TransientNet-H performs best on more than half of the attributes and is the
 %best performing CNN that we trained.
-TransientNet-H has the lowest overall
-average error as shown in \tblref{transient}.  TransientNet-P and
-TransientNet-H have similar performance, mostly due to them being pretrained on
-similar sets of data.
+TransientNet-H has the lowest overall average error as shown in
+\tblref{transient}.  TransientNet-P and TransientNet-H have similar
+performance, mostly due to them being pretrained on similar sets of data.
 
 %\tblref{timing} compares the average prediction speed for the method provided
 %by Laffont et al.~\cite{Laffont14} and our best performing network,
