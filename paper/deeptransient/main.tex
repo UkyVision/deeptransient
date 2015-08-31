@@ -590,24 +590,22 @@ attributes from webcam imagery, and 3) to geolocalize webcams.
 
 \subsection{Browsing and Querying Webcam Archives}
 
-Webcam collections such as AMOS~\cite{jacobs07amos} contain thousands
-of geolocated webcams with years of archived data.  Searching for
-scenes, and images, with a set of desired attributes is currently a
-time-consuming manual process. For example, when working on outdoor
-photometric stereo~\cite{abramsheliometric} it is common to manually
-filter out all cloudy images. We simplify this process by using
-TransientNet to tag images and webcams with certain attributes.  If an
-attribute is above a threshold ($t_h = ???$ \todo{what do we use}),
-the image is labeled with that attribute.  The opposite is true as
-well. If an attribute is below a threshold ($t_l = ???$ \todo{what do
-we use}), the attribute is added to a list of attributes the image
-does not have. This enables users to use queries such as ``sunny'' or
-``not winter''. Labeling is done on the image level as well as the
-webcam level. Attributes that are uniquely high for a webcam (i.e.,
-$P(label|camera)\gg P(label|all\ cameras)$) are used to tag the
-webcam. A labeling scheme like this one allows a user to, for example,
-search for the snowy images from a \textit{mysterious} webcam. This
-allows for easier searching of large collections of webcams.
+Webcam collections such as AMOS~\cite{jacobs07amos} contain thousands of
+geolocated webcams with years of archived data.  Searching for scenes, and
+images, with a set of desired attributes is currently a time-consuming manual
+process. For example, when working on outdoor photometric
+stereo~\cite{abramsheliometric} it is common to manually filter out all cloudy
+images. We simplify this process by using TransientNet to tag images and
+webcams with certain attributes.  If an attribute is above a threshold ($t_h =
+0.75$), the image is labeled with that attribute.  The opposite is true as
+well. If an attribute is below a threshold ($t_l = 0.25$), the attribute is
+added to a list of attributes the image does not have. This enables users to
+use queries such as ``sunny'' or ``not winter''. Labeling is done on the image
+level as well as the webcam level. Attributes that are uniquely high for a
+webcam (i.e., $P(label|camera)\gg P(label|all\ cameras)$) are used to tag the
+webcam. A labeling scheme like this one allows a user to, for example, search
+for the snowy images from a \textit{mysterious} webcam. This allows for easier
+searching of large collections of webcams.
 
 To support rapid browsing of a large webcam image collection, we create
 summaries of the transient attributes estimated by TransientNet.
