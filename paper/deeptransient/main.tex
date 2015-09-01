@@ -169,7 +169,8 @@ called {\em AlexNet}, introduced by Alex Krizhevsky et al.~\cite{caffenetnips12}
 for single-image object classification. This network has eight layers with
 trainable parameters: five convolutional layers (each connected, in a
 feed-forward manner with pooling and dropout layers between each convolutional
-layer) and three fully connected layers. The network parameters are selected by minimizing a
+layer\todo{dropout is after the first two fully-connected}) and three 
+fully connected layers. The network parameters are selected by minimizing a
 softmax loss function. Essentially, the convolutional layers
 extract features from across the image and the fully connected layers combine
 these features to obtain a score for each possible class. The final
