@@ -1,31 +1,55 @@
-@STRING{CVPR = {IEEE Conf on Computer Vision and Pattern Recognition}}
 @STRING{CVPR = {CVPR}}
+@STRING{CVPR = {IEEE Conference on Computer Vision and Pattern Recognition}}
 
-@STRING{ICDSC = {International Conference on Distributed Smart Cameras}}
-@STRING{ICDSC = {ICDSC}}
-
-@STRING{ECCV = {European Conference on Computer Vision}}
 @STRING{ECCV = {ECCV}}
+@STRING{ECCV = {European Conference on Computer Vision}}
 
-@STRING{ICCV = {IEEE International Conference on Computer Vision}}
 @STRING{ICCV = {ICCV}}
+@STRING{ICCV = {IEEE International Conference on Computer Vision}}
+
+@STRING{ICDSC = {ICDSC}} 
+@STRING{ICDSC = {International Conference on Distributed Smart Cameras}} 
+
+@STRING{BMVC = {BMVC}}
+@STRING{BMVC = {British Machine Vision Conference}}
+
+@STRING{ICPR = {ICPR}}
+@STRING{ICPR= {International Conference on Pattern Recognition}}
+
+@STRING{SIGGRAPH = {SIGGRAPH}} 
+@STRING{SIGGRAPH = {ACM Transactions on Graphics (SIGGRAPH)}}
+
+@STRING{NIPS = {NIPS}}
+@STRING{NIPS = {Advances in Neural Information Processing Systems}}
+
+@STRING{ICML = {ICML}}
+@STRING{ICML = {International Conference on Machine Learning}}
+
+@STRING{WACV_C = {WACV}}
+@STRING{WACV_C = {IEEE Winter Conference on Applications of Computer Vision}}
+
+@STRING{WACV_W = {WACV}}
+@STRING{WACV_W = {IEEE Workshop on Applications of Computer Vision}}
+
+@STRING{T-PAMI = {PAMI}}
+@STRING{T-PAMI = {IEEE Transactions on Pattern Analysis and Machine Intelligence}}
 
 @STRING{IJCV = {IJCV}}
 @STRING{IJCV = {International Journal of Computer Vision}}
 
-@STRING{WACV = {Workshop on Applications of Computer Vision}}
-@STRING{WACV = {WACV}}
+@STRING{CVIU = {CVIU}} 
+@STRING{CVIU = {Computer Vision and Image Understanding}} 
 
-@STRING{NIPS = {Advances in Neural Information Processing Systems}}
-@STRING{NIPS = {NIPS}}
+@STRING{WWW = {WWW}}
+@STRING{WWW = {International World Wide Web Conference}} 
 
-@STRING{T-PAMI = {IEEE Transactions on Pattern Analysis and Machine Intelligence}}
-@STRING{T-PAMI = {PAMI}}
+@STRING{TOG = {TOG}}
+@STRING{TOG = {ACM Transactions on Graphics}}
 
 @article{Laffont14,
     title = {Transient Attributes for High-Level Understanding and Editing of Outdoor Scenes},
     author = {Pierre-Yves Laffont and Zhile Ren and Xiaofeng Tao and Chao Qian and James Hays},
-    journal = {ACM Transactions on Graphics (Proceedings of SIGGRAPH)},
+    journal = SIGGRAPH,
     volume = {33},
     number = {4},
     year = {2014}
@@ -63,11 +87,10 @@
                   Srinivasa G. Narasimhan},
   title =	 {Webcam Clip Art: Appearance and Illuminant Transfer
                   from Time-lapse Sequences},
-  journal =	 {ACM Transactions on Graphics (SIGGRAPH Asia 2009)},
+  journal =	 SIGGRAPH,
   year =	 2009,
   volume =	 28,
   number =	 5,
-  month =	 {December}
 }
 
 @inproceedings{lutwoclass,
@@ -100,7 +123,7 @@
     Souvenir},
   title={{Images+Weather: Collection, Validation, and Refinement}},
   year=2013,
-  booktitle=CVPR
+  booktitle={IEEE CVPR Workshop on Ground Truth}
 }
 
 @inproceedings{jacobs13cloudcalibration,
@@ -123,7 +146,7 @@
   title={{Webcam2Satellite: Estimating Cloud Maps from Webcam
     Imagery}},
   year=2013,
-  booktitle=WACV
+  booktitle=WACV_W
 }
 
 @inproceedings{abrams12lost,
@@ -131,7 +154,7 @@
     Pless},
   title={{LOST: Longterm Observation of Scenes (with Tracks)}},
   year=2012,
-  booktitle=WACV
+  booktitle=WACV_W
 }
 
 @inproceedings{jacobs09webcamgis,
@@ -233,13 +256,13 @@
   year={2012}
 }
 
-@article{girshick2013rich,
+@inproceedings{girshick2013rich,
   title={Rich feature hierarchies for accurate object detection and
     semantic segmentation},
   author={Girshick, Ross and Donahue, Jeff and Darrell, Trevor and
     Malik, Jitendra},
-  journal={arXiv preprint arXiv:1311.2524},
-  year={2013}
+  booktitle=CVPR,
+  year={2014}
 }
 
 @inproceedings{yosinski2014transferable,
@@ -267,7 +290,7 @@
 @article{skyfinder,
   title={SkyFinder: attribute-based sky image search},
   author={Tao, Litian and Yuan, Lu and Sun, Jian},
-  journal={ACM Transactions on Graphics (Proceedigns of SIGGRAPH)},
+  journal=SIGGRAPH,
   volume={28},
   number={3},
   pages={68},
@@ -281,14 +304,21 @@
   year = {2009},
   month = {jun},
   booktitle = {{IEEE CVPR Workshop on Internet Vision}},
-  pubtype = {oral presentation},
-  doi = {10.1109/CVPRW.2009.5204185},
-  pdf = {http://cs.uky.edu/~jacobs/papers/jacobs09webcamdata.pdf},
-  annotation = {webcam,cameranetwork,timelapse,ugrad,calibration}
 }
+
 @inproceedings{long2015fully,
   title={Fully Convolutional Networks for Semantic Segmentation},
   author={Long, Jonathan and Shelhamer, Evan and Darrell, Trevor},
   booktitle=CVPR,
   year=2015
+}
+
+@article{workman2015distributed,
+  author = {Scott Workman and Richard Souvenir and Nathan Jacobs},
+  title = {{Scene Shape Estimation from Multiple Partly Cloud Days}},
+  journal = CVIU, 
+  volume={134},
+  number={},
+  pages={116--129},
+  year=2015,
 }
