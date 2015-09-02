@@ -38,17 +38,17 @@
 
 \begin{abstract}
 
-We propose to use deep convolutional neural networks to estimate the transient
-attributes of a scene from a single image.  Transient scene attributes describe
-both the objective conditions, such as the weather, time of day, and the
-season, and subjective properties of a scene, such as whether or not the scene
-seems busy. Recently, convolutional neural networks have been used to achieve
-state-of-the-art results for many vision problems, from object detection to
-scene classification, but have not previously been used for estimating
-transient attributes. We compare several methods for adapting an existing
-network architecture and present state-of-the-art results on two benchmark
-datasets. Our method is more accurate and significantly faster than previous
-methods, enabling real-world applications. 
+We propose the use of deep convolutional neural networks to estimate the
+transient attributes of a scene from a single image.  Transient scene
+attributes describe both the objective conditions, such as the weather, time of
+day, and the season, and subjective properties of a scene, such as whether or
+not the scene seems busy. Recently, convolutional neural networks have been
+used to achieve state-of-the-art results for many vision problems, from object
+detection to scene classification, but have not previously been used for
+estimating transient attributes. We compare several methods for adapting an
+existing network architecture and present state-of-the-art results on two
+benchmark datasets. Our method is more accurate and significantly faster than
+previous methods, enabling real-world applications. 
 
 \end{abstract}
 
@@ -83,9 +83,9 @@ estimating transient scene attributes. First, the problem of estimating whether
 it is sunny or cloudy~\cite{lutwoclass} and second, predicting the degree to
 which various transient attributes are present in the scene~\cite{Laffont14}.
 To this end, we present two different networks and three different training
-methods. Our methods achieve state-of-the-art results on two benchmark
-datasets and are significantly faster than previous approaches.  \figref{cartoon} shows an
-overview of our method.  
+initializations. Our methods achieve state-of-the-art results on two benchmark
+datasets and are significantly faster than previous approaches.
+\figref{cartoon} shows an overview of our method.  
 
 %Input images are pushed through the specially trained
 %CNN that outputs a set of attribute values.
@@ -120,7 +120,7 @@ overview of our method.
 % what we can do now that we have this?
 
 The key contributions of this work are: 1) proposing several CNN
-training methods for predicting transient attributes, 2) evaluating
+training initializations for predicting transient attributes, 2) evaluating
 the proposed methods on two benchmark datasets, 3) releasing
 pre-trained networks for classifying transient scene attributes in a
 popular deep learning framework, and 4) demonstrating several
@@ -368,7 +368,7 @@ images from 81 webcams are used for training and images from a distinct set of
 %best performing CNN that we trained.
 TransientNet-H has the lowest overall average error as shown in
 \tblref{transient}.  TransientNet-P and TransientNet-H have similar
-performance, mostly due to them being pretrained on similar sets of data.
+performance, mostly due to them being pre-trained on similar sets of data.
 
 %\tblref{timing} compares the average prediction speed for the method provided
 %by Laffont et al.~\cite{Laffont14} and our best performing network,
