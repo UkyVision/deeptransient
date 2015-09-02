@@ -298,14 +298,6 @@ from our methods will be made available online for all six networks
 %Servers equipped with Dual Intel E5-2670 8 Core (Sandy Bridge)
 %processors at 2.6 GHz.  
 
-\section{Evaluation}
-
-We evaluated our networks on two benchmark datasets. The results show
-that our proposed approaches are significantly faster and more
-accurate than previous methods. 
-
-\subsection{Two-Class Weather Classification}
-
 \begin{table}[t]
 	\centering
 	\caption{Two class weather classification accuracy}
@@ -320,6 +312,29 @@ accurate than previous methods.
 	\end{tabular}
 	\label{tbl:twoclass}
 \end{table}
+
+\begin{table}[t]
+	\centering
+	\caption{Transient attribute prediction errors}
+	\begin{tabular}{ | l | c | }
+		\hline
+			Method & Average Error \\ \hline \hline
+			Laffont et al.~\cite{Laffont14}& 4.2\% \\ \hline
+			TransientNet-I & 4.05\% \\ \hline
+			TransientNet-P & 3.87\% \\ \hline
+			TransientNet-H & \textbf{3.83\%} \\ 
+		\hline
+	\end{tabular}
+	\label{tbl:transient}
+\end{table}
+
+\section{Evaluation}
+
+We evaluated our networks on two benchmark datasets. The results show
+that our proposed approaches are significantly faster and more
+accurate than previous methods. 
+
+\subsection{Two-Class Weather Classification}
 
 We evaluated our three CloudyNet variants using the dataset created by Lu et
 al.~\cite{lutwoclass} (introduced in Section~\ref{sec:method}). 
@@ -345,21 +360,6 @@ most accurately.
 
 \subsection{Transient Attributes Estimation}
 
-\begin{table}[t]
-	\centering
-	\caption{Transient attribute prediction errors}
-	\begin{tabular}{ | l | c | }
-		\hline
-			Method & Average Error \\ \hline \hline
-			Laffont et al.~\cite{Laffont14}& 4.2\% \\ \hline
-			TransientNet-I & 4.05\% \\ \hline
-			TransientNet-P & 3.87\% \\ \hline
-			TransientNet-H & \textbf{3.83\%} \\ 
-		\hline
-	\end{tabular}
-	\label{tbl:transient}
-\end{table}
-
 We evaluated our three TransientNet variants on the dataset created by Laffont
 et al.~\cite{Laffont14}.  We use the same holdout train/test split in which
 images from 81 webcams are used for training and images from a distinct set of
@@ -374,11 +374,9 @@ performance, mostly due to them being pretrained on similar sets of data.
 %by Laffont et al.~\cite{Laffont14} and our best performing network,
 %TransientNet-H. 
 
-In addition to having higher accuracy, our method is significantly
-faster.  For a single image, Laffont et al.'s method takes an
-average of 3.486, but our method only requires 0.192 seconds, and 18x speed up. 
-
-\subsection{Example Results}
+In addition to having higher accuracy, our method is significantly faster.  For
+a single image, Laffont et al.'s method takes an average of 3.486 seconds, but
+our method only requires 0.192 seconds, and 18x speed up. 
 
 \begin{figure}[t]
 	\centering
@@ -387,6 +385,8 @@ average of 3.486, but our method only requires 0.192 seconds, and 18x speed up.
              The example images show correctly labeled snowy scenes.}
 		\label{fig:attrcmp}
 \end{figure}
+
+\subsection{Example Results}
 
 \begin{figure}[t]
 	\centering
@@ -627,25 +627,6 @@ webcam. A labeling scheme like this one allows a user to, for example, search
 for the snowy images from a \textit{mysterious} webcam. This allows for easier
 searching of large collections of webcams.
 
-To support rapid browsing of a large webcam image collection, we create
-summaries of the transient attributes estimated by TransientNet.
-\figref{webcam_summary} summarizes a year of images from AMOS webcams.
-\figref{clouds} shows one year of the \emph{clouds} attribute and \figref{snow}
-shows one year of the \emph{snow} attribute.  Each column in the summary is a
-single day and each row a different time of the day (in 30 minute intervals).
-Each pixel is colored based on the attribute value for the corresponding webcam
-image. Attributes such as \textit{snow}, \textit{cold}, and \textit{winter}
-have higher values in the winter months and lower values during the summer
-months, as shown in \figref{snow}. The \textit{night} and \textit{daylight}
-attributes clearly show the day/night cycle for the location of the image.
-Properties about the scene can be inferred from these summaries.  Consistently
-high values for the \textit{glowing} attribute at night indicate the presence
-of streetlights and/or other man made light sources in the scene.  Such
-visualizations, are more robust to camera motion and more semantically
-meaningful than those based on PCA~\cite{jacobs09webcamdata}.
-
-\subsection{Mapping Weather Using Webcams}
-
 \begin{figure*}
   \centering
   \begin{subfigure}[b]{0.33\textwidth}
@@ -690,7 +671,26 @@ meaningful than those based on PCA~\cite{jacobs09webcamdata}.
            sensing data (\emph{top}).\protect\footnotemark} 
   \label{fig:snow_maps}
 \end{figure*}
-\footnotetext{Ground truth snow maps from: \url{http://www.nohrsc.noaa.gov/nsa/index.html}}
+\footnotetext{\url{http://www.nohrsc.noaa.gov/nsa/index.html}}
+
+To support rapid browsing of a large webcam image collection, we create
+summaries of the transient attributes estimated by TransientNet.
+\figref{webcam_summary} summarizes a year of images from AMOS webcams.
+\figref{clouds} shows one year of the \emph{clouds} attribute and \figref{snow}
+shows one year of the \emph{snow} attribute.  Each column in the summary is a
+single day and each row a different time of the day (in 30 minute intervals).
+Each pixel is colored based on the attribute value for the corresponding webcam
+image. Attributes such as \textit{snow}, \textit{cold}, and \textit{winter}
+have higher values in the winter months and lower values during the summer
+months, as shown in \figref{snow}. The \textit{night} and \textit{daylight}
+attributes clearly show the day/night cycle for the location of the image.
+Properties about the scene can be inferred from these summaries.  Consistently
+high values for the \textit{glowing} attribute at night indicate the presence
+of streetlights and/or other man made light sources in the scene.  Such
+visualizations, are more robust to camera motion and more semantically
+meaningful than those based on PCA~\cite{jacobs09webcamdata}.
+
+\subsection{Mapping Weather Using Webcams}
 
 \begin{figure}[t]
 	\centering
@@ -741,19 +741,12 @@ original work is replacing the PCA coefficients (which are
 unsupervised, but camera specific) with the transient attributes
 (which are supervised, but not camera specific).
 
-\begin{figure}
-	\centering
-		\includegraphics[width=0.5\textwidth, trim= 0mm 0mm 0mm 0mm]{figs/geoloc/webcam_dist}
-		\caption{Distribution of 180 webcams used for evaluation.}
-		\label{fig:webcamdist}
-\end{figure}
-
-\begin{figure}
+\begin{figure}[t]
   \centering
-  \includegraphics[width=.9\linewidth]{figs/geoloc/tran_errors}
-  \includegraphics[width=.9\linewidth]{figs/geoloc/pca_errors}
-  \caption{Comparison with method using first PCA coefficients. (left)
-    Geolocalization results with \textit{sunny} attribute. (right)
+  \includegraphics[width=.9\linewidth, trim= 20mm 0mm 20mm 0mm]{figs/geoloc/tran_errors}
+  \includegraphics[width=.9\linewidth, trim= 20mm 0mm 20mm 0mm]{figs/geoloc/pca_errors}
+  \caption{Comparison with method using first PCA coefficients. (\emph{top})
+    Geolocalization results with \textit{sunny} attribute. (\emph{bottom})
     Geolocalization results with first PCA coefficients.}
   \label{fig:locerror}
 \end{figure}
@@ -775,6 +768,13 @@ applying PCA to outdoor webcam data. When the camera jitters it is
 likely that the PCA coefficients encode for motion, not changes
 visible in satellite imagery.
 
+\begin{figure}[t]
+	\centering
+		\includegraphics[width=0.5\textwidth, trim= 0mm 5mm 0mm 0mm]{figs/geoloc/webcam_dist}
+		\caption{Distribution of 180 webcams used for evaluation.}
+		\label{fig:webcamdist}
+\end{figure}
+
 \begin{figure}
 	\centering
 		\includegraphics[width=0.18\textwidth]{figs/geoloc/297}
@@ -784,10 +784,10 @@ visible in satellite imagery.
 		\includegraphics[width=0.18\textwidth]{figs/geoloc/23573}
 		\includegraphics[width=0.27\textwidth]{figs/geoloc/geoloc_152_23573}
 		\caption{Example of webcam geolocalization using
-          \textit{sunny} attributes. (left) Webcam images. (right)
-          Correlation maps with satellite imagery, where orange color
+          \textit{sunny} attribute. (\emph{left}) Webcam images. (\emph{right})
+          Correlation maps with satellite imagery, where orange 
           means larger correlation. Ground-truth locations are marked
-          by green dots, predictions by magenta squares.}
+          by green dots, predictions by blue squares.}
 		\label{fig:geoloc}
 \end{figure}
 
