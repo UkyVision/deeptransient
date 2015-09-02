@@ -74,7 +74,7 @@ monitoring~\cite{jacobs09webcamgis}.
 
 We propose a fast method for predicting transient attributes from a single
 image using deep convolutional neural networks (CNNs). CNNs have been used to
-obtain state-of-the-art results in problems ranging from object
+obtain state-of-the-art results for many vision tasks, including object
 classification~\cite{krizhevsky2012imagenet}, object
 detection~\cite{girshick2013rich}, and scene
 classification~\cite{zhou2014places} but have not been used to estimate
@@ -382,7 +382,7 @@ our method only requires 0.192 seconds, an 18x speed up.
 	\centering
 		\includegraphics[width=\linewidth, trim= 5mm 15mm 0mm 10mm]{figs/attr_compare.pdf}
 		\caption{A snapshot of three attributes over a week of webcam data.
-             The example images show correctly labeled snowy scenes.}
+             The highlighted images show the scene at the given point in time.}
 		\label{fig:attrcmp}
 \end{figure}
 
@@ -410,7 +410,7 @@ our method only requires 0.192 seconds, an 18x speed up.
     \caption{Mislabeled \emph{daylight}}
     \label{fig:ex_bad_daylight}
 	\end{subfigure}	
-	\caption{Example images and the mislabeled attribute.}
+	\caption{Two failure cases and their mislabeled attribute.}
 	\label{fig:ex_bad}
 \end{figure}
 
@@ -529,7 +529,7 @@ that was labeled as being a daylight image.
     \caption{RGB = [\textit{sunny, storm, snow}]}
     \label{fig:false_color_2}
   \end{subfigure}
-  \caption{Example images run through the fully convolutional TransientNet-H.
+  \caption{Composite images generated using the fully convolutional TransientNet-H.
            Brighter areas in each of the color channels indicate a high
            attribute value.}
   \label{fig:false_color_ims}
@@ -561,9 +561,8 @@ that was labeled as being a daylight image.
     \caption{\emph{Snow}}
     \label{fig:snow}
 	\end{subfigure}	
-	\caption{Example attribute summaries over a year of webcam data.  The images
-           from each scene are denoted by the blue dots within each 
-           attribute summary.}
+	\caption{Example attribute summaries over a year of webcam data.  The highlighted
+           images are denoted by the blue dots within each attribute summary.}
 	\label{fig:webcam_summary}
 \end{figure}
 
@@ -580,15 +579,15 @@ that was labeled as being a daylight image.
 \subsection{Rapidly Labeling Sub-Images}
 
 We convert the final, fully connected layers of TransientNet to be
-convolutional with the same number of outputs.  The output from this new,
-''fully convolutional'' network allows us to create images showing an
-attribute's value across an input image, as shown in \figref{false_color_ims}.
-The values for each attribute can be visualized in a single channel image.
-Combining three of these images results in the composite images.
-\figref{false_color_1} shows a composite image using the \textit{sunny},
-\textit{lush}, and \textit{snow} attributes as the color channels.  As
-expected, there are no snowy areas in the input image, shown in the blue
-channel, and the bottom of the image contains high values for the lush
+convolutional~\cite{long2015fully} with the same number of outputs.  The output
+from this new, ''fully convolutional'' network allows us to create images
+showing an attribute's value across an input image, as shown in
+\figref{false_color_ims}.  The values for each attribute can be visualized in a
+single channel image.  Combining three of these images results in the composite
+images.  \figref{false_color_1} shows a composite image using the
+\textit{sunny}, \textit{lush}, and \textit{snow} attributes as the color
+channels.  As expected, there are no snowy areas in the input image, shown in
+the blue channel, and the bottom of the image contains high values for the lush
 attribute, shown in the green channel.  The sunny attribute is higher towards
 the horizon and middle of the sky, show in the red channel, possibly due to the
 sky being brighter in these regions.  \figref{false_color_2} shows a composite
@@ -613,7 +612,7 @@ Webcam collections such as AMOS~\cite{jacobs07amos} contain thousands of
 geolocated webcams with years of archived data.  Searching for scenes, and
 images, with a set of desired attributes is currently a time-consuming manual
 process. For example, when working on outdoor photometric
-stereo~\cite{abramsheliometric} it is common to manually filter out all cloudy
+stereo~\cite{abramsheliometric}, it is common to manually filter out all cloudy
 images. We simplify this process by using TransientNet to tag images and
 webcams with certain attributes.  If an attribute is above a threshold ($t_h =
 0.75$), the image is labeled with that attribute.  The opposite is true as
@@ -665,10 +664,10 @@ searching of large collections of webcams.
     \caption{January 29th, 2014}
     \label{fig:snow_map_est_3}
   \end{subfigure}
-  \caption{Maps of the snow attribute from webcam data (\emph{bottom})
+  \caption{Maps of the \emph{snow} attribute from webcam data (bottom)
            across the continental United States in January 2014 and the
            corresponding map of snow depth created using remote 
-           sensing data (\emph{top}).\protect\footnotemark} 
+           sensing data (top).\protect\footnotemark} 
   \label{fig:snow_maps}
 \end{figure*}
 
@@ -686,7 +685,7 @@ attributes clearly show the day/night cycle for the location of the image.
 Properties about the scene can be inferred from these summaries.  Consistently
 high values for the \textit{glowing} attribute at night indicate the presence
 of streetlights and/or other man made light sources in the scene.  Such
-visualizations, are more robust to camera motion and more semantically
+visualizations are more robust to camera motion and more semantically
 meaningful than those based on PCA~\cite{jacobs09webcamdata}.
 
 \subsection{Mapping Weather Using Webcams}
@@ -695,18 +694,19 @@ meaningful than those based on PCA~\cite{jacobs09webcamdata}.
 \begin{figure}[t]
 	\centering
 		\includegraphics[width=0.5\textwidth, trim= 0mm 10mm 0mm 0mm]{figs/snow_exs.pdf}
-		\caption{Example snowy images from collected webcam data.}
+		\caption{Snow map from \figref{snow_map_est_3} with three highlighted snowy 
+             images.}
 		\label{fig:snow_exs}
 \end{figure}
 
-We show how to use webcams with known locations to capture the geo-spatial
+We show how to use webcams with known locations to capture the geospatial
 distribution of transient attributes. We downloaded data for January 2014 from
 $3\,500$ AMOS webcams across the United States.  The images were labeled using
 TransientNet-H to create a sparse distribution of points.  We then used locally
-weighted averaging to estimate the attribute map.  This differs from the method
-proposed in Murdock et al.~\cite{murdock13clouds} in that our method uses a
-single model to make predictions for all cameras, while Murdock et al. create
-camera-specific models.
+weighted averaging to estimate the attribute map.  This differs from the
+technique proposed in Murdock et al.~\cite{murdock13clouds} in that our method
+uses a single model to make predictions for all cameras, while Murdock et al.
+create camera-specific models.
 
 \figref{snow_maps} shows
 three maps for the snow attribute across the continental United States.  Data
@@ -733,7 +733,7 @@ transient attributes is a unique fingerprint of a location. We use
 this observation and propose a robust method for geolocalizing outdoor
 webcams. We adopt the framework of~\cite{jacobs07geolocate}, in which
 the webcam location is found by relating temporal variations of
-geo-registered satellite imagery and the time series of features
+georegistered satellite imagery and the time series of features
 extracted from webcam images. The estimated camera location is the
 center of the satellite pixel for which the intensity is most
 correlated with the webcam time series. The only change from the
@@ -745,9 +745,9 @@ unsupervised, but camera specific) with the transient attributes
   \centering
   \includegraphics[width=.9\linewidth, trim= 20mm 0mm 20mm 0mm]{figs/geoloc/tran_errors}
   \includegraphics[width=.9\linewidth, trim= 20mm 0mm 20mm 0mm]{figs/geoloc/pca_errors}
-  \caption{Comparison with method using first PCA coefficients. (\emph{top})
-    Geolocalization results with \textit{sunny} attribute. (\emph{bottom})
-    Geolocalization results with first PCA coefficients.}
+  \caption{Webcam geolocalization errors for two methods. (top)
+    Using the \textit{sunny} attribute. (bottom)
+    Using the first PCA coefficient.}
   \label{fig:locerror}
 \end{figure}
 
@@ -771,7 +771,7 @@ visible in satellite imagery.
 \begin{figure}[t]
 	\centering
 		\includegraphics[width=0.5\textwidth, trim= 0mm 5mm 0mm 0mm]{figs/geoloc/webcam_dist}
-		\caption{Distribution of 180 webcams used for evaluation.}
+		\caption{Distribution of webcams used for geolocalization.}
 		\label{fig:webcamdist}
 \end{figure}
 
@@ -783,10 +783,10 @@ visible in satellite imagery.
 		\includegraphics[width=0.27\textwidth]{figs/geoloc/geoloc_24_5207}
 		\includegraphics[width=0.18\textwidth]{figs/geoloc/23573}
 		\includegraphics[width=0.27\textwidth]{figs/geoloc/geoloc_152_23573}
-		\caption{Example of webcam geolocalization using
-          \textit{sunny} attribute. (\emph{left}) Webcam images. (\emph{right})
-          Correlation maps with satellite imagery, where orange 
-          means larger correlation. Ground-truth locations are marked
+		\caption{Webcam geolocalization results using the
+          \textit{sunny} attribute. (left) Webcam images and (right)
+          estimated correlation maps, where orange 
+          means more likely. Ground-truth locations are marked
           by green dots, predictions by blue squares.}
 		\label{fig:geoloc}
 \end{figure}
