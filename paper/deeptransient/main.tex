@@ -23,7 +23,7 @@
 
 
 %\title{Deep Methods for Estimating Transient Scene Properties}
-\title{A Fast Method for Estimating Transient Scene Properties}
+\title{A Fast Method for Estimating Transient Scene Attributes}
 
 
 \author{Ryan Baltenberger, Menghua Zhai, Connor Greenwell, Scott Workman, Nathan Jacobs \\
@@ -167,8 +167,8 @@ obtain state-of-the-art results on a wide variety of computer vision problems.
 In this work, we focus on a particular CNN architecture, often called {\em
 AlexNet}, introduced by Alex Krizhevsky et al.~\cite{caffenetnips12} for
 single-image object classification. This network has eight layers with
-trainable parameters: five convolutional layers (each connected, in a
-feed-forward manner with pooling layers between each convolutional layer and
+trainable parameters: five convolutional layers (each connected in a
+feed-forward manner) with pooling layers between each convolutional layer and
 three fully connected layers. The network parameters are selected by minimizing
 a softmax loss function. Essentially, the convolutional layers extract features
 from across the image and the fully connected layers combine these features to
@@ -184,7 +184,7 @@ iterations of stochastic gradient descent on the training data for the new
 problem~\cite{yosinski2014transferable}.  The key is to start the optimization
 with random weights for the new final layer and weights from an already trained
 network for the other layers, for example using the weights from the original
-AlexNet~\cite{caffenetnips12}, as an initial condition. If there is a large
+\emph{AlexNet}~\cite{caffenetnips12}, as an initial condition. If there is a large
 amount of training data available for the new domain, it is also possible to
 train the network from scratch by randomly initializing all
 weights~\cite{zhou2014places}.  For regression problems, the loss
@@ -201,7 +201,7 @@ collection of regression problems for representing the degree to which a large
 number of transient attributes exist in the scene.  For each of these problems,
 we use three different networks as starting conditions for optimization,
 resulting in a total of six networks.  For both problems, we use the
-``AlexNet'' CNN architecture, described in the previous section.  The remainder
+\emph{AlexNet} CNN architecture, described in the previous section.  The remainder
 of this section describes how we estimate network weights for each of these
 networks.
 
@@ -231,7 +231,7 @@ sunny or cloudy, by a human rater.
 % splits
 %During evaluation we report the mean and variance
 %of normalized accuracy using five-fold cross validation. 
-We convert AlexNet into CloudyNet by modifying the network
+We convert \emph{AlexNet} into CloudyNet by modifying the network
 architecture; we 
 drop the final fully connected layer and replace it with a
 fully connected layer with two output nodes.
@@ -248,7 +248,7 @@ different times of day and on different days of the year.  The final dataset
 consists of $8\,571$ high resolution images from 101 webcams.  The authors
 define a set of 40 transient attributes, each of which is assigned a value
 between zero and one, representing the confidence of that attribute appearing
-in an image. We modify the AlexNet network architecture by changing the final
+in an image. We modify the \emph{AlexNet} network architecture by changing the final
 fully connected layer to have 40 output nodes, one for each transient
 attribute, and updating the loss function to an $L_2$ loss. We call the
 resulting network TransientNet. 
@@ -256,7 +256,7 @@ resulting network TransientNet.
 \vspace{-1em}
 \paragraph{Network Training:} For each network architecture, we start the training procedure from three different initial conditions,
 resulting in six distinct sets of network weights. The first set of initial
-conditions are taken from a network that was was trained for object
+conditions were taken from a network that was was trained for object
 classification on 1.2 million images from the ImageNet ILSVRC-2012
 challenge~\cite{ILSVRCarxiv14}.  We call the networks that result from this
 fine-tuning process CloudyNet-I and TransientNet-I.  The second set of initial
@@ -287,7 +287,7 @@ and TransientNet-H.
 \vspace{-1em}
 \paragraph{Implementation Details:} Our networks are trained using the
 Caffe~\cite{caffe14} deep learning framework, the CaffeNet reference network
-architecture (a variant of AlexNet), and pre-trained networks from the Caffe
+architecture (a variant of \emph{AlexNet}), and pre-trained networks from the Caffe
 Model Zoo\footnote{\url{http://caffe.berkeleyvision.org/model_zoo.html}}.  The
 full network optimization definition, the final network weights, and the output
 from our methods will be made available online for all six networks
@@ -348,12 +348,12 @@ splits of the data.
 %et al. The dataset was then pruned for images with similar histograms, and
 %finally pruned by another round of helpers to narrow the dataset to 10,000
 %images.
-\tblref{twoclass} shows the normalized accuracies of our networks and
-the previous best technique.  The normalized
-accuracy, which is the proposed evaluation metric by Lu et al., is calculated by $ \max\{((a - 0.5) / 0.5), 0\} $, where $a$ is the
-traditionally obtained accuracy. All three of our networks outperform the state
-of the art for two class weather classification with CloudyNet-H predicting the
-most accurately.
+\tblref{twoclass} shows the mean normalized accuracy and variance for our
+networks and the previous best technique.  The normalized accuracy, which is
+the proposed evaluation metric by Lu et al., is calculated by $ \max\{((a -
+0.5) / 0.5), 0\} $, where $a$ is the traditionally obtained accuracy. All three
+of our networks outperform the state of the art for two class weather
+classification with CloudyNet-H predicting the most accurately.
 
 %Our method is also very fast; it averages 0.0672s per
 %image for prediction. 
@@ -376,7 +376,7 @@ performance, mostly due to them being pre-trained on similar sets of data.
 
 In addition to having higher accuracy, our method is significantly faster.  For
 a single image, Laffont et al.'s method takes an average of 3.486 seconds, but
-our method only requires 0.192 seconds, and 18x speed up. 
+our method only requires 0.192 seconds, an 18x speed up. 
 
 \begin{figure}[t]
 	\centering
@@ -401,16 +401,16 @@ our method only requires 0.192 seconds, and 18x speed up.
   \begin{subfigure}[b]{0.49\columnwidth}
     \centering
 		\includegraphics[width=\columnwidth]{figs/ex_bad_ims/snow_bad_1.jpg}
-    \caption{\emph{Mislabeled \emph{snow}}}
+    \caption{Mislabeled \emph{snow}}
     \label{fig:ex_bad_snow}
 	\end{subfigure}	
   \begin{subfigure}[b]{0.49\columnwidth}
     \centering
 		\includegraphics[width=\columnwidth]{figs/ex_bad_ims/daylight_bad_1.jpg}
-    \caption{\emph{Mislabeled \emph{daylight}}}
+    \caption{Mislabeled \emph{daylight}}
     \label{fig:ex_bad_daylight}
 	\end{subfigure}	
-	\caption{Example images and the mislabeled attribute}
+	\caption{Example images and the mislabeled attribute.}
 	\label{fig:ex_bad}
 \end{figure}
 
@@ -418,7 +418,7 @@ our method only requires 0.192 seconds, and 18x speed up.
 %their corresponding webcam images.  We qualitatively confirm the predicted
 %attribute values and visualize the scene which maximizes each attribute.
 
-As qualitative evaluation, we show (\figref{attrcmp}) the time series
+As qualitative evaluation, \figref{attrcmp} shows the time series
 of the predicted value (using TransientNet-H) for three attributes
 (\textit{night, daylight, and snow}) from an AMOS~\cite{jacobs07amos}
 webcam over the period February 16th, 2013 to February 23rd, 2013.
@@ -428,7 +428,7 @@ estimates.  The inverse relationship between the \textit{daylight} and
 shows images of the scene captured at different times, highlighting
 snowy and non-snowy periods.
 
-\figref{netvis} shows semantic average of images for a single scene.  Each
+\figref{netvis} shows semantic average images for a single scene.  Each
 image is the average of the 100 images with the highest score for a particular
 attribute.  The subset of attributes shown in \figref{netvis} represent a wide
 variety of conditions of the scene.  The seasonal attributes (\textit{autumn,
@@ -582,13 +582,13 @@ that was labeled as being a daylight image.
 We convert the final, fully connected layers of TransientNet to be
 convolutional with the same number of outputs.  The output from this new,
 ''fully convolutional'' network allows us to create images showing an
-attribute's value across an input image.  \figref{false_color_ims} shows two
-examples of this.  The values for each attribute can be visualized in a single
-channel image.  Combining three of these images results in the composite
-images.  \figref{false_color_1} shows a composite image using the
-\textit{sunny}, \textit{lush}, and \textit{snow} attributes as the color
-channels.  As expected, there are no snowy areas in the input image, shown in
-the blue channel, and the bottom of the image contains high values for the lush
+attribute's value across an input image, as shown in \figref{false_color_ims}.
+The values for each attribute can be visualized in a single channel image.
+Combining three of these images results in the composite images.
+\figref{false_color_1} shows a composite image using the \textit{sunny},
+\textit{lush}, and \textit{snow} attributes as the color channels.  As
+expected, there are no snowy areas in the input image, shown in the blue
+channel, and the bottom of the image contains high values for the lush
 attribute, shown in the green channel.  The sunny attribute is higher towards
 the horizon and middle of the sky, show in the red channel, possibly due to the
 sky being brighter in these regions.  \figref{false_color_2} shows a composite
@@ -599,15 +599,13 @@ channel.  The storm attribute is higher towards the top of the image in the
 overcast sky.  The snow covered ground from the snow-storm appears in blue
 channel with high values for the snow attribute in the middle of the image.
 
-
 \section{Applications}
 
-Our proposed method is both faster and more accurate than previous
-methods, and has potential application to many real-world problems.
-Here we explore applications to webcam imagery,
-including: 1) to support automatic browsing and querying of large
-archives of webcam images, 2) to construct maps of transient
-attributes from webcam imagery, and 3) to geolocalize webcams.
+Our proposed method is both faster and more accurate than previous methods, and
+has potential application to many real-world problems.  Here we explore
+applications to webcam imagery, including: 1) supporting automatic browsing and
+querying of large archives of webcam images, 2) constructing maps of transient
+attributes from webcam imagery, and 3) geolocalizing webcams.
 
 \subsection{Browsing and Querying Webcam Archives}
 
@@ -620,12 +618,13 @@ images. We simplify this process by using TransientNet to tag images and
 webcams with certain attributes.  If an attribute is above a threshold ($t_h =
 0.75$), the image is labeled with that attribute.  The opposite is true as
 well. If an attribute is below a threshold ($t_l = 0.25$), the attribute is
-added to a list of attributes the image does not have. This enables users to
-use queries such as ``sunny'' or ``not winter''. Labeling is done on the image
-level as well as the webcam level. Attributes that are uniquely high for a
-webcam (i.e., $P(label|camera)\gg P(label|all\ cameras)$) are used to tag the
-webcam. A labeling scheme like this one allows a user to, for example, search
-for the snowy images from a \textit{mysterious} webcam. This allows for easier
+added to a list of attributes the image does not have. This enables users to,
+find for example, images that are both snowy and sunny.  use queries such as
+``sunny'' or ``not winter''. Labeling is done on the image level as well as the
+webcam level. Attributes that are uniquely high for a webcam (i.e.,
+$P(label|camera)\gg P(label|all\ cameras)$) are used to tag the webcam. A
+labeling scheme like this one allows a user to, for example, search for the
+snowy images from a \textit{mysterious} webcam. This allows for easier
 searching of large collections of webcams.
 
 \begin{figure*}
@@ -702,7 +701,7 @@ meaningful than those based on PCA~\cite{jacobs09webcamdata}.
 
 We show how to use webcams with known locations to capture the geo-spatial
 distribution of transient attributes. We downloaded data for January 2014 from
-3500 AMOS webcams across the United States.  The images were labeled using
+$3\,500$ AMOS webcams across the United States.  The images were labeled using
 TransientNet-H to create a sparse distribution of points.  We then used locally
 weighted averaging to estimate the attribute map.  This differs from the method
 proposed in Murdock et al.~\cite{murdock13clouds} in that our method uses a
@@ -794,12 +793,12 @@ visible in satellite imagery.
 
 \section{Conclusions}
 
-We introduced a fast method for predicting transient scene properties
+We introduced a fast method for predicting transient scene attributes
 in a single image. Our method achieves state-of-the-art performance on
 two benchmark datasets and requires no hand-engineered features, is
 simple to train, and is very fast at test time. In addition, it can be
 quickly extended to label additional attributes or adapted to new
-datasets with a small amount of retraining. Together, these attributes
+datasets with a small amount of retraining. Together, these properties
 make it particularly well suited to real-world applications, of which
 we demonstrated several.
 
