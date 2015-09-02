@@ -89,7 +89,8 @@ attrs = textscan(fopen('fcn_fun/attributes.txt'), '%s'); attrs = attrs{1};
 
 figure(2); clf
 imagesc(cat(1,allofthem{[attr_id]}), [0 1]); axis image
-set(gca, 'YTick', linspace(sz(1)/2,3*sz(1)-sz(1)/2,3), 'YTickLabel',attrs([attr_id]));
+set(gca, 'YTick', []);
+colormap(interp1(linspace(0,1,3), [0.65 0 0; 0.7 0.7 0.7; 0 0.8 0], linspace(0,1,100)))
 axis image xy
 set(gca, 'XTick', []);
 set(gca, 'TickLength', [0 0]);
