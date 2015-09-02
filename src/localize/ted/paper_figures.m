@@ -81,7 +81,7 @@ fprintf('%f of test cases with errors within 250 km\n', nnz(errDists) / numel(tr
 figure(121);clf
 hist(errDists, linspace(0,250, 25));
 xlim([0,250]); ylim([0,20])
-xlabel('Error in Distance (km)'); ylabel('Number of Cameras')
+xlabel('Error in Distance (km)', 'fontsize', 20); ylabel('Number of Cameras', 'fontsize', 20)
 exportfigure(gcf, '~/tran_errors.png', [8, 5], 100)
 
 % pca
@@ -94,7 +94,7 @@ fprintf('%f of test cases with errors within 250 km\n', nnz(errDists) / numel(pc
 figure(122);clf
 hist(errDists, linspace(0,250, 25));
 xlim([0,250]); ylim([0,20])
-xlabel('Error in Distance (km)'); ylabel('Number of Cameras')
+xlabel('Error in Distance (km)', 'fontsize', 20); ylabel('Number of Cameras', 'fontsize', 20)
 exportfigure(gcf, '~/pca_errors.png', [8, 5], 100)
 
 
