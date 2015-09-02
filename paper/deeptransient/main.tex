@@ -162,20 +162,18 @@ convolutional neural networks for learning transient scene attributes.
 
 \subsection{Background}
 
-Convolutional neural networks have been used extensively in recent
-years to obtain state-of-the-art results on a wide variety of computer vision
-problems.  In this work, we focus on a particular CNN architecture, often
-called {\em AlexNet}, introduced by Alex Krizhevsky et al.~\cite{caffenetnips12}
-for single-image object classification. This network has eight layers with
+Convolutional neural networks have been used extensively in recent years to
+obtain state-of-the-art results on a wide variety of computer vision problems.
+In this work, we focus on a particular CNN architecture, often called {\em
+AlexNet}, introduced by Alex Krizhevsky et al.~\cite{caffenetnips12} for
+single-image object classification. This network has eight layers with
 trainable parameters: five convolutional layers (each connected, in a
-feed-forward manner with pooling and dropout layers between each convolutional
-layer\todo{dropout is after the first two fully-connected}) and three 
-fully connected layers. The network parameters are selected by minimizing a
-softmax loss function. Essentially, the convolutional layers
-extract features from across the image and the fully connected layers combine
-these features to obtain a score for each possible class. The final
-classification decision is obtained by choosing the class with the highest
-output score.  
+feed-forward manner with pooling layers between each convolutional layer and
+three fully connected layers. The network parameters are selected by minimizing
+a softmax loss function. Essentially, the convolutional layers extract features
+from across the image and the fully connected layers combine these features to
+obtain a score for each possible class. The final classification decision is
+obtained by choosing the class with the highest output score.  
 
 While this network architecture was originally developed for single-image
 object classification, it has been shown to be adaptable to other problem
@@ -385,9 +383,8 @@ average of 3.486, but our method only requires 0.192 seconds, and 18x speed up.
 \begin{figure}[t]
 	\centering
 		\includegraphics[width=\linewidth, trim= 5mm 15mm 0mm 10mm]{figs/attr_compare.pdf}
-		\caption{A snapshot of three attributes over a week of data for
-             an AMOS webcam.  The example images show that our network 
-             correctly labels snowy scenes.}
+		\caption{A snapshot of three attributes over a week of webcam data.
+             The example images show correctly labeled snowy scenes.}
 		\label{fig:attrcmp}
 \end{figure}
 
@@ -413,7 +410,7 @@ average of 3.486, but our method only requires 0.192 seconds, and 18x speed up.
     \caption{\emph{Mislabeled \emph{daylight}}}
     \label{fig:ex_bad_daylight}
 	\end{subfigure}	
-	\caption{Example images with a mislabeled attribute}
+	\caption{Example images and the mislabeled attribute}
 	\label{fig:ex_bad}
 \end{figure}
 
@@ -533,8 +530,7 @@ that was labeled as being a daylight image.
   \end{subfigure}
   \caption{Example images run through the fully convolutional TransientNet-H.
            Brighter areas in each of the color channels indicate a high
-           attribute value.  The composite image shows areas with high values
-           for multiple attributes.}
+           attribute value.}
   \label{fig:false_color_ims}
 \end{figure*}
 
@@ -565,8 +561,8 @@ that was labeled as being a daylight image.
     \label{fig:snow}
 	\end{subfigure}	
 	\caption{Example attribute summaries over a year of webcam data.  The images
-           from each scene are denoted by the blue dots within each of the 
-           attribute summaries.}
+           from each scene are denoted by the blue dots within each 
+           attribute summary.}
 	\label{fig:webcam_summary}
 \end{figure}
 
@@ -688,9 +684,9 @@ meaningful than those based on PCA~\cite{jacobs09webcamdata}.
     \caption{January 29th, 2014}
     \label{fig:snow_map_est_3}
   \end{subfigure}
-  \caption{Maps of the snow attribute from webcams across the
-           continental United States in January 2014 (\emph{bottom})
-           and the corresponding map of snow depth created using remote 
+  \caption{Maps of the snow attribute from webcam data (\emph{bottom})
+           across the continental United States in January 2014 and the
+           corresponding map of snow depth created using remote 
            sensing data (\emph{top}).\protect\footnotemark} 
   \label{fig:snow_maps}
 \end{figure*}
