@@ -56,12 +56,12 @@ for ix = goodInds
   
   figure(111);clf
   set(gca, 'position', [0 0 1 1])
-  colormap(parula)
+  colormap(jet)
   imagesc(-flipud(tranFeats(ix).bestCorrMap), 'xdata', lonRange, 'ydata', latRange); hold on
   plot([usShape.Lon], [usShape.Lat], 'black')
   xlim(lonRange); ylim(latRange)
-  plot(results(ix).lon, results(ix).lat, 'g.', 'markersize', 40); 
-  plot(lon_pred, lat_pred, 'ms', 'markersize', 10, 'markerfacecolor', 'm');
+  plot(results(ix).lon, results(ix).lat, 'g.', 'markersize', 60); 
+  plot(lon_pred, lat_pred, 'bs', 'markersize', 15, 'markerfacecolor', 'b');
   axis xy off
   fprintf('id: %d, error: %f km\n', ix, tranFeats(ix).minDist);  
   exportfigure(gcf, sprintf('~/geoloc_%d_%d.png', ix, results(ix).camId), [10, 5], 100)
