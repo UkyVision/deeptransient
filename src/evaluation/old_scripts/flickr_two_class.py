@@ -45,8 +45,6 @@ for flickr_im in im_files:
   print flickr_im
   im = caffe.io.load_image(flickr_im)
 
-  im[:,:,[0, 2]] = im[:,:,[2, 0]]
-
   im = caffe.io.resize_image(im, (256,256))
   im = im[:,:,[2,1,0]]
   im = im.swapaxes(0,2).swapaxes(1,2)

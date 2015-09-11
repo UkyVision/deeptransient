@@ -1,20 +1,22 @@
 %
-% what can you dooooo
-% scotts code for loading and filtering
+% create the webcam summary images
 %
 
 addpath ~/matlab_root/
 addpath ~/matlab_root/export_fig/
 
+% load up cam data
 cams = dir('/u/vul-d1/scratch/ryan/stable_cam_data/');
 
 for id = 3:size(cams, 1)
 
+% make dir for each cam
 cam_id = cams(id).name;
 mkdir(sprintf('attr_summary/%s/', cam_id));
 
 base_dir = sprintf('/u/vul-d1/scratch/ryan/stable_cam_data/%s/', cam_id);
 
+% read in cams attr data for the year
 data = readtable([base_dir '2013_attributes.csv'], 'ReadVariableNames', false);
 if mean(size(data) == 0) == 1
    continue 
@@ -31,11 +33,6 @@ data(cellfun(@(x) ~floor(mean(x(1:4) == base_dir(1:4))), table2cell(data(:,1))),
 date_numbers = cellfun(@(x) datenum(x, 'yyyymmdd_HHMMSS'), names);
 
 features = cell2mat(table2cell(data(:, 2:end)));
-
-
-% hays_data = readtable([base_dir 'hays_attributes.csv'], 'ReadVariableNames', false);
-% hays_data = sortrows(hays_data, {'Var1'}, {'ascend'});
-% hays_features = cell2mat(table2cell(hays_data(:, 2:end)));
 
 for attr_id = 1:40
 %% create the summary images
