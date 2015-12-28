@@ -1,3 +1,7 @@
+#
+# for making dbs out of AMOS images
+#
+
 import os
 import csv
 import lmdb
