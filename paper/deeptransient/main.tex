@@ -694,19 +694,21 @@ searching of large collections of webcams.
 To support rapid browsing of a large webcam image collection, we create
 summaries of the transient attributes estimated by TransientNet.
 \figref{webcam_summary} summarizes a year of images from AMOS webcams.
-\figref{clouds} shows one year of the \emph{clouds} attribute and \figref{snow}
-shows one year of the \emph{snow} attribute.  Each column in the summary is a
-single day and each row a different time of the day (in 30 minute intervals).
-Each pixel is colored based on the attribute value for the corresponding webcam
-image. Attributes such as \textit{snow}, \textit{cold}, and \textit{winter}
-have higher values in the winter months and lower values during the summer
-months, as shown in \figref{snow}. The \textit{night} and \textit{daylight}
-attributes clearly show the day/night cycle for the location of the image.
-Properties about the scene can be inferred from these summaries.  Consistently
-high values for the \textit{glowing} attribute at night indicate the presence
-of streetlights and/or other man made light sources in the scene.  Such
-visualizations are more robust to camera motion and more semantically
-meaningful than those based on PCA~\cite{jacobs09webcamdata}.
+\figref{daylight} shows one year of the \emph{daylight} attribute,
+\figref{clouds} shows one year of the \emph{clouds} attribute, and
+\figref{snow} shows one year of the \emph{snow} attribute.  Each column in the
+summary is a single day and each row a different time of the day (in 30 minute
+intervals).  Each pixel is colored based on the attribute value for the
+corresponding webcam image. Attributes such as \textit{snow}, \textit{cold},
+and \textit{winter} have higher values in the winter months and lower values
+during the summer months, as shown in \figref{snow}. The \textit{night} and
+\textit{daylight} attributes clearly show the day/night cycle for the location
+of the image, shown in \figref{daylight}.  Properties about the scene can be
+inferred from these summaries.  Consistently high values for the
+\textit{glowing} attribute at night indicate the presence of streetlights
+and/or other man made light sources in the scene.  Such visualizations are more
+robust to camera motion and more semantically meaningful than those based on
+PCA~\cite{jacobs09webcamdata}.
 
 \subsection{Mapping Weather Using Webcams}
 
