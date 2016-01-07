@@ -165,7 +165,7 @@ convolutional neural networks for learning transient scene attributes.
 Convolutional neural networks have been used extensively in recent years to
 obtain state-of-the-art results on a wide variety of computer vision problems.
 In this work, we focus on a particular CNN architecture, often called {\em
-AlexNet}, introduced by Alex Krizhevsky et al.~\cite{caffenetnips12} for
+AlexNet}, introduced by Alex Krizhevsky et al.~\cite{krizhevsky2012imagenet} for
 single-image object classification. This network has eight layers with
 trainable parameters: five convolutional layers (each connected in a
 feed-forward manner) with pooling layers between each convolutional layer and
@@ -184,7 +184,7 @@ iterations of stochastic gradient descent on the training data for the new
 problem~\cite{yosinski2014transferable}.  The key is to start the optimization
 with random weights for the new final layer and weights from an already trained
 network for the other layers, for example using the weights from the original
-\emph{AlexNet}~\cite{caffenetnips12}, as an initial condition. If there is a large
+\emph{AlexNet}~\cite{krizhevsky2012imagenet}, as an initial condition. If there is a large
 amount of training data available for the new domain, it is also possible to
 train the network from scratch by randomly initializing all
 weights~\cite{zhou2014places}.  For regression problems, the loss
