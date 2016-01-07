@@ -286,10 +286,10 @@ and TransientNet-H.
 \vspace{-1em}
 \paragraph{Implementation Details:} Our networks are trained using the
 Caffe~\cite{caffe14} deep learning framework, the CaffeNet reference network
-architecture (a variant of \emph{AlexNet}), and pre-trained networks from the Caffe
-Model Zoo\footnote{\url{http://caffe.berkeleyvision.org/model_zoo.html}}.  The
-full network optimization definition, the final network weights, and the output
-from our methods are available on the project webpage (\url{http://cs.uky.edu/~rbalten/transient}).
+architecture (a variant of \emph{AlexNet}), and pre-trained networks from the
+Caffe Model Zoo~\cite{modelzoosite}.  The full network optimization definition,
+the final network weights, and the output from our methods are available on the
+project webpage (\url{http://cs.uky.edu/~rbalten/transient}).
 
 %All of our networks were trained on NVIDIA M2075 GPU Cards for 24
 %hours each, and evaluated using Caffe in CPU mode on Dell C6220
@@ -687,7 +687,7 @@ searching of large collections of webcams.
   \caption{Maps of the \emph{snow} attribute from webcam data (bottom)
            across the continental United States in January 2014 and the
            corresponding map of snow depth created using remote 
-           sensing data (top).\protect\footnotemark} 
+           sensing data (top)~\cite{noaasite}.} 
   \label{fig:snow_maps}
 \end{figure*}
 
@@ -712,7 +712,6 @@ PCA~\cite{jacobs09webcamdata}.
 
 \subsection{Mapping Weather Using Webcams}
 
-\footnotetext{\url{http://www.nohrsc.noaa.gov/nsa/index.html}}
 \begin{figure}[t]
 	\centering
 		\includegraphics[width=0.5\textwidth, trim= 0mm 10mm 0mm 0mm]{figs/snow_exs.pdf}
@@ -726,9 +725,9 @@ distribution of transient attributes. We downloaded data for January 2014 from
 $3\,500$ AMOS webcams across the United States.  The images were labeled using
 TransientNet-H to create a sparse distribution of points.  We then used locally
 weighted averaging to estimate the attribute map.  This differs from the
-technique proposed in Murdock et al.~\cite{murdock13clouds} in that our method
-uses a single model to make predictions for all cameras, while Murdock et al.
-create camera-specific models.
+technique proposed in Murdock et al.~\cite{murdock13clouds, murdock2015cloudmap}
+in that our method uses a single model to make predictions for all cameras,
+while Murdock et al.  create camera-specific models.
 
 \figref{snow_maps} shows
 three maps for the snow attribute across the continental United States.  Data
@@ -773,22 +772,20 @@ unsupervised, but camera specific) with the transient attributes
   \label{fig:locerror}
 \end{figure}
 
-For evaluation, we downloaded a year (2013) of images from 180
-randomly selected webcams (\figref{webcamdist}) from the AMOS
+For evaluation, we downloaded a year (2013) of images from 180 randomly
+selected webcams (\figref{webcamdist}) from the AMOS
 dataset~\cite{jacobs07amos} and corresponding satellite
-images\footnote{\url{http://mesonet.agron.iastate.edu}}.  We found
-that the \textit{sunny} attribute provided the most accurate results
-and use it for all further figures. \figref{geoloc} shows example 
-correlation maps we estimated and \figref{locerror}
-shows the evaluation results. Our method localizes 58\% of webcams
-within 250km from the ground truth. As a baseline method, we repeated
-the experiment with the top 5 PCA coefficients. The best coefficient
-(the first) only locates 14\% of webcams within 250km. We think
-the main advantage of using the transient attribute for this task is
-that it is less sensitive to camera jitter, a significant problem when
-applying PCA to outdoor webcam data. When the camera jitters it is
-likely that the PCA coefficients encode for motion, not changes
-visible in satellite imagery.
+images~\cite{satimssite}.  We found that the \textit{sunny} attribute provided
+the most accurate results and use it for all further figures. \figref{geoloc}
+shows example correlation maps we estimated and \figref{locerror} shows the
+evaluation results. Our method localizes 58\% of webcams within 250km from the
+ground truth. As a baseline method, we repeated the experiment with the top 5
+PCA coefficients. The best coefficient (the first) only locates 14\% of webcams
+within 250km. We think the main advantage of using the transient attribute for
+this task is that it is less sensitive to camera jitter, a significant problem
+when applying PCA to outdoor webcam data. When the camera jitters it is likely
+that the PCA coefficients encode for motion, not changes visible in satellite
+imagery.
 
 \begin{figure}[t]
 	\centering
