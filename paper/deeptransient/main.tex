@@ -157,7 +157,7 @@ attributes as well as applications in photo organization and high-level image
 editing via attribute manipulation. 
 
 To the best of our knowledge, we are the first to explore the application of
-convolutional neural networks for learning transient scene attributes.
+convolutional neural networks for estimating transient scene attributes.
 
 \subsection{Background}
 
@@ -268,7 +268,7 @@ classification.  This hybrid network was trained on a combination of the Places
 Database~\cite{zhou2014places} and images from the training data of ILSVRC-2012
 challenge~\cite{ILSVRCarxiv14}.  The full training set contained 205 scene
 categories from the Places Database and 978 object categories from ILSVRC-2012
-totaling about 3.6 million images.  We call the resulting networks CloudyNet-H
+containing about 3.6 million images.  We call the resulting networks CloudyNet-H
 and TransientNet-H.
 
 %\textbf{Expanded Dataset:} We expand the Transient Attributes dataset from
@@ -289,7 +289,7 @@ Caffe~\cite{caffe14} deep learning framework, the CaffeNet reference network
 architecture (a variant of \emph{AlexNet}), and pre-trained networks from the Caffe
 Model Zoo\footnote{\url{http://caffe.berkeleyvision.org/model_zoo.html}}.  The
 full network optimization definition, the final network weights, and the output
-from our methods are available on the project webpage\footnote{\url{cs.uky.edu/~rbalten/transient}}.
+from our methods are available on the project webpage (\url{http://cs.uky.edu/~rbalten/transient}).
 
 %All of our networks were trained on NVIDIA M2075 GPU Cards for 24
 %hours each, and evaluated using Caffe in CPU mode on Dell C6220
@@ -422,7 +422,6 @@ and scene types.
 TransientNet-H mislabeled.  \figref{ex_bad_snow} shows a white-sand beach that
 was labeled as being a snowy image.  \figref{ex_bad_daylight} shows a lit
 sports arena at night that was labeled as being a daylight image.
-
 \figref{ex_bad_cloudynet} shows examples of misclassified images using
 CloudyNet-H.  \figref{ex_bad_cloudy} shows an outdoor arch that was
 misclassified as sunny.  \figref{ex_bad_sunny} shows a uniformly lit outdoor
@@ -601,7 +600,7 @@ garden that was misclassified as cloudy.
 
 We convert the final, fully connected layers of TransientNet to be
 convolutional~\cite{long2015fully} with the same number of outputs.  The output
-from this new, ''fully convolutional'' network allows us to create images
+from this new, ``fully convolutional'' network allows us to create images
 showing an attribute's value across an input image, as shown in
 \figref{false_color_ims}.  The values for each attribute can be visualized in a
 single channel image.  Combining three of these images results in the composite
@@ -794,7 +793,7 @@ visible in satellite imagery.
 \begin{figure}[t]
 	\centering
 		\includegraphics[width=0.5\textwidth, trim= 0mm 5mm 0mm 0mm]{figs/geoloc/webcam_dist}
-		\caption{Distribution of webcams used for geolocalization.}
+		\caption{Distribution of webcams used in our geolocalization experiments.}
 		\label{fig:webcamdist}
 \end{figure}
 
