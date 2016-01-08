@@ -422,8 +422,9 @@ and scene types.
 TransientNet-H mislabeled:  a white-sand beach that was labeled as being a
 snowy image and a lit sports arena at night that was labeled as being a
 daylight image.  \figref{ex_bad_cloudynet} shows examples of misclassified
-images using CloudyNet-H:  an outdoor arch that was misclassified as sunny and
-a uniformly lit outdoor garden that was misclassified as cloudy.
+images using CloudyNet-H:  an overcast scene of a mansion that was
+misclassified as sunny and a clear scene of a large tree that was misclassified
+as cloudy.
 
 %Other attributes not shown in this montage have similar average
 %images to the ones shown, (\textit{e.g., glowing and colorful similar to
@@ -582,14 +583,14 @@ a uniformly lit outdoor garden that was misclassified as cloudy.
 	\centering
   \begin{subfigure}[b]{0.49\columnwidth}
     \centering
-		\includegraphics[width=\columnwidth]{figs/ex_bad_tc/cloudy_3732.jpg}
-    \caption{Misclassified \emph{sunny}}
+		\includegraphics[width=\columnwidth]{figs/ex_bad_tc/cloudy.jpg}
+    \caption{Misclassified as \emph{sunny}}
     \label{fig:ex_bad_cloudy}
 	\end{subfigure}	
   \begin{subfigure}[b]{0.49\columnwidth}
     \centering
-		\includegraphics[width=\columnwidth]{figs/ex_bad_tc/sunny_2877.jpg}
-    \caption{Misclassified \emph{cloudy}}
+		\includegraphics[width=\columnwidth, trim= 0mm 24mm 0mm 0mm, clip]{figs/ex_bad_tc/sunny.jpg}
+    \caption{Misclassified as \emph{cloudy}}
     \label{fig:ex_bad_sunny}
 	\end{subfigure}	
 	\caption{Two failure cases using CloudyNet and their misclassified class.}
