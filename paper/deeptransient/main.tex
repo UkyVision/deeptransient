@@ -364,7 +364,7 @@ classification with CloudyNet-H predicting the most accurately.
 %Our method is also very fast; it averages 0.0672s per
 %image for prediction. 
 
-\subsection{Transient Attributes Estimation}
+\subsection{Transient Attribute Estimation}
 
 We evaluated our three TransientNet variants on the dataset created by Laffont
 et al.~\cite{Laffont14}.  We use the same holdout train/test split in which
@@ -415,7 +415,7 @@ TransientNet-H mislabeled:  a white-sand beach that was labeled as being a
 snowy image and a lit sports arena at night that was labeled as being a
 daylight image.  \figref{ex_bad_cloudynet} shows examples of misclassified
 images using CloudyNet-H:  an overcast scene of a mansion that was
-misclassified as sunny and a clear scene of a large tree that was misclassified
+misclassified as sunny and a clear scene of a country home that was misclassified
 as cloudy.
 
 \begin{figure}[t]
@@ -581,7 +581,7 @@ as cloudy.
     \label{fig:snow}
 	\end{subfigure}	
 	\caption{Example attribute summaries over a year of webcam data (green=attribute
-           present, gray=uncertain, red=attribute absent).  The highlighted
+           present, gray=uncertain, red=attribute absent, white=no data).  The highlighted
            images are denoted by the blue dots within each attribute summary.}
 	\label{fig:webcam_summary}
 \end{figure}
@@ -635,11 +635,11 @@ images, with a set of desired attributes is currently a time-consuming manual
 process. For example, when working on outdoor photometric
 stereo~\cite{abramsheliometric}, it is common to manually filter out all cloudy
 images. We simplify this process by using TransientNet to tag images and
-webcams with certain attributes.  If an attribute is above a threshold ($t_h =
+webcams with certain attributes.  If an attribute is above a threshold (e.g., $t_h =
 0.75$), the image is labeled with that attribute.  The opposite is true as
-well. If an attribute is below a threshold ($t_l = 0.25$), the attribute is
-added to a list of attributes the image does not have. This enables users to,
-find for example, images that are both snowy and sunny.  use queries such as
+well. If an attribute is below a threshold (e.g., $t_l = 0.25$), the attribute is
+added to a list of attributes the image does not have. This enables users to
+find, for example, images that are both snowy and sunny using queries such as
 ``sunny'' or ``not winter''. Labeling is done on the image level as well as the
 webcam level. Attributes that are uniquely high for a webcam (i.e.,
 $P(label|camera)\gg P(label|all\ cameras)$) are used to tag the webcam. A
@@ -726,7 +726,7 @@ distribution of transient attributes. We downloaded data for January 2014 from
 $3\,500$ AMOS webcams across the United States.  The images were labeled using
 TransientNet-H to create a sparse distribution of points.  We then used locally
 weighted averaging to estimate the attribute map.  This differs from the
-technique proposed in Murdock et al.~\cite{murdock13clouds, murdock2015cloudmap}
+technique proposed by Murdock et al.~\cite{murdock13clouds, murdock2015cloudmap}
 in that our method uses a single model to make predictions for all cameras,
 while Murdock et al.\ create camera-specific models.
 
