@@ -38,7 +38,7 @@
 \begin{abstract}
 
 We propose the use of deep convolutional neural networks to estimate the
-transient attributes of a scene from a single image.  Transient scene
+transient attributes of a scene from a single image. Transient scene
 attributes describe both the objective conditions, such as the weather, time of
 day, and the season, and subjective properties of a scene, such as whether or
 not the scene seems busy. Recently, convolutional neural networks have been
@@ -66,8 +66,8 @@ outdoor webcams~\cite{islam13webcamweather}; as a pre-processing step for
 higher-level algorithms for
 calibration~\cite{jacobs13cloudcalibration,workman2014rainbow}, shape
 estimation~\cite{abramsheliometric,workman2015distributed},
-geolocalization~\cite{jacobs07geolocate,workman2015localize}; and  environmental
-monitoring~\cite{jacobs09webcamgis}. 
+geolocalization~\cite{jacobs07geolocate,workman2015localize}; and
+environmental monitoring~\cite{jacobs09webcamgis}. 
 
 % what do we propose to do? 
 
@@ -79,7 +79,7 @@ detection~\cite{girshick2013rich}, and scene
 classification~\cite{zhou2014places} but have not been used to estimate
 transient scene attributes. Our work addresses two specific problems related to
 estimating transient scene attributes. First, the problem of estimating whether
-it is sunny or cloudy~\cite{lutwoclass} and second, predicting the degree to
+it is sunny or cloudy~\cite{lutwoclass}, and second, predicting the degree to
 which various transient attributes are present in the scene~\cite{Laffont14}.
 To this end, we present two different networks and three different training
 initializations. Our methods achieve state-of-the-art results on two benchmark
@@ -129,8 +129,7 @@ applications of the networks to webcam image understanding.
 Attributes are high-level descriptions of a visual property which offer some
 additional semantic context for understanding an object, activity, or scene.
 For example, a \emph{green} apple or a \emph{cloudy} day. Representations based
-on such visual attributes have become increasingly popular in the vision
-community as they offer the ability to to generalize across categories. The
+
 first learning-based methods to take advantage of such high-level attributes
 arose for the task of object
 recognition~\cite{farhadi2009describing,lampert2009learning}, demonstrating the
@@ -229,10 +228,8 @@ sunny or cloudy, by a human rater.
 % splits
 %During evaluation we report the mean and variance
 %of normalized accuracy using five-fold cross validation. 
-We convert \emph{AlexNet} into CloudyNet by modifying the network
-architecture; we 
-drop the final fully connected layer and replace it with a
-fully connected layer with two output nodes.
+We convert \emph{AlexNet} into CloudyNet by modifying the network architecture;
+we update the final fully connected layer to have two output nodes.
 
 \vspace{-1em}
 \paragraph{TransientNet:} For the more challenging problem of estimating the
@@ -242,7 +239,7 @@ from outdoor webcams in the Archive of Many Outdoor Scenes~\cite{jacobs07amos}
 and the Webcam Clip Art Dataset~\cite{lalondesig09}.  The webcams span a wide
 range of outdoor scenes, from urban regions to wooded, mountainous regions.
 Each webcam has 60--120 images captured in a wide range of conditions at
-different times of day and on different days of the year.  The final dataset
+different times of the day and on different days of the year.  The final dataset
 consists of $8\,571$ high resolution images from 101 webcams.  The authors
 define a set of 40 transient attributes, each of which is assigned a value
 between zero and one, representing the confidence of that attribute appearing
@@ -253,7 +250,7 @@ resulting network TransientNet.
 
 \begin{table}[t]
 	\centering
-	\caption{Two class weather classification accuracy}
+	\caption{Two class weather classification accuracy.}
 	\begin{tabular}{ | l | c | }
 		\hline
 			Method & Normalized Accuracy \\ \hline \hline
@@ -268,7 +265,7 @@ resulting network TransientNet.
 
 \begin{table}
 	\centering
-	\caption{Transient attribute prediction errors}
+	\caption{Transient attribute prediction errors.}
 	\begin{tabular}{ | l | c | }
 		\hline
 			Method & Average Error \\ \hline \hline
@@ -286,14 +283,14 @@ resulting network TransientNet.
 training procedure from three different initial conditions, resulting in six
 distinct sets of network weights. The first set of initial conditions were
 taken from a network that was was trained for object classification on 1.2
-million images from the ImageNet ILSVRC-2012 challenge~\cite{ILSVRCarxiv14}.
-We call the networks that result from this fine-tuning process CloudyNet-I and
-TransientNet-I.  The second set of initial conditions were taken from a
-network~\cite{zhou2014places} that was trained for scene classification on 2.5
-million images with labels in 205 categories from the Places
-Database~\cite{zhou2014places}. We call the resulting networks CloudyNet-P and
-TransientNet-P.  The final set of initial conditions were taken from a
-network~\cite{zhou2014places} that was trained for both object and scene
+million images with 1000 object class from the ImageNet ILSVRC-2012
+challenge~\cite{ILSVRCarxiv14}.  We call the networks that result from this
+fine-tuning process CloudyNet-I and TransientNet-I.  The second set of initial
+conditions were taken from a network~\cite{zhou2014places} that was trained for
+scene classification on 2.5 million images with labels in 205 categories from
+the Places Database~\cite{zhou2014places}. We call the resulting networks
+CloudyNet-P and TransientNet-P.  The final set of initial conditions were taken
+from a network~\cite{zhou2014places} that was trained for both object and scene
 classification.  This hybrid network was trained on a combination of the Places
 Database~\cite{zhou2014places} and images from the training data of ILSVRC-2012
 challenge~\cite{ILSVRCarxiv14}.  The full training set contained 205 scene
@@ -354,11 +351,11 @@ splits of the data.
 %et al. The dataset was then pruned for images with similar histograms, and
 %finally pruned by another round of helpers to narrow the dataset to 10,000
 %images.
-\tblref{twoclass} shows the mean normalized accuracy and variance for our
-networks and the previous best technique.  The normalized accuracy, which is
+\tblref{twoclass} compares the mean normalized accuracy and variance for our
+networks against the previous best technique.  The normalized accuracy, which is
 the proposed evaluation metric by Lu et al., is calculated by $ \max\{((a -
 0.5) / 0.5), 0\} $, where $a$ is the traditionally obtained accuracy. All three
-of our networks outperform the state of the art for two class weather
+of our networks outperform the state-of-the-art for two class weather
 classification with CloudyNet-H predicting the most accurately.
 
 %Our method is also very fast; it averages 0.0672s per
@@ -381,8 +378,8 @@ performance, mostly due to them being pre-trained on similar sets of data.
 %TransientNet-H. 
 
 In addition to having higher accuracy, our method is significantly faster.  For
-a single image, Laffont et al.'s method takes an average of 3.486 seconds, but
-our method only requires 0.192 seconds, an 18x speed up. 
+a single image, we found Laffont et al.'s method takes an average of 3.486
+seconds, but our method only requires 0.192 seconds, an 18x speed up. 
 
 \subsection{Example Results}
 
@@ -405,7 +402,7 @@ image is the average of the 100 images with the highest score for a particular
 attribute.  The subset of attributes shown in \figref{netvis} represent a wide
 variety of conditions of the scene.  The seasonal attributes (\textit{autumn,
 summer, winter}) show how the scene changes throughout the year and lighting
-attributes (\textit{sunrise/sunset, daylight, night}) shows the scene in
+attributes (\textit{sunrise/sunset, daylight, night}) show the scene in
 various lighting conditions.  Such images are easy to create and highlight the
 ability of our proposed technique to work across a broad range of conditions
 and scene types. 
@@ -415,7 +412,7 @@ TransientNet-H mislabeled:  a white-sand beach that was labeled as being a
 snowy image and a lit sports arena at night that was labeled as being a
 daylight image.  \figref{ex_bad_cloudynet} shows examples of misclassified
 images using CloudyNet-H:  an overcast scene of a mansion that was
-misclassified as sunny and a clear scene of a country home that was misclassified
+classified as sunny and a clear scene of a country home that was classified
 as cloudy.
 
 \begin{figure}[t]
@@ -549,7 +546,7 @@ as cloudy.
     \label{fig:false_color_2}
   \end{subfigure}
   \caption{Composite images generated using the fully convolutional TransientNet-H.
-           Brighter areas in each of the color channels indicate a high
+           Brighter areas in each of the color channels indicate a higher
            attribute value.}
   \label{fig:false_color_ims}
 \end{figure}
@@ -606,16 +603,16 @@ showing an attribute's value across an input image, as shown in
 single channel image.  Combining three of these images results in the composite
 images.  \figref{false_color_1} shows a composite image using the
 \textit{sunny}, \textit{lush}, and \textit{snow} attributes as the color
-channels.  As expected, there are no snowy areas in the input image, shown in
-the blue channel, and the bottom of the image contains high values for the lush
+channels.  There are no snowy areas in the input image, shown in the blue
+channel, and the bottom of the image contains high values for the lush
 attribute, shown in the green channel.  The sunny attribute is higher towards
 the horizon and middle of the sky, shown in the red channel, possibly due to
 the sky being brighter in these regions.  \figref{false_color_2} shows a
 composite image using the \textit{sunny}, \textit{storm}, and \textit{snow}
 attributes as the color channels.  The image has low values for the sunny
 attribute, shown in the red channel, and high values for the storm attribute,
-show in the green channel.  The storm attribute is higher towards the top of
-the image in the overcast sky.  The snow covered ground appears in the blue
+show in the green channel.  The storm attribute is higher in the overcast sky
+towards the top of the composite image.  The snow covered ground appears in the blue
 channel with high values for the snow attribute around the middle of the image
 and a dark spot corresponding to the waterway in the scene.
 
@@ -710,9 +707,9 @@ summary is a single day and each row a different time of the day (in 30 minute
 intervals).  Each pixel is colored based on the attribute value for the
 corresponding webcam image. Attributes such as \textit{snow}, \textit{cold},
 and \textit{winter} have higher values in the winter months and lower values
-during the summer months, as shown in \figref{snow}. The \textit{night} and
+during the summer months. The \textit{night} and
 \textit{daylight} attributes clearly show the day/night cycle for the location
-of the image, shown in \figref{daylight}.  Properties about the scene can be
+of the image.  Properties about the scene can be
 inferred from these summaries.  Consistently high values for the
 \textit{glowing} attribute at night indicate the presence of streetlights
 and/or other man made light sources in the scene.  Such visualizations are more
@@ -751,8 +748,8 @@ attribute higher in the mountainous west and low in the central plains).
 \subsection{Transient Semantics for Geolocalization}
 
 Given a sufficient amount of time, the temporal pattern of the
-transient attributes is a unique fingerprint of a location. We use
-this observation and propose a robust method for geolocalizing outdoor
+transient attributes is a unique fingerprint of a location. Based on
+this observation, we propose a robust method for geolocalizing outdoor
 webcams. We adopt the framework of~\cite{jacobs07geolocate}, in which
 the webcam location is found by relating temporal variations of
 georegistered satellite imagery and the time series of features
@@ -778,15 +775,15 @@ selected webcams (\figref{webcamdist}) from the AMOS
 dataset~\cite{jacobs07amos} and corresponding satellite
 images~\cite{satimssite}.  We found that the \textit{sunny} attribute provided
 the most accurate results and use it for all further figures. \figref{geoloc}
-shows example correlation maps we estimated and \figref{locerror} shows the
-evaluation results. Our method localizes 58\% of webcams within 250km from the
-ground truth. As a baseline method, we repeated the experiment with the top 5
-PCA coefficients. The best coefficient (the first) only locates 14\% of webcams
-within 250km. We think the main advantage of using the transient attribute for
-this task is that it is less sensitive to camera jitter, a significant problem
-when applying PCA to outdoor webcam data. When the camera jitters it is likely
-that the PCA coefficients encode for motion, not changes visible in satellite
-imagery.
+visualizes geolocalization results for several webcams and \figref{locerror}
+shows quantitative results. Our method localizes 58\% of webcams within 250km
+from the ground truth. As a baseline method, we repeated the experiment with
+the top 5 PCA coefficients. The best coefficient (the first) only locates 14\%
+of webcams within 250km. We think the main advantage of using the transient
+attribute for this task is that it is less sensitive to camera jitter, a
+significant problem when applying PCA to outdoor webcam data. When the camera
+jitters it is likely that the PCA coefficients encode for motion, not changes
+visible in satellite imagery.
 
 \begin{figure}[t]
 	\centering
@@ -815,7 +812,7 @@ imagery.
 
 We introduced a fast method for predicting transient scene attributes
 in a single image. Our method achieves state-of-the-art performance on
-two benchmark datasets and requires no hand-engineered features, is
+two benchmark datasets, requires no hand-engineered features, is
 simple to train, and is very fast at test time. In addition, it can be
 quickly extended to label additional attributes or adapted to new
 datasets with a small amount of retraining. Together, these properties
