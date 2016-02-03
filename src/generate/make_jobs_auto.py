@@ -7,7 +7,7 @@ import os
 import lmdb
 import subprocess
 
-network_to_use = 'caffenet_weather'
+network_to_use = 'hybrid_crop'
 
 model_file = '%s_pretrained.caffemodel'
 template_root = os.path.abspath('./templates/') + '/'
@@ -15,6 +15,7 @@ caffenet_root = os.path.abspath('%scaffenet/' % template_root) + '/'
 places_root = os.path.abspath('%splaces/' % template_root) + '/'
 hybrid_root = os.path.abspath('%shybrid/' % template_root) + '/'
 caffenet_weather_root = os.path.abspath('%scaffenet_weather/' % template_root) + '/'
+hybrid_crop_root = os.path.abspath('%shybrid_crop/' % template_root) + '/'
 jobs_root = os.path.abspath('./jobs/') + '/'
 
 #
@@ -24,10 +25,10 @@ jobs_root = os.path.abspath('./jobs/') + '/'
 # auto generate stepsizes in a specified range
 jobs = [
   {
-    'name': '%s_%dss',
+    'name': '%s_%dcrop',
     'base_lr': '0.001',
     'gamma': '0.99',
-    'stepsize': 'variable',
+    'stepsize': '1300',
     'snapshot_iter': '1000',
     'snapshot_prefix': 'snapshots/%s_%dss',
   },
@@ -50,7 +51,7 @@ safe_mkdir(jobs_root)
 
 job_files = []
 for job in jobs:
-  for var in frange(100, 2000, 100):
+  for var in frange(10, 260, 10):
 
     job_path = jobs_root + job['name'] % (network_to_use, var) + '/'
     if network_to_use == 'caffenet':
@@ -61,10 +62,31 @@ for job in jobs:
       subprocess.call(['cp', '-r', hybrid_root, job_path])
     elif network_to_use == 'caffenet_weather':
       subprocess.call(['cp', '-r', caffenet_weather_root, job_path])
+    elif network_to_use == 'hybrid_crop':
+      subprocess.call(['cp', '-r', hybrid_crop_root, job_path])
 
+    with open('%strain.net' % job_path, 'r') as f:
+      train_proto = f.readlines()
+    with open('%sdeploy.net' % job_path, 'r') as f:
+      deploy_proto = f.readlines()
     with open('%ssolver_template.prototxt' % template_root, 'r') as f:
       solver_proto = f.readlines()
+     
+    # make deploy net 
+    deploy_file = job_path + 'deploy.net'
+    
+    with open(deploy_file, 'w') as f:
+      for line in deploy_proto:
+        line = line.replace('CROP_SIZE', str(var))
+        f.write(line)
       
+    # make train net 
+    train_file = job_path + 'train.net'
+    
+    with open(train_file, 'w') as f:
+      for line in train_proto:
+        line = line.replace('CROP_SIZE', str(var))
+        f.write(line)
       
     # make new solver
     solver_file = job_path + 'solver.prototxt'
@@ -89,7 +111,8 @@ for job in jobs:
 train_header_tmpl = """#!/bin/bash
 #SBATCH --time=24:00:00
 #SBATCH --partition=GPU
-#SBATCH -J cv_%003.0f
+#SBATCH -N 1
+#SBATCH -J crop_%003.0f
 
 CAFFE=~/bin/caffe/bin/caffe.bin
 """
