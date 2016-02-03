@@ -1,5 +1,6 @@
 addpath ~/matlab_root
 addpath ~/software/caffe/matlab/
+addpath ~/matlab_root/export_fig/
 
 
 %% setup caffe
@@ -17,7 +18,7 @@ mean_pixel = [105 115 118];
 %% process each image
 
 % fname = 'farm.jpg';
-fname = 'webcam.jpg';
+fname = '82.jpg';
 % fname = 'gloomy.jpg';
 
 im = imread(fname); 
@@ -84,22 +85,26 @@ set(h,'YTickLabel', table2cell(labels(unique_inds,:)))
 
 %% false color image from specific classes
 
-good_inds = [6 40 10]; 
+good_inds = [6 9 10]; 
 
 figure(2); clf;
 % subplot(221)
-pos1 = [0.13, 0.5, 0.3, 0.3];
+pos1 = [0.13, 0.485, 0.33, 0.33];
 subplot('Position',pos1)
 image(im)
 title('Original Image')
 axis image off
 
 channels = scale2rgb(result_im(:,:,good_inds));
+channels = imresize(channels, [size(im,1) size(im,2)]);
+channels(channels < 0) = 0;
+channels(channels > 1) = 1;
 
 channels_colo = [];
 channels_colo(:,:,1) = [channels(:,:,1), zeros(size(channels, 1), size(channels, 2)), zeros(size(channels, 1), size(channels, 2))];
 channels_colo(:,:,2) = [zeros(size(channels, 1), size(channels, 2)), channels(:,:,2), zeros(size(channels, 1), size(channels, 2))];
 channels_colo(:,:,3) = [zeros(size(channels, 1), size(channels, 2)), zeros(size(channels, 1), size(channels, 2)), channels(:,:,3)];
+
 
 channels = reshape(permute(channels, [1 2 3]), [size(channels, 1) 3 * size(channels,2)]);
 subplot(2,2,[3,4])
@@ -107,10 +112,15 @@ imagesc(channels_colo)
 title('Color Channels')
 axis image off
 
+composite = imresize(scale2rgb(result_im(:,:,good_inds)), [size(im,1) size(im,2)]);
+composite(composite< 0) = 0;
+composite(composite > 1) = 1;
+
 % subplot(222)
 pos1 = [0.575, 0.485, 0.33, 0.33];
 subplot('Position',pos1)
-imagesc(scale2rgb(result_im(:,:,good_inds)))
+imagesc(composite)
 title('Composite Image')
 axis image off
 
+% export_fig('false_color_82.pdf', '-transparent', '-m1,5')

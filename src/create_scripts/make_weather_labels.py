@@ -1,3 +1,8 @@
+#
+# for pruning the transient attrs down 
+# to only weather related attributes
+#
+
 import os
 import csv
 import lmdb

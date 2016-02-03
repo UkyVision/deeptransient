@@ -9,6 +9,7 @@ import subprocess
 
 network_to_use = 'hybrid_crop'
 
+# set up all of the templates
 model_file = '%s_pretrained.caffemodel'
 template_root = os.path.abspath('./templates/') + '/'
 caffenet_root = os.path.abspath('%scaffenet/' % template_root) + '/'
@@ -34,11 +35,13 @@ jobs = [
   },
 ]
 
+# return range of floats
 def frange(x, y, jump):
   while x < y:
     yield x
     x += jump
 
+# make dir if it doesn't exist
 def safe_mkdir(root):
   if not os.path.isdir(root):
     os.makedirs(root)
@@ -53,6 +56,7 @@ job_files = []
 for job in jobs:
   for var in frange(10, 260, 10):
 
+    # choose which template to copy over
     job_path = jobs_root + job['name'] % (network_to_use, var) + '/'
     if network_to_use == 'caffenet':
       subprocess.call(['cp', '-r', caffenet_root, job_path])
@@ -65,10 +69,14 @@ for job in jobs:
     elif network_to_use == 'hybrid_crop':
       subprocess.call(['cp', '-r', hybrid_crop_root, job_path])
 
+<<<<<<< HEAD
     with open('%strain.net' % job_path, 'r') as f:
       train_proto = f.readlines()
     with open('%sdeploy.net' % job_path, 'r') as f:
       deploy_proto = f.readlines()
+=======
+    # open up solver template
+>>>>>>> 5b18272b41854283255fde52067af86c62b9b24f
     with open('%ssolver_template.prototxt' % template_root, 'r') as f:
       solver_proto = f.readlines()
      
@@ -91,6 +99,7 @@ for job in jobs:
     # make new solver
     solver_file = job_path + 'solver.prototxt'
     
+    # replace vars in solver template with values
     with open(solver_file, 'w') as f:
       for line in solver_proto:
         line = line.replace('BASE_LR', job['base_lr'])
@@ -99,7 +108,10 @@ for job in jobs:
         line = line.replace('SNAPSHOT_ITER', job['snapshot_iter'])
         line = line.replace('SNAPSHOT_PREFIX', job['snapshot_prefix'] % (network_to_use, var))
         f.write(line)
+
+    # setup path to log file
     log_file = jobs_root + job['name'] % (network_to_use, var) + '/' + job['name'] % (network_to_use, var) + '.out'
+
     job_files.append([solver_file, log_file, model_file % network_to_use, job['name'] % (network_to_use, var)])
 
 

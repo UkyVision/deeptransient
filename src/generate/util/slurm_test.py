@@ -1,3 +1,9 @@
+#
+# load up and search through output
+# files, find lowest loss and the
+# corresponding iteration number
+#
+
 import glob
 import numpy as np
 import matplotlib.pyplot as plt 
@@ -24,6 +30,11 @@ min_loss = np.vstack(min_loss)
 min_loss_iter = np.vstack(min_loss_iter)
 min_loss_stacked = np.hstack([min_loss_iter, min_loss, slurms])
 
+# check the size of the arrays
+# there is some weirdness when the net
+# is in the middle of the testing phase
+# (there is one more 'Testing net' line
+# than 'Test net output' lines)
 print np.shape(iteration)
 print np.shape(loss)
 

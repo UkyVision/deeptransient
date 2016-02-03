@@ -1,8 +1,5 @@
-@STRING{CVPR = {IEEE Conf on Computer Vision and Pattern Recognition}}
+@STRING{CVPR = {IEEE Conference on Computer Vision and Pattern Recognition}}
 @STRING{CVPR = {CVPR}}
-
-@STRING{ICDSC = {International Conference on Distributed Smart Cameras}}
-@STRING{ICDSC = {ICDSC}}
 
 @STRING{ECCV = {European Conference on Computer Vision}}
 @STRING{ECCV = {ECCV}}
@@ -10,22 +7,49 @@
 @STRING{ICCV = {IEEE International Conference on Computer Vision}}
 @STRING{ICCV = {ICCV}}
 
-@STRING{IJCV = {IJCV}}
-@STRING{IJCV = {International Journal of Computer Vision}}
+@STRING{ICDSC = {International Conference on Distributed Smart Cameras}} 
+@STRING{ICDSC = {ICDSC}} 
 
-@STRING{WACV = {Workshop on Applications of Computer Vision}}
-@STRING{WACV = {WACV}}
+@STRING{BMVC = {British Machine Vision Conference}}
+@STRING{BMVC = {BMVC}}
+
+@STRING{ICPR= {International Conference on Pattern Recognition}}
+@STRING{ICPR = {ICPR}}
+
+@STRING{SIGGRAPH = {SIGGRAPH}} 
+@STRING{SIGGRAPH = {ACM Transactions on Graphics (SIGGRAPH)}}
 
 @STRING{NIPS = {Advances in Neural Information Processing Systems}}
 @STRING{NIPS = {NIPS}}
 
-@STRING{T-PAMI = {IEEE Transactions on Pattern Analysis and Machine Intelligence}}
+@STRING{ICML = {International Conference on Machine Learning}}
+@STRING{ICML = {ICML}}
+
+@STRING{WACV_C = {IEEE Winter Conference on Applications of Computer Vision}}
+@STRING{WACV_C = {WACV}}
+
+@STRING{WACV_W = {IEEE Workshop on Applications of Computer Vision}}
+@STRING{WACV_W = {WACV}}
+
 @STRING{T-PAMI = {PAMI}}
+@STRING{T-PAMI = {IEEE Transactions on Pattern Analysis and Machine Intelligence}}
+
+@STRING{IJCV = {IJCV}}
+@STRING{IJCV = {International Journal of Computer Vision}}
+
+@STRING{CVIU = {CVIU}} 
+@STRING{CVIU = {Computer Vision and Image Understanding}} 
+
+@STRING{WWW = {International World Wide Web Conference}} 
+@STRING{WWW = {WWW}}
+
+@STRING{TOG = {TOG}}
+@STRING{TOG = {ACM Transactions on Graphics}}
 
 @article{Laffont14,
     title = {Transient Attributes for High-Level Understanding and Editing of Outdoor Scenes},
     author = {Pierre-Yves Laffont and Zhile Ren and Xiaofeng Tao and Chao Qian and James Hays},
-    journal = {ACM Transactions on Graphics (Proceedings of SIGGRAPH)},
+    journal = SIGGRAPH,
     volume = {33},
     number = {4},
     year = {2014}
@@ -39,22 +63,15 @@
 }
 
 @inproceedings{zhou2014places,
-  title={{Learning Deep Features for Scene Recognition using Places Database.}},
+  title={Learning Deep Features for Scene Recognition using Places Database.},
   author={Zhou, B. and Lapedriza, A. and Xiao, J. and Torralba, A. and Oliva, A.},
   booktitle=NIPS,
   year={2014}
 }
 
-@inproceedings{caffenetnips12,
-	title = {ImageNet Classification with Deep Convolutional Neural Networks},
-	author = {Alex Krizhevsky and Sutskever, Ilya and Geoffrey E. Hinton},
-	booktitle = NIPS, 
-	year = 2012
-}
-
 @misc{ILSVRCarxiv14,
 	Author = {Olga Russakovsky and Jia Deng and Hao Su and Jonathan Krause and Sanjeev Satheesh and Sean Ma and Zhiheng Huang and Andrej Karpathy and Aditya Khosla and Michael Bernstein and Alexander C. Berg and Li Fei-Fei},
-	Title = {{ImageNet Large Scale Visual Recognition Challenge}},
+	Title = {ImageNet Large Scale Visual Recognition Challenge},
 	Year = {2014},
 }
 
@@ -63,11 +80,10 @@
                   Srinivasa G. Narasimhan},
   title =	 {Webcam Clip Art: Appearance and Illuminant Transfer
                   from Time-lapse Sequences},
-  journal =	 {ACM Transactions on Graphics (SIGGRAPH Asia 2009)},
+  journal =	 SIGGRAPH,
   year =	 2009,
   volume =	 28,
   number =	 5,
-  month =	 {December}
 }
 
 @inproceedings{lutwoclass,
@@ -96,23 +112,23 @@
 }
 
 @inproceedings{islam13webcamweather,
-  author={Mohammad Islam and Nathan Jacobs and Hui Wu and Richard
+  author={Mohammad T. Islam and Nathan Jacobs and Hui Wu and Richard
     Souvenir},
-  title={{Images+Weather: Collection, Validation, and Refinement}},
+  title={Images+Weather: Collection, Validation, and Refinement},
   year=2013,
-  booktitle=CVPR
+  booktitle={IEEE CVPR Workshop on Ground Truth}
 }
 
 @inproceedings{jacobs13cloudcalibration,
-  author={Nathan Jacobs and Mohammad Islam and Scott Workman},
-  title={{Cloud Motion as a Calibration Cue}},
+  author={Nathan Jacobs and Mohammad T. Islam and Scott Workman},
+  title={Cloud Motion as a Calibration Cue},
   year=2013,
   booktitle=CVPR
 }
 
 @inproceedings{workman2014rainbow,
   author={Scott Workman and R. Paul Mihail and Nathan Jacobs},
-  title={{A Pot of Gold: Rainbows as a Calibration Cue}},
+  title={A Pot of Gold: Rainbows as a Calibration Cue},
   year=2014,
   booktitle=ECCV
 }
@@ -120,40 +136,40 @@
 @inproceedings{murdock13clouds,
   author={Calvin Murdock and Nathan Jacobs and Robert
     Pless},
-  title={{Webcam2Satellite: Estimating Cloud Maps from Webcam
-    Imagery}},
+  title={Webcam2Satellite: Estimating Cloud Maps from Webcam
+    Imagery},
   year=2013,
-  booktitle=WACV
+  booktitle=WACV_W
 }
 
 @inproceedings{abrams12lost,
   author={Austin Abrams and Jim Tucek and Nathan Jacobs and Robert
     Pless},
-  title={{LOST: Longterm Observation of Scenes (with Tracks)}},
+  title={LOST: Longterm Observation of Scenes (with Tracks)},
   year=2012,
-  booktitle=WACV
+  booktitle=WACV_W
 }
 
 @inproceedings{jacobs09webcamgis,
   author={Nathan Jacobs and Walker Burgin and Nick Fridrich and Austin
     Abrams and Kylia Miskell and Bobby H. Braswell and Andrew D.
       Richardson and Robert Pless},
-  title={{The Global Network of Outdoor Webcams: Properties and
-    Applications}},
+  title={The Global Network of Outdoor Webcams: Properties and
+    Applications},
   year=2009,
-  booktitle={{ACM SIGSPATIAL}},
+  booktitle={ACM SIGSPATIAL}},
 }
 @inproceedings{jacobs07geolocate,
   author={Nathan Jacobs and Scott Satkin and Nathaniel Roman and
   Richard Speyer and Robert Pless},
-  title={{Geolocating Static Cameras}}, 
+  title={Geolocating Static Cameras}, 
   year=2007,
   booktitle=ICCV
 }
 
 @inproceedings{jacobs07amos,
   author = {Jacobs, Nathan and Roman, Nathaniel and Pless, Robert},
-  title = {{Consistent Temporal Variations in Many Outdoor Scenes}},
+  title = {Consistent Temporal Variations in Many Outdoor Scenes},
   year = {2007},
   booktitle=CVPR
 }
@@ -233,13 +249,13 @@
   year={2012}
 }
 
-@article{girshick2013rich,
+@inproceedings{girshick2013rich,
   title={Rich feature hierarchies for accurate object detection and
     semantic segmentation},
   author={Girshick, Ross and Donahue, Jeff and Darrell, Trevor and
     Malik, Jitendra},
-  journal={arXiv preprint arXiv:1311.2524},
-  year={2013}
+  booktitle=CVPR,
+  year={2014}
 }
 
 @inproceedings{yosinski2014transferable,
@@ -267,10 +283,62 @@
 @article{skyfinder,
   title={SkyFinder: attribute-based sky image search},
   author={Tao, Litian and Yuan, Lu and Sun, Jian},
-  journal={ACM Transactions on Graphics (Proceedigns of SIGGRAPH)},
+  journal=SIGGRAPH,
   volume={28},
   number={3},
   pages={68},
   year={2009}
 }
-        
+
+@inproceedings{jacobs09webcamdata,
+  author = {Jacobs, Nathan and Burgin, Walker and Speyer, Richard and Ross, David and Pless, Robert},
+  title = {Adventures in Archiving and Using Three Years of Webcam
+      Images},
+  year = {2009},
+  booktitle = {{IEEE CVPR Workshop on Internet Vision}},
+}
+
+@inproceedings{long2015fully,
+  title={Fully Convolutional Networks for Semantic Segmentation},
+  author={Long, Jonathan and Shelhamer, Evan and Darrell, Trevor},
+  booktitle=CVPR,
+  year=2015
+}
+
+@article{workman2015distributed,
+  author = {Scott Workman and Richard Souvenir and Nathan Jacobs},
+  title = {Scene Shape Estimation from Multiple Partly Cloud Days},
+  journal = CVIU, 
+  volume={134},
+  number={},
+  pages={116--129},
+  year=2015,
+}
+
+@inproceedings{murdock2015cloudmap,
+  author = {Murdock, Calvin and Jacobs, Nathan and Pless, Robert},
+  title = {Building Dynamic Cloud Maps from the Ground Up},
+  booktitle = ICCV,
+  year = {2015},
+  pages = {1--9}
+}
+
+@inproceedings{workman2015localize,
+  author = {Workman, Scott and Souvenir, Richard and Jacobs, Nathan},
+  title = {Wide-Area Image Geolocalization with Aerial Reference Imagery},
+  booktitle = ICCV,
+  year = {2015},
+  pages = {1--9}
+}
+
+@misc{modelzoosite,
+  howpublished="\url{http://caffe.berkeleyvision.org/model_zoo.html}"
+}
+
+@misc{noaasite,
+  howpublished="\url{http://www.nohrsc.noaa.gov/nsa/index.html}"
+}
+
+@misc{satimssite,
+  howpublished="\url{http://mesonet.agron.iastate.edu}"
+}

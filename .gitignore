@@ -3,3 +3,17 @@
 slurm*
 *.caffemodel
 src/prototxts/*/snapshots*/
+src/testing_data
+src/training_data
+src/webcam_dbs
+*~
+src/visualize/*.pdf
+src/play/fcn_fun/*.pdf
+src/play/fcn_fun/*.jpg
+src/caffemodels
+src/visualize/*/
+src/mean/
+paper/deeptransient/*.pdf
+*.csv
+*.txt
+*.mat

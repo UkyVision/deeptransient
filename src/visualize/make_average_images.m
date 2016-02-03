@@ -162,13 +162,15 @@ im_prune = cat(4, im_means(:,:,:,2), im_means(:,:,:,3), im_means(:,:,:,4), im_me
 % montage means and overlay attribute name
 attr_num = 0;
 montage(im_prune)
-for y=6:100:206
+hold on;
+for y=9:100:209
    for x=3:100:203
        attr_num = attr_num + 1;
-       text(x,y,attr(attr_num), 'Color', [.7 0 0]) 
+       text(x,y,attr(attr_num), 'Color', [.7 0 0], 'FontSize', 22) 
    end
 end
-        
+hold off;
+
 % save out montage
 exportfigure(gcf, sprintf('%smontage_pruned_cam_%s.pdf',outdir, imageset), [10 10], 300)
         
